@@ -23,6 +23,64 @@ CONFIG_FILE = Path(__file__).parent / "config.json"
 # ERROR TRACKING
 # ============================================================================
 
+# ============================================================================
+# RESOLUTION SOURCE MAPPING
+# Maps each city to its Polymarket resolution station.
+# Used for calibration filtering (only use forecasts from matching source).
+# ============================================================================
+
+CITY_COORDS = {
+    # HONG KONG: Polymarket resolves on HKO Observatory downtown, NOT VHHH airport
+    "hong-kong": {"lat": 22.3025, "lon": 114.1747, "source": "HKO"},
+    # Asian cities: ICAO airport stations matching Polymarket resolution
+    "singapore": {"lat": 1.3502, "lon": 103.9940, "source": "WSSS"},
+    "tokyo": {"lat": 35.7647, "lon": 140.3864, "source": "RJTT"},
+    "seoul": {"lat": 37.4691, "lon": 126.4505, "source": "RKSI"},
+    "taipei": {"lat": 25.0797, "lon": 121.2342, "source": "RCTP"},
+    "shanghai": {"lat": 31.1443, "lon": 121.8083, "source": "ZSPD"},
+    "ankara": {"lat": 40.1281, "lon": 32.9951, "source": "LTAC"},
+    "tel-aviv": {"lat": 32.0114, "lon": 34.8867, "source": "LLBG"},
+    "wellington": {"lat": -41.3272, "lon": 174.8052, "source": "NZWN"},
+    # Americas
+    "buenos-aires": {"lat": -34.8222, "lon": -58.5358, "source": "SAEZ"},
+    "sao-paulo": {"lat": -23.4356, "lon": -46.4731, "source": "SBGR"},
+    "toronto": {"lat": 43.6772, "lon": -79.6306, "source": "CYYZ"},
+    # EU
+    "london": {"lat": 51.5048, "lon": 0.0495, "source": "EGLC"},
+    "paris": {"lat": 48.9962, "lon": 2.5979, "source": "LFPG"},
+    "munich": {"lat": 48.3537, "lon": 11.7750, "source": "EDDM"},
+    # US
+    "nyc": {"lat": 40.7772, "lon": -73.8726, "source": "KLGA"},
+    "chicago": {"lat": 41.9742, "lon": -87.9073, "source": "KORD"},
+    "miami": {"lat": 25.7959, "lon": -80.2870, "source": "KMIA"},
+    "dallas": {"lat": 32.8471, "lon": -96.8518, "source": "KDAL"},
+    "seattle": {"lat": 47.4502, "lon": -122.3088, "source": "KSEA"},
+    "atlanta": {"lat": 33.6407, "lon": -84.4277, "source": "KATL"},
+}
+
+RESOLUTION_SOURCE = {
+    # HK: HKO Observatory downtown (NOT VHHH — Polymarket rules explicitly specify HKO)
+    "hong-kong": "HKO",
+    # All other cities: ICAO airport stations matching Polymarket/Wunderground resolution
+    "singapore": "WSSS", "tokyo": "RJTT", "seoul": "RKSI",
+    "taipei": "RCTP", "shanghai": "ZSPD", "ankara": "LTAC",
+    "tel-aviv": "LLBG", "wellington": "NZWN",
+    "buenos-aires": "SAEZ", "sao-paulo": "SBGR", "toronto": "CYYZ",
+    "london": "EGLC", "paris": "LFPG", "munich": "EDDM",
+    "nyc": "KLGA", "chicago": "KORD", "miami": "KMIA",
+    "dallas": "KDAL", "seattle": "KSEA", "atlanta": "KATL",
+}
+
+def is_calibration_mismatch(city: str, data_source: str) -> bool:
+    """Check if forecast source mismatches Polymarket resolution source.
+    Only use calibration data from sources matching the resolution station.
+    """
+    city = city.lower()
+    if city not in RESOLUTION_SOURCE:
+        return False
+    return data_source.upper() != RESOLUTION_SOURCE[city].upper()
+
+
 class CityErrorTracker:
     """Tracks forecast errors per city for self-improvement."""
     

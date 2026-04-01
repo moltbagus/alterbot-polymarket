@@ -184,6 +184,17 @@
       "ecmwf_weight": 0.45,
       "min_confidence": 0.75,
       "min_ev": 0.3
+    },
+    "shanghai": {
+      "sigma_mult": 0.7,
+      "known_bias": 0.0,
+      "uhi_correction": 0.0,
+      "sea_breeze_penalty": 0.0,
+      "metar_weight": 0.35,
+      "sentinel_weight": 0.25,
+      "ecmwf_weight": 0.4,
+      "min_confidence": 0.75,
+      "min_ev": 0.3
     }
   },
   "morning_sentinel_multiplier": 1.25,
@@ -242,7 +253,9 @@
       "wellington",
       "buenos-aires",
       "osaka",
-      "dubai"
+      "dubai",
+      "ankara",
+      "tel-aviv"
     ]
   },
   "min_tier_to_trade": 1,
@@ -252,7 +265,6 @@
     "seoul",
     "toronto",
     "nyc",
-    "shanghai",
     "chicago",
     "seattle",
     "tel-aviv",
@@ -518,8 +530,7 @@
       "name": "Hong Kong",
       "station": "HKO",
       "unit": "C",
-      "region": "asia",
-      "resolution_source": "HKO"
+      "region": "asia"
     },
     "taipei": {
       "lat": 25.0797,

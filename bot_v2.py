@@ -228,6 +228,8 @@ LOCATIONS = {
     "sao-paulo":    {"lat": -23.4356, "lon":  -46.4731, "name": "Sao Paulo",     "station": "SBGR", "unit": "C", "region": "sa"},
     "buenos-aires": {"lat": -34.8222, "lon":  -58.5358, "name": "Buenos Aires",  "station": "SAEZ", "unit": "C", "region": "sa"},
     "wellington":   {"lat": -41.3272, "lon":  174.8052, "name": "Wellington",    "station": "NZWN", "unit": "C", "region": "oc"},
+    # HONG KONG: Polymarket resolves on HKO Observatory downtown, NOT VHHH airport
+    "hong-kong":    {"lat":  22.3025, "lon":  114.1747, "name": "Hong Kong",     "station": "HKO",  "unit": "C", "region": "asia"},
 }
 
 TIMEZONES = {
@@ -241,6 +243,7 @@ TIMEZONES = {
     "lucknow": "Asia/Kolkata", "tel-aviv": "Asia/Jerusalem",
     "toronto": "America/Toronto", "sao-paulo": "America/Sao_Paulo",
     "buenos-aires": "America/Argentina/Buenos_Aires", "wellington": "Pacific/Auckland",
+    "hong-kong": "Asia/Hong_Kong",
 }
 
 MONTHS = ["january","february","march","april","may","june",
