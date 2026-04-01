@@ -732,9 +732,16 @@ def save_market(market):
 
 def load_all_markets():
     markets = []
+    # Skip known non-market JSON files in the markets directory
+    skip_files = {"calibration.json", "fill_log.json", "slippage_log.json", "city_error_history.json"}
     for f in MARKETS_DIR.glob("*.json"):
+        if f.name in skip_files:
+            continue
         try:
-            markets.append(json.loads(f.read_text(encoding="utf-8")))
+            data = json.loads(f.read_text(encoding="utf-8"))
+            # Skip files that aren't market dicts (no status field)
+            if isinstance(data, dict) and "status" in data:
+                markets.append(data)
         except Exception:
             pass
     return markets
@@ -1242,6 +1249,16 @@ def scan_and_update():
         mkt["pnl"]          = pnl
         mkt["status"]       = "resolved"
         mkt["resolved_outcome"] = "win" if won else "loss"
+
+        # Fetch actual temperature for calibration
+        try:
+            actual_temp = get_actual_temp(mkt.get("city_slug", mkt.get("city", "")), mkt.get("date", ""))
+            if actual_temp is not None:
+                mkt["actual_temp"] = actual_temp
+                # Also update position with actual temp for calibration
+                pos["actual_temp"] = actual_temp
+        except Exception as e:
+            pass
 
         if won:
             state["wins"] += 1
