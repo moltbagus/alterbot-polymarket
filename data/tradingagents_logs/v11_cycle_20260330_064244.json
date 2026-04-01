@@ -1,0 +1,814 @@
+{
+  "cycle": 13,
+  "timestamp": "2026-03-30T06:42:44.378343",
+  "results": [
+    {
+      "city": "miami",
+      "target_temp": 86,
+      "unit": "F",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25.0,
+        "can_reach": false,
+        "current_temp": 23.9
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": -1.0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25.0\u00b0C CANNOT reach target 86\u00b0C (gap: +61.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25.0\u00b0F CANNOT reach target 86\u00b0F"
+      }
+    },
+    {
+      "city": "paris",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 20,
+        "forecast_max": 12.1,
+        "can_reach": false,
+        "current_temp": 9
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "COLD_ANOMALY",
+        "deviation": -12.9
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 12.1\u00b0C CANNOT reach target 30\u00b0C (gap: +17.9\u00b0C)\n  2. Fundamentals: Low confidence (20%)\n  3. Technical: -12.9\u00b0C below historical - cold anomaly\n\n**Recommendation: NO** (confidence: 80%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 12.1\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "london",
+      "target_temp": 25,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 15.8,
+        "can_reach": false,
+        "current_temp": 9
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "WARM_ANOMALY",
+        "deviation": 4.800000000000001
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n  2. Technical: +4.8\u00b0C above historical - warm anomaly\n\n**Recommendation: YES** (confidence: 70%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 15.8\u00b0C CANNOT reach target 25\u00b0C (gap: +9.2\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 15.8\u00b0C CANNOT reach target 25\u00b0C"
+      }
+    },
+    {
+      "city": "tokyo",
+      "target_temp": 25,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 19.9,
+        "can_reach": false,
+        "current_temp": 14
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "WARM_ANOMALY",
+        "deviation": 5.899999999999999
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n  2. Technical: +5.9\u00b0C above historical - warm anomaly\n\n**Recommendation: YES** (confidence: 70%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 19.9\u00b0C CANNOT reach target 25\u00b0C (gap: +5.1\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 19.9\u00b0C CANNOT reach target 25\u00b0C"
+      }
+    },
+    {
+      "city": "hong kong",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 25
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "taipei",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 28.0,
+        "can_reach": false,
+        "current_temp": 20
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 3.0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n  2. Technical: +3.0\u00b0C above historical - warm anomaly\n\n**Recommendation: YES** (confidence: 70%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 28.0\u00b0C CANNOT reach target 30\u00b0C (gap: +2.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 28.0\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "atlanta",
+      "target_temp": 86,
+      "unit": "F",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 18.3
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 86\u00b0C (gap: +61.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0F CANNOT reach target 86\u00b0F"
+      }
+    },
+    {
+      "city": "sao paulo",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 22
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "singapore",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 75,
+        "forecast_max": 31.3,
+        "can_reach": true,
+        "current_temp": 26
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 1.3000000000000007
+      },
+      "bull_case": "BULL_CASE:\n  1. Fundamentals: Forecast 31.3\u00b0C CAN reach target 30\u00b0C (conf: 75%)\n  2. Market: YES at 100% - market agrees\n  3. Technical: +1.3\u00b0C above historical - warm anomaly\n\n**Recommendation: YES** (confidence: 80%)\n",
+      "bear_case": "BEAR_CASE: NO STRONG ARGUMENTS\n**Recommendation: NO_BEAR**",
+      "risk": {
+        "verdict": "APPROVED",
+        "position": "STANDARD_BET",
+        "conviction": 8.5,
+        "risk_score": 24.5,
+        "reason": "Conviction 8.5/10, Risk 24.5/100"
+      }
+    },
+    {
+      "city": "lucknow",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 24
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "tel aviv",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 13
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "ankara",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 5
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "dallas",
+      "target_temp": 86,
+      "unit": "F",
+      "fundamentals": {
+        "confidence": 20,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 27.8
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 86\u00b0C (gap: +61.0\u00b0C)\n  2. Fundamentals: Low confidence (20%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0F CANNOT reach target 86\u00b0F"
+      }
+    },
+    {
+      "city": "mumbai",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 27
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "delhi",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 24
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "bangkok",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 28
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "new york",
+      "target_temp": 86,
+      "unit": "F",
+      "fundamentals": {
+        "confidence": 20,
+        "forecast_max": 21.0,
+        "can_reach": false,
+        "current_temp": 7.8
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "WARM_ANOMALY",
+        "deviation": 11.0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n  2. Technical: +11.0\u00b0C above historical - warm anomaly\n\n**Recommendation: YES** (confidence: 70%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 21.0\u00b0C CANNOT reach target 86\u00b0C (gap: +65.0\u00b0C)\n  2. Fundamentals: Low confidence (20%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 21.0\u00b0F CANNOT reach target 86\u00b0F"
+      }
+    },
+    {
+      "city": "toronto",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 10
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "seoul",
+      "target_temp": 25,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 17.2,
+        "can_reach": false,
+        "current_temp": 10
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "WARM_ANOMALY",
+        "deviation": 6.199999999999999
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n  2. Technical: +6.2\u00b0C above historical - warm anomaly\n\n**Recommendation: YES** (confidence: 70%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 17.2\u00b0C CANNOT reach target 25\u00b0C (gap: +7.8\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 17.2\u00b0C CANNOT reach target 25\u00b0C"
+      }
+    },
+    {
+      "city": "shanghai",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 20.8,
+        "can_reach": false,
+        "current_temp": 14
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "COLD_ANOMALY",
+        "deviation": -4.199999999999999
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 20.8\u00b0C CANNOT reach target 30\u00b0C (gap: +9.2\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n  3. Technical: -4.2\u00b0C below historical - cold anomaly\n\n**Recommendation: NO** (confidence: 80%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 20.8\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "seattle",
+      "target_temp": 82,
+      "unit": "F",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 7.2
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 82\u00b0C (gap: +57.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0F CANNOT reach target 82\u00b0F"
+      }
+    },
+    {
+      "city": "chicago",
+      "target_temp": 82,
+      "unit": "F",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 22.2,
+        "can_reach": false,
+        "current_temp": 16.7
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "WARM_ANOMALY",
+        "deviation": 14.2
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n  2. Technical: +14.2\u00b0C above historical - warm anomaly\n\n**Recommendation: YES** (confidence: 70%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 22.2\u00b0C CANNOT reach target 82\u00b0C (gap: +59.8\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 22.2\u00b0F CANNOT reach target 82\u00b0F"
+      }
+    },
+    {
+      "city": "munich",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 5.8,
+        "can_reach": false,
+        "current_temp": 3
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "COLD_ANOMALY",
+        "deviation": -19.2
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 5.8\u00b0C CANNOT reach target 30\u00b0C (gap: +24.2\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n  3. Technical: -19.2\u00b0C below historical - cold anomaly\n\n**Recommendation: NO** (confidence: 80%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 5.8\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "wellington",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 0,
+        "forecast_max": 0,
+        "can_reach": false,
+        "current_temp": 0
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "COLD_ANOMALY",
+        "deviation": -25
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 0\u00b0C CANNOT reach target 30\u00b0C (gap: +30.0\u00b0C)\n  2. Fundamentals: Low confidence (0%)\n  3. Technical: -25.0\u00b0C below historical - cold anomaly\n\n**Recommendation: NO** (confidence: 80%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 0\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "buenos aires",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 24
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "osaka",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 25,
+        "forecast_max": 25,
+        "can_reach": false,
+        "current_temp": 15
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "NORMAL",
+        "deviation": 0
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 25\u00b0C CANNOT reach target 30\u00b0C (gap: +5.0\u00b0C)\n  2. Fundamentals: Low confidence (25%)\n\n**Recommendation: NO** (confidence: 70%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 25\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    },
+    {
+      "city": "dubai",
+      "target_temp": 30,
+      "unit": "C",
+      "fundamentals": {
+        "confidence": 0,
+        "forecast_max": 0,
+        "can_reach": false,
+        "current_temp": 0
+      },
+      "sentiment": {
+        "yes_price": 1.0,
+        "sentiment": "BULLISH"
+      },
+      "technical": {
+        "pattern": "COLD_ANOMALY",
+        "deviation": -25
+      },
+      "bull_case": "BULL_CASE:\n  1. Market: YES at 100% - market agrees\n\n**Recommendation: YES** (confidence: 60%)\n",
+      "bear_case": "BEAR_CASE:\n  1. CRITICAL: Forecast 0\u00b0C CANNOT reach target 30\u00b0C (gap: +30.0\u00b0C)\n  2. Fundamentals: Low confidence (0%)\n  3. Technical: -25.0\u00b0C below historical - cold anomaly\n\n**Recommendation: NO** (confidence: 80%)\n",
+      "risk": {
+        "verdict": "REJECTED",
+        "position": "NO_BET",
+        "conviction": 0.0,
+        "risk_score": 100,
+        "reason": "Forecast max 0\u00b0C CANNOT reach target 30\u00b0C"
+      }
+    }
+  ],
+  "paper_trades": [
+    {
+      "city": "singapore",
+      "temp": 26,
+      "target": 30,
+      "unit": "C",
+      "size": 1.0,
+      "position": "STANDARD_BET",
+      "conviction": 8.5,
+      "time": "2026-03-30T06:35:53.919836"
+    },
+    {
+      "city": "singapore",
+      "temp": 26,
+      "target": 30,
+      "unit": "C",
+      "size": 1.0,
+      "position": "STANDARD_BET",
+      "conviction": 8.5,
+      "time": "2026-03-30T06:36:39.192679"
+    },
+    {
+      "city": "singapore",
+      "temp": 26,
+      "target": 30,
+      "unit": "C",
+      "size": 1.0,
+      "position": "STANDARD_BET",
+      "conviction": 8.5,
+      "time": "2026-03-30T06:37:08.159454"
+    },
+    {
+      "city": "singapore",
+      "temp": 26,
+      "target": 30,
+      "unit": "C",
+      "size": 1.0,
+      "position": "STANDARD_BET",
+      "conviction": 8.5,
+      "time": "2026-03-30T06:37:43.123982"
+    },
+    {
+      "city": "singapore",
+      "temp": 26,
+      "target": 30,
+      "unit": "C",
+      "size": 1.0,
+      "position": "STANDARD_BET",
+      "conviction": 8.5,
+      "time": "2026-03-30T06:38:09.729315"
+    }
+  ]
+}

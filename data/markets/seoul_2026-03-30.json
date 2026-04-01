@@ -1,0 +1,261 @@
+{
+  "city": "seoul",
+  "city_name": "Seoul",
+  "date": "2026-03-30",
+  "unit": "C",
+  "station": "RKSI",
+  "event_end_date": "2026-03-30T12:00:00Z",
+  "hours_at_discovery": 15.8,
+  "status": "open",
+  "position": {
+    "market_id": "1779464",
+    "question": "Will the highest temperature in Seoul be 16°C on March 30?",
+    "bucket_low": 16.0,
+    "bucket_high": 16.0,
+    "entry_price": 0.24,
+    "bid_at_entry": 0.23,
+    "spread": 0.01,
+    "shares": 4.17,
+    "cost": 1.0,
+    "p": 1.0,
+    "ev": 3.1667,
+    "kelly": 0.2,
+    "forecast_temp": 15.6,
+    "forecast_src": "ecmwf",
+    "sigma": 1.2,
+    "opened_at": "2026-03-29T21:14:39.958899+00:00",
+    "status": "closed",
+    "pnl": -0.21,
+    "exit_price": 0.19,
+    "close_reason": "stop_loss",
+    "closed_at": "2026-03-29T21:25:04.354583+00:00"
+  },
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-29T20:13:35.517474+00:00",
+      "horizon": "D+1",
+      "hours_left": 15.8,
+      "ecmwf": 17.4,
+      "hrrr": null,
+      "metar": null,
+      "best": 17.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T21:14:39.958899+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.8,
+      "ecmwf": 15.6,
+      "hrrr": null,
+      "metar": null,
+      "best": 15.6,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T21:54:32.689277+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.1,
+      "ecmwf": 15.6,
+      "hrrr": null,
+      "metar": null,
+      "best": 15.6,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T22:03:02.972306+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.9,
+      "ecmwf": 15.6,
+      "hrrr": null,
+      "metar": null,
+      "best": 15.6,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T22:03:37.603034+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.9,
+      "ecmwf": 15.6,
+      "hrrr": null,
+      "metar": null,
+      "best": 15.6,
+      "best_source": "ecmwf"
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-29T20:13:35.517474+00:00",
+      "top_bucket": "17.0-17.0C",
+      "top_price": 0.325
+    },
+    {
+      "ts": "2026-03-29T21:14:39.958899+00:00",
+      "top_bucket": "17.0-17.0C",
+      "top_price": 0.27
+    },
+    {
+      "ts": "2026-03-29T21:54:32.689277+00:00",
+      "top_bucket": "17.0-17.0C",
+      "top_price": 0.265
+    },
+    {
+      "ts": "2026-03-29T22:03:02.972306+00:00",
+      "top_bucket": "17.0-17.0C",
+      "top_price": 0.28
+    },
+    {
+      "ts": "2026-03-29T22:03:37.603034+00:00",
+      "top_bucket": "17.0-17.0C",
+      "top_price": 0.28
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Seoul be 10°C or below on March 30?",
+      "market_id": "1779458",
+      "range": [
+        -999.0,
+        10.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 3856.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 11°C on March 30?",
+      "market_id": "1779459",
+      "range": [
+        11.0,
+        11.0
+      ],
+      "bid": 0.0075,
+      "ask": 0.9925,
+      "price": 0.0075,
+      "spread": 0.985,
+      "volume": 1736.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 12°C on March 30?",
+      "market_id": "1779460",
+      "range": [
+        12.0,
+        12.0
+      ],
+      "bid": 0.031,
+      "ask": 0.969,
+      "price": 0.031,
+      "spread": 0.938,
+      "volume": 1024.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 13°C on March 30?",
+      "market_id": "1779461",
+      "range": [
+        13.0,
+        13.0
+      ],
+      "bid": 0.042,
+      "ask": 0.958,
+      "price": 0.042,
+      "spread": 0.916,
+      "volume": 1283.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 14°C on March 30?",
+      "market_id": "1779462",
+      "range": [
+        14.0,
+        14.0
+      ],
+      "bid": 0.08,
+      "ask": 0.92,
+      "price": 0.08,
+      "spread": 0.84,
+      "volume": 926.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 15°C on March 30?",
+      "market_id": "1779463",
+      "range": [
+        15.0,
+        15.0
+      ],
+      "bid": 0.086,
+      "ask": 0.914,
+      "price": 0.086,
+      "spread": 0.828,
+      "volume": 764.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 16°C on March 30?",
+      "market_id": "1779464",
+      "range": [
+        16.0,
+        16.0
+      ],
+      "bid": 0.22,
+      "ask": 0.78,
+      "price": 0.22,
+      "spread": 0.56,
+      "volume": 1046.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 17°C on March 30?",
+      "market_id": "1779465",
+      "range": [
+        17.0,
+        17.0
+      ],
+      "bid": 0.28,
+      "ask": 0.72,
+      "price": 0.28,
+      "spread": 0.44,
+      "volume": 2546.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 18°C on March 30?",
+      "market_id": "1779466",
+      "range": [
+        18.0,
+        18.0
+      ],
+      "bid": 0.18,
+      "ask": 0.82,
+      "price": 0.18,
+      "spread": 0.64,
+      "volume": 1322.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 19°C on March 30?",
+      "market_id": "1779467",
+      "range": [
+        19.0,
+        19.0
+      ],
+      "bid": 0.0675,
+      "ask": 0.9325,
+      "price": 0.0675,
+      "spread": 0.865,
+      "volume": 1971.0
+    },
+    {
+      "question": "Will the highest temperature in Seoul be 20°C or higher on March 30?",
+      "market_id": "1779468",
+      "range": [
+        20.0,
+        999.0
+      ],
+      "bid": 0.0415,
+      "ask": 0.9585,
+      "price": 0.0415,
+      "spread": 0.917,
+      "volume": 2174.0
+    }
+  ],
+  "created_at": "2026-03-29T20:13:37.456767+00:00"
+}

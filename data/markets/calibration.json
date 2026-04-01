@@ -1,0 +1,7 @@
+{
+  "dallas_ecmwf": {
+    "sigma": 2.35,
+    "n": 7,
+    "last_error": 0.3
+  }
+}

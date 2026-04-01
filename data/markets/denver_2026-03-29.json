@@ -1,0 +1,689 @@
+{
+  "city": "denver",
+  "city_name": "Denver",
+  "date": "2026-03-29",
+  "unit": "F",
+  "station": "KDEN",
+  "event_end_date": "2026-03-29T12:00:00Z",
+  "hours_at_discovery": 47.5,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-27T12:32:36.688730+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.5,
+      "ecmwf": 78,
+      "hrrr": 76,
+      "metar": null,
+      "best": 76,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-27T12:45:04.447329+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.2,
+      "ecmwf": 78,
+      "hrrr": 76,
+      "metar": null,
+      "best": 76,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-27T13:01:35.085989+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.0,
+      "ecmwf": 78,
+      "hrrr": 76,
+      "metar": null,
+      "best": 76,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-27T14:12:32.825573+00:00",
+      "horizon": "D+2",
+      "hours_left": 45.8,
+      "ecmwf": 78,
+      "hrrr": 76,
+      "metar": null,
+      "best": 76,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-27T14:32:57.033835+00:00",
+      "horizon": "D+2",
+      "hours_left": 45.4,
+      "ecmwf": 78,
+      "hrrr": 76,
+      "metar": null,
+      "best": 76,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-27T15:44:15.492404+00:00",
+      "horizon": "D+2",
+      "hours_left": 44.3,
+      "ecmwf": 78,
+      "hrrr": 76,
+      "metar": null,
+      "best": 76,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-27T16:55:48.522827+00:00",
+      "horizon": "D+2",
+      "hours_left": 43.1,
+      "ecmwf": 78,
+      "hrrr": 76,
+      "metar": null,
+      "best": 76,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-27T18:08:18.699092+00:00",
+      "horizon": "D+2",
+      "hours_left": 41.9,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-27T19:20:36.476907+00:00",
+      "horizon": "D+2",
+      "hours_left": 40.7,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-27T20:32:44.814947+00:00",
+      "horizon": "D+2",
+      "hours_left": 39.5,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-27T21:47:57.459336+00:00",
+      "horizon": "D+2",
+      "hours_left": 38.2,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-27T23:02:25.054027+00:00",
+      "horizon": "D+2",
+      "hours_left": 37.0,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-27T23:52:17.037487+00:00",
+      "horizon": "D+2",
+      "hours_left": 36.1,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T01:04:29.719432+00:00",
+      "horizon": "D+1",
+      "hours_left": 34.9,
+      "ecmwf": 79,
+      "hrrr": 78,
+      "metar": null,
+      "best": 78,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-28T02:18:19.594770+00:00",
+      "horizon": "D+1",
+      "hours_left": 33.7,
+      "ecmwf": 78,
+      "hrrr": 78,
+      "metar": null,
+      "best": 78,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-28T03:32:30.170406+00:00",
+      "horizon": "D+1",
+      "hours_left": 32.5,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T03:38:10.590517+00:00",
+      "horizon": "D+1",
+      "hours_left": 32.4,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T04:52:05.057019+00:00",
+      "horizon": "D+1",
+      "hours_left": 31.1,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T05:17:39.258682+00:00",
+      "horizon": "D+1",
+      "hours_left": 30.7,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T06:31:37.791309+00:00",
+      "horizon": "D+1",
+      "hours_left": 29.5,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T07:45:54.798474+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.2,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T09:00:20.216093+00:00",
+      "horizon": "D+1",
+      "hours_left": 27.0,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T10:15:21.677563+00:00",
+      "horizon": "D+1",
+      "hours_left": 25.7,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T11:29:35.430757+00:00",
+      "horizon": "D+1",
+      "hours_left": 24.5,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T12:44:41.745312+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.3,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T13:20:12.886836+00:00",
+      "horizon": "D+1",
+      "hours_left": 22.7,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T13:29:44.993575+00:00",
+      "horizon": "D+1",
+      "hours_left": 22.5,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T13:39:35.231656+00:00",
+      "horizon": "D+1",
+      "hours_left": 22.3,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T13:45:32.913972+00:00",
+      "horizon": "D+1",
+      "hours_left": 22.2,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T15:00:05.802900+00:00",
+      "horizon": "D+1",
+      "hours_left": 21.0,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T15:11:34.590258+00:00",
+      "horizon": "D+1",
+      "hours_left": 20.8,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T15:17:01.402579+00:00",
+      "horizon": "D+1",
+      "hours_left": 20.7,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T15:48:55.551224+00:00",
+      "horizon": "D+1",
+      "hours_left": 20.2,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T17:04:32.792697+00:00",
+      "horizon": "D+1",
+      "hours_left": 18.9,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-28T18:20:05.331853+00:00",
+      "horizon": "D+1",
+      "hours_left": 17.7,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": null,
+      "best": null,
+      "best_source": null
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-27T12:32:36.688730+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.2545
+    },
+    {
+      "ts": "2026-03-27T12:45:04.447329+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.2545
+    },
+    {
+      "ts": "2026-03-27T13:01:35.085989+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.2545
+    },
+    {
+      "ts": "2026-03-27T14:12:32.825573+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.255
+    },
+    {
+      "ts": "2026-03-27T14:32:57.033835+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.255
+    },
+    {
+      "ts": "2026-03-27T15:44:15.492404+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.2545
+    },
+    {
+      "ts": "2026-03-27T16:55:48.522827+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.255
+    },
+    {
+      "ts": "2026-03-27T18:08:18.699092+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.255
+    },
+    {
+      "ts": "2026-03-27T19:20:36.476907+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.255
+    },
+    {
+      "ts": "2026-03-27T20:32:44.814947+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.23
+    },
+    {
+      "ts": "2026-03-27T21:47:57.459336+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.245
+    },
+    {
+      "ts": "2026-03-27T23:02:25.054027+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.2495
+    },
+    {
+      "ts": "2026-03-27T23:52:17.037487+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.3045
+    },
+    {
+      "ts": "2026-03-28T01:04:29.719432+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3695
+    },
+    {
+      "ts": "2026-03-28T02:18:19.594770+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3315
+    },
+    {
+      "ts": "2026-03-28T03:32:30.170406+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.375
+    },
+    {
+      "ts": "2026-03-28T03:38:10.590517+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.375
+    },
+    {
+      "ts": "2026-03-28T04:52:05.057019+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3925
+    },
+    {
+      "ts": "2026-03-28T05:17:39.258682+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3925
+    },
+    {
+      "ts": "2026-03-28T06:31:37.791309+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3375
+    },
+    {
+      "ts": "2026-03-28T07:45:54.798474+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3405
+    },
+    {
+      "ts": "2026-03-28T09:00:20.216093+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.37
+    },
+    {
+      "ts": "2026-03-28T10:15:21.677563+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.2995
+    },
+    {
+      "ts": "2026-03-28T11:29:35.430757+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.311
+    },
+    {
+      "ts": "2026-03-28T12:44:41.745312+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.3495
+    },
+    {
+      "ts": "2026-03-28T13:20:12.886836+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3505
+    },
+    {
+      "ts": "2026-03-28T13:29:44.993575+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.336
+    },
+    {
+      "ts": "2026-03-28T13:39:35.231656+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.31
+    },
+    {
+      "ts": "2026-03-28T13:45:32.913972+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.28
+    },
+    {
+      "ts": "2026-03-28T15:00:05.802900+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.2745
+    },
+    {
+      "ts": "2026-03-28T15:11:34.590258+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.275
+    },
+    {
+      "ts": "2026-03-28T15:17:01.402579+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.275
+    },
+    {
+      "ts": "2026-03-28T15:48:55.551224+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.323
+    },
+    {
+      "ts": "2026-03-28T17:04:32.792697+00:00",
+      "top_bucket": "78.0-79.0F",
+      "top_price": 0.3295
+    },
+    {
+      "ts": "2026-03-28T18:20:05.331853+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.3165
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Denver be 65°F or below on March 29?",
+      "market_id": "1715096",
+      "range": [
+        -999.0,
+        65.0
+      ],
+      "bid": 0.0035,
+      "ask": 0.9965,
+      "price": 0.0035,
+      "spread": 0.993,
+      "volume": 1921.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 66-67°F on March 29?",
+      "market_id": "1715097",
+      "range": [
+        66.0,
+        67.0
+      ],
+      "bid": 0.011,
+      "ask": 0.989,
+      "price": 0.011,
+      "spread": 0.978,
+      "volume": 1857.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 68-69°F on March 29?",
+      "market_id": "1715098",
+      "range": [
+        68.0,
+        69.0
+      ],
+      "bid": 0.009,
+      "ask": 0.991,
+      "price": 0.009,
+      "spread": 0.982,
+      "volume": 2070.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 70-71°F on March 29?",
+      "market_id": "1715099",
+      "range": [
+        70.0,
+        71.0
+      ],
+      "bid": 0.0145,
+      "ask": 0.9855,
+      "price": 0.0145,
+      "spread": 0.971,
+      "volume": 2101.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 72-73°F on March 29?",
+      "market_id": "1715102",
+      "range": [
+        72.0,
+        73.0
+      ],
+      "bid": 0.035,
+      "ask": 0.965,
+      "price": 0.035,
+      "spread": 0.93,
+      "volume": 692.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 74-75°F on March 29?",
+      "market_id": "1715103",
+      "range": [
+        74.0,
+        75.0
+      ],
+      "bid": 0.0865,
+      "ask": 0.9135,
+      "price": 0.0865,
+      "spread": 0.827,
+      "volume": 662.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 76-77°F on March 29?",
+      "market_id": "1715104",
+      "range": [
+        76.0,
+        77.0
+      ],
+      "bid": 0.195,
+      "ask": 0.805,
+      "price": 0.195,
+      "spread": 0.61,
+      "volume": 481.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 78-79°F on March 29?",
+      "market_id": "1715105",
+      "range": [
+        78.0,
+        79.0
+      ],
+      "bid": 0.2845,
+      "ask": 0.7155,
+      "price": 0.2845,
+      "spread": 0.431,
+      "volume": 505.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 80-81°F on March 29?",
+      "market_id": "1715106",
+      "range": [
+        80.0,
+        81.0
+      ],
+      "bid": 0.3165,
+      "ask": 0.6835,
+      "price": 0.3165,
+      "spread": 0.367,
+      "volume": 699.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be between 82-83°F on March 29?",
+      "market_id": "1715107",
+      "range": [
+        82.0,
+        83.0
+      ],
+      "bid": 0.1145,
+      "ask": 0.8855,
+      "price": 0.1145,
+      "spread": 0.771,
+      "volume": 319.0
+    },
+    {
+      "question": "Will the highest temperature in Denver be 84°F or higher on March 29?",
+      "market_id": "1715108",
+      "range": [
+        84.0,
+        999.0
+      ],
+      "bid": 0.0325,
+      "ask": 0.9675,
+      "price": 0.0325,
+      "spread": 0.935,
+      "volume": 922.0
+    }
+  ],
+  "created_at": "2026-03-27T12:32:41.084051+00:00"
+}

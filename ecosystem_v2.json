@@ -1,0 +1,13 @@
+{
+  "apps": [{
+    "name": "alter-bot-v2",
+    "script": "bot_v2.py",
+    "interpreter": "python3.12",
+    "cwd": "/home/alyssa/.openclaw/workspace/alter-bot-v1",
+    "autorestart": true,
+    "cron_restart": "0 * * * *",
+    "watch": false,
+    "max_restarts": 10,
+    "exp_backoff_restart_delay": 100
+  }]
+}

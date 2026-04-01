@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-04-01T14:59:15.499584",
+  "city": "singapore",
+  "target_temp": 31,
+  "target_date": "2026-04-02",
+  "unit": "C",
+  "market_id": "1780374",
+  "p": 1.0,
+  "price": 0.26,
+  "kelly": 0.2,
+  "fundamentals": {
+    "confidence": 25,
+    "forecast_max": 30.6,
+    "can_reach": false
+  },
+  "sentiment": {
+    "yes_price": 0.26,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 1339.0767249999994
+  },
+  "technical": {
+    "pattern": "NORMAL",
+    "deviation": -0.3999999999999986
+  },
+  "bull_case": "# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**",
+  "bear_case": "# Bear Case - NO Vote\n1. CRITICAL: Forecast 30.6\u00b0C CANNOT reach target 31\u00b0C (gap: +0.4\u00b0C)\n2. Fundamentals: Low confidence (25%) - uncertainty is high\n3. Market: YES at 26% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 80%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Singapore 31\u00b0C\n\n\ud83d\udeab **REJECTED: REJECTED: Forecast cannot reach target temperature. Mathematically impossible to resolve YES.**\n\n## Analysis Summary\n- Forecast Max: 30.6\u00b0C\n- Target: 31\u00b0C\n- Gap: +0.4\u00b0C\n- Fundamentals Conf: 25%\n- Market YES: 26%\n- Pattern: NORMAL\n\n## Decision: NO_BET\n**Verdict:** REJECTED\n**Conviction:** 0/10\n**Risk Score:** 100/100\n\n\u274c Trade blocked by Risk Manager - cannot reach target\n",
+    "verdict": "REJECTED",
+    "position": "NO_BET",
+    "conviction": 0.0,
+    "risk_score": 100,
+    "approved": false,
+    "can_reach": false,
+    "reject_reason": "REJECTED: Forecast cannot reach target temperature. Mathematically impossible to resolve YES."
+  }
+}

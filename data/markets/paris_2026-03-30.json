@@ -1,0 +1,881 @@
+{
+  "city": "paris",
+  "city_name": "Paris",
+  "date": "2026-03-30",
+  "unit": "C",
+  "station": "LFPG",
+  "event_end_date": "2026-03-30T12:00:00Z",
+  "hours_at_discovery": 17.8,
+  "status": "closed",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-29T18:10:39.822428+00:00",
+      "horizon": "D+1",
+      "hours_left": 17.8,
+      "ecmwf": 11.9,
+      "hrrr": null,
+      "metar": null,
+      "best": 11.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T19:12:29.821806+00:00",
+      "horizon": "D+1",
+      "hours_left": 16.8,
+      "ecmwf": 11.9,
+      "hrrr": null,
+      "metar": null,
+      "best": 11.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T20:13:25.576749+00:00",
+      "horizon": "D+1",
+      "hours_left": 15.8,
+      "ecmwf": 11.9,
+      "hrrr": null,
+      "metar": null,
+      "best": 11.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T21:14:29.838736+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.8,
+      "ecmwf": 12.1,
+      "hrrr": null,
+      "metar": null,
+      "best": 12.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T21:54:24.513529+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.1,
+      "ecmwf": 12.1,
+      "hrrr": null,
+      "metar": null,
+      "best": 12.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T22:02:56.621411+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.0,
+      "ecmwf": 12.1,
+      "hrrr": null,
+      "metar": null,
+      "best": 12.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T22:03:32.688418+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.9,
+      "ecmwf": 12.1,
+      "hrrr": null,
+      "metar": null,
+      "best": 12.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T23:02:23.068072+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.0,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-29T23:05:27.209782+00:00",
+      "horizon": "D+1",
+      "hours_left": 12.9,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-29T23:08:04.754629+00:00",
+      "horizon": "D+1",
+      "hours_left": 12.9,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T00:08:18.376910+00:00",
+      "horizon": "D+0",
+      "hours_left": 11.9,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 9.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T01:08:30.279666+00:00",
+      "horizon": "D+0",
+      "hours_left": 10.9,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T02:08:43.213984+00:00",
+      "horizon": "D+0",
+      "hours_left": 9.9,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T03:08:57.774097+00:00",
+      "horizon": "D+0",
+      "hours_left": 8.9,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T03:26:59.166718+00:00",
+      "horizon": "D+0",
+      "hours_left": 8.5,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T03:29:53.350423+00:00",
+      "horizon": "D+0",
+      "hours_left": 8.5,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": null,
+      "best": null,
+      "best_source": null,
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T03:32:53.741742+00:00",
+      "horizon": "D+0",
+      "hours_left": 8.5,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T03:39:16.812200+00:00",
+      "horizon": "D+0",
+      "hours_left": 8.3,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T04:04:31.139792+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.9,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T04:10:00.478478+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.8,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T04:16:08.671491+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.7,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T05:16:16.964900+00:00",
+      "horizon": "D+0",
+      "hours_left": 6.7,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T05:52:05.239921+00:00",
+      "horizon": "D+0",
+      "hours_left": 6.1,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T06:43:26.766811+00:00",
+      "horizon": "D+0",
+      "hours_left": 5.3,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T07:44:34.450267+00:00",
+      "horizon": "D+0",
+      "hours_left": 4.3,
+      "ecmwf_raw": 12.1,
+      "hrrr_raw": null,
+      "metar_raw": 10.0,
+      "best_raw": 12.1,
+      "best": 12.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T08:46:06.432263+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.2,
+      "ecmwf_raw": 11.5,
+      "hrrr_raw": null,
+      "metar_raw": 11.0,
+      "best_raw": 11.5,
+      "best": 12.3,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T09:47:50.697182+00:00",
+      "horizon": "D+0",
+      "hours_left": 2.2,
+      "ecmwf_raw": 11.5,
+      "hrrr_raw": null,
+      "metar_raw": 12.0,
+      "best_raw": 11.5,
+      "best": 12.3,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T10:49:31.255629+00:00",
+      "horizon": "D+0",
+      "hours_left": 1.2,
+      "ecmwf_raw": 11.5,
+      "hrrr_raw": null,
+      "metar_raw": 11.0,
+      "best_raw": 11.5,
+      "best": 12.3,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T11:51:04.501965+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.1,
+      "ecmwf_raw": 11.5,
+      "hrrr_raw": null,
+      "metar_raw": 12.0,
+      "best_raw": 11.5,
+      "best": 12.3,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T12:53:19.948583+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 11.5,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.5,
+      "best": 12.3,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T13:55:08.910437+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 12.0,
+      "hrrr_raw": null,
+      "metar_raw": 12.0,
+      "best_raw": 12.0,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T14:15:48.776009+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 12.0,
+      "hrrr_raw": null,
+      "metar_raw": 14.0,
+      "best_raw": 12.0,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T15:17:28.187338+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 12.0,
+      "hrrr_raw": null,
+      "metar_raw": 12.0,
+      "best_raw": 12.0,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T16:19:34.149601+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 12.0,
+      "hrrr_raw": null,
+      "metar_raw": 12.0,
+      "best_raw": 12.0,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T17:21:53.729552+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 12.0,
+      "hrrr_raw": null,
+      "metar_raw": 11.0,
+      "best_raw": 12.0,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T18:24:25.968681+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 12.0,
+      "hrrr_raw": null,
+      "metar_raw": 11.0,
+      "best_raw": 12.0,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T19:26:38.508354+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 12.0,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 12.0,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T20:29:04.960621+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 11.8,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 11.8,
+      "best": 12.6,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T21:31:42.061926+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 11.8,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": 11.8,
+      "best": 12.6,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-03-30T22:34:17.054455+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 8.0,
+      "best_raw": null,
+      "best": null,
+      "best_source": null,
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T23:37:04.702252+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 7.0,
+      "best_raw": null,
+      "best": null,
+      "best_source": null,
+      "bias": 0.0,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-29T18:10:39.822428+00:00",
+      "top_bucket": "11.0-11.0C",
+      "top_price": 0.465
+    },
+    {
+      "ts": "2026-03-29T19:12:29.821806+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.435
+    },
+    {
+      "ts": "2026-03-29T20:13:25.576749+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.375
+    },
+    {
+      "ts": "2026-03-29T21:14:29.838736+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.405
+    },
+    {
+      "ts": "2026-03-29T21:54:24.513529+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.405
+    },
+    {
+      "ts": "2026-03-29T22:02:56.621411+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.43
+    },
+    {
+      "ts": "2026-03-29T22:03:32.688418+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.43
+    },
+    {
+      "ts": "2026-03-29T23:02:23.068072+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.42
+    },
+    {
+      "ts": "2026-03-29T23:05:27.209782+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.385
+    },
+    {
+      "ts": "2026-03-29T23:08:04.754629+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.385
+    },
+    {
+      "ts": "2026-03-30T00:08:18.376910+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.435
+    },
+    {
+      "ts": "2026-03-30T01:08:30.279666+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.48
+    },
+    {
+      "ts": "2026-03-30T02:08:43.213984+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.48
+    },
+    {
+      "ts": "2026-03-30T03:08:57.774097+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.475
+    },
+    {
+      "ts": "2026-03-30T03:26:59.166718+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.475
+    },
+    {
+      "ts": "2026-03-30T03:29:53.350423+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.48
+    },
+    {
+      "ts": "2026-03-30T03:32:53.741742+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.47
+    },
+    {
+      "ts": "2026-03-30T03:39:16.812200+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.485
+    },
+    {
+      "ts": "2026-03-30T04:04:31.139792+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.475
+    },
+    {
+      "ts": "2026-03-30T04:10:00.478478+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.5
+    },
+    {
+      "ts": "2026-03-30T04:16:08.671491+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.5
+    },
+    {
+      "ts": "2026-03-30T05:16:16.964900+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.505
+    },
+    {
+      "ts": "2026-03-30T05:52:05.239921+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.51
+    },
+    {
+      "ts": "2026-03-30T06:43:26.766811+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.535
+    },
+    {
+      "ts": "2026-03-30T07:44:34.450267+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.48
+    },
+    {
+      "ts": "2026-03-30T08:46:06.432263+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.535
+    },
+    {
+      "ts": "2026-03-30T09:47:50.697182+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.675
+    },
+    {
+      "ts": "2026-03-30T10:49:31.255629+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.53
+    },
+    {
+      "ts": "2026-03-30T11:51:04.501965+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.655
+    },
+    {
+      "ts": "2026-03-30T12:53:19.948583+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.52
+    },
+    {
+      "ts": "2026-03-30T13:55:08.910437+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.95
+    },
+    {
+      "ts": "2026-03-30T14:15:48.776009+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.97
+    },
+    {
+      "ts": "2026-03-30T15:17:28.187338+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.995
+    },
+    {
+      "ts": "2026-03-30T16:19:34.149601+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9975
+    },
+    {
+      "ts": "2026-03-30T17:21:53.729552+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-03-30T18:24:25.968681+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-03-30T19:26:38.508354+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9965
+    },
+    {
+      "ts": "2026-03-30T20:29:04.960621+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.997
+    },
+    {
+      "ts": "2026-03-30T21:31:42.061926+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-30T22:34:17.054455+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-30T23:37:04.702252+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9995
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Paris be 7°C or below on March 30?",
+      "market_id": "1779191",
+      "range": [
+        -999.0,
+        7.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 1020.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 8°C on March 30?",
+      "market_id": "1779192",
+      "range": [
+        8.0,
+        8.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 1587.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 9°C on March 30?",
+      "market_id": "1779193",
+      "range": [
+        9.0,
+        9.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 3236.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 10°C on March 30?",
+      "market_id": "1779194",
+      "range": [
+        10.0,
+        10.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 15338.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 11°C on March 30?",
+      "market_id": "1779195",
+      "range": [
+        11.0,
+        11.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 19389.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 12°C on March 30?",
+      "market_id": "1779196",
+      "range": [
+        12.0,
+        12.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 45546.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 13°C on March 30?",
+      "market_id": "1779197",
+      "range": [
+        13.0,
+        13.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 32558.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 14°C on March 30?",
+      "market_id": "1779198",
+      "range": [
+        14.0,
+        14.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.0005,
+      "price": 0.9995,
+      "spread": -0.999,
+      "volume": 43741.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 15°C on March 30?",
+      "market_id": "1779199",
+      "range": [
+        15.0,
+        15.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 20465.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 16°C on March 30?",
+      "market_id": "1779200",
+      "range": [
+        16.0,
+        16.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 11268.0
+    },
+    {
+      "question": "Will the highest temperature in Paris be 17°C or higher on March 30?",
+      "market_id": "1779201",
+      "range": [
+        17.0,
+        999.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 6154.0
+    }
+  ],
+  "created_at": "2026-03-29T18:10:41.509663+00:00"
+}

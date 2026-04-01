@@ -380,12 +380,12 @@ def get_icon_temp(city_slug):
         pass
     return None
 
-def check_price_threshold(price, direction="buy_yes"):
+def check_price_threshold(price, direction="buy_yes", is_binary=False):
     """Check if price meets whale strategy thresholds.
     
     Buy YES when price < $0.15 AND models agree
-    Skip when price > $0.45
-    Use $0.15-$0.45 as "no trade zone"
+    Skip when price > $0.45 (Celsius markets) or > 0.92 (Fahrenheit binary markets)
+    Use $0.15-$0.45 as "no trade zone" (Celsius only)
     
     Returns: (can_trade: bool, reason: str)
     """
@@ -402,6 +402,17 @@ def check_price_threshold(price, direction="buy_yes"):
     no_trade_min = thresholds.get("no_trade_min", 0.15)
     no_trade_max = thresholds.get("no_trade_max", 0.45)
     
+    # For Fahrenheit binary YES/NO markets (each bucket is a separate market):
+    # Binary market prices: near 0 = very unlikely, near 1 = very likely, 0.3-0.8 = moderate confidence
+    # Strategy: only skip very certain outcomes (yes_price > 0.92). Let moderate-confidence bets through.
+    if is_binary:
+        skip_above = thresholds.get("binary_skip_above", 0.92)
+        # NO no-trade zone for binary — only reject near-certain outcomes
+        if price > skip_above:
+            return False, f"binary_certain_skip_${price:.3f}_gt_{skip_above:.2f}"
+        return True, "price_ok"
+    
+    # Celsius multi-outcome markets: use the full no-trade zone logic
     if price < no_trade_min:
         return True, f"price_below_no_trade_zone_${price:.2f}"
     
@@ -409,11 +420,13 @@ def check_price_threshold(price, direction="buy_yes"):
         return False, f"price_in_no_trade_zone_${price:.2f}_[{no_trade_min}-{no_trade_max}]"
     
     if price > no_trade_max:
-        return False, f"price_above_skip_threshold_${price:.2f}_gt_{skip_above}"
+        return False, f"price_above_skip_threshold_${price:.2f}_gt_{skip_above:.2f}"
+    
+    return True, "price_ok"
     
     return True, "price_ok"
 
-def apply_whale_filters(city_slug, forecast_temp, price, forecast_data):
+def apply_whale_filters(city_slug, forecast_temp, price, forecast_data, is_binary=False):
     """Apply all whale strategy filters.
     
     Returns: (can_trade: bool, reason: str, adjusted_temp: float or None)
@@ -423,7 +436,7 @@ def apply_whale_filters(city_slug, forecast_temp, price, forecast_data):
         return False, "not_in_model_update_window", None
     
     # Check price thresholds
-    can_trade, reason = check_price_threshold(price)
+    can_trade, reason = check_price_threshold(price, is_binary=is_binary)
     if not can_trade:
         return False, reason, None
     
@@ -891,8 +904,22 @@ def scan_and_update():
                     continue
                 try:
                     prices = json.loads(market.get("outcomePrices", "[0.5,0.5]"))
-                    bid = float(prices[0])
-                    ask = float(prices[1]) if len(prices) > 1 else bid
+                    # Determine YES price based on market structure:
+                    # - Binary markets (2 prices): prices[0]=NO, prices[1]=YES
+                    #   Binary examples: "Will temp be between 80-81°F?", "be 73°F or below"
+                    # - Multi-outcome markets (N prices): prices[0]=YES for first bucket
+                    #   Multi examples: London "be 14°C", "be 15°C" in same market
+                    is_binary = len(prices) == 2
+                    if is_binary:
+                        # Binary YES/NO market: YES price is the higher of the two
+                        yes_price = max(float(prices[0]), float(prices[1]))
+                        no_price  = min(float(prices[0]), float(prices[1]))
+                    else:
+                        # Multi-outcome: prices[0] is YES for the first outcome
+                        yes_price = float(prices[0])
+                        no_price  = 1.0 - yes_price
+                    bid = yes_price   # what you get if you bet YES
+                    ask = yes_price  # same in AMM model
                 except Exception:
                     continue
                 outcomes.append({
@@ -901,9 +928,12 @@ def scan_and_update():
                     "range":     rng,
                     "bid":       round(bid, 4),
                     "ask":       round(ask, 4),
-                    "price":     round(bid, 4),   # for compatibility
-                    "spread":    round(ask - bid, 4),
+                    "price":     round(bid, 4),
+                    "spread":    0.0,
                     "volume":    round(volume, 0),
+                    "is_binary": is_binary,
+                    "yes_price": round(yes_price, 4),
+                    "no_price":  round(no_price, 4),
                 })
 
             outcomes.sort(key=lambda x: x["range"][0])
@@ -927,7 +957,33 @@ def scan_and_update():
             mkt["forecast_snapshots"].append(forecast_snap)
 
             # Market price snapshot
-            top = max(outcomes, key=lambda x: x["price"]) if outcomes else None
+            # For binary markets: prefer buckets containing the forecast temp.
+            # For multi-outcome markets: use highest price.
+            # Score: for binary buckets containing forecast, score = how close to midpoint.
+            #        For buckets NOT containing forecast, score = moderate yes_price.
+            forecast_temp_snap = snap.get("best")
+            if outcomes:
+                binary_candidates = []
+                non_binary = []
+                for o in outcomes:
+                    lo, hi = o["range"]
+                    if forecast_temp_snap is not None and lo <= forecast_temp_snap <= hi:
+                        binary_candidates.append(o)
+                    elif not o.get("is_binary", False):
+                        non_binary.append(o)
+                
+                if binary_candidates:
+                    # Among buckets containing the forecast, prefer the one closest to midpoint
+                    # Score = -abs(midpoint - forecast) — lower is better
+                    top = min(binary_candidates, key=lambda x: abs((x["range"][0] + x["range"][1]) / 2 - forecast_temp_snap))
+                elif non_binary:
+                    # Multi-outcome Celsius market: highest price wins
+                    top = max(non_binary, key=lambda x: x["price"])
+                else:
+                    # Pure binary with no bucket containing forecast: pick nearest bucket
+                    top = min(outcomes, key=lambda x: abs((x["range"][0] + x["range"][1]) / 2 - forecast_temp_snap)) if forecast_temp_snap is not None else max(outcomes, key=lambda x: x["price"])
+            else:
+                top = None
             market_snap = {
                 "ts":       snap.get("ts"),
                 "top_bucket": f"{top['range'][0]}-{top['range'][1]}{unit_sym}" if top else None,
@@ -1150,7 +1206,8 @@ def scan_and_update():
                         # Apply whale strategies: model consensus, price thresholds, timing
                         whale_can_trade, whale_reason, adjusted_temp = apply_whale_filters(
                             city_slug, forecast_temp, best_signal["entry_price"],
-                            {"ecmwf": snap.get("ecmwf"), "hrrr": snap.get("hrrr")}
+                            {"ecmwf": snap.get("ecmwf"), "hrrr": snap.get("hrrr")},
+                            is_binary=top.get("is_binary", False)
                         )
                         if not whale_can_trade:
                             print(f"  [WHALE SKIP] {loc['name']} {date} — {whale_reason}")

@@ -1,0 +1,81 @@
+{
+  "backtest_metadata": {
+    "generated_at": "2026-03-28T23:36:00Z",
+    "data_source": "Polymarket gamma-api.polymarket.com",
+    "status": "completed",
+    "notes": [
+      "Full API scan completed: 15,000 markets scanned",
+      "Only 12 historical temperature markets found (mostly 2021-2024)",
+      "Daily city temperature markets NOT accessible via API - separate system",
+      "262 active daily temperature markets verified via web"
+    ]
+  },
+  "api_results": {
+    "total_markets_scanned": 15000,
+    "temperature_markets_found": 12,
+    "resolved_temperature_markets": 12
+  },
+  "historical_markets": {
+    "new_york": {
+      "markets": [
+        "Will the high temperature in New York's Central Park be 60°F or higher on November 2, 2021?",
+        "Will the high temperature in New York's Central Park be 60°F or higher on November 15th, 2021?"
+      ],
+      "resolved": 2
+    },
+    "global_temperature": {
+      "markets": [
+        "Will June 2024 have a temperature increase of less than 1.09°C?",
+        "Will June 2024 have a temperature increase of between 1.09°C and 1.15°C?",
+        "Will June 2024 have a temperature increase of between 1.16°C and 1.22°C?",
+        "Will June 2024 have a temperature increase of between 1.23°C and 1.29°C?",
+        "Will June 2024 have a temperature increase of greater than 1.29°C?",
+        "Will August 2021 average global temperature be the highest August temperature on record?",
+        "Will September 2021 average global temperature be the highest September temperature on record?",
+        "Will October 2021 average global temperature be the highest October temperature on record?"
+      ],
+      "resolved": 8
+    }
+  },
+  "cities": {
+    "singapore": { "api_markets": 0, "web_active": true },
+    "tokyo": { "api_markets": 0, "web_active": true },
+    "taipei": { "api_markets": 0, "web_active": true },
+    "beijing": { "api_markets": 0, "web_active": true },
+    "hong_kong": { "api_markets": 0, "web_active": true },
+    "shanghai": { "api_markets": 0, "web_active": true },
+    "seoul": { "api_markets": 0, "web_active": true },
+    "mumbai": { "api_markets": 0, "web_active": true },
+    "delhi": { "api_markets": 0, "web_active": true },
+    "london": { "api_markets": 0, "web_active": true },
+    "paris": { "api_markets": 0, "web_active": true },
+    "nyc": { "api_markets": 2, "web_active": true },
+    "chicago": { "api_markets": 0, "web_active": true },
+    "miami": { "api_markets": 0, "web_active": true },
+    "dallas": { "api_markets": 0, "web_active": true }
+  },
+  "win_rates": {
+    "note": "Historical data insufficient for meaningful backtest",
+    "nyc": { "sample_size": 2, "win_rate": null },
+    "global_temp": { "sample_size": 8, "win_rate": null }
+  },
+  "web_verified_active_markets": [
+    { "city": "Seoul", "date": "March 28", "temp": "12°C", "prob": "100%", "volume": "$588K" },
+    { "city": "Tokyo", "date": "March 28", "temp": "18°C", "prob": "100%", "volume": "$178K" },
+    { "city": "Singapore", "date": "March 28", "temp": "32°C", "prob": "100%", "volume": "$160K" },
+    { "city": "Hong Kong", "date": "March 28", "temp": "27°C", "prob": "100%", "volume": "$135K" },
+    { "city": "Shanghai", "date": "March 28", "temp": "21°C", "prob": "100%", "volume": "$357K" },
+    { "city": "London", "date": "March 28", "temp": "11°C", "prob": "99%", "volume": "$266K" },
+    { "city": "Paris", "date": "March 28", "temp": "11°C", "prob": "99%", "volume": "$116K" },
+    { "city": "NYC", "date": "March 28", "temp": "42-43°F", "prob": "56%", "volume": "$142K" },
+    { "city": "Chicago", "date": "March 28", "temp": "48-49°F", "prob": "42%", "volume": "$95.7K" },
+    { "city": "Dallas", "date": "March 28", "temp": "62-63°F", "prob": "33%", "volume": "$111K" }
+  ],
+  "conclusion": "Polymarket daily temperature markets are NOT accessible via historical API. Only 12 old temperature markets found. Active markets verified via web (262 total, $3.7M+ volume).",
+  "recommendations": [
+    "1. Collect resolution data daily by scraping active markets",
+    "2. Use browser automation to track resolved outcomes",
+    "3. Contact Polymarket for historical data access",
+    "4. Alternatively use weather API + model predictions for backtest"
+  ]
+}

@@ -1,0 +1,516 @@
+{
+  "city": "toronto",
+  "city_name": "Toronto",
+  "date": "2026-03-25",
+  "unit": "C",
+  "station": "CYYZ",
+  "event_end_date": "2026-03-25T12:00:00Z",
+  "hours_at_discovery": 7.2,
+  "status": "closed",
+  "position": {
+    "market_id": "1670735",
+    "question": "Will the highest temperature in Toronto be 6°C on March 25?",
+    "bucket_low": 6.0,
+    "bucket_high": 6.0,
+    "entry_price": 0.33,
+    "bid_at_entry": 0.3,
+    "spread": 0.03,
+    "shares": 60.61,
+    "cost": 20.0,
+    "p": 1.0,
+    "ev": 2.0303,
+    "kelly": 0.25,
+    "forecast_temp": 5.8,
+    "forecast_src": "ecmwf",
+    "sigma": 1.2,
+    "opened_at": "2026-03-25T04:47:31.357059+00:00",
+    "status": "closed",
+    "pnl": -5.45,
+    "exit_price": 0.24,
+    "close_reason": "stop_loss",
+    "closed_at": "2026-03-25T15:23:32.126683+00:00"
+  },
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-25T04:47:31.357059+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.2,
+      "ecmwf": 5.8,
+      "hrrr": null,
+      "metar": 1.0,
+      "best": 5.8,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T04:52:30.690391+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.1,
+      "ecmwf": 5.8,
+      "hrrr": null,
+      "metar": 1.0,
+      "best": 5.8,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T05:01:01.608374+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.0,
+      "ecmwf": 5.8,
+      "hrrr": null,
+      "metar": 1.0,
+      "best": 5.8,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T06:01:40.461645+00:00",
+      "horizon": "D+0",
+      "hours_left": 6.0,
+      "ecmwf": 5.8,
+      "hrrr": null,
+      "metar": 0.0,
+      "best": 5.8,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T07:01:51.188238+00:00",
+      "horizon": "D+0",
+      "hours_left": 5.0,
+      "ecmwf": 5.8,
+      "hrrr": null,
+      "metar": 0.0,
+      "best": 5.8,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T08:04:46.384526+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.9,
+      "ecmwf": 5.8,
+      "hrrr": null,
+      "metar": -1.0,
+      "best": 5.8,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T08:19:03.684110+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.7,
+      "ecmwf": 6.1,
+      "hrrr": null,
+      "metar": -1.0,
+      "best": 6.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T09:01:37.515472+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.0,
+      "ecmwf": 6.1,
+      "hrrr": null,
+      "metar": -1.0,
+      "best": 6.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T10:01:52.382460+00:00",
+      "horizon": "D+0",
+      "hours_left": 2.0,
+      "ecmwf": 6.1,
+      "hrrr": null,
+      "metar": -1.0,
+      "best": 6.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T11:02:15.630828+00:00",
+      "horizon": "D+0",
+      "hours_left": 1.0,
+      "ecmwf": 6.1,
+      "hrrr": null,
+      "metar": 0.0,
+      "best": 6.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T12:02:12.320460+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.1,
+      "hrrr": null,
+      "metar": 0.0,
+      "best": 6.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T13:02:21.292153+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.1,
+      "hrrr": null,
+      "metar": 0.0,
+      "best": 6.1,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T14:02:12.186383+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.3,
+      "hrrr": null,
+      "metar": 1.0,
+      "best": 6.3,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T15:02:35.354108+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.3,
+      "hrrr": null,
+      "metar": 2.0,
+      "best": 6.3,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T16:02:49.719240+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.3,
+      "hrrr": null,
+      "metar": 4.0,
+      "best": 6.3,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T17:02:47.391727+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.3,
+      "hrrr": null,
+      "metar": 5.0,
+      "best": 6.3,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T18:02:44.725036+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.3,
+      "hrrr": null,
+      "metar": 6.0,
+      "best": 6.3,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T19:02:35.597446+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.3,
+      "hrrr": null,
+      "metar": null,
+      "best": 6.3,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T20:03:00.187917+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 6.3,
+      "hrrr": null,
+      "metar": 5.0,
+      "best": 6.3,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T21:03:17.460714+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 5.7,
+      "hrrr": null,
+      "metar": 5.0,
+      "best": 5.7,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T22:03:06.949711+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 5.7,
+      "hrrr": null,
+      "metar": 5.0,
+      "best": 5.7,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T23:03:01.575986+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 5.7,
+      "hrrr": null,
+      "metar": 3.0,
+      "best": 5.7,
+      "best_source": "ecmwf"
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-25T04:47:31.357059+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.315
+    },
+    {
+      "ts": "2026-03-25T04:52:30.690391+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.315
+    },
+    {
+      "ts": "2026-03-25T05:01:01.608374+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.315
+    },
+    {
+      "ts": "2026-03-25T06:01:40.461645+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.32
+    },
+    {
+      "ts": "2026-03-25T07:01:51.188238+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.325
+    },
+    {
+      "ts": "2026-03-25T08:04:46.384526+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.35
+    },
+    {
+      "ts": "2026-03-25T08:19:03.684110+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.325
+    },
+    {
+      "ts": "2026-03-25T09:01:37.515472+00:00",
+      "top_bucket": "5.0-5.0C",
+      "top_price": 0.36
+    },
+    {
+      "ts": "2026-03-25T10:01:52.382460+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.33
+    },
+    {
+      "ts": "2026-03-25T11:02:15.630828+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-25T12:02:12.320460+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-25T13:02:21.292153+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-25T14:02:12.186383+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.395
+    },
+    {
+      "ts": "2026-03-25T15:02:35.354108+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.38
+    },
+    {
+      "ts": "2026-03-25T16:02:49.719240+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.605
+    },
+    {
+      "ts": "2026-03-25T17:02:47.391727+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.58
+    },
+    {
+      "ts": "2026-03-25T18:02:44.725036+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-03-25T19:02:35.597446+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.745
+    },
+    {
+      "ts": "2026-03-25T20:03:00.187917+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.987
+    },
+    {
+      "ts": "2026-03-25T21:03:17.460714+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.9585
+    },
+    {
+      "ts": "2026-03-25T22:03:06.949711+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.9905
+    },
+    {
+      "ts": "2026-03-25T23:03:01.575986+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.9975
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Toronto be 0°C or below on March 25?",
+      "market_id": "1670729",
+      "range": [
+        -999.0,
+        0.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 4164.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 1°C on March 25?",
+      "market_id": "1670730",
+      "range": [
+        1.0,
+        1.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 2922.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 2°C on March 25?",
+      "market_id": "1670731",
+      "range": [
+        2.0,
+        2.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 3779.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 3°C on March 25?",
+      "market_id": "1670732",
+      "range": [
+        3.0,
+        3.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 5297.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 4°C on March 25?",
+      "market_id": "1670733",
+      "range": [
+        4.0,
+        4.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 10001.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 5°C on March 25?",
+      "market_id": "1670734",
+      "range": [
+        5.0,
+        5.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 7988.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 6°C on March 25?",
+      "market_id": "1670735",
+      "range": [
+        6.0,
+        6.0
+      ],
+      "bid": 0.9975,
+      "ask": 0.0025,
+      "price": 0.9975,
+      "spread": -0.995,
+      "volume": 15768.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 7°C on March 25?",
+      "market_id": "1670736",
+      "range": [
+        7.0,
+        7.0
+      ],
+      "bid": 0.009,
+      "ask": 0.991,
+      "price": 0.009,
+      "spread": 0.982,
+      "volume": 10750.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 8°C on March 25?",
+      "market_id": "1670737",
+      "range": [
+        8.0,
+        8.0
+      ],
+      "bid": 0.001,
+      "ask": 0.999,
+      "price": 0.001,
+      "spread": 0.998,
+      "volume": 11756.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 9°C on March 25?",
+      "market_id": "1670738",
+      "range": [
+        9.0,
+        9.0
+      ],
+      "bid": 0.002,
+      "ask": 0.998,
+      "price": 0.002,
+      "spread": 0.996,
+      "volume": 10766.0
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 10°C or higher on March 25?",
+      "market_id": "1670739",
+      "range": [
+        10.0,
+        999.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 8985.0
+    }
+  ],
+  "created_at": "2026-03-25T04:47:32.851898+00:00"
+}

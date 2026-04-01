@@ -1,0 +1,704 @@
+{
+  "city": "atlanta",
+  "city_name": "Atlanta",
+  "date": "2026-03-30",
+  "unit": "F",
+  "station": "KATL",
+  "event_end_date": "2026-03-30T12:00:00Z",
+  "hours_at_discovery": 16.8,
+  "status": "closed",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-29T19:12:22.965353+00:00",
+      "horizon": "D+1",
+      "hours_left": 16.8,
+      "ecmwf": 73,
+      "hrrr": 68,
+      "metar": null,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T20:13:16.013303+00:00",
+      "horizon": "D+1",
+      "hours_left": 15.8,
+      "ecmwf": 73,
+      "hrrr": 68,
+      "metar": null,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T21:14:25.148551+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.8,
+      "ecmwf": 74,
+      "hrrr": 68,
+      "metar": null,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T21:54:19.012150+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.1,
+      "ecmwf": 74,
+      "hrrr": 68,
+      "metar": null,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T22:02:51.754131+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.0,
+      "ecmwf": 74,
+      "hrrr": 68,
+      "metar": null,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T22:03:28.597066+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.9,
+      "ecmwf": 74,
+      "hrrr": 68,
+      "metar": null,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T23:02:18.368833+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.0,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 68,
+      "metar_raw": null,
+      "best_raw": 68,
+      "best": 70.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-29T23:05:20.839755+00:00",
+      "horizon": "D+1",
+      "hours_left": 12.9,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 68,
+      "metar_raw": null,
+      "best_raw": 68,
+      "best": 70.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-29T23:07:58.858134+00:00",
+      "horizon": "D+1",
+      "hours_left": 12.9,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 68,
+      "metar_raw": null,
+      "best_raw": 68,
+      "best": 70.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T00:08:14.180878+00:00",
+      "horizon": "D+0",
+      "hours_left": 11.9,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 68,
+      "metar_raw": 62,
+      "best_raw": 68,
+      "best": 70.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T01:08:26.305419+00:00",
+      "horizon": "D+0",
+      "hours_left": 10.9,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 68,
+      "metar_raw": 62,
+      "best_raw": 68,
+      "best": 70.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T02:08:38.351973+00:00",
+      "horizon": "D+0",
+      "hours_left": 9.9,
+      "ecmwf_raw": 73,
+      "hrrr_raw": 69,
+      "metar_raw": 62,
+      "best_raw": 69,
+      "best": 71.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T03:08:53.340028+00:00",
+      "horizon": "D+0",
+      "hours_left": 8.9,
+      "ecmwf_raw": 73,
+      "hrrr_raw": 69,
+      "metar_raw": 61,
+      "best_raw": 69,
+      "best": 71.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T06:43:22.620789+00:00",
+      "horizon": "D+0",
+      "hours_left": 5.3,
+      "ecmwf_raw": 73,
+      "hrrr_raw": 70,
+      "metar_raw": 61,
+      "best_raw": 70,
+      "best": 72.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T07:44:29.978594+00:00",
+      "horizon": "D+0",
+      "hours_left": 4.3,
+      "ecmwf_raw": 73,
+      "hrrr_raw": 73,
+      "metar_raw": 61,
+      "best_raw": 73,
+      "best": 75.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T08:46:02.277279+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.2,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 73,
+      "metar_raw": 61,
+      "best_raw": 73,
+      "best": 75.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T09:47:46.325770+00:00",
+      "horizon": "D+0",
+      "hours_left": 2.2,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 73,
+      "metar_raw": 60,
+      "best_raw": 73,
+      "best": 75.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T10:49:26.678050+00:00",
+      "horizon": "D+0",
+      "hours_left": 1.2,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 74,
+      "metar_raw": 60,
+      "best_raw": 74,
+      "best": 76.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T11:51:00.076982+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.1,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 74,
+      "metar_raw": 59,
+      "best_raw": 74,
+      "best": 76.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T12:53:14.462446+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 74,
+      "metar_raw": 59,
+      "best_raw": 74,
+      "best": 76.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T13:55:04.299345+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 74,
+      "metar_raw": 61,
+      "best_raw": 74,
+      "best": 76.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T14:15:41.918437+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 74,
+      "metar_raw": 61,
+      "best_raw": 74,
+      "best": 76.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T15:17:23.565874+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 75,
+      "metar_raw": 61,
+      "best_raw": 75,
+      "best": 77.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T16:19:27.398109+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 74,
+      "metar_raw": 64,
+      "best_raw": 74,
+      "best": 76.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T17:21:47.580599+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": 67,
+      "best_raw": 73,
+      "best": 75.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T18:24:20.608544+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": 69,
+      "best_raw": 73,
+      "best": 75.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T19:26:32.911603+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": 70,
+      "best_raw": 73,
+      "best": 75.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T20:28:57.947221+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 73,
+      "metar_raw": 71,
+      "best_raw": 73,
+      "best": 75.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T21:31:35.547164+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 71,
+      "metar_raw": 73,
+      "best_raw": 71,
+      "best": 73.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T22:34:11.793642+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 71,
+      "metar_raw": 73,
+      "best_raw": 71,
+      "best": 73.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T23:36:57.443252+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 74,
+      "hrrr_raw": 71,
+      "metar_raw": 72,
+      "best_raw": 71,
+      "best": 73.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-29T19:12:22.965353+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.43
+    },
+    {
+      "ts": "2026-03-29T20:13:16.013303+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.265
+    },
+    {
+      "ts": "2026-03-29T21:14:25.148551+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.265
+    },
+    {
+      "ts": "2026-03-29T21:54:19.012150+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.285
+    },
+    {
+      "ts": "2026-03-29T22:02:51.754131+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.305
+    },
+    {
+      "ts": "2026-03-29T22:03:28.597066+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.305
+    },
+    {
+      "ts": "2026-03-29T23:02:18.368833+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.29
+    },
+    {
+      "ts": "2026-03-29T23:05:20.839755+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.29
+    },
+    {
+      "ts": "2026-03-29T23:07:58.858134+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.29
+    },
+    {
+      "ts": "2026-03-30T00:08:14.180878+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.3
+    },
+    {
+      "ts": "2026-03-30T01:08:26.305419+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.325
+    },
+    {
+      "ts": "2026-03-30T02:08:38.351973+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.3
+    },
+    {
+      "ts": "2026-03-30T03:08:53.340028+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.34
+    },
+    {
+      "ts": "2026-03-30T06:43:22.620789+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.36
+    },
+    {
+      "ts": "2026-03-30T07:44:29.978594+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-30T08:46:02.277279+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.37
+    },
+    {
+      "ts": "2026-03-30T09:47:46.325770+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.395
+    },
+    {
+      "ts": "2026-03-30T10:49:26.678050+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-30T11:51:00.076982+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.385
+    },
+    {
+      "ts": "2026-03-30T12:53:14.462446+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.435
+    },
+    {
+      "ts": "2026-03-30T13:55:04.299345+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.505
+    },
+    {
+      "ts": "2026-03-30T14:15:41.918437+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.565
+    },
+    {
+      "ts": "2026-03-30T15:17:23.565874+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.505
+    },
+    {
+      "ts": "2026-03-30T16:19:27.398109+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.47
+    },
+    {
+      "ts": "2026-03-30T17:21:47.580599+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.53
+    },
+    {
+      "ts": "2026-03-30T18:24:20.608544+00:00",
+      "top_bucket": "74.0-75.0F",
+      "top_price": 0.555
+    },
+    {
+      "ts": "2026-03-30T19:26:32.911603+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.52
+    },
+    {
+      "ts": "2026-03-30T20:28:57.947221+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.68
+    },
+    {
+      "ts": "2026-03-30T21:31:35.547164+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.835
+    },
+    {
+      "ts": "2026-03-30T22:34:11.793642+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.979
+    },
+    {
+      "ts": "2026-03-30T23:36:57.443252+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.994
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Atlanta be 57°F or below on March 30?",
+      "market_id": "1779513",
+      "range": [
+        -999.0,
+        57.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 3782.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 58-59°F on March 30?",
+      "market_id": "1779514",
+      "range": [
+        58.0,
+        59.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 3535.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 60-61°F on March 30?",
+      "market_id": "1779515",
+      "range": [
+        60.0,
+        61.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 10110.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 62-63°F on March 30?",
+      "market_id": "1779516",
+      "range": [
+        62.0,
+        63.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 4513.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 64-65°F on March 30?",
+      "market_id": "1779517",
+      "range": [
+        64.0,
+        65.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 4250.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 66-67°F on March 30?",
+      "market_id": "1779518",
+      "range": [
+        66.0,
+        67.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 4732.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 68-69°F on March 30?",
+      "market_id": "1779519",
+      "range": [
+        68.0,
+        69.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 10663.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 70-71°F on March 30?",
+      "market_id": "1779520",
+      "range": [
+        70.0,
+        71.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 18875.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 72-73°F on March 30?",
+      "market_id": "1779521",
+      "range": [
+        72.0,
+        73.0
+      ],
+      "bid": 0.994,
+      "ask": 0.006,
+      "price": 0.994,
+      "spread": -0.988,
+      "volume": 10333.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 74-75°F on March 30?",
+      "market_id": "1779522",
+      "range": [
+        74.0,
+        75.0
+      ],
+      "bid": 0.0055,
+      "ask": 0.9945,
+      "price": 0.0055,
+      "spread": 0.989,
+      "volume": 12726.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be 76°F or higher on March 30?",
+      "market_id": "1779523",
+      "range": [
+        76.0,
+        999.0
+      ],
+      "bid": 0.002,
+      "ask": 0.998,
+      "price": 0.002,
+      "spread": 0.996,
+      "volume": 16376.0
+    }
+  ],
+  "created_at": "2026-03-29T19:12:26.917240+00:00"
+}

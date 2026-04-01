@@ -1,0 +1,251 @@
+{
+  "city": "hong-kong",
+  "city_name": "Hong Kong",
+  "date": "2026-04-03",
+  "unit": "C",
+  "station": "HKO",
+  "event_end_date": "2026-04-03T12:00:00Z",
+  "hours_at_discovery": 47.7,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-01T12:19:01.042762+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.7,
+      "ecmwf_raw": 25.6,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.6,
+      "best": 25.6,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:21:27.444084+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.6,
+      "ecmwf_raw": 25.6,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.6,
+      "best": 25.6,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:27:54.719949+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.5,
+      "ecmwf_raw": 25.6,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.6,
+      "best": 25.6,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-01T12:19:01.042762+00:00",
+      "top_bucket": "-999.0-19.0C",
+      "top_price": 0.996
+    },
+    {
+      "ts": "2026-04-01T12:21:27.444084+00:00",
+      "top_bucket": "26.0-26.0C",
+      "top_price": 0.65
+    },
+    {
+      "ts": "2026-04-01T12:27:54.719949+00:00",
+      "top_bucket": "26.0-26.0C",
+      "top_price": 0.65
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Hong Kong be 19°C or below on April 3?",
+      "market_id": "1780884",
+      "range": [
+        -999.0,
+        19.0
+      ],
+      "bid": 0.996,
+      "ask": 0.996,
+      "price": 0.996,
+      "spread": 0.0,
+      "volume": 462.0,
+      "is_binary": true,
+      "yes_price": 0.996,
+      "no_price": 0.004
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 20°C on April 3?",
+      "market_id": "1780885",
+      "range": [
+        20.0,
+        20.0
+      ],
+      "bid": 0.9945,
+      "ask": 0.9945,
+      "price": 0.9945,
+      "spread": 0.0,
+      "volume": 471.0,
+      "is_binary": true,
+      "yes_price": 0.9945,
+      "no_price": 0.0055
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 21°C on April 3?",
+      "market_id": "1780886",
+      "range": [
+        21.0,
+        21.0
+      ],
+      "bid": 0.9895,
+      "ask": 0.9895,
+      "price": 0.9895,
+      "spread": 0.0,
+      "volume": 629.0,
+      "is_binary": true,
+      "yes_price": 0.9895,
+      "no_price": 0.0105
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 22°C on April 3?",
+      "market_id": "1780887",
+      "range": [
+        22.0,
+        22.0
+      ],
+      "bid": 0.984,
+      "ask": 0.984,
+      "price": 0.984,
+      "spread": 0.0,
+      "volume": 469.0,
+      "is_binary": true,
+      "yes_price": 0.984,
+      "no_price": 0.016
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 23°C on April 3?",
+      "market_id": "1780888",
+      "range": [
+        23.0,
+        23.0
+      ],
+      "bid": 0.973,
+      "ask": 0.973,
+      "price": 0.973,
+      "spread": 0.0,
+      "volume": 329.0,
+      "is_binary": true,
+      "yes_price": 0.973,
+      "no_price": 0.027
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 24°C on April 3?",
+      "market_id": "1780889",
+      "range": [
+        24.0,
+        24.0
+      ],
+      "bid": 0.98,
+      "ask": 0.98,
+      "price": 0.98,
+      "spread": 0.0,
+      "volume": 111.0,
+      "is_binary": true,
+      "yes_price": 0.98,
+      "no_price": 0.02
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 25°C on April 3?",
+      "market_id": "1780890",
+      "range": [
+        25.0,
+        25.0
+      ],
+      "bid": 0.895,
+      "ask": 0.895,
+      "price": 0.895,
+      "spread": 0.0,
+      "volume": 201.0,
+      "is_binary": true,
+      "yes_price": 0.895,
+      "no_price": 0.105
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 26°C on April 3?",
+      "market_id": "1780891",
+      "range": [
+        26.0,
+        26.0
+      ],
+      "bid": 0.65,
+      "ask": 0.65,
+      "price": 0.65,
+      "spread": 0.0,
+      "volume": 515.0,
+      "is_binary": true,
+      "yes_price": 0.65,
+      "no_price": 0.35
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 27°C on April 3?",
+      "market_id": "1780892",
+      "range": [
+        27.0,
+        27.0
+      ],
+      "bid": 0.73,
+      "ask": 0.73,
+      "price": 0.73,
+      "spread": 0.0,
+      "volume": 86.0,
+      "is_binary": true,
+      "yes_price": 0.73,
+      "no_price": 0.27
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 28°C on April 3?",
+      "market_id": "1780893",
+      "range": [
+        28.0,
+        28.0
+      ],
+      "bid": 0.755,
+      "ask": 0.755,
+      "price": 0.755,
+      "spread": 0.0,
+      "volume": 85.0,
+      "is_binary": true,
+      "yes_price": 0.755,
+      "no_price": 0.245
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 29°C or higher on April 3?",
+      "market_id": "1780894",
+      "range": [
+        29.0,
+        999.0
+      ],
+      "bid": 0.79,
+      "ask": 0.79,
+      "price": 0.79,
+      "spread": 0.0,
+      "volume": 245.0,
+      "is_binary": true,
+      "yes_price": 0.79,
+      "no_price": 0.21
+    }
+  ],
+  "created_at": "2026-04-01T12:19:04.450082+00:00"
+}

@@ -1,0 +1,254 @@
+{
+  "city": "chicago",
+  "city_name": "Chicago",
+  "date": "2026-03-30",
+  "unit": "F",
+  "station": "KORD",
+  "event_end_date": "2026-03-30T12:00:00Z",
+  "hours_at_discovery": 16.8,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-29T19:12:10.608190+00:00",
+      "horizon": "D+1",
+      "hours_left": 16.8,
+      "ecmwf": 72,
+      "hrrr": 80,
+      "metar": null,
+      "best": 80,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T20:13:04.093125+00:00",
+      "horizon": "D+1",
+      "hours_left": 15.8,
+      "ecmwf": 72,
+      "hrrr": 80,
+      "metar": null,
+      "best": 80,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T21:14:12.762667+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.8,
+      "ecmwf": 72,
+      "hrrr": 80,
+      "metar": null,
+      "best": 80,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T21:54:05.488678+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.1,
+      "ecmwf": 72,
+      "hrrr": 80,
+      "metar": null,
+      "best": 80,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T22:02:40.252828+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.0,
+      "ecmwf": 72,
+      "hrrr": 80,
+      "metar": null,
+      "best": 80,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T22:03:18.243019+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.9,
+      "ecmwf": 72,
+      "hrrr": 80,
+      "metar": null,
+      "best": 80,
+      "best_source": "hrrr"
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-29T19:12:10.608190+00:00",
+      "top_bucket": "76.0-999.0F",
+      "top_price": 0.425
+    },
+    {
+      "ts": "2026-03-29T20:13:04.093125+00:00",
+      "top_bucket": "76.0-999.0F",
+      "top_price": 0.435
+    },
+    {
+      "ts": "2026-03-29T21:14:12.762667+00:00",
+      "top_bucket": "76.0-999.0F",
+      "top_price": 0.565
+    },
+    {
+      "ts": "2026-03-29T21:54:05.488678+00:00",
+      "top_bucket": "76.0-999.0F",
+      "top_price": 0.555
+    },
+    {
+      "ts": "2026-03-29T22:02:40.252828+00:00",
+      "top_bucket": "76.0-999.0F",
+      "top_price": 0.56
+    },
+    {
+      "ts": "2026-03-29T22:03:18.243019+00:00",
+      "top_bucket": "76.0-999.0F",
+      "top_price": 0.56
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Chicago be 57°F or below on March 30?",
+      "market_id": "1779535",
+      "range": [
+        -999.0,
+        57.0
+      ],
+      "bid": 0.007,
+      "ask": 0.993,
+      "price": 0.007,
+      "spread": 0.986,
+      "volume": 678.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 58-59°F on March 30?",
+      "market_id": "1779536",
+      "range": [
+        58.0,
+        59.0
+      ],
+      "bid": 0.006,
+      "ask": 0.994,
+      "price": 0.006,
+      "spread": 0.988,
+      "volume": 802.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 60-61°F on March 30?",
+      "market_id": "1779537",
+      "range": [
+        60.0,
+        61.0
+      ],
+      "bid": 0.008,
+      "ask": 0.992,
+      "price": 0.008,
+      "spread": 0.984,
+      "volume": 1253.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 62-63°F on March 30?",
+      "market_id": "1779538",
+      "range": [
+        62.0,
+        63.0
+      ],
+      "bid": 0.008,
+      "ask": 0.992,
+      "price": 0.008,
+      "spread": 0.984,
+      "volume": 3983.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 64-65°F on March 30?",
+      "market_id": "1779539",
+      "range": [
+        64.0,
+        65.0
+      ],
+      "bid": 0.0095,
+      "ask": 0.9905,
+      "price": 0.0095,
+      "spread": 0.981,
+      "volume": 1700.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 66-67°F on March 30?",
+      "market_id": "1779540",
+      "range": [
+        66.0,
+        67.0
+      ],
+      "bid": 0.0105,
+      "ask": 0.9895,
+      "price": 0.0105,
+      "spread": 0.979,
+      "volume": 1317.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 68-69°F on March 30?",
+      "market_id": "1779541",
+      "range": [
+        68.0,
+        69.0
+      ],
+      "bid": 0.0235,
+      "ask": 0.9765,
+      "price": 0.0235,
+      "spread": 0.953,
+      "volume": 1615.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 70-71°F on March 30?",
+      "market_id": "1779542",
+      "range": [
+        70.0,
+        71.0
+      ],
+      "bid": 0.0365,
+      "ask": 0.9635,
+      "price": 0.0365,
+      "spread": 0.927,
+      "volume": 1506.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 72-73°F on March 30?",
+      "market_id": "1779543",
+      "range": [
+        72.0,
+        73.0
+      ],
+      "bid": 0.135,
+      "ask": 0.865,
+      "price": 0.135,
+      "spread": 0.73,
+      "volume": 780.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be between 74-75°F on March 30?",
+      "market_id": "1779544",
+      "range": [
+        74.0,
+        75.0
+      ],
+      "bid": 0.225,
+      "ask": 0.775,
+      "price": 0.225,
+      "spread": 0.55,
+      "volume": 825.0
+    },
+    {
+      "question": "Will the highest temperature in Chicago be 76°F or higher on March 30?",
+      "market_id": "1779545",
+      "range": [
+        76.0,
+        999.0
+      ],
+      "bid": 0.56,
+      "ask": 0.44,
+      "price": 0.56,
+      "spread": -0.12,
+      "volume": 1111.0
+    }
+  ],
+  "created_at": "2026-03-29T19:12:13.442516+00:00"
+}

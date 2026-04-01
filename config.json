@@ -259,8 +259,7 @@
     ]
   },
   "min_tier_to_trade": 1,
-  "max_tier_to_trade": 10,
-  "tier_1_only": false,
+  "max_tier_to_trade": 2,
   "blocked_cities": [
     "seoul",
     "toronto",
@@ -377,9 +376,6 @@
     "miami",
     "paris",
     "london",
-    "tokyo",
-    "hong-kong",
-    "taipei",
     "atlanta",
     "sao-paulo"
   ],
@@ -616,7 +612,8 @@
       "buy_yes_max_price": 0.15,
       "skip_above_price": 0.45,
       "no_trade_min": 0.15,
-      "no_trade_max": 0.45
+      "no_trade_max": 0.45,
+      "binary_skip_above": 0.98
     },
     "trade_after_model_update": true,
     "min_model_age_minutes": 30,
@@ -643,5 +640,11 @@
     "sao-paulo": 0.0,
     "singapore": 0.0,
     "dallas": 0.0
-  }
+  },
+  "tier_1_elite": [
+    "miami",
+    "paris",
+    "london"
+  ],
+  "use_elite_mode": false
 }

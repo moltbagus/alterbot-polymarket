@@ -1,0 +1,548 @@
+{
+  "city": "munich",
+  "city_name": "Munich",
+  "date": "2026-03-30",
+  "unit": "C",
+  "station": "EDDM",
+  "event_end_date": "2026-03-30T12:00:00Z",
+  "hours_at_discovery": 14.8,
+  "status": "closed",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-29T21:14:34.191349+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.8,
+      "ecmwf": 4.5,
+      "hrrr": null,
+      "metar": null,
+      "best": 4.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T21:54:26.530024+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.1,
+      "ecmwf": 4.5,
+      "hrrr": null,
+      "metar": null,
+      "best": 4.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T22:02:58.601136+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.9,
+      "ecmwf": 4.5,
+      "hrrr": null,
+      "metar": null,
+      "best": 4.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-29T22:03:34.356613+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.9,
+      "ecmwf": 4.5,
+      "hrrr": null,
+      "metar": null,
+      "best": 4.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-30T06:43:28.362198+00:00",
+      "horizon": "D+0",
+      "hours_left": 5.3,
+      "ecmwf_raw": 7.3,
+      "hrrr_raw": null,
+      "metar_raw": 4.0,
+      "best_raw": 7.3,
+      "best": 7.8,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T07:44:37.521665+00:00",
+      "horizon": "D+0",
+      "hours_left": 4.3,
+      "ecmwf_raw": 7.3,
+      "hrrr_raw": null,
+      "metar_raw": 3.0,
+      "best_raw": 7.3,
+      "best": 7.8,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T08:46:08.211790+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.2,
+      "ecmwf_raw": 7.0,
+      "hrrr_raw": null,
+      "metar_raw": 4.0,
+      "best_raw": 7.0,
+      "best": 7.5,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T09:47:52.341132+00:00",
+      "horizon": "D+0",
+      "hours_left": 2.2,
+      "ecmwf_raw": 7.0,
+      "hrrr_raw": null,
+      "metar_raw": 4.0,
+      "best_raw": 7.0,
+      "best": 7.5,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T10:49:33.304768+00:00",
+      "horizon": "D+0",
+      "hours_left": 1.2,
+      "ecmwf_raw": 7.0,
+      "hrrr_raw": null,
+      "metar_raw": 4.0,
+      "best_raw": 7.0,
+      "best": 7.5,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T11:51:06.261662+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.1,
+      "ecmwf_raw": 7.0,
+      "hrrr_raw": null,
+      "metar_raw": 6.0,
+      "best_raw": 7.0,
+      "best": 7.5,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T12:53:30.849036+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 7.0,
+      "hrrr_raw": null,
+      "metar_raw": 7.0,
+      "best_raw": 7.0,
+      "best": 7.5,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T13:55:11.661849+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 5.8,
+      "hrrr_raw": null,
+      "metar_raw": 3.0,
+      "best_raw": 5.8,
+      "best": 6.3,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T14:15:52.272628+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 5.8,
+      "hrrr_raw": null,
+      "metar_raw": 3.0,
+      "best_raw": 5.8,
+      "best": 6.3,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T15:17:32.329305+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 5.8,
+      "hrrr_raw": null,
+      "metar_raw": 5.0,
+      "best_raw": 5.8,
+      "best": 6.3,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T16:19:36.580398+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 5.8,
+      "hrrr_raw": null,
+      "metar_raw": 6.0,
+      "best_raw": 5.8,
+      "best": 6.3,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T17:21:55.707971+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 5.8,
+      "hrrr_raw": null,
+      "metar_raw": 3.0,
+      "best_raw": 5.8,
+      "best": 6.3,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T18:24:28.000283+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 5.8,
+      "hrrr_raw": null,
+      "metar_raw": 1.0,
+      "best_raw": 5.8,
+      "best": 6.3,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T19:26:40.525361+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 5.8,
+      "hrrr_raw": null,
+      "metar_raw": 1.0,
+      "best_raw": 5.8,
+      "best": 6.3,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T20:29:07.301761+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 6.1,
+      "hrrr_raw": null,
+      "metar_raw": 1.0,
+      "best_raw": 6.1,
+      "best": 6.6,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T21:31:44.349369+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 6.1,
+      "hrrr_raw": null,
+      "metar_raw": 1.0,
+      "best_raw": 6.1,
+      "best": 6.6,
+      "best_source": "ecmwf",
+      "bias": 0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T22:34:19.139407+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 1.0,
+      "best_raw": null,
+      "best": null,
+      "best_source": null,
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-03-30T23:37:07.765448+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 1.0,
+      "best_raw": null,
+      "best": null,
+      "best_source": null,
+      "bias": 0.0,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-29T21:14:34.191349+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.38
+    },
+    {
+      "ts": "2026-03-29T21:54:26.530024+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-29T22:02:58.601136+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-29T22:03:34.356613+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.365
+    },
+    {
+      "ts": "2026-03-30T06:43:28.362198+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.38
+    },
+    {
+      "ts": "2026-03-30T07:44:37.521665+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.43
+    },
+    {
+      "ts": "2026-03-30T08:46:08.211790+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.405
+    },
+    {
+      "ts": "2026-03-30T09:47:52.341132+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.61
+    },
+    {
+      "ts": "2026-03-30T10:49:33.304768+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.605
+    },
+    {
+      "ts": "2026-03-30T11:51:06.261662+00:00",
+      "top_bucket": "6.0-6.0C",
+      "top_price": 0.565
+    },
+    {
+      "ts": "2026-03-30T12:53:30.849036+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.655
+    },
+    {
+      "ts": "2026-03-30T13:55:11.661849+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9745
+    },
+    {
+      "ts": "2026-03-30T14:15:52.272628+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.977
+    },
+    {
+      "ts": "2026-03-30T15:17:32.329305+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.984
+    },
+    {
+      "ts": "2026-03-30T16:19:36.580398+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9915
+    },
+    {
+      "ts": "2026-03-30T17:21:55.707971+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9975
+    },
+    {
+      "ts": "2026-03-30T18:24:28.000283+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-03-30T19:26:40.525361+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-30T20:29:07.301761+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-30T21:31:44.349369+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-30T22:34:19.139407+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-30T23:37:07.765448+00:00",
+      "top_bucket": "7.0-7.0C",
+      "top_price": 0.9995
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Munich be 0°C or below on March 30?",
+      "market_id": "1779583",
+      "range": [
+        -999.0,
+        0.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 1010.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 1°C on March 30?",
+      "market_id": "1779584",
+      "range": [
+        1.0,
+        1.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 1012.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 2°C on March 30?",
+      "market_id": "1779585",
+      "range": [
+        2.0,
+        2.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 618.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 3°C on March 30?",
+      "market_id": "1779586",
+      "range": [
+        3.0,
+        3.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 2094.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 4°C on March 30?",
+      "market_id": "1779587",
+      "range": [
+        4.0,
+        4.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 10532.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 5°C on March 30?",
+      "market_id": "1779588",
+      "range": [
+        5.0,
+        5.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 8435.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 6°C on March 30?",
+      "market_id": "1779589",
+      "range": [
+        6.0,
+        6.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 11793.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 7°C on March 30?",
+      "market_id": "1779590",
+      "range": [
+        7.0,
+        7.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.0005,
+      "price": 0.9995,
+      "spread": -0.999,
+      "volume": 13611.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 8°C on March 30?",
+      "market_id": "1779591",
+      "range": [
+        8.0,
+        8.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 21053.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 9°C on March 30?",
+      "market_id": "1779592",
+      "range": [
+        9.0,
+        9.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 7647.0
+    },
+    {
+      "question": "Will the highest temperature in Munich be 10°C or higher on March 30?",
+      "market_id": "1779593",
+      "range": [
+        10.0,
+        999.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 7298.0
+    }
+  ],
+  "created_at": "2026-03-29T21:14:36.391116+00:00"
+}

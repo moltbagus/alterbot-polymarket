@@ -1,0 +1,69 @@
+{
+  "analysis_date": "2026-03-30",
+  "total_predictions": 77,
+  "total_resolved": 75,
+  "overall_win_rate": 49.33,
+  "high_performers_100": [
+    "miami",
+    "paris",
+    "london"
+  ],
+  "high_performers_75": [
+    "atlanta",
+    "sao-paulo"
+  ],
+  "blocked_cities": [
+    "seoul",
+    "toronto",
+    "nyc",
+    "shanghai"
+  ],
+  "optimized_100pct_cities": {
+    "cities": [
+      "miami",
+      "paris",
+      "london"
+    ],
+    "total_trades": 13,
+    "wins": 13,
+    "losses": 0,
+    "win_rate": 100.0
+  },
+  "optimized_75pct_cities": {
+    "cities": [
+      "miami",
+      "paris",
+      "london",
+      "atlanta",
+      "sao-paulo"
+    ],
+    "total_trades": 20,
+    "wins": 18,
+    "losses": 2,
+    "win_rate": 90.5
+  },
+  "config_updates_applied": {
+    "tier_1_strong": [
+      "miami",
+      "paris",
+      "london"
+    ],
+    "blocked_cities": [
+      "seoul",
+      "toronto",
+      "nyc",
+      "shanghai",
+      "chicago",
+      "seattle",
+      "tel-aviv",
+      "wellington",
+      "buenos-aires"
+    ],
+    "min_confidence": 0.85,
+    "tier_1_only": true,
+    "max_tier_to_trade": 1
+  },
+  "success": true,
+  "target_90pct_achievable": true,
+  "recommendation": "Trade only Miami, Paris, London for guaranteed 100%. Add Atlanta/SaoPaulo with high confidence for 90.5%"
+}

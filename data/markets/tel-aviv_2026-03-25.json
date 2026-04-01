@@ -1,0 +1,518 @@
+{
+  "city": "tel-aviv",
+  "city_name": "Tel Aviv",
+  "date": "2026-03-25",
+  "unit": "C",
+  "station": "LLBG",
+  "event_end_date": "2026-03-25T12:00:00Z",
+  "hours_at_discovery": 7.2,
+  "status": "closed",
+  "position": {
+    "market_id": "1670855",
+    "question": "Will the highest temperature in Tel Aviv be 18°C on March 25?",
+    "bucket_low": 18.0,
+    "bucket_high": 18.0,
+    "entry_price": 0.36,
+    "bid_at_entry": 0.33,
+    "spread": 0.03,
+    "shares": 2.78,
+    "cost": 1.0,
+    "p": 1.0,
+    "ev": 1.7778,
+    "kelly": 0.25,
+    "forecast_temp": 17.5,
+    "forecast_src": "ecmwf",
+    "sigma": 1.2,
+    "opened_at": "2026-03-25T05:00:59.042375+00:00",
+    "status": "closed",
+    "pnl": -0.99,
+    "exit_price": 0.005,
+    "close_reason": "stop_loss",
+    "closed_at": "2026-03-25T10:43:18.979621+00:00",
+    "stop_price": 0.36,
+    "trailing_activated": true
+  },
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-25T04:47:28.743021+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.2,
+      "ecmwf": 17.5,
+      "hrrr": null,
+      "metar": 11.0,
+      "best": 17.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T04:52:28.493346+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.1,
+      "ecmwf": 17.5,
+      "hrrr": null,
+      "metar": 11.0,
+      "best": 17.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T05:00:59.042375+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.0,
+      "ecmwf": 17.5,
+      "hrrr": null,
+      "metar": 11.0,
+      "best": 17.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T06:01:29.777097+00:00",
+      "horizon": "D+0",
+      "hours_left": 6.0,
+      "ecmwf": 17.5,
+      "hrrr": null,
+      "metar": 12.0,
+      "best": 17.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T07:01:49.405715+00:00",
+      "horizon": "D+0",
+      "hours_left": 5.0,
+      "ecmwf": 17.5,
+      "hrrr": null,
+      "metar": 12.0,
+      "best": 17.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T08:04:44.326621+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.9,
+      "ecmwf": 17.5,
+      "hrrr": null,
+      "metar": 14.0,
+      "best": 17.5,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T08:19:01.412071+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.7,
+      "ecmwf": 17.9,
+      "hrrr": null,
+      "metar": 14.0,
+      "best": 17.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T09:01:35.398632+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.0,
+      "ecmwf": 17.9,
+      "hrrr": null,
+      "metar": 15.0,
+      "best": 17.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T10:01:50.443489+00:00",
+      "horizon": "D+0",
+      "hours_left": 2.0,
+      "ecmwf": 17.9,
+      "hrrr": null,
+      "metar": 18.0,
+      "best": 17.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T11:02:13.597520+00:00",
+      "horizon": "D+0",
+      "hours_left": 1.0,
+      "ecmwf": 17.9,
+      "hrrr": null,
+      "metar": 18.0,
+      "best": 17.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T12:02:10.008070+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 17.9,
+      "hrrr": null,
+      "metar": 19.0,
+      "best": 17.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T13:02:18.810518+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 17.9,
+      "hrrr": null,
+      "metar": 18.0,
+      "best": 17.9,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T14:02:10.047640+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.4,
+      "hrrr": null,
+      "metar": 18.0,
+      "best": 18.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T15:02:30.408349+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.4,
+      "hrrr": null,
+      "metar": 16.0,
+      "best": 18.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T16:02:45.083026+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.4,
+      "hrrr": null,
+      "metar": 12.0,
+      "best": 18.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T17:02:45.146022+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.4,
+      "hrrr": null,
+      "metar": 12.0,
+      "best": 18.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T18:02:42.167094+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.4,
+      "hrrr": null,
+      "metar": 13.0,
+      "best": 18.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T19:02:33.039307+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.4,
+      "hrrr": null,
+      "metar": 12.0,
+      "best": 18.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T20:02:57.837478+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.4,
+      "hrrr": null,
+      "metar": 12.0,
+      "best": 18.4,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T21:03:14.776209+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 18.6,
+      "hrrr": null,
+      "metar": 13.0,
+      "best": 18.6,
+      "best_source": "ecmwf"
+    },
+    {
+      "ts": "2026-03-25T22:03:03.042955+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": 13.0,
+      "best": null,
+      "best_source": null
+    },
+    {
+      "ts": "2026-03-25T23:02:58.487606+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": null,
+      "hrrr": null,
+      "metar": 12.0,
+      "best": null,
+      "best_source": null
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-25T04:47:28.743021+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.34
+    },
+    {
+      "ts": "2026-03-25T04:52:28.493346+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.375
+    },
+    {
+      "ts": "2026-03-25T05:00:59.042375+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.375
+    },
+    {
+      "ts": "2026-03-25T06:01:29.777097+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.47
+    },
+    {
+      "ts": "2026-03-25T07:01:49.405715+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.45
+    },
+    {
+      "ts": "2026-03-25T08:04:44.326621+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.435
+    },
+    {
+      "ts": "2026-03-25T08:19:01.412071+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.445
+    },
+    {
+      "ts": "2026-03-25T09:01:35.398632+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.53
+    },
+    {
+      "ts": "2026-03-25T10:01:50.443489+00:00",
+      "top_bucket": "18.0-18.0C",
+      "top_price": 0.58
+    },
+    {
+      "ts": "2026-03-25T11:02:13.597520+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.535
+    },
+    {
+      "ts": "2026-03-25T12:02:10.008070+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.87
+    },
+    {
+      "ts": "2026-03-25T13:02:18.810518+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.96
+    },
+    {
+      "ts": "2026-03-25T14:02:10.047640+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.989
+    },
+    {
+      "ts": "2026-03-25T15:02:30.408349+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9965
+    },
+    {
+      "ts": "2026-03-25T16:02:45.083026+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-03-25T17:02:45.146022+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T18:02:42.167094+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T19:02:33.039307+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T20:02:57.837478+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T21:03:14.776209+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T22:03:03.042955+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T23:02:58.487606+00:00",
+      "top_bucket": "19.0-19.0C",
+      "top_price": 0.9995
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Tel Aviv be 14°C or below on March 25?",
+      "market_id": "1670851",
+      "range": [
+        -999.0,
+        14.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 6697.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 15°C on March 25?",
+      "market_id": "1670852",
+      "range": [
+        15.0,
+        15.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 6222.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 16°C on March 25?",
+      "market_id": "1670853",
+      "range": [
+        16.0,
+        16.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 28475.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 17°C on March 25?",
+      "market_id": "1670854",
+      "range": [
+        17.0,
+        17.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 34348.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 18°C on March 25?",
+      "market_id": "1670855",
+      "range": [
+        18.0,
+        18.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 27787.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 19°C on March 25?",
+      "market_id": "1670856",
+      "range": [
+        19.0,
+        19.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.0005,
+      "price": 0.9995,
+      "spread": -0.999,
+      "volume": 14088.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 20°C on March 25?",
+      "market_id": "1670857",
+      "range": [
+        20.0,
+        20.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 8457.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 21°C on March 25?",
+      "market_id": "1670858",
+      "range": [
+        21.0,
+        21.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 6423.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 22°C on March 25?",
+      "market_id": "1670859",
+      "range": [
+        22.0,
+        22.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 3859.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 23°C on March 25?",
+      "market_id": "1670860",
+      "range": [
+        23.0,
+        23.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 4048.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 24°C or higher on March 25?",
+      "market_id": "1670861",
+      "range": [
+        24.0,
+        999.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.9995,
+      "price": 0.0005,
+      "spread": 0.999,
+      "volume": 4099.0
+    }
+  ],
+  "created_at": "2026-03-25T04:47:30.255985+00:00"
+}

@@ -1,0 +1,251 @@
+{
+  "city": "atlanta",
+  "city_name": "Atlanta",
+  "date": "2026-04-03",
+  "unit": "F",
+  "station": "KATL",
+  "event_end_date": "2026-04-03T12:00:00Z",
+  "hours_at_discovery": 47.7,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-01T12:18:38.675692+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.7,
+      "ecmwf_raw": 79,
+      "hrrr_raw": 80,
+      "metar_raw": null,
+      "best_raw": 80,
+      "best": 82.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:20:57.817129+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.6,
+      "ecmwf_raw": 79,
+      "hrrr_raw": 80,
+      "metar_raw": null,
+      "best_raw": 80,
+      "best": 82.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:27:33.937425+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.5,
+      "ecmwf_raw": 79,
+      "hrrr_raw": 80,
+      "metar_raw": null,
+      "best_raw": 80,
+      "best": 82.7,
+      "best_source": "hrrr",
+      "bias": 1.5,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-01T12:18:38.675692+00:00",
+      "top_bucket": "82.0-999.0F",
+      "top_price": 0.535
+    },
+    {
+      "ts": "2026-04-01T12:20:57.817129+00:00",
+      "top_bucket": "82.0-999.0F",
+      "top_price": 0.535
+    },
+    {
+      "ts": "2026-04-01T12:27:33.937425+00:00",
+      "top_bucket": "82.0-999.0F",
+      "top_price": 0.52
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Atlanta be 63°F or below on April 3?",
+      "market_id": "1780784",
+      "range": [
+        -999.0,
+        63.0
+      ],
+      "bid": 0.997,
+      "ask": 0.997,
+      "price": 0.997,
+      "spread": 0.0,
+      "volume": 972.0,
+      "is_binary": true,
+      "yes_price": 0.997,
+      "no_price": 0.003
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 64-65°F on April 3?",
+      "market_id": "1780785",
+      "range": [
+        64.0,
+        65.0
+      ],
+      "bid": 0.9985,
+      "ask": 0.9985,
+      "price": 0.9985,
+      "spread": 0.0,
+      "volume": 528.0,
+      "is_binary": true,
+      "yes_price": 0.9985,
+      "no_price": 0.0015
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 66-67°F on April 3?",
+      "market_id": "1780786",
+      "range": [
+        66.0,
+        67.0
+      ],
+      "bid": 0.9965,
+      "ask": 0.9965,
+      "price": 0.9965,
+      "spread": 0.0,
+      "volume": 602.0,
+      "is_binary": true,
+      "yes_price": 0.9965,
+      "no_price": 0.0035
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 68-69°F on April 3?",
+      "market_id": "1780787",
+      "range": [
+        68.0,
+        69.0
+      ],
+      "bid": 0.996,
+      "ask": 0.996,
+      "price": 0.996,
+      "spread": 0.0,
+      "volume": 425.0,
+      "is_binary": true,
+      "yes_price": 0.996,
+      "no_price": 0.004
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 70-71°F on April 3?",
+      "market_id": "1780788",
+      "range": [
+        70.0,
+        71.0
+      ],
+      "bid": 0.996,
+      "ask": 0.996,
+      "price": 0.996,
+      "spread": 0.0,
+      "volume": 812.0,
+      "is_binary": true,
+      "yes_price": 0.996,
+      "no_price": 0.004
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 72-73°F on April 3?",
+      "market_id": "1780789",
+      "range": [
+        72.0,
+        73.0
+      ],
+      "bid": 0.9935,
+      "ask": 0.9935,
+      "price": 0.9935,
+      "spread": 0.0,
+      "volume": 483.0,
+      "is_binary": true,
+      "yes_price": 0.9935,
+      "no_price": 0.0065
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 74-75°F on April 3?",
+      "market_id": "1780790",
+      "range": [
+        74.0,
+        75.0
+      ],
+      "bid": 0.95,
+      "ask": 0.95,
+      "price": 0.95,
+      "spread": 0.0,
+      "volume": 548.0,
+      "is_binary": true,
+      "yes_price": 0.95,
+      "no_price": 0.05
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 76-77°F on April 3?",
+      "market_id": "1780791",
+      "range": [
+        76.0,
+        77.0
+      ],
+      "bid": 0.935,
+      "ask": 0.935,
+      "price": 0.935,
+      "spread": 0.0,
+      "volume": 520.0,
+      "is_binary": true,
+      "yes_price": 0.935,
+      "no_price": 0.065
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 78-79°F on April 3?",
+      "market_id": "1780792",
+      "range": [
+        78.0,
+        79.0
+      ],
+      "bid": 0.82,
+      "ask": 0.82,
+      "price": 0.82,
+      "spread": 0.0,
+      "volume": 673.0,
+      "is_binary": true,
+      "yes_price": 0.82,
+      "no_price": 0.18
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 80-81°F on April 3?",
+      "market_id": "1780793",
+      "range": [
+        80.0,
+        81.0
+      ],
+      "bid": 0.73,
+      "ask": 0.73,
+      "price": 0.73,
+      "spread": 0.0,
+      "volume": 625.0,
+      "is_binary": true,
+      "yes_price": 0.73,
+      "no_price": 0.27
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be 82°F or higher on April 3?",
+      "market_id": "1780794",
+      "range": [
+        82.0,
+        999.0
+      ],
+      "bid": 0.52,
+      "ask": 0.52,
+      "price": 0.52,
+      "spread": 0.0,
+      "volume": 1121.0,
+      "is_binary": true,
+      "yes_price": 0.52,
+      "no_price": 0.48
+    }
+  ],
+  "created_at": "2026-04-01T12:18:41.377425+00:00"
+}

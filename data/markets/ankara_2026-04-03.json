@@ -1,0 +1,251 @@
+{
+  "city": "ankara",
+  "city_name": "Ankara",
+  "date": "2026-04-03",
+  "unit": "C",
+  "station": "LTAC",
+  "event_end_date": "2026-04-03T12:00:00Z",
+  "hours_at_discovery": 47.7,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-01T12:18:49.530090+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.7,
+      "ecmwf_raw": 13.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.4,
+      "best": 14.4,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:21:09.578677+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.6,
+      "ecmwf_raw": 13.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.4,
+      "best": 14.4,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:27:44.112224+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.5,
+      "ecmwf_raw": 13.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.4,
+      "best": 14.4,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-01T12:18:49.530090+00:00",
+      "top_bucket": "-999.0-7.0C",
+      "top_price": 0.997
+    },
+    {
+      "ts": "2026-04-01T12:21:09.578677+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.905
+    },
+    {
+      "ts": "2026-04-01T12:27:44.112224+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.905
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Ankara be 7°C or below on April 3?",
+      "market_id": "1780817",
+      "range": [
+        -999.0,
+        7.0
+      ],
+      "bid": 0.997,
+      "ask": 0.997,
+      "price": 0.997,
+      "spread": 0.0,
+      "volume": 884.0,
+      "is_binary": true,
+      "yes_price": 0.997,
+      "no_price": 0.003
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 8°C on April 3?",
+      "market_id": "1780818",
+      "range": [
+        8.0,
+        8.0
+      ],
+      "bid": 0.9955,
+      "ask": 0.9955,
+      "price": 0.9955,
+      "spread": 0.0,
+      "volume": 670.0,
+      "is_binary": true,
+      "yes_price": 0.9955,
+      "no_price": 0.0045
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 9°C on April 3?",
+      "market_id": "1780819",
+      "range": [
+        9.0,
+        9.0
+      ],
+      "bid": 0.9785,
+      "ask": 0.9785,
+      "price": 0.9785,
+      "spread": 0.0,
+      "volume": 1211.0,
+      "is_binary": true,
+      "yes_price": 0.9785,
+      "no_price": 0.0215
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 10°C on April 3?",
+      "market_id": "1780820",
+      "range": [
+        10.0,
+        10.0
+      ],
+      "bid": 0.955,
+      "ask": 0.955,
+      "price": 0.955,
+      "spread": 0.0,
+      "volume": 554.0,
+      "is_binary": true,
+      "yes_price": 0.955,
+      "no_price": 0.045
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 11°C on April 3?",
+      "market_id": "1780821",
+      "range": [
+        11.0,
+        11.0
+      ],
+      "bid": 0.825,
+      "ask": 0.825,
+      "price": 0.825,
+      "spread": 0.0,
+      "volume": 851.0,
+      "is_binary": true,
+      "yes_price": 0.825,
+      "no_price": 0.175
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 12°C on April 3?",
+      "market_id": "1780822",
+      "range": [
+        12.0,
+        12.0
+      ],
+      "bid": 0.675,
+      "ask": 0.675,
+      "price": 0.675,
+      "spread": 0.0,
+      "volume": 701.0,
+      "is_binary": true,
+      "yes_price": 0.675,
+      "no_price": 0.325
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 13°C on April 3?",
+      "market_id": "1780823",
+      "range": [
+        13.0,
+        13.0
+      ],
+      "bid": 0.63,
+      "ask": 0.63,
+      "price": 0.63,
+      "spread": 0.0,
+      "volume": 775.0,
+      "is_binary": true,
+      "yes_price": 0.63,
+      "no_price": 0.37
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 14°C on April 3?",
+      "market_id": "1780824",
+      "range": [
+        14.0,
+        14.0
+      ],
+      "bid": 0.905,
+      "ask": 0.905,
+      "price": 0.905,
+      "spread": 0.0,
+      "volume": 670.0,
+      "is_binary": true,
+      "yes_price": 0.905,
+      "no_price": 0.095
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 15°C on April 3?",
+      "market_id": "1780825",
+      "range": [
+        15.0,
+        15.0
+      ],
+      "bid": 0.97,
+      "ask": 0.97,
+      "price": 0.97,
+      "spread": 0.0,
+      "volume": 506.0,
+      "is_binary": true,
+      "yes_price": 0.97,
+      "no_price": 0.03
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 16°C on April 3?",
+      "market_id": "1780826",
+      "range": [
+        16.0,
+        16.0
+      ],
+      "bid": 0.9925,
+      "ask": 0.9925,
+      "price": 0.9925,
+      "spread": 0.0,
+      "volume": 581.0,
+      "is_binary": true,
+      "yes_price": 0.9925,
+      "no_price": 0.0075
+    },
+    {
+      "question": "Will the highest temperature in Ankara be 17°C or higher on April 3?",
+      "market_id": "1780827",
+      "range": [
+        17.0,
+        999.0
+      ],
+      "bid": 0.996,
+      "ask": 0.996,
+      "price": 0.996,
+      "spread": 0.0,
+      "volume": 851.0,
+      "is_binary": true,
+      "yes_price": 0.996,
+      "no_price": 0.004
+    }
+  ],
+  "created_at": "2026-04-01T12:18:51.967824+00:00"
+}

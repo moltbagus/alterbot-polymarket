@@ -1,0 +1,494 @@
+{
+  "city": "atlanta",
+  "city_name": "Atlanta",
+  "date": "2026-03-25",
+  "unit": "F",
+  "station": "KATL",
+  "event_end_date": "2026-03-25T12:00:00Z",
+  "hours_at_discovery": 7.2,
+  "status": "closed",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-25T04:46:56.425859+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.2,
+      "ecmwf": 70,
+      "hrrr": 68,
+      "metar": 59,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T04:52:02.198259+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.1,
+      "ecmwf": 70,
+      "hrrr": 68,
+      "metar": 59,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T05:00:36.548788+00:00",
+      "horizon": "D+0",
+      "hours_left": 7.0,
+      "ecmwf": 70,
+      "hrrr": 68,
+      "metar": 57,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T06:01:07.393562+00:00",
+      "horizon": "D+0",
+      "hours_left": 6.0,
+      "ecmwf": 70,
+      "hrrr": 69,
+      "metar": 55,
+      "best": 69,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T07:01:27.303044+00:00",
+      "horizon": "D+0",
+      "hours_left": 5.0,
+      "ecmwf": 70,
+      "hrrr": 68,
+      "metar": 54,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T08:04:20.020119+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.9,
+      "ecmwf": 70,
+      "hrrr": 69,
+      "metar": 53,
+      "best": 69,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T08:18:37.217684+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.7,
+      "ecmwf": 69,
+      "hrrr": 69,
+      "metar": 53,
+      "best": 69,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T09:01:11.518880+00:00",
+      "horizon": "D+0",
+      "hours_left": 3.0,
+      "ecmwf": 69,
+      "hrrr": 69,
+      "metar": 52,
+      "best": 69,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T10:01:29.155818+00:00",
+      "horizon": "D+0",
+      "hours_left": 2.0,
+      "ecmwf": 69,
+      "hrrr": 70,
+      "metar": 51,
+      "best": 70,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T11:01:49.914708+00:00",
+      "horizon": "D+0",
+      "hours_left": 1.0,
+      "ecmwf": 69,
+      "hrrr": 70,
+      "metar": 52,
+      "best": 70,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T12:01:40.514964+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 69,
+      "hrrr": 69,
+      "metar": 52,
+      "best": 69,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T13:01:53.981662+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 69,
+      "hrrr": 69,
+      "metar": 52,
+      "best": 69,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T14:01:44.094177+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 70,
+      "hrrr": 68,
+      "metar": 53,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T15:02:02.795018+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 70,
+      "hrrr": 68,
+      "metar": 55,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T16:02:06.898953+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 70,
+      "hrrr": 68,
+      "metar": 57,
+      "best": 68,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T17:02:09.590772+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 70,
+      "hrrr": 67,
+      "metar": 60,
+      "best": 67,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T18:02:17.170855+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 70,
+      "hrrr": 67,
+      "metar": 62,
+      "best": 67,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T19:02:09.661600+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 70,
+      "hrrr": 66,
+      "metar": 64,
+      "best": 66,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T20:02:33.775254+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 70,
+      "hrrr": 66,
+      "metar": 67,
+      "best": 66,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T21:02:47.574482+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 67,
+      "hrrr": 67,
+      "metar": 68,
+      "best": 67,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T22:02:36.380367+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 67,
+      "hrrr": 67,
+      "metar": 68,
+      "best": 67,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-25T23:02:34.993675+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf": 67,
+      "hrrr": 68,
+      "metar": 67,
+      "best": 68,
+      "best_source": "hrrr"
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-25T04:46:56.425859+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9945
+    },
+    {
+      "ts": "2026-03-25T04:52:02.198259+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9945
+    },
+    {
+      "ts": "2026-03-25T05:00:36.548788+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9945
+    },
+    {
+      "ts": "2026-03-25T06:01:07.393562+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9945
+    },
+    {
+      "ts": "2026-03-25T07:01:27.303044+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.996
+    },
+    {
+      "ts": "2026-03-25T08:04:20.020119+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9945
+    },
+    {
+      "ts": "2026-03-25T08:18:37.217684+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.992
+    },
+    {
+      "ts": "2026-03-25T09:01:11.518880+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9945
+    },
+    {
+      "ts": "2026-03-25T10:01:29.155818+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.995
+    },
+    {
+      "ts": "2026-03-25T11:01:49.914708+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9955
+    },
+    {
+      "ts": "2026-03-25T12:01:40.514964+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-03-25T13:01:53.981662+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-03-25T14:01:44.094177+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9945
+    },
+    {
+      "ts": "2026-03-25T15:02:02.795018+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.996
+    },
+    {
+      "ts": "2026-03-25T16:02:06.898953+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.996
+    },
+    {
+      "ts": "2026-03-25T17:02:09.590772+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T18:02:17.170855+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T19:02:09.661600+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T20:02:33.775254+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-03-25T21:02:47.574482+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 1.0
+    },
+    {
+      "ts": "2026-03-25T22:02:36.380367+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 1.0
+    },
+    {
+      "ts": "2026-03-25T23:02:34.993675+00:00",
+      "top_bucket": "58.0-999.0F",
+      "top_price": 1.0
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Atlanta be 39°F or below on March 25?",
+      "market_id": "1670774",
+      "range": [
+        -999.0,
+        39.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 23777.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 40-41°F on March 25?",
+      "market_id": "1670775",
+      "range": [
+        40.0,
+        41.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 42-43°F on March 25?",
+      "market_id": "1670776",
+      "range": [
+        42.0,
+        43.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 10616.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 44-45°F on March 25?",
+      "market_id": "1670777",
+      "range": [
+        44.0,
+        45.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 10102.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 46-47°F on March 25?",
+      "market_id": "1670778",
+      "range": [
+        46.0,
+        47.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 9474.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 48-49°F on March 25?",
+      "market_id": "1670779",
+      "range": [
+        48.0,
+        49.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 32613.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 50-51°F on March 25?",
+      "market_id": "1670780",
+      "range": [
+        50.0,
+        51.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 11474.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 52-53°F on March 25?",
+      "market_id": "1670781",
+      "range": [
+        52.0,
+        53.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 12411.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 54-55°F on March 25?",
+      "market_id": "1670782",
+      "range": [
+        54.0,
+        55.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 22393.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be between 56-57°F on March 25?",
+      "market_id": "1670783",
+      "range": [
+        56.0,
+        57.0
+      ],
+      "bid": 0.0,
+      "ask": 1.0,
+      "price": 0.0,
+      "spread": 1.0,
+      "volume": 25560.0
+    },
+    {
+      "question": "Will the highest temperature in Atlanta be 58°F or higher on March 25?",
+      "market_id": "1670784",
+      "range": [
+        58.0,
+        999.0
+      ],
+      "bid": 1.0,
+      "ask": 0.0,
+      "price": 1.0,
+      "spread": -1.0,
+      "volume": 64330.0
+    }
+  ],
+  "created_at": "2026-03-25T04:46:58.498072+00:00"
+}

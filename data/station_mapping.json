@@ -1,0 +1,67 @@
+{
+  "tokyo": {
+    "station": "RJTT",
+    "source": "Weather Underground (Polymarket resolution)",
+    "url": "https://www.wunderground.com/history/daily/jp/tokyo/RJTT"
+  },
+  "singapore": {
+    "station": "WSSS",
+    "source": "Weather Underground (Polymarket resolution)",
+    "url": "https://www.wunderground.com/history/daily/sg/singapore/WSSS"
+  },
+  "taipei": {
+    "station": "RCTP",
+    "source": "Weather Underground (Polymarket resolution)",
+    "url": "https://www.wunderground.com/history/daily/tw/taoyuan/RCTP"
+  },
+  "seoul": {
+    "station": "RKSI",
+    "source": "Weather Underground (Polymarket resolution)",
+    "url": "https://www.wunderground.com/history/daily/kr/incheon/RKSI"
+  },
+  "hong kong": {
+    "station": "VHHH",
+    "source": "Weather Underground (Polymarket resolution)",
+    "url": "https://www.wunderground.com/history/daily/hk/hong-kong/VHHH"
+  },
+  "shanghai": {
+    "station": "ZSPD",
+    "source": "China Meteorological Administration (CMA)",
+    "url": "https://www.wunderground.com/history/daily/cn/shanghai/ZSPD"
+  },
+  "beijing": {
+    "station": "ZBAA",
+    "source": "Weather Underground (Polymarket resolution)",
+    "url": "https://www.wunderground.com/history/daily/cn/beijing/ZBAA"
+  },
+  "london": {
+    "station": "EGLC",
+    "source": "Weather Underground (Polymarket resolution)",
+    "url": "https://www.wunderground.com/history/daily/uk/london/EGLC"
+  },
+  "paris": {
+    "station": "LFPG",
+    "source": "M\u00e9t\u00e9o-France",
+    "url": "https://www.wunderground.com/history/daily/fr/paris/LFPG"
+  },
+  "new york city": {
+    "station": "KNYC",
+    "source": "NOAA National Weather Service",
+    "url": "https://www.wunderground.com/history/daily/us/ny/new-york-city/KNYC"
+  },
+  "chicago": {
+    "station": "KORD",
+    "source": "NOAA National Weather Service",
+    "url": "https://www.wunderground.com/history/daily/us/il/chicago/KORD"
+  },
+  "mumbai": {
+    "station": "VABB",
+    "source": "India Meteorological Department (IMD)",
+    "url": "https://www.wunderground.com/history/daily/in/mumbai/VABB"
+  },
+  "delhi": {
+    "station": "VIDP",
+    "source": "India Meteorological Department (IMD)",
+    "url": "https://www.wunderground.com/history/daily/in/new-delhi/VIDP"
+  }
+}

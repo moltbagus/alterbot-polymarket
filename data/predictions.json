@@ -1,0 +1,11 @@
+[
+  {
+    "city": "tokyo",
+    "date": "2026-03-28",
+    "forecast": 17.0,
+    "actual": null,
+    "outcome": "17C",
+    "ev": 0.2,
+    "timestamp": "2026-03-27T20:32:40.762626"
+  }
+]

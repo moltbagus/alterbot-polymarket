@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-03-31T05:31:53.197355",
+  "city": "tokyo",
+  "target_temp": 509,
+  "target_date": "2026-04-01",
+  "unit": "C",
+  "market_id": "1779985",
+  "p": 0.992,
+  "price": 0.26,
+  "kelly": 0.1937,
+  "fundamentals": {
+    "confidence": 25,
+    "forecast_max": 18.9,
+    "can_reach": false
+  },
+  "sentiment": {
+    "yes_price": 0.26,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 2173.442409
+  },
+  "technical": {
+    "pattern": "NORMAL",
+    "deviation": 0.8999999999999986
+  },
+  "bull_case": "# Bull Case - YES Vote\n1. Technical: +0.9\u00b0C above historical - warm anomaly supports bullish\n\n**Recommendation: YES** (conviction: 60%)\n",
+  "bear_case": "# Bear Case - NO Vote\n1. CRITICAL: Forecast 18.9\u00b0C CANNOT reach target 509\u00b0C (gap: +490.1\u00b0C)\n2. Fundamentals: Low confidence (25%) - uncertainty is high\n3. Market: YES at 26% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 80%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Tokyo 509\u00b0C\n\n\ud83d\udeab **REJECTED: REJECTED: Forecast cannot reach target temperature. Mathematically impossible to resolve YES.**\n\n## Analysis Summary\n- Forecast Max: 18.9\u00b0C\n- Target: 509\u00b0C\n- Gap: +490.1\u00b0C\n- Fundamentals Conf: 25%\n- Market YES: 26%\n- Pattern: NORMAL\n\n## Decision: NO_BET\n**Verdict:** REJECTED\n**Conviction:** 0/10\n**Risk Score:** 100/100\n\n\u274c Trade blocked by Risk Manager - cannot reach target\n",
+    "verdict": "REJECTED",
+    "position": "NO_BET",
+    "conviction": 0.0,
+    "risk_score": 100,
+    "approved": false,
+    "can_reach": false,
+    "reject_reason": "REJECTED: Forecast cannot reach target temperature. Mathematically impossible to resolve YES."
+  }
+}

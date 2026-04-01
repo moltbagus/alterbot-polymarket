@@ -1,0 +1,366 @@
+{
+  "city": "nyc",
+  "city_name": "New York City",
+  "date": "2026-03-31",
+  "unit": "F",
+  "station": "KLGA",
+  "event_end_date": "2026-03-31T12:00:00Z",
+  "hours_at_discovery": 47.3,
+  "status": "open",
+  "position": {
+    "market_id": "1741247",
+    "question": "Will the highest temperature in New York City be between 72-73°F on March 31?",
+    "bucket_low": 72.0,
+    "bucket_high": 73.0,
+    "entry_price": 0.3,
+    "bid_at_entry": 0.29,
+    "spread": 0.01,
+    "shares": 3.33,
+    "cost": 1.0,
+    "p": 1.0,
+    "ev": 2.3333,
+    "kelly": 0.2,
+    "forecast_temp": 73,
+    "forecast_src": "hrrr",
+    "sigma": 2.0,
+    "opened_at": "2026-03-29T12:42:19.301127+00:00",
+    "status": "closed",
+    "pnl": -0.2,
+    "exit_price": 0.24,
+    "close_reason": "stop_loss",
+    "closed_at": "2026-03-29T15:15:33.022832+00:00"
+  },
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-03-29T12:42:19.301127+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.3,
+      "ecmwf": 69,
+      "hrrr": 73,
+      "metar": null,
+      "best": 73,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T13:48:01.052357+00:00",
+      "horizon": "D+2",
+      "hours_left": 46.2,
+      "ecmwf": 68,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T14:53:00.650905+00:00",
+      "horizon": "D+2",
+      "hours_left": 45.1,
+      "ecmwf": 68,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T15:58:26.552595+00:00",
+      "horizon": "D+2",
+      "hours_left": 44.0,
+      "ecmwf": 68,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T17:04:17.730262+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.9,
+      "ecmwf": 68,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T18:10:19.057776+00:00",
+      "horizon": "D+2",
+      "hours_left": 41.8,
+      "ecmwf": 68,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T19:12:07.715043+00:00",
+      "horizon": "D+2",
+      "hours_left": 40.8,
+      "ecmwf": 68,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T20:13:01.336796+00:00",
+      "horizon": "D+2",
+      "hours_left": 39.8,
+      "ecmwf": 68,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T21:14:09.791156+00:00",
+      "horizon": "D+2",
+      "hours_left": 38.8,
+      "ecmwf": 70,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T21:54:02.880813+00:00",
+      "horizon": "D+2",
+      "hours_left": 38.1,
+      "ecmwf": 70,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T22:02:37.494123+00:00",
+      "horizon": "D+2",
+      "hours_left": 38.0,
+      "ecmwf": 70,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    },
+    {
+      "ts": "2026-03-29T22:03:14.689569+00:00",
+      "horizon": "D+2",
+      "hours_left": 37.9,
+      "ecmwf": 70,
+      "hrrr": 71,
+      "metar": null,
+      "best": 71,
+      "best_source": "hrrr"
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-03-29T12:42:19.301127+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.395
+    },
+    {
+      "ts": "2026-03-29T13:48:01.052357+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.435
+    },
+    {
+      "ts": "2026-03-29T14:53:00.650905+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.32
+    },
+    {
+      "ts": "2026-03-29T15:58:26.552595+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.425
+    },
+    {
+      "ts": "2026-03-29T17:04:17.730262+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.36
+    },
+    {
+      "ts": "2026-03-29T18:10:19.057776+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.375
+    },
+    {
+      "ts": "2026-03-29T19:12:07.715043+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.375
+    },
+    {
+      "ts": "2026-03-29T20:13:01.336796+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.42
+    },
+    {
+      "ts": "2026-03-29T21:14:09.791156+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.405
+    },
+    {
+      "ts": "2026-03-29T21:54:02.880813+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.435
+    },
+    {
+      "ts": "2026-03-29T22:02:37.494123+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.415
+    },
+    {
+      "ts": "2026-03-29T22:03:14.689569+00:00",
+      "top_bucket": "74.0-999.0F",
+      "top_price": 0.415
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in New York City be 55°F or below on March 31?",
+      "market_id": "1741238",
+      "range": [
+        -999.0,
+        55.0
+      ],
+      "bid": 0.003,
+      "ask": 0.997,
+      "price": 0.003,
+      "spread": 0.994,
+      "volume": 8209.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 56-57°F on March 31?",
+      "market_id": "1741239",
+      "range": [
+        56.0,
+        57.0
+      ],
+      "bid": 0.0035,
+      "ask": 0.9965,
+      "price": 0.0035,
+      "spread": 0.993,
+      "volume": 15415.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 58-59°F on March 31?",
+      "market_id": "1741240",
+      "range": [
+        58.0,
+        59.0
+      ],
+      "bid": 0.004,
+      "ask": 0.996,
+      "price": 0.004,
+      "spread": 0.992,
+      "volume": 6550.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 60-61°F on March 31?",
+      "market_id": "1741241",
+      "range": [
+        60.0,
+        61.0
+      ],
+      "bid": 0.0145,
+      "ask": 0.9855,
+      "price": 0.0145,
+      "spread": 0.971,
+      "volume": 16015.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 62-63°F on March 31?",
+      "market_id": "1741242",
+      "range": [
+        62.0,
+        63.0
+      ],
+      "bid": 0.0085,
+      "ask": 0.9915,
+      "price": 0.0085,
+      "spread": 0.983,
+      "volume": 7039.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 64-65°F on March 31?",
+      "market_id": "1741243",
+      "range": [
+        64.0,
+        65.0
+      ],
+      "bid": 0.028,
+      "ask": 0.972,
+      "price": 0.028,
+      "spread": 0.944,
+      "volume": 7030.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 66-67°F on March 31?",
+      "market_id": "1741244",
+      "range": [
+        66.0,
+        67.0
+      ],
+      "bid": 0.031,
+      "ask": 0.969,
+      "price": 0.031,
+      "spread": 0.938,
+      "volume": 4723.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 68-69°F on March 31?",
+      "market_id": "1741245",
+      "range": [
+        68.0,
+        69.0
+      ],
+      "bid": 0.0815,
+      "ask": 0.9185,
+      "price": 0.0815,
+      "spread": 0.837,
+      "volume": 5804.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 70-71°F on March 31?",
+      "market_id": "1741246",
+      "range": [
+        70.0,
+        71.0
+      ],
+      "bid": 0.174,
+      "ask": 0.826,
+      "price": 0.174,
+      "spread": 0.652,
+      "volume": 6024.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be between 72-73°F on March 31?",
+      "market_id": "1741247",
+      "range": [
+        72.0,
+        73.0
+      ],
+      "bid": 0.26,
+      "ask": 0.74,
+      "price": 0.26,
+      "spread": 0.48,
+      "volume": 6359.0
+    },
+    {
+      "question": "Will the highest temperature in New York City be 74°F or higher on March 31?",
+      "market_id": "1741248",
+      "range": [
+        74.0,
+        999.0
+      ],
+      "bid": 0.415,
+      "ask": 0.585,
+      "price": 0.415,
+      "spread": 0.17,
+      "volume": 13344.0
+    }
+  ],
+  "created_at": "2026-03-29T12:42:21.579290+00:00"
+}
