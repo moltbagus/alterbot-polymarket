@@ -56,7 +56,13 @@ STATION_IDS = {
     "dallas": "KDAL", "seattle": "KSEA", "atlanta": "KATL",
 }
 
-ACTIVE_LOCATIONS = _cfg.get("locations", "nyc,chicago,miami,dallas,seattle,atlanta").split(",")
+_locs = _cfg.get("locations", "nyc,chicago,miami,dallas,seattle,atlanta")
+if isinstance(_locs, dict):
+    ACTIVE_LOCATIONS = list(_locs.keys())
+elif isinstance(_locs, str):
+    ACTIVE_LOCATIONS = _locs.split(",")
+else:
+    ACTIVE_LOCATIONS = ["nyc", "chicago", "miami", "dallas", "seattle", "atlanta"]
 ACTIVE_LOCATIONS = [l.strip().lower() for l in ACTIVE_LOCATIONS]
 
 MONTHS = ["january","february","march","april","may","june",

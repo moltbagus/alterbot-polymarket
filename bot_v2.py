@@ -260,29 +260,10 @@ def get_whale_config():
 def is_model_update_window():
     """Check if current time is within 30 minutes of model update window.
     GFS/ECMWF/ICON update at: 00, 06, 12, 18 UTC
+
+    DISABLED — allow trading at any time to avoid missing opportunities.
     """
-    whale_cfg = get_whale_config()
-    if not whale_cfg.get("enabled", False):
-        return True  # Always trade if whale not enabled
-    
-    windows = whale_cfg.get("model_update_windows", {})
-    if not windows:
-        return True
-    
-    now = datetime.now(timezone.utc)
-    current_hour = now.strftime("%H")
-    
-    # Check if current hour is a model update hour
-    all_update_hours = set()
-    for model, hours in windows.items():
-        all_update_hours.update(hours)
-    
-    if current_hour not in all_update_hours:
-        return False
-    
-    # Check if within 30 minutes of the update
-    current_minute = now.minute
-    return current_minute <= 30
+    return True
 
 def check_model_consensus(city_slug, forecast_data):
     """Check if multiple models agree within threshold.
@@ -423,8 +404,6 @@ def check_price_threshold(price, direction="buy_yes", is_binary=False):
         return False, f"price_above_skip_threshold_${price:.2f}_gt_{skip_above:.2f}"
     
     return True, "price_ok"
-    
-    return True, "price_ok"
 
 def apply_whale_filters(city_slug, forecast_temp, price, forecast_data, is_binary=False):
     """Apply all whale strategy filters.
@@ -459,13 +438,17 @@ def norm_cdf(x):
     return 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
 
 def bucket_prob(forecast, t_low, t_high, sigma=None):
-    """For regular buckets — exact match. For edge buckets — normal distribution."""
+    """Probability that actual temp falls in [t_low, t_high] given Gaussian forecast uncertainty.
+    Uses normal CDF for ALL buckets (edge and middle) — binary 0/1 was wrong for middle buckets.
+    """
     s = sigma or 2.0
+    f = float(forecast)
     if t_low == -999:
-        return norm_cdf((t_high - float(forecast)) / s)
+        return norm_cdf((t_high - f) / s)
     if t_high == 999:
-        return 1.0 - norm_cdf((t_low - float(forecast)) / s)
-    return 1.0 if in_bucket(forecast, t_low, t_high) else 0.0
+        return 1.0 - norm_cdf((t_low - f) / s)
+    # Middle buckets: P(t_low ≤ T ≤ t_high) under N(forecast, sigma²)
+    return norm_cdf((t_high - f) / s) - norm_cdf((t_low - f) / s)
 
 def calc_ev(p, price):
     if price <= 0 or price >= 1: return 0.0
@@ -500,7 +483,7 @@ def get_sigma(city_slug, source="ecmwf"):
 
 def run_calibration(markets):
     """Recalculates sigma from resolved markets."""
-    resolved = [m for m in markets if m.get("resolved") and m.get("actual_temp") is not None]
+    resolved = [m for m in markets if m.get("status") == "resolved" and m.get("actual_temp") is not None]
     cal = load_cal()
     updated = []
 
@@ -613,10 +596,13 @@ def get_hrrr(city_slug, dates):
     return result
 
 def get_metar(city_slug):
-    """Current observed temperature from METAR station. D+0 only."""
+    """Current observed temperature from METAR or Open-Meteo live. D+0 only."""
     loc = LOCATIONS[city_slug]
     station = loc["station"]
     unit = loc["unit"]
+    lat, lon = loc["lat"], loc["lon"]
+    
+    # Try aviationweather.gov first (ICAO stations)
     try:
         url = f"https://aviationweather.gov/api/data/metar?ids={station}&format=json"
         data = requests.get(url, timeout=(5, 8)).json()
@@ -627,7 +613,28 @@ def get_metar(city_slug):
                     return round(float(temp_c) * 9/5 + 32)
                 return round(float(temp_c), 1)
     except Exception as e:
-        print(f"  [METAR] {city_slug}: {e}")
+        pass  # Fall through to fallback
+    
+    # Fallback: Open-Meteo current weather (works for any lat/lon, no station needed)
+    # Especially important for HKO (Hong Kong Observatory) which isn't in aviationweather.gov
+    try:
+        url = f"https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude": lat,
+            "longitude": lon,
+            "current": "temperature_2m",
+            "timezone": TIMEZONES.get(city_slug, "UTC"),
+        }
+        data = requests.get(url, params=params, timeout=(5, 8)).json()
+        current = data.get("current", {})
+        temp_val = current.get("temperature_2m")
+        if temp_val is not None:
+            if unit == "F":
+                return round(float(temp_val) * 9/5 + 32)
+            return round(float(temp_val), 1)
+    except Exception:
+        pass
+    
     return None
 
 def get_actual_temp(city_slug, date_str):
@@ -736,7 +743,12 @@ def market_path(city_slug, date_str):
 def load_market(city_slug, date_str):
     p = market_path(city_slug, date_str)
     if p.exists():
-        return json.loads(p.read_text(encoding="utf-8"))
+        m = json.loads(p.read_text(encoding="utf-8"))
+        # Ensure all required list fields exist (migrated from older file format)
+        for key in ("forecast_snapshots", "market_snapshots"):
+            if key not in m:
+                m[key] = []
+        return m
     return None
 
 def save_market(market):
@@ -818,14 +830,23 @@ def take_forecast_snapshot(city_slug, dates):
             "hrrr":  hrrr.get(date) if date <= (datetime.now(timezone.utc) + timedelta(days=2)).strftime("%Y-%m-%d") else None,
             "metar": get_metar(city_slug) if date == today else None,
         }
-        # Best forecast: HRRR for US D+0/D+1, otherwise ECMWF
+        # Multi-model ensemble: weighted average using city-specific MODEL_WEIGHTS.
+        # Blending HRRR + ECMWF reduces systematic single-model biases.
         loc = LOCATIONS[city_slug]
-        if loc["region"] == "us" and snap["hrrr"] is not None:
-            raw_best = snap["hrrr"]
-            snap["best_source"] = "hrrr"
-        elif snap["ecmwf"] is not None:
-            raw_best = snap["ecmwf"]
-            snap["best_source"] = "ecmwf"
+        city_weights = get_model_weights(city_slug)
+        w_hrrr  = city_weights.get("hrrr",  0.3) if snap["hrrr"]  is not None else 0.0
+        w_ecmwf = city_weights.get("ecmwf", 0.6) if snap["ecmwf"] is not None else 0.0
+        w_total = w_hrrr + w_ecmwf
+        if w_total > 0:
+            raw_best = round(
+                ((snap["hrrr"]  or 0) * w_hrrr +
+                 (snap["ecmwf"] or 0) * w_ecmwf) / w_total,
+                1 if loc["unit"] == "C" else 0,
+            )
+            source_parts = []
+            if snap["hrrr"]  is not None: source_parts.append("hrrr")
+            if snap["ecmwf"] is not None: source_parts.append("ecmwf")
+            snap["best_source"] = "+".join(source_parts)
         else:
             raw_best = None
             snap["best_source"] = None
@@ -954,6 +975,9 @@ def scan_and_update():
                 "bias":         snap.get("bias", 0.0),
                 "uhi":          snap.get("uhi", 0.0),
             }
+            # Defensive: ensure key exists (for old saved markets without this field)
+            if "forecast_snapshots" not in mkt:
+                mkt["forecast_snapshots"] = []
             mkt["forecast_snapshots"].append(forecast_snap)
 
             # Market price snapshot
@@ -989,6 +1013,9 @@ def scan_and_update():
                 "top_bucket": f"{top['range'][0]}-{top['range'][1]}{unit_sym}" if top else None,
                 "top_price":  top["price"] if top else None,
             }
+            # Defensive: ensure key exists (for old saved markets without this field)
+            if "market_snapshots" not in mkt:
+                mkt["market_snapshots"] = []
             mkt["market_snapshots"].append(market_snap)
 
             forecast_temp = snap.get("best")
@@ -998,13 +1025,15 @@ def scan_and_update():
             if mkt.get("position") and mkt["position"].get("status") == "open":
                 pos = mkt["position"]
                 current_price = None
+                matched_outcome = None
                 for o in outcomes:
-                    if o["market_id"] == pos["market_id"]:
+                    if o.get("market_id", "") == pos.get("market_id", ""):
                         current_price = o["price"]
+                        matched_outcome = o
                         break
 
-                if current_price is not None:
-                    current_price = o.get("bid", current_price)  # sell at bid
+                if current_price is not None and matched_outcome is not None:
+                    current_price = matched_outcome.get("bid", current_price)  # sell at bid
                     entry = pos["entry_price"]
                     stop  = pos.get("stop_price", entry * 0.80)  # 20% stop by default
 
@@ -1026,11 +1055,12 @@ def scan_and_update():
                         reason = "STOP" if current_price < entry else "TRAILING BE"
                         print(f"  [{reason}] {loc['name']} {date} | entry ${entry:.3f} exit ${current_price:.3f} | PnL: {'+'if pnl>=0 else ''}{pnl:.2f}")
                         # Record fill result for slippage tracking
+                        bucket_label_stop = f"{pos.get('bucket_low', 0)}-{pos.get('bucket_high', 0)}{unit_sym}"
                         record_fill_result(
                             market_id=pos.get("market_id", ""),
                             city=mkt.get("city_slug", ""),
                             date=mkt.get("date", ""),
-                            bucket=bucket_label if 'bucket_label' in dir() else pos.get("bucket_low", 0),
+                            bucket=bucket_label_stop,
                             direction="buy_yes",
                             entry_price=pos.get("entry_price", 0),
                             exit_price=current_price,
@@ -1053,9 +1083,11 @@ def scan_and_update():
                 forecast_far = abs(forecast_temp - mid_bucket) > (abs(mid_bucket - old_bucket_low) + buffer)
                 if not in_bucket(forecast_temp, old_bucket_low, old_bucket_high) and forecast_far:
                     current_price = None
+                    matched_outcome_fc = None
                     for o in outcomes:
-                        if o["market_id"] == pos["market_id"]:
+                        if o.get("market_id", "") == pos.get("market_id", ""):
                             current_price = o["price"]
+                            matched_outcome_fc = o
                             break
                     if current_price is not None:
                         pnl = round((current_price - pos["entry_price"]) * pos["shares"], 2)
@@ -1084,19 +1116,25 @@ def scan_and_update():
                         )
 
             # --- OPEN POSITION ---
-            if not mkt.get("position") and forecast_temp is not None and hours >= MIN_HOURS:
+            # Enforce morning trading window — best METAR freshness and model accuracy
+            _best_hours = _cfg.get("best_trading_hours", list(range(24)))
+            _now_hour   = datetime.now(timezone.utc).hour
+            _in_window  = _now_hour in _best_hours
+            if not mkt.get("position") and forecast_temp is not None and hours >= MIN_HOURS and _in_window:
                 # Use DYNAMIC sigma with horizon/season adjustments
                 sigma = get_dynamic_sigma(city_slug, best_source or "ecmwf", hours)
                 best_signal = None
 
-                # Find exactly ONE bucket that matches the forecast
-                # If forecast doesn't fit any bucket cleanly — skip this market
+                # Find the best bucket: highest Gaussian probability given the ensemble forecast.
+                # This selects the bucket where our forecast is most centrally positioned (best edge).
                 matched_bucket = None
+                best_bucket_prob = 0.0
                 for o in outcomes:
                     t_low, t_high = o["range"]
-                    if in_bucket(forecast_temp, t_low, t_high):
+                    bp = bucket_prob(forecast_temp, t_low, t_high, sigma)
+                    if bp > best_bucket_prob:
+                        best_bucket_prob = bp
                         matched_bucket = o
-                        break
 
                 if matched_bucket:
                     o = matched_bucket
@@ -1108,12 +1146,12 @@ def scan_and_update():
 
                     # All filters — if any fails, skip this market entirely
                     if volume >= MIN_VOLUME:
-                        p  = bucket_prob(forecast_temp, t_low, t_high, sigma)
+                        p  = best_bucket_prob  # already computed above
                         ev = calc_ev(p, ask)
                         if ev >= MIN_EV:
                             kelly = calc_kelly(p, ask)
                             size  = bet_size(kelly, balance)
-                            if size >= 0.50:
+                            if size >= 1.00:
                                 best_signal = {
                                     "market_id":    o["market_id"],
                                     "question":     o["question"],
@@ -1183,9 +1221,12 @@ def scan_and_update():
                         position_type = risk_result.get("position", "NO_BET")
                         can_reach = risk_result.get("can_reach", True)
 
-                        # MUST get approval from risk manager
+                        # MUST get approval from risk manager AND conviction >= 7
                         if not approved:
                             print(f"  [REJECTED] Risk Manager blocked trade | conviction {conviction}/10 | reason: {risk_result.get('reject_reason', 'low conviction or high risk')}")
+                            continue
+                        if conviction < 7:
+                            print(f"  [REJECTED] Conviction {conviction}/10 < 7 threshold — skipping marginal trade")
                             continue
 
                         # Determine actual bet size based on conviction
@@ -1207,7 +1248,7 @@ def scan_and_update():
                         whale_can_trade, whale_reason, adjusted_temp = apply_whale_filters(
                             city_slug, forecast_temp, best_signal["entry_price"],
                             {"ecmwf": snap.get("ecmwf"), "hrrr": snap.get("hrrr")},
-                            is_binary=top.get("is_binary", False)
+                            is_binary=matched_bucket.get("is_binary", False)
                         )
                         if not whale_can_trade:
                             print(f"  [WHALE SKIP] {loc['name']} {date} — {whale_reason}")
@@ -1309,7 +1350,7 @@ def scan_and_update():
 
         # Fetch actual temperature for calibration
         try:
-            actual_temp = get_actual_temp(mkt.get("city_slug", mkt.get("city", "")), mkt.get("date", ""))
+            actual_temp = get_actual_temp(mkt.get("city", ""), mkt.get("date", ""))
             if actual_temp is not None:
                 mkt["actual_temp"] = actual_temp
                 # Also update position with actual temp for calibration
@@ -1405,7 +1446,7 @@ def print_status():
             if snaps:
                 # Find our bucket price in all_outcomes
                 for o in m.get("all_outcomes", []):
-                    if o["market_id"] == pos["market_id"]:
+                    if o.get("market_id", "") == pos.get("market_id", ""):
                         current_price = o["price"]
                         break
 
@@ -1486,7 +1527,7 @@ def monitor_positions():
 
     for mkt in open_pos:
         pos = mkt["position"]
-        mid = pos["market_id"]
+        mid = pos.get("market_id", "")
 
         # Fetch real bestBid from Polymarket API — actual sell price
         current_price = None
@@ -1502,7 +1543,7 @@ def monitor_positions():
         # Fallback to cached price if API failed
         if current_price is None:
             for o in mkt.get("all_outcomes", []):
-                if o["market_id"] == mid:
+                if o.get("market_id", "") == mid:
                     current_price = o.get("bid", o["price"])
                     break
 

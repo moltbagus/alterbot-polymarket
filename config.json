@@ -1,12 +1,13 @@
 {
-  "balance": 10000.0,
+  "balance": 14472.03,
   "max_bet": 1.0,
   "max_trades_per_run": 20,
   "min_ev": 0.3,
-  "max_price": 0.35,
+  "max_price": 0.25,
+  "min_bet": 1.0,
   "min_volume": 500,
   "min_hours": 6.0,
-  "max_hours": 48.0,
+  "max_hours": 48,
   "kelly_fraction": 0.2,
   "scan_interval": 3600,
   "calibration_min": 30,
@@ -27,54 +28,39 @@
   "loss_reduction_factor": 0.15,
   "auto_confidence_update": true,
   "city_priority": {
-    "miami": 0.8,
-    "paris": 0.8,
-    "london": 0.8,
-    "tokyo": 0.75,
-    "hong-kong": 0.7,
-    "taipei": 0.65,
-    "atlanta": 0.7,
-    "sao-paulo": 0.7,
-    "singapore": 0.6,
-    "lucknow": 0.55,
-    "tel-aviv": 0.55,
-    "ankara": 0.5,
-    "dallas": 0.5,
-    "mumbai": 0.5,
-    "delhi": 0.5,
-    "bangkok": 0.5,
-    "osaka": 0.4,
-    "dubai": 0.4
+    "miami": 1.0,
+    "paris": 1.0,
+    "london": 1.0,
+    "atlanta": 1.0,
+    "sao-paulo": 1.0,
+    "singapore": 1.0,
+    "tokyo": 1.0,
+    "hong-kong": 1.0,
+    "taipei": 1.0
   },
   "sigma_override": {
-    "beijing": 0.4,
-    "singapore": 0.35,
-    "tokyo": 0.65,
-    "seoul": 0.65,
-    "hong-kong": 0.55,
-    "paris": 1.1,
-    "london": 1.6,
-    "shanghai": 0.7,
-    "taipei": 0.6,
-    "nyc": 1.4,
-    "chicago": 1.5,
-    "miami": 0.8,
-    "munich": 1.2,
-    "dallas": 1.0,
-    "sao-paulo": 0.9,
-    "default_c": 1.4,
-    "default_f": 2.2
+    "miami": 0.5,
+    "paris": 0.6,
+    "london": 0.7,
+    "atlanta": 0.5,
+    "sao-paulo": 0.6,
+    "singapore": 0.4,
+    "tokyo": 0.5,
+    "hong-kong": 0.5,
+    "taipei": 0.5,
+    "default_c": 0.8,
+    "default_f": 1.2
   },
   "use_hrrr_for_us": true,
-  "min_confidence": 0.7,
+  "min_confidence": 0.75,
   "max_total_exposure_pct": 0.08,
   "max_daily_spend": 20.0,
   "best_trading_hours": [
-    10,
-    11,
-    12,
-    13,
-    14
+    22,
+    23,
+    0,
+    1,
+    2
   ],
   "daily_optimization": {
     "enabled": true,
@@ -94,20 +80,26 @@
       11,
       12
     ],
-    "ev_required_daily": 0.3
+    "ev_required_daily": 0.35,
+    "min_confidence": 0.75
   },
   "source_preference": {
-    "asia": [
+    "us": [
+      "ecmwf",
+      "hrrr",
+      "gfs"
+    ],
+    "eu": [
       "ecmwf",
       "gfs",
       "metar"
     ],
-    "us": [
+    "sa": [
+      "ecmwf",
       "gfs",
-      "hrrr",
-      "ecmwf"
+      "metar"
     ],
-    "eu": [
+    "asia": [
       "ecmwf",
       "gfs",
       "metar"
@@ -256,20 +248,18 @@
       "dubai",
       "ankara",
       "tel-aviv"
+    ],
+    "tier_1_strong": [
+      "miami",
+      "paris",
+      "london",
+      "atlanta",
+      "sao-paulo"
     ]
   },
   "min_tier_to_trade": 1,
-  "max_tier_to_trade": 2,
-  "blocked_cities": [
-    "seoul",
-    "toronto",
-    "nyc",
-    "chicago",
-    "seattle",
-    "tel-aviv",
-    "wellington",
-    "buenos-aires"
-  ],
+  "max_tier_to_trade": 1,
+  "blocked_cities": [],
   "confidence_filter": {
     "enabled": true,
     "tier1_min_conf": 0.5,
@@ -280,13 +270,15 @@
     "enabled": true,
     "track_city_errors": true,
     "update_after_resolve": true,
-    "min_samples_for_update": 5,
-    "dynamic_sigma": true
+    "min_samples_for_update": 3,
+    "dynamic_sigma": true,
+    "adaptive_bias": true,
+    "learning_rate": 0.15
   },
   "metar_weight": 0.6,
   "ecmwf_weight": 0.25,
   "sentinel_weight": 0.15,
-  "max_open_positions": 10,
+  "max_open_positions": 20,
   "city_weights": {
     "miami": {
       "metar": 0.7,
@@ -390,7 +382,7 @@
   "parallel_scanning": true,
   "max_concurrent_scans": 10,
   "scan_timeout": 30,
-  "max_trades_per_day": 20,
+  "max_trades_per_day": 10,
   "locations": {
     "nyc": {
       "lat": 40.7772,
@@ -600,19 +592,18 @@
       ]
     },
     "model_consensus": {
-      "required": true,
-      "max_temp_diff_celsius": 1.0,
+      "required": false,
+      "max_temp_diff_celsius": 2.0,
       "required_models": [
         "gfs",
-        "ecmwf",
-        "icon"
+        "ecmwf"
       ]
     },
     "price_thresholds": {
-      "buy_yes_max_price": 0.15,
-      "skip_above_price": 0.45,
-      "no_trade_min": 0.15,
-      "no_trade_max": 0.45,
+      "buy_yes_max_price": 0.4,
+      "skip_above_price": 0.8,
+      "no_trade_min": 0.05,
+      "no_trade_max": 0.4,
       "binary_skip_above": 0.98
     },
     "trade_after_model_update": true,
@@ -622,9 +613,11 @@
   "self_learning": {
     "enabled": true,
     "calibration_mode": "auto",
-    "min_trades_for_calibration": 5,
+    "min_trades_for_calibration": 3,
     "auto_reload_biases": true,
-    "update_interval_hours": 1
+    "update_interval_hours": 1,
+    "track_patterns": true,
+    "learn_from_resolved": true
   },
   "enable_self_improvement": true,
   "track_patterns": true,
@@ -646,5 +639,30 @@
     "paris",
     "london"
   ],
-  "use_elite_mode": false
+  "use_elite_mode": false,
+  "max_open": 10,
+  "tier_1_only": true,
+  "min_conviction": 7.0,
+  "high_conviction_multiplier": 2.0,
+  "high_conviction_threshold": 8.0,
+  "require_model_consensus": true,
+  "consensus_models": [
+    "ecmwf",
+    "gfs"
+  ],
+  "max_model_diff": 2.0,
+  "adaptive_entry": true,
+  "pattern_tracking": {
+    "price_threshold": 0.25,
+    "time_of_day": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "max_horizon_hours": 24,
+    "min_confidence": 0.75,
+    "min_conviction": 7.0
+  }
 }
