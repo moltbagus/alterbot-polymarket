@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-04-03T01:35:15.572360",
+  "city": "dallas",
+  "target_temp": 80,
+  "target_date": "2026-04-03",
+  "unit": "F",
+  "market_id": "1780776",
+  "p": 1.0,
+  "price": 0.22,
+  "kelly": 0.2,
+  "fundamentals": {
+    "confidence": null,
+    "forecast_max": null,
+    "can_reach": null
+  },
+  "sentiment": {
+    "yes_price": 0.22,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 1914.664896
+  },
+  "technical": {
+    "pattern": "NORMAL",
+    "deviation": 0
+  },
+  "bull_case": "# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**",
+  "bear_case": "# Bear Case - NO Vote\n1. Fundamentals: Low confidence (None%) - uncertainty is high\n2. Market: YES at 22% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 70%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Dallas 80\u00b0F\n\n## Position Score: 6.5/10 (min: 6)\n## Risk Score: 30.5/100 (max allowed: 65)\n\n## Factor Analysis\n1. Can Reach Target: NO -1.0\n2. Fundamentals Conf: 50% -1.0\n3. Market YES: 22% -0.5\n4. Tech Pattern: NORMAL -0.5\n5. Kelly: 20.0% +0.5\n6. EV: 3.55 +0.5\n\n## Bull/Bear Summary\n**BULL CASE:**\n# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**...\n\n**BEAR CASE:**\n# Bear Case - NO Vote\n1. Fundamentals: Low confidence (None%) - uncertainty is high\n2. Market: YES at 22% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 70%)\n...\n\n## Final Verdict: APPROVED\n**Position:** SMALL_BET\n**Conviction:** 6.5/10\n**Risk Score:** 30.5/100\n\n\u2705 Trade approved - all gates passed\n",
+    "verdict": "APPROVED",
+    "position": "SMALL_BET",
+    "conviction": 6.5,
+    "risk_score": 30.5,
+    "approved": true,
+    "can_reach": false,
+    "factors": {
+      "fundamentals_confidence": 50,
+      "yes_price": 0.22,
+      "technical_pattern": "NORMAL",
+      "kelly": 0.2,
+      "ev": 3.545
+    }
+  }
+}

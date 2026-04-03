@@ -3105,6 +3105,58 @@
       "best_source": "ecmwf",
       "bias": 0.0,
       "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:37:39.366987+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 37.0,
+      "hrrr_raw": null,
+      "metar_raw": 33.0,
+      "best_raw": 37.0,
+      "best": 37.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T13:38:18.672579+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 35.9,
+      "hrrr_raw": null,
+      "metar_raw": 32.0,
+      "best_raw": 35.9,
+      "best": 35.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T14:38:55.652442+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 35.9,
+      "hrrr_raw": null,
+      "metar_raw": 31.0,
+      "best_raw": 35.9,
+      "best": 35.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T15:39:27.343974+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 35.9,
+      "hrrr_raw": null,
+      "metar_raw": 29.0,
+      "best_raw": 35.9,
+      "best": 35.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
     }
   ],
   "market_snapshots": [
@@ -4297,6 +4349,26 @@
       "ts": "2026-04-01T12:27:50.828123+00:00",
       "top_bucket": "37.0-37.0C",
       "top_price": 0.9985
+    },
+    {
+      "ts": "2026-04-01T12:37:39.366987+00:00",
+      "top_bucket": "37.0-37.0C",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-04-01T13:38:18.672579+00:00",
+      "top_bucket": "36.0-36.0C",
+      "top_price": 0.9985
+    },
+    {
+      "ts": "2026-04-01T14:38:55.652442+00:00",
+      "top_bucket": "36.0-36.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-04-01T15:39:27.343974+00:00",
+      "top_bucket": "36.0-36.0C",
+      "top_price": 0.9995
     }
   ],
   "all_outcomes": [
@@ -4339,14 +4411,14 @@
         35.0,
         35.0
       ],
-      "bid": 0.9995,
-      "ask": 0.9995,
-      "price": 0.9995,
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
       "spread": 0.0,
-      "volume": 9086.0,
+      "volume": 9087.0,
       "is_binary": true,
-      "yes_price": 0.9995,
-      "no_price": 0.0005
+      "yes_price": 1.0,
+      "no_price": 0.0
     },
     {
       "question": "Will the highest temperature in Lucknow be 36°C on April 1?",
@@ -4355,14 +4427,14 @@
         36.0,
         36.0
       ],
-      "bid": 0.998,
-      "ask": 0.998,
-      "price": 0.998,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 8771.0,
+      "volume": 11568.0,
       "is_binary": true,
-      "yes_price": 0.998,
-      "no_price": 0.002
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Lucknow be 37°C on April 1?",
@@ -4371,14 +4443,14 @@
         37.0,
         37.0
       ],
-      "bid": 0.9985,
-      "ask": 0.9985,
-      "price": 0.9985,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 7152.0,
+      "volume": 9004.0,
       "is_binary": true,
-      "yes_price": 0.9985,
-      "no_price": 0.0015
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Lucknow be 38°C on April 1?",
@@ -4387,14 +4459,14 @@
         38.0,
         38.0
       ],
-      "bid": 0.9985,
-      "ask": 0.9985,
-      "price": 0.9985,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 7765.0,
+      "volume": 9180.0,
       "is_binary": true,
-      "yes_price": 0.9985,
-      "no_price": 0.0015
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Lucknow be 39°C on April 1?",
@@ -4403,14 +4475,14 @@
         39.0,
         39.0
       ],
-      "bid": 0.9985,
-      "ask": 0.9985,
-      "price": 0.9985,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 5855.0,
+      "volume": 5906.0,
       "is_binary": true,
-      "yes_price": 0.9985,
-      "no_price": 0.0015
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Lucknow be 40°C on April 1?",
@@ -4419,14 +4491,14 @@
         40.0,
         40.0
       ],
-      "bid": 0.999,
-      "ask": 0.999,
-      "price": 0.999,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
       "volume": 2386.0,
       "is_binary": true,
-      "yes_price": 0.999,
-      "no_price": 0.001
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Lucknow be 41°C on April 1?",
@@ -4471,7 +4543,7 @@
       "ask": 0.9995,
       "price": 0.9995,
       "spread": 0.0,
-      "volume": 6727.0,
+      "volume": 6728.0,
       "is_binary": true,
       "yes_price": 0.9995,
       "no_price": 0.0005

@@ -1,0 +1,341 @@
+{
+  "city": "tokyo",
+  "city_name": "Tokyo",
+  "date": "2026-04-04",
+  "unit": "C",
+  "station": "RJTT",
+  "event_end_date": "2026-04-04T12:00:00Z",
+  "hours_at_discovery": 42.6,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-02T17:24:03.503048+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.6,
+      "ecmwf_raw": 17.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.4,
+      "best": 21.4,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    },
+    {
+      "ts": "2026-04-02T17:28:25.221609+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.5,
+      "ecmwf_raw": 17.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.4,
+      "best": 21.4,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    },
+    {
+      "ts": "2026-04-02T17:32:10.853837+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.5,
+      "ecmwf_raw": 17.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.4,
+      "best": 21.4,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    },
+    {
+      "ts": "2026-04-02T17:34:25.708213+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.4,
+      "ecmwf_raw": 17.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.4,
+      "best": 21.4,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    },
+    {
+      "ts": "2026-04-02T17:35:32.035360+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.4,
+      "ecmwf_raw": 17.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.4,
+      "best": 21.4,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    },
+    {
+      "ts": "2026-04-02T17:43:09.636846+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.3,
+      "ecmwf_raw": 17.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.4,
+      "best": 21.4,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    },
+    {
+      "ts": "2026-04-02T22:01:19.459754+00:00",
+      "horizon": "D+2",
+      "hours_left": 38.0,
+      "ecmwf_raw": 17.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.8,
+      "best": 21.8,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    },
+    {
+      "ts": "2026-04-02T22:15:10.830436+00:00",
+      "horizon": "D+2",
+      "hours_left": 37.7,
+      "ecmwf_raw": 17.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 17.8,
+      "best": 21.8,
+      "best_source": "ecmwf",
+      "bias": 1.5,
+      "uhi": 2.5
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-02T17:24:03.503048+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.98
+    },
+    {
+      "ts": "2026-04-02T17:28:25.221609+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.98
+    },
+    {
+      "ts": "2026-04-02T17:32:10.853837+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.9795
+    },
+    {
+      "ts": "2026-04-02T17:34:25.708213+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.9795
+    },
+    {
+      "ts": "2026-04-02T17:35:32.035360+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.9795
+    },
+    {
+      "ts": "2026-04-02T17:43:09.636846+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.9795
+    },
+    {
+      "ts": "2026-04-02T22:01:19.459754+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.9855
+    },
+    {
+      "ts": "2026-04-02T22:15:10.830436+00:00",
+      "top_bucket": "21.0-999.0C",
+      "top_price": 0.9855
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Tokyo be 11°C or below on April 4?",
+      "market_id": "1781299",
+      "range": [
+        -999.0,
+        11.0
+      ],
+      "bid": 0.997,
+      "ask": 0.997,
+      "price": 0.997,
+      "spread": 0.0,
+      "volume": 1986.0,
+      "is_binary": true,
+      "yes_price": 0.997,
+      "no_price": 0.003
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 12°C on April 4?",
+      "market_id": "1781300",
+      "range": [
+        12.0,
+        12.0
+      ],
+      "bid": 0.997,
+      "ask": 0.997,
+      "price": 0.997,
+      "spread": 0.0,
+      "volume": 1276.0,
+      "is_binary": true,
+      "yes_price": 0.997,
+      "no_price": 0.003
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 13°C on April 4?",
+      "market_id": "1781301",
+      "range": [
+        13.0,
+        13.0
+      ],
+      "bid": 0.996,
+      "ask": 0.996,
+      "price": 0.996,
+      "spread": 0.0,
+      "volume": 984.0,
+      "is_binary": true,
+      "yes_price": 0.996,
+      "no_price": 0.004
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 14°C on April 4?",
+      "market_id": "1781302",
+      "range": [
+        14.0,
+        14.0
+      ],
+      "bid": 0.985,
+      "ask": 0.985,
+      "price": 0.985,
+      "spread": 0.0,
+      "volume": 1167.0,
+      "is_binary": true,
+      "yes_price": 0.985,
+      "no_price": 0.015
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 15°C on April 4?",
+      "market_id": "1781303",
+      "range": [
+        15.0,
+        15.0
+      ],
+      "bid": 0.9755,
+      "ask": 0.9755,
+      "price": 0.9755,
+      "spread": 0.0,
+      "volume": 1031.0,
+      "is_binary": true,
+      "yes_price": 0.9755,
+      "no_price": 0.0245
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 16°C on April 4?",
+      "market_id": "1781304",
+      "range": [
+        16.0,
+        16.0
+      ],
+      "bid": 0.835,
+      "ask": 0.835,
+      "price": 0.835,
+      "spread": 0.0,
+      "volume": 1139.0,
+      "is_binary": true,
+      "yes_price": 0.835,
+      "no_price": 0.165
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 17°C on April 4?",
+      "market_id": "1781305",
+      "range": [
+        17.0,
+        17.0
+      ],
+      "bid": 0.575,
+      "ask": 0.575,
+      "price": 0.575,
+      "spread": 0.0,
+      "volume": 1128.0,
+      "is_binary": true,
+      "yes_price": 0.575,
+      "no_price": 0.425
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 18°C on April 4?",
+      "market_id": "1781306",
+      "range": [
+        18.0,
+        18.0
+      ],
+      "bid": 0.755,
+      "ask": 0.755,
+      "price": 0.755,
+      "spread": 0.0,
+      "volume": 1036.0,
+      "is_binary": true,
+      "yes_price": 0.755,
+      "no_price": 0.245
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 19°C on April 4?",
+      "market_id": "1781307",
+      "range": [
+        19.0,
+        19.0
+      ],
+      "bid": 0.8675,
+      "ask": 0.8675,
+      "price": 0.8675,
+      "spread": 0.0,
+      "volume": 1356.0,
+      "is_binary": true,
+      "yes_price": 0.8675,
+      "no_price": 0.1325
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 20°C on April 4?",
+      "market_id": "1781308",
+      "range": [
+        20.0,
+        20.0
+      ],
+      "bid": 0.955,
+      "ask": 0.955,
+      "price": 0.955,
+      "spread": 0.0,
+      "volume": 1337.0,
+      "is_binary": true,
+      "yes_price": 0.955,
+      "no_price": 0.045
+    },
+    {
+      "question": "Will the highest temperature in Tokyo be 21°C or higher on April 4?",
+      "market_id": "1781309",
+      "range": [
+        21.0,
+        999.0
+      ],
+      "bid": 0.9855,
+      "ask": 0.9855,
+      "price": 0.9855,
+      "spread": 0.0,
+      "volume": 1397.0,
+      "is_binary": true,
+      "yes_price": 0.9855,
+      "no_price": 0.0145
+    }
+  ],
+  "created_at": "2026-04-02T17:24:06.675274+00:00"
+}

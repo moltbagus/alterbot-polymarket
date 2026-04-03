@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-04-02T15:26:05.846332",
+  "city": "singapore",
+  "target_temp": 31,
+  "target_date": "2026-04-03",
+  "unit": "C",
+  "market_id": "1780912",
+  "p": 1.0,
+  "price": 0.2,
+  "kelly": 0.2,
+  "fundamentals": {
+    "confidence": 75,
+    "forecast_max": 31.0,
+    "can_reach": true
+  },
+  "sentiment": {
+    "yes_price": 0.2,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 2021.7342579999997
+  },
+  "technical": {
+    "pattern": "NORMAL",
+    "deviation": 0.0
+  },
+  "bull_case": "# Bull Case - YES Vote\n1. Fundamentals: Forecast 31.0\u00b0C CAN reach target 31\u00b0C (conf: 75%)\n\n**Recommendation: YES** (conviction: 60%)\n",
+  "bear_case": "# Bear Case - NO Vote\n1. Market: YES at 20% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 60%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Singapore 31\u00b0C\n\n## Position Score: 8.0/10 (min: 7)\n## Risk Score: 26.0/100 (max allowed: 60)\n\n## Factor Analysis\n1. Can Reach Target: YES +1.0\n2. Fundamentals Conf: 75% +1.0\n3. Market YES: 20% -0.5\n4. Tech Pattern: NORMAL -0.5\n5. Kelly: 20.0% +0.5\n6. EV: 4.00 +0.5\n\n## Bull/Bear Summary\n**BULL CASE:**\n# Bull Case - YES Vote\n1. Fundamentals: Forecast 31.0\u00b0C CAN reach target 31\u00b0C (conf: 75%)\n\n**Recommendation: YES** (conviction: 60%)\n...\n\n**BEAR CASE:**\n# Bear Case - NO Vote\n1. Market: YES at 20% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 60%)\n...\n\n## Final Verdict: APPROVED\n**Position:** STANDARD_BET\n**Conviction:** 8.0/10\n**Risk Score:** 26.0/100\n\n\u2705 Trade approved - all gates passed\n",
+    "verdict": "APPROVED",
+    "position": "STANDARD_BET",
+    "conviction": 8.0,
+    "risk_score": 26.0,
+    "approved": true,
+    "can_reach": true,
+    "factors": {
+      "fundamentals_confidence": 75,
+      "yes_price": 0.2,
+      "technical_pattern": "NORMAL",
+      "kelly": 0.2,
+      "ev": 4.0
+    }
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "city": "New York",
+    "temp": "Unknown",
+    "date_str": "Unknown",
+    "yes_price": 1.7619359098323237e-07,
+    "volume": 2504.542475,
+    "market_id": "239139",
+    "created_at": "2021-10-29T17:18:48.077Z",
+    "resolved_at": "",
+    "outcome": "",
+    "question": "Will the high temperature in New York's Central Park be 60°F or higher on November 2, 2021?"
+  },
+  {
+    "city": "New York",
+    "temp": "Unknown",
+    "date_str": "Unknown",
+    "yes_price": 1.5395260337011326e-07,
+    "volume": 679.472769,
+    "market_id": "239326",
+    "created_at": "2021-11-09T21:00:12.213Z",
+    "resolved_at": "",
+    "outcome": "",
+    "question": "Will the high temperature in New York's Central Park be 60°F or higher on November 15th, 2021?"
+  }
+]

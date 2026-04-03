@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-04-03T15:29:33.475093",
+  "sigma_used": 1.08,
+  "total_trades": 273,
+  "strategies": {
+    "single_bucket": {
+      "wins": 72,
+      "losses": 201,
+      "win_rate": 26.37,
+      "total_profit": -71.15,
+      "avg_profit_per_trade": -0.2606
+    },
+    "two_bucket_below": {
+      "wins": 155,
+      "losses": 118,
+      "win_rate": 56.78,
+      "total_profit": 2.37,
+      "avg_profit_per_trade": 0.0087
+    },
+    "two_bucket_above": {
+      "wins": 119,
+      "losses": 154,
+      "win_rate": 43.59,
+      "total_profit": -73.4,
+      "avg_profit_per_trade": -0.2689
+    },
+    "three_bucket": {
+      "wins": 202,
+      "losses": 71,
+      "win_rate": 73.99,
+      "total_profit": -24.11,
+      "avg_profit_per_trade": -0.0883
+    }
+  },
+  "error_distance": {
+    "2": {
+      "wins": 0,
+      "losses": 48
+    },
+    "0": {
+      "wins": 72,
+      "losses": 0
+    },
+    "1": {
+      "wins": 0,
+      "losses": 130
+    },
+    "3": {
+      "wins": 0,
+      "losses": 16
+    },
+    "5": {
+      "wins": 0,
+      "losses": 3
+    },
+    "4": {
+      "wins": 0,
+      "losses": 3
+    },
+    "8": {
+      "wins": 0,
+      "losses": 1
+    }
+  },
+  "adjacent_bucket_wins": {
+    "below": 83,
+    "above": 47
+  }
+}

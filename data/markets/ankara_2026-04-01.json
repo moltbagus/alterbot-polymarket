@@ -3209,6 +3209,58 @@
       "best_source": "ecmwf",
       "bias": 1.0,
       "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:37:32.282380+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 15.2,
+      "hrrr_raw": null,
+      "metar_raw": 16.0,
+      "best_raw": 15.2,
+      "best": 16.2,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T13:38:07.927558+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 15.0,
+      "hrrr_raw": null,
+      "metar_raw": 16.0,
+      "best_raw": 15.0,
+      "best": 16.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T14:38:47.264478+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 15.0,
+      "hrrr_raw": null,
+      "metar_raw": 17.0,
+      "best_raw": 15.0,
+      "best": 16.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T15:39:21.569374+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 15.0,
+      "hrrr_raw": null,
+      "metar_raw": 15.0,
+      "best_raw": 15.0,
+      "best": 16.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
     }
   ],
   "market_snapshots": [
@@ -4441,6 +4493,26 @@
       "ts": "2026-04-01T12:27:44.112224+00:00",
       "top_bucket": "16.0-16.0C",
       "top_price": 0.825
+    },
+    {
+      "ts": "2026-04-01T12:37:32.282380+00:00",
+      "top_bucket": "16.0-16.0C",
+      "top_price": 0.865
+    },
+    {
+      "ts": "2026-04-01T13:38:07.927558+00:00",
+      "top_bucket": "16.0-16.0C",
+      "top_price": 0.93
+    },
+    {
+      "ts": "2026-04-01T14:38:47.264478+00:00",
+      "top_bucket": "16.0-16.0C",
+      "top_price": 0.9995
+    },
+    {
+      "ts": "2026-04-01T15:39:21.569374+00:00",
+      "top_bucket": "16.0-16.0C",
+      "top_price": 0.9995
     }
   ],
   "all_outcomes": [
@@ -4531,14 +4603,14 @@
         12.0,
         12.0
       ],
-      "bid": 0.9995,
-      "ask": 0.9995,
-      "price": 0.9995,
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
       "spread": 0.0,
-      "volume": 8514.0,
+      "volume": 8520.0,
       "is_binary": true,
-      "yes_price": 0.9995,
-      "no_price": 0.0005
+      "yes_price": 1.0,
+      "no_price": 0.0
     },
     {
       "question": "Will the highest temperature in Ankara be 13°C on April 1?",
@@ -4563,14 +4635,14 @@
         14.0,
         14.0
       ],
-      "bid": 0.9995,
-      "ask": 0.9995,
-      "price": 0.9995,
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
       "spread": 0.0,
-      "volume": 20421.0,
+      "volume": 20422.0,
       "is_binary": true,
-      "yes_price": 0.9995,
-      "no_price": 0.0005
+      "yes_price": 1.0,
+      "no_price": 0.0
     },
     {
       "question": "Will the highest temperature in Ankara be 15°C on April 1?",
@@ -4579,14 +4651,14 @@
         15.0,
         15.0
       ],
-      "bid": 0.9995,
-      "ask": 0.9995,
-      "price": 0.9995,
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
       "spread": 0.0,
-      "volume": 16603.0,
+      "volume": 20007.0,
       "is_binary": true,
-      "yes_price": 0.9995,
-      "no_price": 0.0005
+      "yes_price": 1.0,
+      "no_price": 0.0
     },
     {
       "question": "Will the highest temperature in Ankara be 16°C on April 1?",
@@ -4595,14 +4667,14 @@
         16.0,
         16.0
       ],
-      "bid": 0.825,
-      "ask": 0.825,
-      "price": 0.825,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 12093.0,
+      "volume": 28773.0,
       "is_binary": true,
-      "yes_price": 0.825,
-      "no_price": 0.175
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Ankara be 17°C or higher on April 1?",
@@ -4611,14 +4683,14 @@
         17.0,
         999.0
       ],
-      "bid": 0.855,
-      "ask": 0.855,
-      "price": 0.855,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 20560.0,
+      "volume": 30699.0,
       "is_binary": true,
-      "yes_price": 0.855,
-      "no_price": 0.145
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     }
   ],
   "created_at": "2026-03-30T12:53:34.363868+00:00"

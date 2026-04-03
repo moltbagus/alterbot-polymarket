@@ -2,8 +2,8 @@
   "balance": 14472.03,
   "max_bet": 1.0,
   "max_trades_per_run": 20,
-  "min_ev": 0.3,
-  "max_price": 0.25,
+  "min_ev": 0.30,
+  "max_price": 0.35,
   "min_bet": 1.0,
   "min_volume": 500,
   "min_hours": 6.0,
@@ -42,14 +42,14 @@
     "miami": 0.5,
     "paris": 0.6,
     "london": 0.7,
-    "atlanta": 0.5,
-    "sao-paulo": 0.6,
+    "atlanta": 0.6,
+    "sao-paulo": 0.7,
     "singapore": 0.4,
-    "tokyo": 0.5,
-    "hong-kong": 0.5,
-    "taipei": 0.5,
-    "default_c": 0.8,
-    "default_f": 1.2
+    "tokyo": 2.0,
+    "hong-kong": 1.5,
+    "taipei": 1.5,
+    "default_c": 1.5,
+    "default_f": 2.0
   },
   "use_hrrr_for_us": true,
   "min_confidence": 0.75,
@@ -253,8 +253,7 @@
       "miami",
       "paris",
       "london",
-      "atlanta",
-      "sao-paulo"
+      "atlanta"
     ]
   },
   "min_tier_to_trade": 1,
@@ -360,7 +359,8 @@
     "shanghai",
     "tel-aviv",
     "chicago",
-    "dallas"
+    "dallas",
+    "seattle"
   ],
   "expected_win_rate": 0.9,
   "notes": "Based on backtest analysis of 77 predictions",
@@ -368,8 +368,7 @@
     "miami",
     "paris",
     "london",
-    "atlanta",
-    "sao-paulo"
+    "atlanta"
   ],
   "mae_threshold": 1.5,
   "bias_correction_enabled": true,
@@ -593,7 +592,7 @@
     },
     "model_consensus": {
       "required": false,
-      "max_temp_diff_celsius": 2.0,
+      "max_temp_diff_celsius": 1.5,
       "required_models": [
         "gfs",
         "ecmwf"
@@ -602,8 +601,8 @@
     "price_thresholds": {
       "buy_yes_max_price": 0.4,
       "skip_above_price": 0.8,
-      "no_trade_min": 0.05,
-      "no_trade_max": 0.4,
+      "no_trade_min": 0.15,
+      "no_trade_max": 0.55,
       "binary_skip_above": 0.98
     },
     "trade_after_model_update": true,
@@ -626,13 +625,17 @@
     "miami": 0.0,
     "paris": 0.0,
     "london": 0.0,
-    "tokyo": 0.0,
+    "tokyo": 1.0,
     "hong-kong": 0.0,
     "taipei": 2.93,
-    "atlanta": 0.0,
+    "atlanta": 1.0,
     "sao-paulo": 0.0,
     "singapore": 0.0,
-    "dallas": 0.0
+    "dallas": 0.0,
+    "seoul": 2.0,
+    "shanghai": 2.0,
+    "nyc": 1.5,
+    "chicago": 2.0
   },
   "tier_1_elite": [
     "miami",
@@ -664,5 +667,7 @@
     "max_horizon_hours": 24,
     "min_confidence": 0.75,
     "min_conviction": 7.0
-  }
+  },
+  "subagent_timeout": 1200,
+  "subagent_progress_interval": 10
 }

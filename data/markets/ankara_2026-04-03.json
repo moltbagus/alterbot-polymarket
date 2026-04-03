@@ -50,6 +50,227 @@
       "best_source": "ecmwf",
       "bias": 1.0,
       "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:37:32.282380+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.4,
+      "ecmwf_raw": 13.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.4,
+      "best": 14.4,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T13:38:07.927558+00:00",
+      "horizon": "D+2",
+      "hours_left": 46.4,
+      "ecmwf_raw": 12.6,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 12.6,
+      "best": 13.6,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T14:38:47.264478+00:00",
+      "horizon": "D+2",
+      "hours_left": 45.4,
+      "ecmwf_raw": 12.6,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 12.6,
+      "best": 13.6,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T15:39:21.569374+00:00",
+      "horizon": "D+2",
+      "hours_left": 44.3,
+      "ecmwf_raw": 12.6,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 12.6,
+      "best": 13.6,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T07:04:08.458030+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.9,
+      "ecmwf_raw": 11.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.8,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T07:12:09.251284+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.8,
+      "ecmwf_raw": 11.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.8,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T07:18:58.193765+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.7,
+      "ecmwf_raw": 11.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.8,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T07:25:56.512265+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.6,
+      "ecmwf_raw": 11.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.8,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T07:30:28.250191+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.5,
+      "ecmwf_raw": 11.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.8,
+      "best": 12.8,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T09:35:40.284978+00:00",
+      "horizon": "D+1",
+      "hours_left": 26.4,
+      "ecmwf_raw": 13.3,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.3,
+      "best": 14.3,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:24:01.228124+00:00",
+      "horizon": "D+1",
+      "hours_left": 18.6,
+      "ecmwf_raw": 13.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.0,
+      "best": 14.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:32:00.838616+00:00",
+      "horizon": "D+1",
+      "hours_left": 18.5,
+      "ecmwf_raw": 13.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.0,
+      "best": 14.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:34:21.825363+00:00",
+      "horizon": "D+1",
+      "hours_left": 18.4,
+      "ecmwf_raw": 13.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.0,
+      "best": 14.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:35:29.376978+00:00",
+      "horizon": "D+1",
+      "hours_left": 18.4,
+      "ecmwf_raw": 13.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.0,
+      "best": 14.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:43:03.818985+00:00",
+      "horizon": "D+1",
+      "hours_left": 18.3,
+      "ecmwf_raw": 13.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 13.0,
+      "best": 14.0,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T22:01:14.828235+00:00",
+      "horizon": "D+1",
+      "hours_left": 14.0,
+      "ecmwf_raw": 11.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.2,
+      "best": 12.2,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T22:15:07.896267+00:00",
+      "horizon": "D+1",
+      "hours_left": 13.7,
+      "ecmwf_raw": 11.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 11.2,
+      "best": 12.2,
+      "best_source": "ecmwf",
+      "bias": 1.0,
+      "uhi": 0.0
     }
   ],
   "market_snapshots": [
@@ -67,6 +288,91 @@
       "ts": "2026-04-01T12:27:44.112224+00:00",
       "top_bucket": "14.0-14.0C",
       "top_price": 0.905
+    },
+    {
+      "ts": "2026-04-01T12:37:32.282380+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.885
+    },
+    {
+      "ts": "2026-04-01T13:38:07.927558+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.88
+    },
+    {
+      "ts": "2026-04-01T14:38:47.264478+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.895
+    },
+    {
+      "ts": "2026-04-01T15:39:21.569374+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.905
+    },
+    {
+      "ts": "2026-04-02T07:04:08.458030+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.705
+    },
+    {
+      "ts": "2026-04-02T07:12:09.251284+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.705
+    },
+    {
+      "ts": "2026-04-02T07:18:58.193765+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.71
+    },
+    {
+      "ts": "2026-04-02T07:25:56.512265+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.71
+    },
+    {
+      "ts": "2026-04-02T07:30:28.250191+00:00",
+      "top_bucket": "13.0-13.0C",
+      "top_price": 0.715
+    },
+    {
+      "ts": "2026-04-02T09:35:40.284978+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-02T17:24:01.228124+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9415
+    },
+    {
+      "ts": "2026-04-02T17:32:00.838616+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9415
+    },
+    {
+      "ts": "2026-04-02T17:34:21.825363+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.945
+    },
+    {
+      "ts": "2026-04-02T17:35:29.376978+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.947
+    },
+    {
+      "ts": "2026-04-02T17:43:03.818985+00:00",
+      "top_bucket": "14.0-14.0C",
+      "top_price": 0.9465
+    },
+    {
+      "ts": "2026-04-02T22:01:14.828235+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.555
+    },
+    {
+      "ts": "2026-04-02T22:15:07.896267+00:00",
+      "top_bucket": "12.0-12.0C",
+      "top_price": 0.555
     }
   ],
   "all_outcomes": [
@@ -77,14 +383,14 @@
         -999.0,
         7.0
       ],
-      "bid": 0.997,
-      "ask": 0.997,
-      "price": 0.997,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 884.0,
+      "volume": 8464.0,
       "is_binary": true,
-      "yes_price": 0.997,
-      "no_price": 0.003
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Ankara be 8°C on April 3?",
@@ -93,14 +399,14 @@
         8.0,
         8.0
       ],
-      "bid": 0.9955,
-      "ask": 0.9955,
-      "price": 0.9955,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 670.0,
+      "volume": 6048.0,
       "is_binary": true,
-      "yes_price": 0.9955,
-      "no_price": 0.0045
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Ankara be 9°C on April 3?",
@@ -109,14 +415,14 @@
         9.0,
         9.0
       ],
-      "bid": 0.9785,
-      "ask": 0.9785,
-      "price": 0.9785,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 1211.0,
+      "volume": 15420.0,
       "is_binary": true,
-      "yes_price": 0.9785,
-      "no_price": 0.0215
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Ankara be 10°C on April 3?",
@@ -125,14 +431,14 @@
         10.0,
         10.0
       ],
-      "bid": 0.955,
-      "ask": 0.955,
-      "price": 0.955,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 554.0,
+      "volume": 9187.0,
       "is_binary": true,
-      "yes_price": 0.955,
-      "no_price": 0.045
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Ankara be 11°C on April 3?",
@@ -141,14 +447,14 @@
         11.0,
         11.0
       ],
-      "bid": 0.825,
-      "ask": 0.825,
-      "price": 0.825,
+      "bid": 0.75,
+      "ask": 0.75,
+      "price": 0.75,
       "spread": 0.0,
-      "volume": 851.0,
+      "volume": 4325.0,
       "is_binary": true,
-      "yes_price": 0.825,
-      "no_price": 0.175
+      "yes_price": 0.75,
+      "no_price": 0.25
     },
     {
       "question": "Will the highest temperature in Ankara be 12°C on April 3?",
@@ -157,14 +463,14 @@
         12.0,
         12.0
       ],
-      "bid": 0.675,
-      "ask": 0.675,
-      "price": 0.675,
+      "bid": 0.555,
+      "ask": 0.555,
+      "price": 0.555,
       "spread": 0.0,
-      "volume": 701.0,
+      "volume": 2550.0,
       "is_binary": true,
-      "yes_price": 0.675,
-      "no_price": 0.325
+      "yes_price": 0.555,
+      "no_price": 0.445
     },
     {
       "question": "Will the highest temperature in Ankara be 13°C on April 3?",
@@ -173,14 +479,14 @@
         13.0,
         13.0
       ],
-      "bid": 0.63,
-      "ask": 0.63,
-      "price": 0.63,
+      "bid": 0.79,
+      "ask": 0.79,
+      "price": 0.79,
       "spread": 0.0,
-      "volume": 775.0,
+      "volume": 3735.0,
       "is_binary": true,
-      "yes_price": 0.63,
-      "no_price": 0.37
+      "yes_price": 0.79,
+      "no_price": 0.21
     },
     {
       "question": "Will the highest temperature in Ankara be 14°C on April 3?",
@@ -189,14 +495,14 @@
         14.0,
         14.0
       ],
-      "bid": 0.905,
-      "ask": 0.905,
-      "price": 0.905,
+      "bid": 0.9515,
+      "ask": 0.9515,
+      "price": 0.9515,
       "spread": 0.0,
-      "volume": 670.0,
+      "volume": 3830.0,
       "is_binary": true,
-      "yes_price": 0.905,
-      "no_price": 0.095
+      "yes_price": 0.9515,
+      "no_price": 0.0485
     },
     {
       "question": "Will the highest temperature in Ankara be 15°C on April 3?",
@@ -205,14 +511,14 @@
         15.0,
         15.0
       ],
-      "bid": 0.97,
-      "ask": 0.97,
-      "price": 0.97,
+      "bid": 0.9855,
+      "ask": 0.9855,
+      "price": 0.9855,
       "spread": 0.0,
-      "volume": 506.0,
+      "volume": 3740.0,
       "is_binary": true,
-      "yes_price": 0.97,
-      "no_price": 0.03
+      "yes_price": 0.9855,
+      "no_price": 0.0145
     },
     {
       "question": "Will the highest temperature in Ankara be 16°C on April 3?",
@@ -221,14 +527,14 @@
         16.0,
         16.0
       ],
-      "bid": 0.9925,
-      "ask": 0.9925,
-      "price": 0.9925,
+      "bid": 0.994,
+      "ask": 0.994,
+      "price": 0.994,
       "spread": 0.0,
-      "volume": 581.0,
+      "volume": 2719.0,
       "is_binary": true,
-      "yes_price": 0.9925,
-      "no_price": 0.0075
+      "yes_price": 0.994,
+      "no_price": 0.006
     },
     {
       "question": "Will the highest temperature in Ankara be 17°C or higher on April 3?",
@@ -237,14 +543,14 @@
         17.0,
         999.0
       ],
-      "bid": 0.996,
-      "ask": 0.996,
-      "price": 0.996,
+      "bid": 0.9935,
+      "ask": 0.9935,
+      "price": 0.9935,
       "spread": 0.0,
-      "volume": 851.0,
+      "volume": 5181.0,
       "is_binary": true,
-      "yes_price": 0.996,
-      "no_price": 0.004
+      "yes_price": 0.9935,
+      "no_price": 0.0065
     }
   ],
   "created_at": "2026-04-01T12:18:51.967824+00:00"

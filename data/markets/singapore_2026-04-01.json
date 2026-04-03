@@ -3300,6 +3300,58 @@
       "best_source": "ecmwf",
       "bias": 0.0,
       "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T12:37:36.989611+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 31.8,
+      "hrrr_raw": null,
+      "metar_raw": 28.0,
+      "best_raw": 31.8,
+      "best": 31.8,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T13:38:16.370026+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 31.9,
+      "hrrr_raw": null,
+      "metar_raw": 27.0,
+      "best_raw": 31.9,
+      "best": 31.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T14:38:52.531931+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 31.9,
+      "hrrr_raw": null,
+      "metar_raw": 27.0,
+      "best_raw": 31.9,
+      "best": 31.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-01T15:39:25.561587+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 31.9,
+      "hrrr_raw": null,
+      "metar_raw": 27.0,
+      "best_raw": 31.9,
+      "best": 31.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
     }
   ],
   "market_snapshots": [
@@ -4567,6 +4619,26 @@
       "ts": "2026-04-01T12:27:48.567426+00:00",
       "top_bucket": "32.0-32.0C",
       "top_price": 1.0
+    },
+    {
+      "ts": "2026-04-01T12:37:36.989611+00:00",
+      "top_bucket": "32.0-32.0C",
+      "top_price": 1.0
+    },
+    {
+      "ts": "2026-04-01T13:38:16.370026+00:00",
+      "top_bucket": "32.0-32.0C",
+      "top_price": 1.0
+    },
+    {
+      "ts": "2026-04-01T14:38:52.531931+00:00",
+      "top_bucket": "32.0-32.0C",
+      "top_price": 1.0
+    },
+    {
+      "ts": "2026-04-01T15:39:25.561587+00:00",
+      "top_bucket": "32.0-32.0C",
+      "top_price": 1.0
     }
   ],
   "all_outcomes": [
@@ -4709,7 +4781,7 @@
       "ask": 0.9995,
       "price": 0.9995,
       "spread": 0.0,
-      "volume": 42079.0,
+      "volume": 42505.0,
       "is_binary": true,
       "yes_price": 0.9995,
       "no_price": 0.0005
@@ -4721,14 +4793,14 @@
         35.0,
         35.0
       ],
-      "bid": 0.9985,
-      "ask": 0.9985,
-      "price": 0.9985,
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
       "spread": 0.0,
-      "volume": 14063.0,
+      "volume": 17042.0,
       "is_binary": true,
-      "yes_price": 0.9985,
-      "no_price": 0.0015
+      "yes_price": 0.9995,
+      "no_price": 0.0005
     },
     {
       "question": "Will the highest temperature in Singapore be 36°C or higher on April 1?",

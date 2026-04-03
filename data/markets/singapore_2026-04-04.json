@@ -1,0 +1,370 @@
+{
+  "city": "singapore",
+  "city_name": "Singapore",
+  "date": "2026-04-04",
+  "unit": "C",
+  "station": "WSSS",
+  "event_end_date": "2026-04-04T12:00:00Z",
+  "hours_at_discovery": 42.6,
+  "status": "open",
+  "position": {
+    "market_id": "1781339",
+    "question": "Will the highest temperature in Singapore be 31°C on April 4?",
+    "bucket_low": 31.0,
+    "bucket_high": 31.0,
+    "entry_price": 0.22,
+    "bid_at_entry": 0.2,
+    "spread": 0.02,
+    "shares": 4.55,
+    "cost": 0.75,
+    "p": 1.0,
+    "ev": 3.5455,
+    "kelly": 0.2,
+    "forecast_temp": 31.03333333333333,
+    "forecast_src": "ecmwf",
+    "sigma": 1.62,
+    "opened_at": "2026-04-02T22:01:21.283822+00:00",
+    "status": "closed",
+    "pnl": -0.09,
+    "exit_price": 0.2,
+    "close_reason": "stop_loss",
+    "closed_at": "2026-04-02T22:25:59.166265+00:00",
+    "volume": 1667.0,
+    "fill_record": {
+      "ts": "2026-04-02T22:01:25.692735+00:00",
+      "market_id": "1781339",
+      "city": "singapore",
+      "date": "2026-04-04",
+      "bucket": "31.0-31.0C",
+      "direction": "buy_yes",
+      "entry_price": 0.22,
+      "fill_price": 0.2278,
+      "slippage": 0.0078,
+      "slippage_pct": 0.0352,
+      "size": 0.75,
+      "size_filled": 0.75,
+      "fill_pct": 1.0,
+      "filled": true,
+      "fill_reason": "full_fill",
+      "volume": 1667.0,
+      "spread": 0.02,
+      "liq_factor": 0.711,
+      "forecast_temp": 31.03333333333333,
+      "sigma": 1.62
+    },
+    "stop_price": 0.22,
+    "trailing_activated": true
+  },
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-02T17:24:06.846730+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.6,
+      "ecmwf_raw": 30.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 30.9,
+      "best": 30.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:32:13.897277+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.5,
+      "ecmwf_raw": 30.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 30.9,
+      "best": 30.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:34:29.776890+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.4,
+      "ecmwf_raw": 30.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 30.9,
+      "best": 30.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:35:35.285914+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.4,
+      "ecmwf_raw": 30.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 30.9,
+      "best": 30.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T17:43:14.907317+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.3,
+      "ecmwf_raw": 30.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 30.9,
+      "best": 30.9,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T22:01:21.283822+00:00",
+      "horizon": "D+2",
+      "hours_left": 38.0,
+      "ecmwf_raw": 31.1,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 31.1,
+      "best": 31.1,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-02T22:15:15.062522+00:00",
+      "horizon": "D+2",
+      "hours_left": 37.7,
+      "ecmwf_raw": 31.1,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 31.1,
+      "best": 31.1,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-02T17:24:06.846730+00:00",
+      "top_bucket": "31.0-31.0C",
+      "top_price": 0.85
+    },
+    {
+      "ts": "2026-04-02T17:32:13.897277+00:00",
+      "top_bucket": "31.0-31.0C",
+      "top_price": 0.835
+    },
+    {
+      "ts": "2026-04-02T17:34:29.776890+00:00",
+      "top_bucket": "31.0-31.0C",
+      "top_price": 0.835
+    },
+    {
+      "ts": "2026-04-02T17:35:35.285914+00:00",
+      "top_bucket": "31.0-31.0C",
+      "top_price": 0.835
+    },
+    {
+      "ts": "2026-04-02T17:43:14.907317+00:00",
+      "top_bucket": "31.0-31.0C",
+      "top_price": 0.83
+    },
+    {
+      "ts": "2026-04-02T22:01:21.283822+00:00",
+      "top_bucket": "31.0-31.0C",
+      "top_price": 0.79
+    },
+    {
+      "ts": "2026-04-02T22:15:15.062522+00:00",
+      "top_bucket": "31.0-31.0C",
+      "top_price": 0.79
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Singapore be 24°C or below on April 4?",
+      "market_id": "1781332",
+      "range": [
+        -999.0,
+        24.0
+      ],
+      "bid": 0.9985,
+      "ask": 0.9985,
+      "price": 0.9985,
+      "spread": 0.0,
+      "volume": 1658.0,
+      "is_binary": true,
+      "yes_price": 0.9985,
+      "no_price": 0.0015
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 25°C on April 4?",
+      "market_id": "1781333",
+      "range": [
+        25.0,
+        25.0
+      ],
+      "bid": 0.9975,
+      "ask": 0.9975,
+      "price": 0.9975,
+      "spread": 0.0,
+      "volume": 1606.0,
+      "is_binary": true,
+      "yes_price": 0.9975,
+      "no_price": 0.0025
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 26°C on April 4?",
+      "market_id": "1781334",
+      "range": [
+        26.0,
+        26.0
+      ],
+      "bid": 0.9985,
+      "ask": 0.9985,
+      "price": 0.9985,
+      "spread": 0.0,
+      "volume": 1692.0,
+      "is_binary": true,
+      "yes_price": 0.9985,
+      "no_price": 0.0015
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 27°C on April 4?",
+      "market_id": "1781335",
+      "range": [
+        27.0,
+        27.0
+      ],
+      "bid": 0.997,
+      "ask": 0.997,
+      "price": 0.997,
+      "spread": 0.0,
+      "volume": 1000.0,
+      "is_binary": true,
+      "yes_price": 0.997,
+      "no_price": 0.003
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 28°C on April 4?",
+      "market_id": "1781336",
+      "range": [
+        28.0,
+        28.0
+      ],
+      "bid": 0.996,
+      "ask": 0.996,
+      "price": 0.996,
+      "spread": 0.0,
+      "volume": 1368.0,
+      "is_binary": true,
+      "yes_price": 0.996,
+      "no_price": 0.004
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 29°C on April 4?",
+      "market_id": "1781337",
+      "range": [
+        29.0,
+        29.0
+      ],
+      "bid": 0.9945,
+      "ask": 0.9945,
+      "price": 0.9945,
+      "spread": 0.0,
+      "volume": 1179.0,
+      "is_binary": true,
+      "yes_price": 0.9945,
+      "no_price": 0.0055
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 30°C on April 4?",
+      "market_id": "1781338",
+      "range": [
+        30.0,
+        30.0
+      ],
+      "bid": 0.965,
+      "ask": 0.965,
+      "price": 0.965,
+      "spread": 0.0,
+      "volume": 1966.0,
+      "is_binary": true,
+      "yes_price": 0.965,
+      "no_price": 0.035
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 31°C on April 4?",
+      "market_id": "1781339",
+      "range": [
+        31.0,
+        31.0
+      ],
+      "bid": 0.79,
+      "ask": 0.79,
+      "price": 0.79,
+      "spread": 0.0,
+      "volume": 1672.0,
+      "is_binary": true,
+      "yes_price": 0.79,
+      "no_price": 0.21
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 32°C on April 4?",
+      "market_id": "1781340",
+      "range": [
+        32.0,
+        32.0
+      ],
+      "bid": 0.595,
+      "ask": 0.595,
+      "price": 0.595,
+      "spread": 0.0,
+      "volume": 1698.0,
+      "is_binary": true,
+      "yes_price": 0.595,
+      "no_price": 0.405
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 33°C on April 4?",
+      "market_id": "1781341",
+      "range": [
+        33.0,
+        33.0
+      ],
+      "bid": 0.785,
+      "ask": 0.785,
+      "price": 0.785,
+      "spread": 0.0,
+      "volume": 1501.0,
+      "is_binary": true,
+      "yes_price": 0.785,
+      "no_price": 0.215
+    },
+    {
+      "question": "Will the highest temperature in Singapore be 34°C or higher on April 4?",
+      "market_id": "1781342",
+      "range": [
+        34.0,
+        999.0
+      ],
+      "bid": 0.87,
+      "ask": 0.87,
+      "price": 0.87,
+      "spread": 0.0,
+      "volume": 2997.0,
+      "is_binary": true,
+      "yes_price": 0.87,
+      "no_price": 0.13
+    }
+  ],
+  "created_at": "2026-04-02T17:24:09.028121+00:00"
+}

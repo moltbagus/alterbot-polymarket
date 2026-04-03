@@ -1,0 +1,3 @@
+city,temp,date_str,yes_price,volume,market_id,created_at,resolved_at,outcome,question
+New York,Unknown,Unknown,1.7619359098323237e-07,2504.542475,239139,2021-10-29T17:18:48.077Z,,,"Will the high temperature in New York's Central Park be 60°F or higher on November 2, 2021?"
+New York,Unknown,Unknown,1.5395260337011326e-07,679.472769,239326,2021-11-09T21:00:12.213Z,,,"Will the high temperature in New York's Central Park be 60°F or higher on November 15th, 2021?"

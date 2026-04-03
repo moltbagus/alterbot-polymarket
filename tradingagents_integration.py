@@ -14,6 +14,7 @@ import os
 import sys
 import json
 import time
+import math
 import requests
 from datetime import datetime, timedelta
 from typing import Dict, Any, Optional
@@ -39,6 +40,12 @@ CITY_CONFIG = {
     "nyc": {"icao": "KLGA", "lat": 40.7772, "lon": -73.8726, "tz": "America/New_York"},
     "chicago": {"icao": "KORD", "lat": 41.9742, "lon": -87.9073, "tz": "America/Chicago"},
     "miami": {"icao": "KMIA", "lat": 25.7959, "lon": -80.2870, "tz": "America/New_York"},
+    "atlanta": {"icao": "KATL", "lat": 33.6407, "lon": -84.4277, "tz": "America/New_York"},
+    "dallas": {"icao": "KDAL", "lat": 32.8471, "lon": -96.8518, "tz": "America/Chicago"},
+    "sao-paulo": {"icao": "SBGR", "lat": -23.4356, "lon": -46.4731, "tz": "America/Sao_Paulo"},
+    "hong-kong": {"icao": "HKO", "lat": 22.3025, "lon": 114.1747, "tz": "Asia/Hong_Kong"},
+    "ankara": {"icao": "LTAC", "lat": 40.1281, "lon": 32.9951, "tz": "Europe/Istanbul"},
+    "lucknow": {"icao": "VILK", "lat": 26.7606, "lon": 80.8893, "tz": "Asia/Kolkata"},
 }
 
 
@@ -138,19 +145,24 @@ class FundamentalsAnalyst:
         
         metar = get_metar_data(config["icao"])
         forecast = get_forecast_temp(city, target_date)
-        
+
+        # METAR temp is in Celsius; forecast_max is also Celsius (Open-Meteo default)
         current_temp = metar.get("temp", 0) or 0
         forecast_max = forecast.get("max", 0) or 0
-        
-        # Check if forecast can reach target
-        can_reach = forecast_max >= target_temp
-        
-        # Confidence from forecast gap
+
+        # Unit-aware can_reach: convert Fahrenheit target to Celsius for comparison
+        if unit == "F":
+            target_c = round((target_temp - 32) * 5 / 9, 1)
+        else:
+            target_c = float(target_temp)
+        can_reach = forecast_max >= target_c
+
+        # Confidence from forecast gap (always in Celsius)
         gap = forecast_max - current_temp
         conf = 50
         if can_reach:
             conf += 20
-            if forecast_max - target_temp >= 2:
+            if forecast_max - target_c >= 2:
                 conf += 15  # comfortable margin
         else:
             conf -= 30
@@ -197,10 +209,98 @@ class FundamentalsAnalyst:
 
 class SentimentAnalyst:
     """Analyzes Polymarket market odds and sentiment."""
-    
+
     def __init__(self):
         self.name = "Sentiment Analyst (Market Odds)"
-    
+
+    def detect_market_inefficiency(self, market_id: str, bot_confidence: float, p: float) -> Dict[str, Any]:
+        """
+        Detect market mispricing: bot high-conviction signal vs market price.
+
+        Returns:
+            is_inefficient: True if market underestimates the event (edge exists)
+            edge_direction: "buy_yes" or "skip"
+            market_price: current YES price
+            bot_prob: bot's probability estimate
+            disagreement_pct: |market - bot| as a percentage
+            reason: explanation
+        """
+        odds = get_polymarket_odds(market_id)
+
+        if "error" in odds:
+            return {"is_inefficient": False, "error": odds["error"]}
+
+        market_price = odds.get("yes_price", 0.5)
+        bot_prob = float(bot_confidence) if bot_confidence is not None else p
+        disagreement_pct = abs(market_price - bot_prob)
+
+        # No-trade zones: market too certain or too uncertain
+        if market_price > 0.85:
+            return {
+                "is_inefficient": False,
+                "edge_direction": "skip",
+                "market_price": market_price,
+                "bot_prob": bot_prob,
+                "disagreement_pct": disagreement_pct,
+                "reason": f"Market price ${market_price:.3f} > $0.85 — near-certain, no edge"
+            }
+
+        if market_price < 0.05:
+            return {
+                "is_inefficient": False,
+                "edge_direction": "skip",
+                "market_price": market_price,
+                "bot_prob": bot_prob,
+                "disagreement_pct": disagreement_pct,
+                "reason": f"Market price ${market_price:.3f} < $0.05 — long-shot, too risky"
+            }
+
+        # Bot must have HIGH conviction (>80%) for inefficiency to matter
+        # If market says YES=$0.80 but bot is 95% confident, market underestimates → BET
+        # If market says YES=$0.80 and bot is only 55% confident, market is probably right → SKIP
+        if bot_prob >= 0.80 and market_price < bot_prob - 0.15:
+            # Market underestimates: bot thinks it's more likely than market implies
+            edge = bot_prob - market_price
+            return {
+                "is_inefficient": True,
+                "edge_direction": "buy_yes",
+                "market_price": market_price,
+                "bot_prob": bot_prob,
+                "disagreement_pct": disagreement_pct,
+                "reason": f"BET: Bot {bot_prob:.0%} vs market {market_price:.0%} — market underestimates by {edge:.0%}"
+            }
+
+        if bot_prob < 0.60 and market_price > bot_prob + 0.15:
+            # Bot disagrees with market direction — if market is expensive and bot is skeptical
+            return {
+                "is_inefficient": False,
+                "edge_direction": "skip",
+                "market_price": market_price,
+                "bot_prob": bot_prob,
+                "disagreement_pct": disagreement_pct,
+                "reason": f"SKIP: Bot {bot_prob:.0%} vs market {market_price:.0%} — market overestimate, bot low confidence"
+            }
+
+        # Sigma-adjusted probability vs market price disagreement > 20%
+        if disagreement_pct > 0.20:
+            return {
+                "is_inefficient": False,
+                "edge_direction": "skip",
+                "market_price": market_price,
+                "bot_prob": bot_prob,
+                "disagreement_pct": disagreement_pct,
+                "reason": f"SKIP: Sigma-adjusted prob and market price disagree by {disagreement_pct:.0%} > 20% — too uncertain"
+            }
+
+        return {
+            "is_inefficient": False,
+            "edge_direction": "neutral",
+            "market_price": market_price,
+            "bot_prob": bot_prob,
+            "disagreement_pct": disagreement_pct,
+            "reason": "No inefficiency detected — market price reasonably aligned with bot estimate"
+        }
+
     def analyze(self, market_id: str, target_temp: int, unit: str = "C") -> Dict[str, Any]:
         odds = get_polymarket_odds(market_id)
         
@@ -247,44 +347,237 @@ Market pricing in {yes_price*100:.0f}% chance of resolution YES.
 
 class TechnicalAnalyst:
     """Analyzes historical patterns and forecast trends."""
-    
+
+    # Historical averages by city/day-of-year (interpolated monthly -> daily)
+    # Using NOAA/ECMWF climate normals as baseline
+    HISTORICAL_DAILY = {
+        # Format: city -> (month, day) -> avg temp in °C
+        # Populated with more granular data below
+    }
+
+    # Monthly averages as fallback (°C) — used to interpolate daily values
+    HISTORICAL_MONTHLY = {
+        "singapore": {1: 29, 2: 29, 3: 30, 4: 31, 5: 31, 6: 30, 7: 30, 8: 30, 9: 30, 10: 30, 11: 30, 12: 29},
+        "tokyo": {1: 6, 2: 7, 3: 14, 4: 18, 5: 23, 6: 26, 7: 30, 8: 31, 9: 27, 10: 22, 11: 16, 12: 11},
+        "seoul": {1: 0, 2: 2, 3: 11, 4: 16, 5: 21, 6: 25, 7: 28, 8: 29, 9: 25, 10: 18, 11: 10, 12: 3},
+        "london": {1: 6, 2: 6, 3: 11, 4: 14, 5: 18, 6: 21, 7: 24, 8: 23, 9: 20, 10: 15, 11: 11, 12: 8},
+        "nyc": {1: 3, 2: 4, 3: 10, 4: 16, 5: 21, 6: 26, 7: 29, 8: 28, 9: 24, 10: 17, 11: 11, 12: 5},
+        "chicago": {1: -2, 2: -1, 3: 8, 4: 14, 5: 20, 6: 25, 7: 28, 8: 27, 9: 23, 10: 15, 11: 8, 12: 1},
+        "miami": {1: 24, 2: 25, 3: 26, 4: 28, 5: 30, 6: 31, 7: 32, 8: 32, 9: 31, 10: 29, 11: 26, 12: 24},
+        "atlanta": {1: 9, 2: 11, 3: 18, 4: 23, 5: 27, 6: 31, 7: 33, 8: 33, 9: 29, 10: 24, 11: 18, 12: 13},
+        "dallas": {1: 12, 2: 14, 3: 21, 4: 26, 5: 30, 6: 35, 7: 37, 8: 37, 9: 33, 10: 27, 11: 21, 12: 16},
+        "sao-paulo": {1: 28, 2: 28, 3: 28, 4: 26, 5: 24, 6: 22, 7: 22, 8: 25, 9: 27, 10: 28, 11: 28, 12: 28},
+        "hong-kong": {1: 19, 2: 19, 3: 21, 4: 24, 5: 28, 6: 30, 7: 32, 8: 32, 9: 31, 10: 29, 11: 25, 12: 21},
+        "paris": {1: 6, 2: 7, 3: 13, 4: 16, 5: 20, 6: 24, 7: 26, 8: 26, 9: 22, 10: 16, 11: 11, 12: 8},
+        "ankara": {1: 2, 2: 3, 3: 10, 4: 16, 5: 21, 6: 26, 7: 30, 8: 30, 9: 25, 10: 18, 11: 11, 12: 5},
+        "lucknow": {1: 18, 2: 20, 3: 26, 4: 32, 5: 35, 6: 34, 7: 32, 8: 31, 9: 30, 10: 28, 11: 22, 12: 18},
+    }
+
+    # City population (millions) for UHI correction
+    # Larger cities have stronger urban heat island effect
+    CITY_POPULATION = {
+        "tokyo": 37.4,
+        "delhi": 32.9,
+        "shanghai": 28.5,
+        "sao-paulo": 22.4,
+        "mexico-city": 21.8,
+        "dhaka": 21.7,
+        "cairo": 21.3,
+        "beijing": 21.0,
+        "mumbai": 20.7,
+        "nyc": 18.8,
+        "kolkata": 18.6,
+        "london": 14.8,
+        "hong-kong": 7.5,
+        "paris": 7.0,
+        "singapore": 5.9,
+        "chicago": 2.7,
+        "atlanta": 5.0,
+        "dallas": 5.0,
+        "seoul": 24.0,
+    }
+
     def __init__(self):
-        self.name = "Technical Analyst (Historical)"
-    
-    def analyze(self, city: str, target_date: str, forecast_max: float, unit: str = "C") -> Dict[str, Any]:
-        # Historical averages by city/month
-        HISTORICAL = {
-            "singapore": {3: 30, 4: 31, 5: 31, 6: 30, 7: 30, 8: 30, 9: 30, 10: 30, 11: 30, 12: 29},
-            "tokyo": {3: 14, 4: 18, 5: 23, 6: 26, 7: 30, 8: 31, 9: 27, 10: 22, 11: 16, 12: 11},
-            "seoul": {3: 11, 4: 16, 5: 21, 6: 25, 7: 28, 8: 29, 9: 25, 10: 18, 11: 10, 12: 3},
-            "london": {3: 11, 4: 14, 5: 18, 6: 21, 7: 24, 8: 23, 9: 20, 10: 15, 11: 11, 12: 8},
-            "nyc": {3: 10, 4: 16, 5: 21, 6: 26, 7: 29, 8: 28, 9: 24, 10: 17, 11: 11, 12: 5},
-            "chicago": {3: 8, 4: 14, 5: 20, 6: 25, 7: 28, 8: 27, 9: 23, 10: 15, 11: 8, 12: 1},
-            "miami": {3: 26, 4: 28, 5: 30, 6: 31, 7: 32, 8: 32, 9: 31, 10: 29, 11: 26, 12: 24},
+        self.name = "Technical Analyst (Historical + Trend + UHI)"
+
+    def _get_historical_temp(self, city: str, target_dt: datetime) -> float:
+        """Get interpolated historical temperature for a city on a specific date."""
+        city_lower = city.lower()
+        monthly = self.HISTORICAL_MONTHLY.get(city_lower, {})
+
+        if not monthly:
+            return 25.0  # default fallback
+
+        month = target_dt.month
+        # Linear interpolation between months for more accurate daily value
+        prev_month = 12 if month == 1 else month - 1
+        next_month = 1 if month == 12 else month + 1
+
+        prev_temp = monthly.get(prev_month, 25)
+        curr_temp = monthly.get(month, 25)
+        next_temp = monthly.get(next_month, 25)
+
+        # Day of month (approximate)
+        day = target_dt.day
+        days_in_month = 31  # approximate
+        fraction = (day - 1) / days_in_month
+
+        # Interpolate: blend from prev month to current to next month
+        # This gives smoother seasonal transitions
+        if fraction < 0.5:
+            # First half of month: blend prev -> current
+            temp = prev_temp + (curr_temp - prev_temp) * (fraction * 2)
+        else:
+            # Second half of month: blend current -> next
+            temp = curr_temp + (next_temp - curr_temp) * ((fraction - 0.5) * 2)
+
+        return round(temp, 1)
+
+    def _get_uhi_correction(self, city: str, unit: str = "C") -> float:
+        """Estimate UHI correction based on city population.
+
+        UHI effect: major cities can be 2-5°C warmer than surrounding areas.
+        We apply this as a bonus to forecast accuracy for big city markets.
+        """
+        city_lower = city.lower()
+        pop = self.CITY_POPULATION.get(city_lower, 1.0)
+
+        # UHI magnitude: roughly log(pop) / 10, capped at 3°C
+        uhi_c = min(3.0, max(0.5, round(math.log10(max(pop, 1.0)) * 1.5, 1)))
+
+        if unit == "F":
+            return round(uhi_c * 9/5, 1)
+        return uhi_c
+
+    def _get_seasonal_adjustment(self, city: str, target_dt: datetime, forecast_max: float) -> Dict[str, Any]:
+        """Analyze seasonal position within the year's temperature curve.
+
+        Returns adjustment factor and explanation.
+        """
+        month = target_dt.month
+        city_lower = city.lower()
+        monthly = self.HISTORICAL_MONTHLY.get(city_lower, {})
+
+        if not monthly:
+            return {"adjustment": 0, "explanation": "No seasonal data"}
+
+        # Find if we're in warming or cooling phase
+        # Spring: months 3-5 (N hemisphere), 9-11 (S hemisphere)
+        # Summer: months 6-8 (N), 12-2 (S)
+        temps = [monthly.get(m, 20) for m in range(1, 13)]
+        peak_month = temps.index(max(temps)) + 1  # 1-indexed
+        trough_month = (temps.index(min(temps)) + 1)
+
+        # Distance from peak/trough
+        months_from_peak = abs(month - peak_month)
+        months_from_trough = abs(month - trough_month)
+
+        # Seasonal momentum: temperatures tend to continue their trend
+        # If we're in April and peak is July, we're in "warming phase"
+        is_northern = city_lower not in {"sao-paulo", "buenos-aires", "wellington", "sydney"}
+
+        if is_northern:
+            if month in [3, 4, 5] and months_from_trough < 6:
+                # Spring warming phase
+                seasonal_bias = 1.0  # temps likely to exceed forecast
+                explanation = "Spring warming phase — temps tend to exceed models"
+            elif month in [9, 10, 11] and months_from_peak < 4:
+                # Autumn cooling phase
+                seasonal_bias = -1.0
+                explanation = "Autumn cooling phase — temps may fall below forecast"
+            elif month in [6, 7, 8]:
+                seasonal_bias = 0.5
+                explanation = "Summer peak — warm bias possible"
+            elif month in [12, 1, 2]:
+                seasonal_bias = -0.5
+                explanation = "Winter cold — potential cold bias"
+            else:
+                seasonal_bias = 0
+                explanation = "Neutral seasonal position"
+        else:
+            # Southern hemisphere: seasons are reversed
+            if month in [9, 10, 11] and months_from_trough < 6:
+                seasonal_bias = 1.0
+                explanation = "Southern spring warming"
+            elif month in [3, 4, 5] and months_from_peak < 4:
+                seasonal_bias = -1.0
+                explanation = "Southern autumn cooling"
+            else:
+                seasonal_bias = 0
+                explanation = "Neutral seasonal position"
+
+        return {
+            "adjustment": seasonal_bias,
+            "explanation": explanation,
+            "peak_month": peak_month,
+            "trough_month": trough_month,
         }
-        
+
+    def analyze(self, city: str, target_date: str, forecast_max: float, unit: str = "C") -> Dict[str, Any]:
         target_dt = datetime.strptime(target_date, "%Y-%m-%d")
         month = target_dt.month
-        
-        hist = HISTORICAL.get(city.lower(), {}).get(month, 25)
-        deviation = forecast_max - hist
-        
-        if deviation > 3:
+
+        # 1. Historical average (interpolated for day-of-year accuracy) — always in Celsius
+        hist_c = self._get_historical_temp(city, target_dt)
+
+        # 2. UHI correction in Celsius
+        uhi_c = self._get_uhi_correction(city, "C")
+
+        # 3. Seasonal adjustment
+        seasonal = self._get_seasonal_adjustment(city, target_dt, forecast_max)
+
+        # 4. Convert forecast to Celsius for consistent comparison
+        if unit == "F":
+            forecast_c = (forecast_max - 32) * 5 / 9
+        else:
+            forecast_c = forecast_max
+
+        # 5. Combined deviation: forecast vs historical + UHI + seasonal
+        # Effective "normal" = historical + UHI adjustment (cities are warmer than raw station data)
+        effective_normal_c = hist_c + uhi_c
+        deviation_c = forecast_c - effective_normal_c
+
+        # Apply seasonal bias to deviation (in Celsius)
+        seasonal_adj_c = seasonal["adjustment"] * 0.5
+        adjusted_deviation_c = deviation_c - seasonal_adj_c
+
+        # Convert back to display unit for report
+        if unit == "F":
+            deviation = round(deviation_c * 9/5, 1)
+            adjusted_deviation = round(adjusted_deviation_c * 9/5, 1)
+            effective_normal = round(effective_normal_c * 9/5, 1)
+            uhi_display = round(uhi_c * 9/5, 1)
+        else:
+            deviation = round(deviation_c, 1)
+            adjusted_deviation = round(adjusted_deviation_c, 1)
+            effective_normal = round(effective_normal_c, 1)
+            uhi_display = round(uhi_c, 1)
+
+        hist = hist_c if unit == "C" else round(hist_c * 9/5, 1)
+
+        if adjusted_deviation > 2:
             pattern = "WARM_ANOMALY"
-        elif deviation < -3:
+        elif adjusted_deviation < -2:
             pattern = "COLD_ANOMALY"
         else:
             pattern = "NORMAL"
-        
+
         report = f"""# Technical Analysis - {city.title()}
 
-## Historical Pattern (Month {month})
-- **Historical Avg:** {hist}°{unit}
+## Historical Baseline (Day-of-Year)
+- **Historical Avg (Interpolated):** {hist}°{unit}
+- **UHI Correction (Pop {self.CITY_POPULATION.get(city.lower(), 'N/A')}M):** +{uhi_display}°{unit}
+- **Effective Normal:** {effective_normal}°{unit}
 - **Current Forecast:** {forecast_max}°{unit}
-- **Deviation:** {deviation:+.1f}°{unit}
+- **Raw Deviation:** {deviation:+.1f}°{unit}
+
+## Seasonal Analysis
+- **Seasonal Phase:** {seasonal['explanation']}
+- **Peak Month:** {seasonal['peak_month']} | Trough: {seasonal['trough_month']}
+- **Seasonal Adjustment:** {seasonal['adjustment']:+.1f} → Adjusted Deviation: {adjusted_deviation:+.1f}°{unit}
 
 ## Pattern: {pattern}
-{'Above normal temperatures - favorable for reaching high targets' if deviation > 0 else 'Below normal - headwind for warm targets' if deviation < -2 else 'Near normal conditions'}
+{'Above normal — favorable for reaching warm targets' if adjusted_deviation > 0 else 'Below normal — headwind for warm targets' if adjusted_deviation < -1 else 'Near normal conditions'}
 
 ## Signal
 {pattern}
@@ -292,8 +585,12 @@ class TechnicalAnalyst:
         return {
             "report": report,
             "historical_avg": hist,
-            "deviation": deviation,
+            "deviation": round(deviation, 1),
+            "adjusted_deviation": round(adjusted_deviation, 1),
             "pattern": pattern,
+            "uhi_correction": uhi_display,
+            "seasonal_adjustment": seasonal["adjustment"],
+            "seasonal_explanation": seasonal["explanation"],
         }
 
 
@@ -379,7 +676,7 @@ class RiskManager:
     def __init__(self):
         self.name = "Risk Manager"
         self.min_conviction = 7  # Must score >= 7/10 to approve
-        self.max_risk_score = 60  # Risk score must be <= 60/100
+        self.max_risk_score = 65  # Risk score must be <= 65/100
     
     def evaluate(
         self,
@@ -396,10 +693,40 @@ class RiskManager:
         technical: Dict,
         bull_case: str,
         bear_case: str,
+        hours_ahead: float = 999.0,
     ) -> Dict[str, Any]:
-        
+
         sentiment_data = get_polymarket_odds(market_id) if market_id else {}
-        
+        yes_price = sentiment.get("yes_price", 0.5) or sentiment_data.get("yes_price", 0.5)
+
+        # --- NO-TRADE ZONE 1: Market price > $0.85 (near-certain, no edge) ---
+        if yes_price > 0.85:
+            return self._rejected(
+                city, target_temp, target_date, unit, p, price,
+                f"REJECTED: Market YES=${yes_price:.3f} > $0.85 — near-certain outcome, no edge to exploit.",
+                fundamentals, sentiment, technical, bull_case, bear_case
+            )
+
+        # --- NO-TRADE ZONE 2: Market price < $0.05 (long-shot, too risky) ---
+        if yes_price < 0.05:
+            return self._rejected(
+                city, target_temp, target_date, unit, p, price,
+                f"REJECTED: Market YES=${yes_price:.3f} < $0.05 — long-shot, expected value too thin.",
+                fundamentals, sentiment, technical, bull_case, bear_case
+            )
+
+        # --- NO-TRADE ZONE 3: Sigma-adjusted probability disagrees with market by > 20% ---
+        # Bot confidence must be high enough to justify the disagreement
+        bot_confidence = fundamentals.get("confidence", 50) / 100.0
+        disagreement = abs(bot_confidence - yes_price)
+        if disagreement > 0.20:
+            return self._rejected(
+                city, target_temp, target_date, unit, p, price,
+                f"REJECTED: Bot confidence ({bot_confidence:.0%}) and market price ({yes_price:.0%}) "
+                f"disagree by {disagreement:.0%} > 20% — too uncertain to act.",
+                fundamentals, sentiment, technical, bull_case, bear_case
+            )
+
         # Calculate conviction score (0-10)
         conviction = 5  # Start neutral
         
@@ -422,7 +749,6 @@ class RiskManager:
             conviction -= 1
         
         # Factor 3: Market alignment
-        yes_price = sentiment.get("yes_price", 0.5) or sentiment_data.get("yes_price", 0.5)
         if yes_price > 0.6:
             conviction += 0.5  # Market agrees
         elif yes_price < 0.4:
@@ -457,10 +783,16 @@ class RiskManager:
             risk_score += 15
         
         risk_score = max(10, min(95, risk_score))
-        
+
         # APPROVED or REJECTED
         approved = conviction >= self.min_conviction and risk_score <= self.max_risk_score
-        
+
+        # Kelly sizing guard: if Kelly > 0.15 AND market price > $0.10, reduce bet by 50%
+        # Don't overbet even "good" trades when market is already priced moderately high
+        kelly_reduction = 1.0
+        if kelly > 0.15 and yes_price > 0.10:
+            kelly_reduction = 0.5
+
         if approved:
             verdict = "APPROVED"
             position = self._get_position(kelly, conviction)
@@ -505,6 +837,7 @@ class RiskManager:
             "risk_score": round(risk_score, 1),
             "approved": approved,
             "can_reach": fundamentals.get("can_reach", False),
+            "kelly_reduction": kelly_reduction,
             "factors": {
                 "fundamentals_confidence": conf,
                 "yes_price": yes_price,
@@ -519,7 +852,7 @@ class RiskManager:
             return "MAX_BET"
         elif conviction >= 8:
             return "STANDARD_BET"
-        elif conviction >= 7:
+        elif conviction >= 6:
             return "SMALL_BET"
         else:
             return "NO_BET"
@@ -581,9 +914,10 @@ class WeatherTradingAgents:
         price: float,
         kelly: float,
         market_id: str,
+        hours_ahead: float = 999.0,
     ) -> Dict[str, Any]:
         """Run full TradingAgents debate. Returns risk decision."""
-        
+
         print(f"\n{'='*60}")
         print(f"🤖 TradingAgents Debate: {city.title()} {target_temp}°{unit} | {target_date}")
         print(f"{'='*60}")
@@ -612,7 +946,7 @@ class WeatherTradingAgents:
         print("  [6/6] Risk Manager (FINAL GATE)...")
         risk = self.risk.evaluate(
             city, target_temp, target_date, unit, p, price, kelly, market_id,
-            fund, sent, tech, bull_case, bear_case
+            fund, sent, tech, bull_case, bear_case, hours_ahead
         )
         
         # Summary
@@ -689,13 +1023,14 @@ def should_trade(
     price: float,
     kelly: float,
     market_id: str,
+    hours_ahead: float = 999.0,
 ) -> tuple[bool, Dict]:
     """
     Main entry point for bot_v2.py integration.
     Returns (should_trade: bool, decision: Dict)
     """
     ta = get_ta()
-    decision = ta.analyze(city, target_temp, target_date, unit, p, price, kelly, market_id)
+    decision = ta.analyze(city, target_temp, target_date, unit, p, price, kelly, market_id, hours_ahead)
     
     approved = decision.get("risk", {}).get("approved", False)
     return approved, decision

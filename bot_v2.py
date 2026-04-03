@@ -97,13 +97,13 @@ SIGMA_C = 1.2
 # =============================================================================
 BIAS_CORRECTION = {
     # East Asian spring warming (ECMWF systematic cold bias)
-    "seoul":     +3.0,
-    "shanghai":  +2.5,
-    "tokyo":     +1.5,
-    # US East Coast spring (HRRR slight cold bias in March)
-    "nyc":       +2.0,
-    "chicago":   +3.0,   # Lake Michigan cold air advection
-    "atlanta":   +1.5,   # Southeastern warming
+    "seoul":     +2.0,   # Reduced from +3.0 (spring warming trend)
+    "shanghai":  +2.0,   # Reduced from +2.5 (April fog season less severe)
+    "tokyo":     +1.0,   # Reduced from +1.5 (April is cooler in warming season)
+    # US East Coast spring — April adjustments
+    "nyc":       +1.5,   # Reduced from +2.0 (April warming)
+    "chicago":   +2.0,   # Reduced from +3.0 (Lake Michigan effect less extreme)
+    "atlanta":   +1.0,   # Reduced from +1.5 (April warming)
     # Great Lakes / Canadian cold bias
     "toronto":   -1.5,
     # Pacific marine layer
@@ -178,10 +178,12 @@ def get_dynamic_sigma(city_slug, source="ecmwf", hours_ahead=48):
     """Return sigma adjusted for city, source, forecast horizon, and season."""
     base = get_sigma(city_slug, source)
 
-    # 1. Seasonal adjustment — spring/fall transition months are most volatile
+    # 1. Seasonal adjustment — April is warming season, models handle warming better
     month = datetime.now().month
-    if month in [3, 4, 9, 10]:
-        base *= 1.35   # 35% higher uncertainty in transition seasons
+    if month == 4:
+        base *= 0.90   # April warming: reduce sigma 10% (models handle warming well)
+    elif month in [3, 9, 10]:
+        base *= 1.35   # 35% higher uncertainty in transition seasons (cold/warm)
     elif month in [12, 1, 2]:
         base *= 1.15   # 15% higher in deep winter
 
@@ -193,12 +195,68 @@ def get_dynamic_sigma(city_slug, source="ecmwf", hours_ahead=48):
     elif hours_ahead < 24:
         base *= 0.85   # D+0: 15% lower (METAR zone)
 
-    # 3. Per-city known volatility
+    # 3. Per-city known volatility (but these cities should be in avoid_cities anyway)
     volatile = ["seoul", "chicago", "nyc", "seattle", "ankara", "wellington"]
     if city_slug in volatile:
         base *= 1.15   # 15% extra for known volatile climates
 
     return round(base, 2)
+
+
+# =============================================================================
+# HORIZON-ADJUSTED SIGMA — proper calibration for D+0 to D+3 forecasts
+# =============================================================================
+# Volatile cities have higher base uncertainty (coastal, lake-effect, desert transition)
+VOLATILE_CITIES = {"seoul", "chicago", "nyc", "seattle", "ankara", "wellington", "dallas", "atlanta"}
+
+# Base sigma per horizon (°C / °F) — stable cities first, volatile add +0.5
+BASE_SIGMA = {
+    "stable":  {"D+0": 1.0, "D+1": 1.5, "D+2": 2.0, "D+3": 2.5},
+    "volatile": {"D+0": 1.5, "D+1": 2.0, "D+2": 2.5, "D+3": 3.0},
+}
+
+def get_horizon_adjusted_sigma(city_slug, hours_ahead):
+    """Return properly calibrated sigma based on forecast horizon.
+
+    Uncertainty grows with lead time because weather models lose resolution.
+    Volatile cities (coastal, lake-effect, desert-transition) get higher base sigma.
+
+    Args:
+        city_slug: city identifier
+        hours_ahead: hours until resolution
+
+    Returns:
+        sigma in the city's native unit (°F for US, °C for others)
+    """
+    is_volatile = city_slug in VOLATILE_CITIES
+    profile = "volatile" if is_volatile else "stable"
+
+    # Map hours_ahead to horizon bucket
+    if hours_ahead < 24:
+        horizon = "D+0"
+    elif hours_ahead < 48:
+        horizon = "D+1"
+    elif hours_ahead < 72:
+        horizon = "D+2"
+    else:
+        horizon = "D+3"
+
+    sigma = BASE_SIGMA[profile][horizon]
+
+    # Seasonal boost: spring/fall transitions are noisier
+    month = datetime.now().month
+    if month in [3, 4, 9, 10]:
+        sigma *= 1.20  # 20% higher in transition seasons
+
+    # Calibration override: if we have city-specific calibrated sigma, blend it in
+    cal_key = f"{city_slug}_ecmwf"
+    if cal_key in _cal:
+        cal_sigma = _cal[cal_key]["sigma"]
+        # Use 70% horizon-adjusted, 30% calibration-based (calibration is more trustworthy with data)
+        sigma = round(sigma * 0.7 + cal_sigma * 0.3, 2)
+
+    return round(sigma, 2)
+
 
 DATA_DIR         = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
@@ -431,6 +489,52 @@ def apply_whale_filters(city_slug, forecast_temp, price, forecast_data, is_binar
 
 
 # =============================================================================
+# FORECAST CONTINUITY CHECK — detect sudden model jumps
+# =============================================================================
+
+def check_forecast_continuity(mkt, current_forecast, sigma):
+    """Check if latest forecast differs from recent average by >2 sigma.
+
+    Sudden jumps often mean a model glitch or data assimilation issue, not real
+    weather changes. When detected, we reduce conviction.
+
+    Args:
+        mkt: market dict (with forecast_snapshots)
+        current_forecast: latest forecast temperature
+        sigma: current sigma value
+
+    Returns:
+        (is_continous: bool, conviction_multiplier: float, reason: str)
+    """
+    snapshots = mkt.get("forecast_snapshots", [])
+    if len(snapshots) < 2:
+        return True, 1.0, "no_history"  # No history to compare
+
+    # Get last 6 hours of forecasts (at most 3 snapshots if taken hourly)
+    recent_snaps = snapshots[-3:] if len(snapshots) >= 3 else snapshots[-2:]
+    recent_temps = [s.get("best") for s in recent_snaps if s.get("best") is not None]
+
+    if len(recent_temps) < 2:
+        return True, 1.0, "insufficient_history"
+
+    # Compute average of recent forecasts
+    recent_avg = sum(recent_temps) / len(recent_temps)
+    diff = abs(current_forecast - recent_avg)
+
+    # Threshold: 2 * sigma
+    threshold = 2.0 * sigma
+
+    if diff > threshold:
+        # Jump is suspicious — reduce conviction
+        # The bigger the jump relative to threshold, the more we reduce conviction
+        severity = min(diff / threshold, 2.0)  # cap at 2x
+        conviction_mult = max(0.5, 1.0 - (severity - 1.0) * 0.25)  # reduces to 50-75%
+        return False, round(conviction_mult, 2), f"jump_{diff:.1f}_over_{threshold:.1f}_threshold"
+
+    return True, 1.0, "continuity_ok"
+
+
+# =============================================================================
 # MATH
 # =============================================================================
 
@@ -595,13 +699,20 @@ def get_hrrr(city_slug, dates):
                 print(f"  [HRRR] {city_slug}: {e}")
     return result
 
-def get_metar(city_slug):
-    """Current observed temperature from METAR or Open-Meteo live. D+0 only."""
+def get_metar(city_slug, ecmwf_temp=None):
+    """Current observed temperature from METAR or Open-Meteo live. D+0 only.
+
+    Validates METAR against ECMWF: if they disagree by >15°F/8°C, the METAR is
+    flagged as suspicious (bad station data, heat burst, etc.) and we fall back
+    to ECMWF or return None.
+    """
     loc = LOCATIONS[city_slug]
     station = loc["station"]
     unit = loc["unit"]
     lat, lon = loc["lat"], loc["lon"]
-    
+
+    raw_metar = None
+
     # Try aviationweather.gov first (ICAO stations)
     try:
         url = f"https://aviationweather.gov/api/data/metar?ids={station}&format=json"
@@ -609,33 +720,45 @@ def get_metar(city_slug):
         if data and isinstance(data, list):
             temp_c = data[0].get("temp")
             if temp_c is not None:
-                if unit == "F":
-                    return round(float(temp_c) * 9/5 + 32)
-                return round(float(temp_c), 1)
+                raw_metar = float(temp_c)
     except Exception as e:
         pass  # Fall through to fallback
-    
+
     # Fallback: Open-Meteo current weather (works for any lat/lon, no station needed)
     # Especially important for HKO (Hong Kong Observatory) which isn't in aviationweather.gov
-    try:
-        url = f"https://api.open-meteo.com/v1/forecast"
-        params = {
-            "latitude": lat,
-            "longitude": lon,
-            "current": "temperature_2m",
-            "timezone": TIMEZONES.get(city_slug, "UTC"),
-        }
-        data = requests.get(url, params=params, timeout=(5, 8)).json()
-        current = data.get("current", {})
-        temp_val = current.get("temperature_2m")
-        if temp_val is not None:
-            if unit == "F":
-                return round(float(temp_val) * 9/5 + 32)
-            return round(float(temp_val), 1)
-    except Exception:
-        pass
-    
-    return None
+    if raw_metar is None:
+        try:
+            url = f"https://api.open-meteo.com/v1/forecast"
+            params = {
+                "latitude": lat,
+                "longitude": lon,
+                "current": "temperature_2m",
+                "timezone": TIMEZONES.get(city_slug, "UTC"),
+            }
+            data = requests.get(url, params=params, timeout=(5, 8)).json()
+            current = data.get("current", {})
+            temp_val = current.get("temperature_2m")
+            if temp_val is not None:
+                raw_metar = float(temp_val)
+        except Exception:
+            pass
+
+    if raw_metar is None:
+        return None
+
+    # METAR anomaly check: if METAR differs from ECMWF by more than 15°F/8°C, flag as suspicious.
+    # This catches bad station data (e.g., Dallas METAR jumped 57→82°F in same day).
+    if ecmwf_temp is not None:
+        diff_c = abs(raw_metar - ecmwf_temp)
+        diff_threshold_c = 8.0  # 8°C = ~15°F
+        if diff_c > diff_threshold_c:
+            print(f"  [METAR SUSPICIOUS] {city_slug}: METAR {raw_metar:.1f}°C vs ECMWF {ecmwf_temp:.1f}°C (diff {diff_c:.1f}°C > {diff_threshold_c}°C threshold) — using ECMWF instead")
+            return None
+
+    # Convert to display unit
+    if unit == "F":
+        return round(raw_metar * 9/5 + 32, 1)
+    return round(raw_metar, 1)
 
 def get_actual_temp(city_slug, date_str):
     """Actual temperature via Visual Crossing for closed markets."""
@@ -828,25 +951,45 @@ def take_forecast_snapshot(city_slug, dates):
             "ts":    now_str,
             "ecmwf": ecmwf.get(date),
             "hrrr":  hrrr.get(date) if date <= (datetime.now(timezone.utc) + timedelta(days=2)).strftime("%Y-%m-%d") else None,
-            "metar": get_metar(city_slug) if date == today else None,
+            "metar": get_metar(city_slug, ecmwf_temp=ecmwf.get(date)) if date == today else None,
         }
-        # Multi-model ensemble: weighted average using city-specific MODEL_WEIGHTS.
-        # Blending HRRR + ECMWF reduces systematic single-model biases.
+
+        # Build ensemble: collect all valid model temperatures
         loc = LOCATIONS[city_slug]
+        unit = loc["unit"]
         city_weights = get_model_weights(city_slug)
-        w_hrrr  = city_weights.get("hrrr",  0.3) if snap["hrrr"]  is not None else 0.0
-        w_ecmwf = city_weights.get("ecmwf", 0.6) if snap["ecmwf"] is not None else 0.0
-        w_total = w_hrrr + w_ecmwf
-        if w_total > 0:
-            raw_best = round(
-                ((snap["hrrr"]  or 0) * w_hrrr +
-                 (snap["ecmwf"] or 0) * w_ecmwf) / w_total,
-                1 if loc["unit"] == "C" else 0,
-            )
-            source_parts = []
-            if snap["hrrr"]  is not None: source_parts.append("hrrr")
-            if snap["ecmwf"] is not None: source_parts.append("ecmwf")
-            snap["best_source"] = "+".join(source_parts)
+
+        # Collect valid model values with weights
+        model_vals = {}  # model_name -> (value, weight)
+        if snap["ecmwf"] is not None:
+            model_vals["ecmwf"] = (snap["ecmwf"], city_weights.get("ecmwf", 0.6))
+        if snap["hrrr"] is not None:
+            model_vals["hrrr"] = (snap["hrrr"], city_weights.get("hrrr", 0.3))
+        if snap["metar"] is not None:
+            # METAR only valid if it passed the anomaly filter (get_metar returns None if suspicious)
+            model_vals["metar"] = (snap["metar"], city_weights.get("metar", 0.2))
+
+        # Disagreement detection: if models disagree by >3°C/°F, reduce confidence
+        disagreement = 0.0
+        model_temps = list(model_vals.keys())
+        if len(model_temps) >= 2:
+            temps = [model_vals[m][0] for m in model_temps]
+            disagreement = max(temps) - min(temps)
+        snap["model_disagreement"] = round(disagreement, 1)
+        snap["model_count"] = len(model_temps)
+
+        # Compute weighted ensemble average
+        if model_vals:
+            total_weight = sum(m[1] for m in model_vals.values())
+            if total_weight > 0:
+                raw_best = round(
+                    sum(model_vals[m][0] * model_vals[m][1] for m in model_vals) / total_weight,
+                    1 if unit == "C" else 0,
+                )
+                snap["best_source"] = "+".join(sorted(model_temps))
+            else:
+                raw_best = None
+                snap["best_source"] = None
         else:
             raw_best = None
             snap["best_source"] = None
@@ -856,12 +999,26 @@ def take_forecast_snapshot(city_slug, dates):
             snap["raw"]       = raw_best
             snap["ecmwf_raw"] = snap["ecmwf"]   # store raw before bias
             snap["hrrr_raw"]  = snap["hrrr"]    # store raw before bias
-            snap["best"]      = apply_bias(raw_best, city_slug, loc["unit"])
+            snap["metar_raw"] = snap["metar"]    # store raw METAR before bias
+            snap["best"]      = apply_bias(raw_best, city_slug, unit)
             snap["bias"]      = get_bias(city_slug)
             snap["uhi"]       = get_uhi(city_slug)
+            # Reduce confidence if models disagree significantly
+            # Disagreement > 3°C/°F means high uncertainty — mark it in the snap
+            if disagreement > 3.0:
+                snap["high_disagreement"] = True
+                # When disagreement is high, the ensemble average may be unreliable
+                # Use the most aggressive (closest to actual) model's value as a tiebreaker
+                # For now, just flag it — the probability calculation will use a wider sigma
+                snap["confidence_reduced"] = True
+            else:
+                snap["high_disagreement"] = False
+                snap["confidence_reduced"] = False
         else:
             snap["best"] = None
             snap["raw"]  = None
+            snap["high_disagreement"] = False
+            snap["confidence_reduced"] = False
 
         snapshots[date] = snap
     return snapshots
@@ -1121,8 +1278,21 @@ def scan_and_update():
             _now_hour   = datetime.now(timezone.utc).hour
             _in_window  = _now_hour in _best_hours
             if not mkt.get("position") and forecast_temp is not None and hours >= MIN_HOURS and _in_window:
-                # Use DYNAMIC sigma with horizon/season adjustments
-                sigma = get_dynamic_sigma(city_slug, best_source or "ecmwf", hours)
+                # Use HORIZON-ADJUSTED sigma with proper D+0 to D+3 calibration
+                # If models disagree significantly (>3°C/°F), inflate sigma to reflect uncertainty
+                sigma = get_horizon_adjusted_sigma(city_slug, hours)
+                if snap.get("high_disagreement", False):
+                    sigma *= 1.5  # 50% higher sigma when models don't agree
+                    sigma = round(sigma, 2)
+
+                # Forecast continuity check: reduce conviction if forecast jumped suddenly
+                # This catches model glitches (sudden 5-10°F shifts that aren't real weather)
+                continuity_ok, conviction_mult, continuity_reason = check_forecast_continuity(
+                    mkt, forecast_temp, sigma
+                )
+                if not continuity_ok:
+                    print(f"  [CONTINUITY JUMP] {loc['name']} {date} — {continuity_reason} (conviction*{conviction_mult})")
+
                 best_signal = None
 
                 # Find the best bucket: highest Gaussian probability given the ensemble forecast.
@@ -1146,7 +1316,9 @@ def scan_and_update():
 
                     # All filters — if any fails, skip this market entirely
                     if volume >= MIN_VOLUME:
-                        p  = best_bucket_prob  # already computed above
+                        # Apply continuity conviction multiplier if forecast jumped
+                        p_raw = best_bucket_prob * conviction_mult
+                        p = round(p_raw, 4)
                         ev = calc_ev(p, ask)
                         if ev >= MIN_EV:
                             kelly = calc_kelly(p, ask)
@@ -1214,22 +1386,24 @@ def scan_and_update():
                             price=best_signal["entry_price"],
                             kelly=best_signal["kelly"],
                             market_id=best_signal["market_id"],
+                            hours_ahead=hours,
                         )
                         risk_result = decision.get("risk", {})
                         verdict = risk_result.get("verdict", "UNKNOWN")
                         conviction = risk_result.get("conviction", 0)
                         position_type = risk_result.get("position", "NO_BET")
                         can_reach = risk_result.get("can_reach", True)
+                        kelly_reduction = risk_result.get("kelly_reduction", 1.0)
 
-                        # MUST get approval from risk manager AND conviction >= 7
+                        # MUST get approval from risk manager AND conviction >= 8
                         if not approved:
                             print(f"  [REJECTED] Risk Manager blocked trade | conviction {conviction}/10 | reason: {risk_result.get('reject_reason', 'low conviction or high risk')}")
                             continue
-                        if conviction < 7:
-                            print(f"  [REJECTED] Conviction {conviction}/10 < 7 threshold — skipping marginal trade")
+                        if conviction < 8:
+                            print(f"  [REJECTED] Conviction {conviction}/10 < 8 threshold — skipping marginal trade")
                             continue
 
-                        # Determine actual bet size based on conviction
+                        # Determine actual bet size based on conviction + Kelly sizing guard
                         actual_cost = best_signal["cost"]
                         if position_type == "MAX_BET":
                             actual_cost = best_signal["cost"]
@@ -1240,6 +1414,11 @@ def scan_and_update():
                         else:
                             print(f"  [REJECTED] Position type: {position_type}")
                             continue
+
+                        # Apply Kelly sizing guard: reduce bet by 50% if Kelly > 15% AND price > $0.10
+                        if kelly_reduction < 1.0:
+                            actual_cost = round(actual_cost * kelly_reduction, 2)
+                            print(f"  [KELLY GUARD] Bet reduced by {(1-kelly_reduction)*100:.0f}% → ${actual_cost:.2f}")
 
                         print(f"  [APPROVED] Risk Manager approved | conviction {conviction}/10 | {position_type}")
                         
