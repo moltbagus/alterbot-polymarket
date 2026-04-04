@@ -871,6 +871,11 @@ def load_market(city_slug, date_str):
         for key in ("forecast_snapshots", "market_snapshots"):
             if key not in m:
                 m[key] = []
+        # Ensure market_id in all_outcomes (migrated from older format)
+        if "all_outcomes" in m:
+            for o in m["all_outcomes"]:
+                if "market_id" not in o:
+                    o["market_id"] = o.get("id", "")
         return m
     return None
 
@@ -1242,7 +1247,7 @@ def scan_and_update():
                     current_price = None
                     matched_outcome_fc = None
                     for o in outcomes:
-                        if o.get("market_id", "") == pos.get("market_id", ""):
+                        if str(o.get("market_id", "")) == str(pos.get("market_id", "")):
                             current_price = o["price"]
                             matched_outcome_fc = o
                             break
@@ -1300,6 +1305,8 @@ def scan_and_update():
                 matched_bucket = None
                 best_bucket_prob = 0.0
                 for o in outcomes:
+                    if "range" not in o:
+                        continue
                     t_low, t_high = o["range"]
                     bp = bucket_prob(forecast_temp, t_low, t_high, sigma)
                     if bp > best_bucket_prob:
@@ -1325,7 +1332,7 @@ def scan_and_update():
                             size  = bet_size(kelly, balance)
                             if size >= 1.00:
                                 best_signal = {
-                                    "market_id":    o["market_id"],
+                                    "market_id":    o.get("market_id", ""),
                                     "question":     o["question"],
                                     "bucket_low":   t_low,
                                     "bucket_high":  t_high,
