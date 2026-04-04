@@ -1620,7 +1620,7 @@ def print_status():
             label    = f"{pos['bucket_low']}-{pos['bucket_high']}{unit_sym}"
 
             # Current price from latest market snapshot
-            current_price = pos["entry_price"]
+            current_price = pos.get("entry_price", pos.get("price", 0))
             snaps = m.get("market_snapshots", [])
             if snaps:
                 # Find our bucket price in all_outcomes
@@ -1676,8 +1676,8 @@ def print_report():
         pos      = m.get("position", {})
         unit_sym = "F" if m["unit"] == "F" else "C"
         snaps    = m.get("forecast_snapshots", [])
-        first_fc = snaps[0]["best"] if snaps else None
-        last_fc  = snaps[-1]["best"] if snaps else None
+        first_fc = snaps[0].get("best") if snaps else None
+        last_fc  = snaps[-1].get("best") if snaps else None
         label    = f"{pos.get('bucket_low')}-{pos.get('bucket_high')}{unit_sym}" if pos else "no position"
         result   = m["resolved_outcome"].upper()
         pnl_str  = f"{'+'if m['pnl']>=0 else ''}{m['pnl']:.2f}" if m["pnl"] is not None else "-"

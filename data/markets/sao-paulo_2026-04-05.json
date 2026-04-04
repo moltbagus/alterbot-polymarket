@@ -1,0 +1,395 @@
+{
+  "city": "sao-paulo",
+  "city_name": "Sao Paulo",
+  "date": "2026-04-05",
+  "unit": "C",
+  "station": "SBGR",
+  "event_end_date": "2026-04-05T12:00:00Z",
+  "hours_at_discovery": 47.0,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-03T12:58:36.772220+00:00",
+      "horizon": "D+2",
+      "hours_left": 47.0,
+      "ecmwf_raw": 25.5,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.5,
+      "best": 25.0,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T14:02:46.915184+00:00",
+      "horizon": "D+2",
+      "hours_left": 46.0,
+      "ecmwf_raw": 25.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.8,
+      "best": 25.3,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T15:06:27.532406+00:00",
+      "horizon": "D+2",
+      "hours_left": 44.9,
+      "ecmwf_raw": 25.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.8,
+      "best": 25.3,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T16:10:51.820518+00:00",
+      "horizon": "D+2",
+      "hours_left": 43.8,
+      "ecmwf_raw": 25.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.8,
+      "best": 25.3,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T17:15:18.779244+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.7,
+      "ecmwf_raw": 25.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.8,
+      "best": 25.3,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T18:19:46.503885+00:00",
+      "horizon": "D+2",
+      "hours_left": 41.7,
+      "ecmwf_raw": 25.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.8,
+      "best": 25.3,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T19:24:10.709151+00:00",
+      "horizon": "D+2",
+      "hours_left": 40.6,
+      "ecmwf_raw": 25.8,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.8,
+      "best": 25.3,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T20:28:56.321775+00:00",
+      "horizon": "D+2",
+      "hours_left": 39.5,
+      "ecmwf_raw": 25.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.2,
+      "best": 24.7,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T21:33:55.279808+00:00",
+      "horizon": "D+2",
+      "hours_left": 38.4,
+      "ecmwf_raw": 25.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.2,
+      "best": 24.7,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T22:38:07.118564+00:00",
+      "horizon": "D+2",
+      "hours_left": 37.4,
+      "ecmwf_raw": 25.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.2,
+      "best": 24.7,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-03T23:43:08.472441+00:00",
+      "horizon": "D+2",
+      "hours_left": 36.3,
+      "ecmwf_raw": 25.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 25.2,
+      "best": 24.7,
+      "best_source": "ecmwf",
+      "bias": -0.5,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-03T12:58:36.772220+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.875
+    },
+    {
+      "ts": "2026-04-03T14:02:46.915184+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-03T15:06:27.532406+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-03T16:10:51.820518+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-03T17:15:18.779244+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-03T18:19:46.503885+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-03T19:24:10.709151+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-03T20:28:56.321775+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.89
+    },
+    {
+      "ts": "2026-04-03T21:33:55.279808+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.895
+    },
+    {
+      "ts": "2026-04-03T22:38:07.118564+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.905
+    },
+    {
+      "ts": "2026-04-03T23:43:08.472441+00:00",
+      "top_bucket": "25.0-25.0C",
+      "top_price": 0.925
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Sao Paulo be 22°C or below on April 5?",
+      "market_id": "1814939",
+      "range": [
+        -999.0,
+        22.0
+      ],
+      "bid": 0.9955,
+      "ask": 0.9955,
+      "price": 0.9955,
+      "spread": 0.0,
+      "volume": 392.0,
+      "is_binary": true,
+      "yes_price": 0.9955,
+      "no_price": 0.0045
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 23°C on April 5?",
+      "market_id": "1814940",
+      "range": [
+        23.0,
+        23.0
+      ],
+      "bid": 0.996,
+      "ask": 0.996,
+      "price": 0.996,
+      "spread": 0.0,
+      "volume": 342.0,
+      "is_binary": true,
+      "yes_price": 0.996,
+      "no_price": 0.004
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 24°C on April 5?",
+      "market_id": "1814941",
+      "range": [
+        24.0,
+        24.0
+      ],
+      "bid": 0.9695,
+      "ask": 0.9695,
+      "price": 0.9695,
+      "spread": 0.0,
+      "volume": 254.0,
+      "is_binary": true,
+      "yes_price": 0.9695,
+      "no_price": 0.0305
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 25°C on April 5?",
+      "market_id": "1814942",
+      "range": [
+        25.0,
+        25.0
+      ],
+      "bid": 0.925,
+      "ask": 0.925,
+      "price": 0.925,
+      "spread": 0.0,
+      "volume": 865.0,
+      "is_binary": true,
+      "yes_price": 0.925,
+      "no_price": 0.075
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 26°C on April 5?",
+      "market_id": "1814943",
+      "range": [
+        26.0,
+        26.0
+      ],
+      "bid": 0.8,
+      "ask": 0.8,
+      "price": 0.8,
+      "spread": 0.0,
+      "volume": 381.0,
+      "is_binary": true,
+      "yes_price": 0.8,
+      "no_price": 0.2
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 27°C on April 5?",
+      "market_id": "1814944",
+      "range": [
+        27.0,
+        27.0
+      ],
+      "bid": 0.665,
+      "ask": 0.665,
+      "price": 0.665,
+      "spread": 0.0,
+      "volume": 338.0,
+      "is_binary": true,
+      "yes_price": 0.665,
+      "no_price": 0.335
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 28°C on April 5?",
+      "market_id": "1814945",
+      "range": [
+        28.0,
+        28.0
+      ],
+      "bid": 0.705,
+      "ask": 0.705,
+      "price": 0.705,
+      "spread": 0.0,
+      "volume": 351.0,
+      "is_binary": true,
+      "yes_price": 0.705,
+      "no_price": 0.295
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 29°C on April 5?",
+      "market_id": "1814946",
+      "range": [
+        29.0,
+        29.0
+      ],
+      "bid": 0.93,
+      "ask": 0.93,
+      "price": 0.93,
+      "spread": 0.0,
+      "volume": 797.0,
+      "is_binary": true,
+      "yes_price": 0.93,
+      "no_price": 0.07
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 30°C on April 5?",
+      "market_id": "1814947",
+      "range": [
+        30.0,
+        30.0
+      ],
+      "bid": 0.9615,
+      "ask": 0.9615,
+      "price": 0.9615,
+      "spread": 0.0,
+      "volume": 215.0,
+      "is_binary": true,
+      "yes_price": 0.9615,
+      "no_price": 0.0385
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 31°C on April 5?",
+      "market_id": "1814948",
+      "range": [
+        31.0,
+        31.0
+      ],
+      "bid": 0.9885,
+      "ask": 0.9885,
+      "price": 0.9885,
+      "spread": 0.0,
+      "volume": 300.0,
+      "is_binary": true,
+      "yes_price": 0.9885,
+      "no_price": 0.0115
+    },
+    {
+      "question": "Will the highest temperature in Sao Paulo be 32°C or higher on April 5?",
+      "market_id": "1814949",
+      "range": [
+        32.0,
+        999.0
+      ],
+      "bid": 0.9945,
+      "ask": 0.9945,
+      "price": 0.9945,
+      "spread": 0.0,
+      "volume": 1086.0,
+      "is_binary": true,
+      "yes_price": 0.9945,
+      "no_price": 0.0055
+    }
+  ],
+  "created_at": "2026-04-03T12:58:39.424163+00:00"
+}

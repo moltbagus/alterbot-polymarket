@@ -2,7 +2,7 @@
   "balance": 14472.03,
   "max_bet": 1.0,
   "max_trades_per_run": 20,
-  "min_ev": 0.30,
+  "min_ev": 0.3,
   "max_price": 0.35,
   "min_bet": 1.0,
   "min_volume": 500,
@@ -45,9 +45,11 @@
     "atlanta": 0.6,
     "sao-paulo": 0.7,
     "singapore": 0.4,
-    "tokyo": 2.0,
-    "hong-kong": 1.5,
-    "taipei": 1.5,
+    "tokyo": 1.0,
+    "hong-kong": 1.2,
+    "taipei": 1.2,
+    "seoul": 1.5,
+    "shanghai": 1.0,
     "default_c": 1.5,
     "default_f": 2.0
   },
@@ -141,8 +143,8 @@
     },
     "taipei": {
       "sigma_mult": 0.6,
-      "known_bias": 1.2,
-      "uhi_correction": 1.2,
+      "known_bias": -1.5,
+      "uhi_correction": -1.0,
       "sea_breeze_penalty": -1.0,
       "sea_breeze_winds": [
         "E",
@@ -163,8 +165,8 @@
     },
     "tokyo": {
       "sigma_mult": 0.65,
-      "known_bias": 1.5,
-      "uhi_correction": 1.5,
+      "known_bias": 0.0,
+      "uhi_correction": 0.8,
       "sea_breeze_penalty": -1.2,
       "sea_breeze_winds": [
         "E",
@@ -179,8 +181,8 @@
     },
     "shanghai": {
       "sigma_mult": 0.7,
-      "known_bias": 0.0,
-      "uhi_correction": 0.0,
+      "known_bias": 1.0,
+      "uhi_correction": 0.5,
       "sea_breeze_penalty": 0.0,
       "metar_weight": 0.35,
       "sentinel_weight": 0.25,
@@ -194,17 +196,37 @@
     "singapore": {
       "uhi_correction": 0.5,
       "sea_breeze_penalty": -0.5,
-      "target_win_rate": 0.75
+      "target_win_rate": 0.90
     },
     "tokyo": {
-      "uhi_correction": 1.2,
+      "uhi_correction": 0.8,
       "sea_breeze_penalty": -0.5,
-      "target_win_rate": 0.79
+      "target_win_rate": 0.90
     },
     "taipei": {
-      "uhi_correction": 1.5,
+      "uhi_correction": -1.0,
       "sea_breeze_penalty": -0.5,
-      "target_win_rate": 0.77
+      "target_win_rate": 0.90
+    },
+    "london": {
+      "uhi_correction": -0.7,
+      "bias": -0.7,
+      "target_win_rate": 0.90
+    },
+    "paris": {
+      "uhi_correction": -0.8,
+      "bias": -0.8,
+      "target_win_rate": 0.90
+    },
+    "seoul": {
+      "uhi_correction": -1.5,
+      "bias": -1.5,
+      "target_win_rate": 0.90
+    },
+    "shanghai": {
+      "uhi_correction": 0.5,
+      "bias": 1.0,
+      "target_win_rate": 0.90
     }
   },
   "paper_trade": true,
@@ -320,19 +342,19 @@
       }
     },
     "paris": {
-      "win_rate": 100,
+      "win_rate": 72,
       "params": {
         "morning_multiplier": 1.0,
-        "uhi_correction": 0.5,
-        "bias": 0.0
+        "uhi_correction": -0.8,
+        "bias": -0.8
       }
     },
     "london": {
-      "win_rate": 100,
+      "win_rate": 71,
       "params": {
         "morning_multiplier": 1.0,
-        "uhi_correction": 0.5,
-        "bias": 0.0
+        "uhi_correction": -0.7,
+        "bias": -0.7
       }
     },
     "atlanta": {
@@ -349,6 +371,46 @@
         "morning_multiplier": 1.0,
         "uhi_correction": 0.5,
         "bias": 0.5
+      }
+    },
+    "tokyo": {
+      "win_rate": 63,
+      "params": {
+        "morning_multiplier": 1.0,
+        "uhi_correction": 0.8,
+        "bias": 0.0
+      }
+    },
+    "singapore": {
+      "win_rate": 91,
+      "params": {
+        "morning_multiplier": 1.0,
+        "uhi_correction": -0.3,
+        "bias": 0.0
+      }
+    },
+    "taipei": {
+      "win_rate": 33,
+      "params": {
+        "morning_multiplier": 1.0,
+        "uhi_correction": -1.0,
+        "bias": -1.5
+      }
+    },
+    "seoul": {
+      "win_rate": 41,
+      "params": {
+        "morning_multiplier": 1.0,
+        "uhi_correction": -1.5,
+        "bias": -1.5
+      }
+    },
+    "shanghai": {
+      "win_rate": 53,
+      "params": {
+        "morning_multiplier": 1.0,
+        "uhi_correction": 0.5,
+        "bias": 1.0
       }
     }
   },
@@ -623,17 +685,17 @@
   "learn_from_resolved": true,
   "city_biases": {
     "miami": 0.0,
-    "paris": 0.0,
-    "london": 0.0,
-    "tokyo": 1.0,
+    "paris": -0.8,
+    "london": -0.7,
+    "tokyo": 0.0,
     "hong-kong": 0.0,
-    "taipei": 2.93,
+    "taipei": -1.5,
     "atlanta": 1.0,
     "sao-paulo": 0.0,
     "singapore": 0.0,
     "dallas": 0.0,
-    "seoul": 2.0,
-    "shanghai": 2.0,
+    "seoul": -1.5,
+    "shanghai": 1.0,
     "nyc": 1.5,
     "chicago": 2.0
   },
