@@ -245,6 +245,201 @@
       "best_source": "ecmwf+hrrr",
       "bias": 1.0,
       "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T07:32:43.097489+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.5,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 66,
+      "metar_raw": null,
+      "best_raw": 67.0,
+      "best": 68.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T07:50:21.605897+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.2,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 66,
+      "metar_raw": null,
+      "best_raw": 67.0,
+      "best": 68.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T07:56:26.074841+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.1,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 66,
+      "metar_raw": null,
+      "best_raw": 67.0,
+      "best": 68.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T08:00:20.934527+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.0,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 66,
+      "metar_raw": null,
+      "best_raw": 67.0,
+      "best": 68.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T09:04:28.872334+00:00",
+      "horizon": "D+1",
+      "hours_left": 26.9,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T10:04:00.059253+00:00",
+      "horizon": "D+1",
+      "hours_left": 25.9,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T11:04:28.067998+00:00",
+      "horizon": "D+1",
+      "hours_left": 24.9,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:03:53.480401+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.9,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:08:10.258018+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.9,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:10:18.358695+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.8,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:16:14.137886+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.7,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:21:04.778398+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.6,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:21:45.768143+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.6,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:32:39.505019+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.5,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-04T12:42:12.902802+00:00",
+      "horizon": "D+1",
+      "hours_left": 23.3,
+      "ecmwf_raw": 68,
+      "hrrr_raw": 71,
+      "metar_raw": null,
+      "best_raw": 70.0,
+      "best": 71.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0
     }
   ],
   "market_snapshots": [
@@ -337,6 +532,81 @@
       "ts": "2026-04-04T06:30:21.448645+00:00",
       "top_bucket": "-999.0-69.0F",
       "top_price": 0.6
+    },
+    {
+      "ts": "2026-04-04T07:32:43.097489+00:00",
+      "top_bucket": "-999.0-69.0F",
+      "top_price": 0.55
+    },
+    {
+      "ts": "2026-04-04T07:50:21.605897+00:00",
+      "top_bucket": "-999.0-69.0F",
+      "top_price": 0.545
+    },
+    {
+      "ts": "2026-04-04T07:56:26.074841+00:00",
+      "top_bucket": "-999.0-69.0F",
+      "top_price": 0.54
+    },
+    {
+      "ts": "2026-04-04T08:00:20.934527+00:00",
+      "top_bucket": "-999.0-69.0F",
+      "top_price": 0.54
+    },
+    {
+      "ts": "2026-04-04T09:04:28.872334+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.83
+    },
+    {
+      "ts": "2026-04-04T10:04:00.059253+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.83
+    },
+    {
+      "ts": "2026-04-04T11:04:28.067998+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.835
+    },
+    {
+      "ts": "2026-04-04T12:03:53.480401+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.875
+    },
+    {
+      "ts": "2026-04-04T12:08:10.258018+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.875
+    },
+    {
+      "ts": "2026-04-04T12:10:18.358695+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.875
+    },
+    {
+      "ts": "2026-04-04T12:16:14.137886+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.875
+    },
+    {
+      "ts": "2026-04-04T12:21:04.778398+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.885
+    },
+    {
+      "ts": "2026-04-04T12:21:45.768143+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.885
+    },
+    {
+      "ts": "2026-04-04T12:32:39.505019+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.87
+    },
+    {
+      "ts": "2026-04-04T12:42:12.902802+00:00",
+      "top_bucket": "72.0-73.0F",
+      "top_price": 0.845
     }
   ],
   "all_outcomes": [
@@ -347,14 +617,14 @@
         -999.0,
         69.0
       ],
-      "bid": 0.6,
-      "ask": 0.6,
-      "price": 0.6,
+      "bid": 0.545,
+      "ask": 0.545,
+      "price": 0.545,
       "spread": 0.0,
-      "volume": 3258.0,
+      "volume": 4061.0,
       "is_binary": true,
-      "yes_price": 0.6,
-      "no_price": 0.4
+      "yes_price": 0.545,
+      "no_price": 0.455
     },
     {
       "question": "Will the highest temperature in Atlanta be between 70-71°F on April 5?",
@@ -363,14 +633,14 @@
         70.0,
         71.0
       ],
-      "bid": 0.7,
-      "ask": 0.7,
-      "price": 0.7,
+      "bid": 0.715,
+      "ask": 0.715,
+      "price": 0.715,
       "spread": 0.0,
-      "volume": 1922.0,
+      "volume": 2427.0,
       "is_binary": true,
-      "yes_price": 0.7,
-      "no_price": 0.3
+      "yes_price": 0.715,
+      "no_price": 0.285
     },
     {
       "question": "Will the highest temperature in Atlanta be between 72-73°F on April 5?",
@@ -379,14 +649,14 @@
         72.0,
         73.0
       ],
-      "bid": 0.785,
-      "ask": 0.785,
-      "price": 0.785,
+      "bid": 0.845,
+      "ask": 0.845,
+      "price": 0.845,
       "spread": 0.0,
-      "volume": 1724.0,
+      "volume": 2247.0,
       "is_binary": true,
-      "yes_price": 0.785,
-      "no_price": 0.215
+      "yes_price": 0.845,
+      "no_price": 0.155
     },
     {
       "question": "Will the highest temperature in Atlanta be between 74-75°F on April 5?",
@@ -395,14 +665,14 @@
         74.0,
         75.0
       ],
-      "bid": 0.925,
-      "ask": 0.925,
-      "price": 0.925,
+      "bid": 0.96,
+      "ask": 0.96,
+      "price": 0.96,
       "spread": 0.0,
-      "volume": 2259.0,
+      "volume": 3469.0,
       "is_binary": true,
-      "yes_price": 0.925,
-      "no_price": 0.075
+      "yes_price": 0.96,
+      "no_price": 0.04
     },
     {
       "question": "Will the highest temperature in Atlanta be between 76-77°F on April 5?",
@@ -411,14 +681,14 @@
         76.0,
         77.0
       ],
-      "bid": 0.97,
-      "ask": 0.97,
-      "price": 0.97,
+      "bid": 0.9885,
+      "ask": 0.9885,
+      "price": 0.9885,
       "spread": 0.0,
-      "volume": 1952.0,
+      "volume": 4044.0,
       "is_binary": true,
-      "yes_price": 0.97,
-      "no_price": 0.03
+      "yes_price": 0.9885,
+      "no_price": 0.0115
     },
     {
       "question": "Will the highest temperature in Atlanta be between 78-79°F on April 5?",
@@ -427,14 +697,14 @@
         78.0,
         79.0
       ],
-      "bid": 0.99,
-      "ask": 0.99,
-      "price": 0.99,
+      "bid": 0.995,
+      "ask": 0.995,
+      "price": 0.995,
       "spread": 0.0,
-      "volume": 1621.0,
+      "volume": 2284.0,
       "is_binary": true,
-      "yes_price": 0.99,
-      "no_price": 0.01
+      "yes_price": 0.995,
+      "no_price": 0.005
     },
     {
       "question": "Will the highest temperature in Atlanta be between 80-81°F on April 5?",
@@ -443,14 +713,14 @@
         80.0,
         81.0
       ],
-      "bid": 0.9935,
-      "ask": 0.9935,
-      "price": 0.9935,
+      "bid": 0.9955,
+      "ask": 0.9955,
+      "price": 0.9955,
       "spread": 0.0,
-      "volume": 2878.0,
+      "volume": 3364.0,
       "is_binary": true,
-      "yes_price": 0.9935,
-      "no_price": 0.0065
+      "yes_price": 0.9955,
+      "no_price": 0.0045
     },
     {
       "question": "Will the highest temperature in Atlanta be between 82-83°F on April 5?",
@@ -463,7 +733,7 @@
       "ask": 0.9955,
       "price": 0.9955,
       "spread": 0.0,
-      "volume": 3705.0,
+      "volume": 4086.0,
       "is_binary": true,
       "yes_price": 0.9955,
       "no_price": 0.0045
@@ -475,14 +745,14 @@
         84.0,
         85.0
       ],
-      "bid": 0.9955,
-      "ask": 0.9955,
-      "price": 0.9955,
+      "bid": 0.9975,
+      "ask": 0.9975,
+      "price": 0.9975,
       "spread": 0.0,
-      "volume": 3268.0,
+      "volume": 3619.0,
       "is_binary": true,
-      "yes_price": 0.9955,
-      "no_price": 0.0045
+      "yes_price": 0.9975,
+      "no_price": 0.0025
     },
     {
       "question": "Will the highest temperature in Atlanta be between 86-87°F on April 5?",
@@ -491,14 +761,14 @@
         86.0,
         87.0
       ],
-      "bid": 0.9965,
-      "ask": 0.9965,
-      "price": 0.9965,
+      "bid": 0.9955,
+      "ask": 0.9955,
+      "price": 0.9955,
       "spread": 0.0,
-      "volume": 2880.0,
+      "volume": 3835.0,
       "is_binary": true,
-      "yes_price": 0.9965,
-      "no_price": 0.0035
+      "yes_price": 0.9955,
+      "no_price": 0.0045
     },
     {
       "question": "Will the highest temperature in Atlanta be 88°F or higher on April 5?",
@@ -507,14 +777,14 @@
         88.0,
         999.0
       ],
-      "bid": 0.9965,
-      "ask": 0.9965,
-      "price": 0.9965,
+      "bid": 0.9975,
+      "ask": 0.9975,
+      "price": 0.9975,
       "spread": 0.0,
-      "volume": 5213.0,
+      "volume": 5876.0,
       "is_binary": true,
-      "yes_price": 0.9965,
-      "no_price": 0.0035
+      "yes_price": 0.9975,
+      "no_price": 0.0025
     }
   ],
   "created_at": "2026-04-03T12:58:32.463541+00:00"

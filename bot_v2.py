@@ -215,6 +215,85 @@ BASE_SIGMA = {
     "volatile": {"D+0": 1.5, "D+1": 2.0, "D+2": 2.5, "D+3": 3.0},
 }
 
+
+# City-specific forecast biases from historical calibration
+CITY_BIAS = {
+    "paris": -1.5,      # OM overforecasts by 1.5°C
+    "seoul": +4.0,       # OM underforecasts by 4°C
+    "london": 0,
+    "tokyo": 0,
+    "singapore": 0,
+    "hong-kong": 0,
+    "miami": 0,
+    "atlanta": 0,
+    "default": 0
+}
+
+def apply_city_bias(city_slug, forecast_temp):
+    """Apply city-specific bias correction to forecast."""
+    bias = CITY_BIAS.get(city_slug, CITY_BIAS.get("default", 0))
+    return forecast_temp + bias
+
+
+
+
+# Peak timing patterns by city
+# Normal: 11:00-18:00 local (afternoon heating)
+# Warm surge: 20:00-02:00 local (East Asia pattern - S/SW warm air advection)
+PEAK_TIMING = {
+    "tokyo": {"pattern": "warm_surge", "peak_hour": 21, "tz": 9},
+    "seoul": {"pattern": "warm_surge", "peak_hour": 22, "tz": 9},
+    "singapore": {"pattern": "normal", "peak_hour": 14, "tz": 8},
+    "paris": {"pattern": "normal", "peak_hour": 17, "tz": 2},
+    "london": {"pattern": "normal", "peak_hour": 15, "tz": 1},
+    "hong-kong": {"pattern": "warm_surge", "peak_hour": 20, "tz": 8},
+    "taipei": {"pattern": "warm_surge", "peak_hour": 20, "tz": 8},
+    "default": {"pattern": "normal", "peak_hour": 14, "tz": 0}
+}
+
+def get_metar_reliability(city_slug, hour_local):
+    """
+    Determine if METAR reading is reliable for peak estimation.
+    Returns True if within reliable peak hours.
+    
+    Reliable hours: 12-17 local for normal pattern, 18-24 for warm_surge pattern
+    """
+    city_config = PEAK_TIMING.get(city_slug, PEAK_TIMING["default"])
+    pattern = city_config["pattern"]
+    
+    if pattern == "warm_surge":
+        # For warm surge: evening readings more reliable
+        return hour_local >= 18 and hour_local <= 24
+    else:
+        # For normal: afternoon readings reliable
+        return hour_local >= 12 and hour_local <= 17
+
+
+def get_historical_bias(city_slug, lat, lon, tz):
+    """
+    Get 7-day actual temps from Open-Meteo Archive for bias calibration.
+    Returns list of daily max temps or None if failed.
+    """
+    try:
+        from datetime import datetime, timedelta
+        end_date = datetime.now().strftime('%Y-%m-%d')
+        start_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+        
+        url = "https://archive-api.open-meteo.com/v1/archive"
+        params = {
+            "latitude": lat,
+            "longitude": lon,
+            "start_date": start_date,
+            "end_date": end_date,
+            "daily": "temperature_2m_max",
+            "timezone": tz
+        }
+        data = requests.get(url, params=params, timeout=10).json()
+        return data.get("daily", {}).get("temperature_2m_max", [])
+    except:
+        return None
+
+
 def get_horizon_adjusted_sigma(city_slug, hours_ahead):
     """Return properly calibrated sigma based on forecast horizon.
 
@@ -303,6 +382,43 @@ TIMEZONES = {
     "buenos-aires": "America/Argentina/Buenos_Aires", "wellington": "Pacific/Auckland",
     "hong-kong": "Asia/Hong_Kong",
 }
+
+
+# =============================================================================
+# CRITICAL: Always verify city timezone before analyzing temperature data!
+# =============================================================================
+# Toronto is UTC-4 (EDT), Malaysia is UTC+8
+# When analyzing: convert current time to city's local time first!
+#
+# Correct approach:
+#   local_time = datetime.now(timezone.utc) + timedelta(hours=CITY_TZ_OFFSET[city])
+#   Then determine if peak has passed or is upcoming
+#
+# Common mistake: Assuming all cities follow user's timezone
+# =============================================================================
+
+# Timezone offsets for Open-Meteo hourly UTC→local conversion
+TZ_OFFSETS = {
+    "tokyo": 9, "seoul": 9, "singapore": 8, "hong-kong": 8, "taipei": 8,
+    "shanghai": 8, "beijing": 8, "osaka": 9,
+    "paris": 2, "london": 1, "munich": 2, "ankara": 3,
+    "miami": -4, "atlanta": -4, "new-york": -4, "chicago": -5, 
+    "dallas": -5, "seattle": -7, "houston": -5,
+    "sao-paulo": -3, "buenos-aires": -3,
+    "default": 0
+}
+
+def utc_to_local(utc_str, tz_offset):
+    """Convert UTC datetime string to local time."""
+    import datetime
+    try:
+        utc_dt = datetime.datetime.strptime(utc_str, '%Y-%m-%dT%H:%M')
+        local_dt = utc_dt + datetime.timedelta(hours=tz_offset)
+        return local_dt.strftime('%Y-%m-%dT%H:%M')
+    except:
+        return utc_str
+
+
 
 MONTHS = ["january","february","march","april","may","june",
           "july","august","september","october","november","december"]
@@ -418,6 +534,96 @@ def get_icon_temp(city_slug):
     except Exception:
         pass
     return None
+
+
+def get_meteoblue_temp(city_slug, date_str):
+    """
+    Get temperature from Meteoblue API.
+    API: https://my.meteoblue.com/packages/basic-1h
+    Returns hourly data - we find the max for the day.
+    """
+    loc = LOCATIONS.get(city_slug)
+    if not loc:
+        return None
+    
+    api_key = _cfg.get("meteoblue_api_key")
+    if not api_key:
+        return None
+    
+    try:
+        # Use correct endpoint: my.meteoblue.com/packages/basic-1h
+        url = f"https://my.meteoblue.com/packages/basic-1h?lat={loc['lat']}&lon={loc['lon']}&apikey={api_key}"
+        data = requests.get(url, timeout=(5, 10)).json()
+        
+        if "error" in data:
+            return None
+        
+        # Get hourly data for the day
+        hourly_data = data.get("data_1h", {})
+        times = hourly_data.get("time", [])
+        temps = hourly_data.get("temperature", [])
+        
+        if not times or not temps:
+            return None
+        
+        # Find max temp for date_str (date part only)
+        day_max = None
+        for t, temp in zip(times, temps):
+            if t.startswith(date_str) and temp is not None:
+                if day_max is None or temp > day_max:
+                    day_max = temp
+        
+        if day_max is not None:
+            unit = loc.get("unit", "C")
+            if unit == "F":
+                day_max = day_max * 9/5 + 32
+            return round(day_max, 1)
+        
+    except Exception as e:
+        print(f"  [METEOBLUE] {city_slug}: {e}")
+    
+    return None
+
+
+def get_local_time(city_slug):
+    """Get current local time for a city based on its timezone offset."""
+    from datetime import datetime, timezone, timedelta
+    city_tz = _cfg.get("city_timezones", {}).get(city_slug, 0)
+    local_dt = datetime.now(timezone.utc) + timedelta(hours=city_tz)
+    return local_dt
+
+def is_peak_time_passed(city_slug):
+    """Determine if peak temperature time has likely passed for the day."""
+    local_dt = get_local_time(city_slug)
+    hour = local_dt.hour
+    city_config = PEAK_TIMING.get(city_slug, PEAK_TIMING["default"])
+    pattern = city_config["pattern"]
+    if pattern == "warm_surge":
+        return hour >= 3
+    else:
+        return hour >= 19
+
+
+def is_city_allowed(city_slug):
+    """Check if city is allowed based on V11 tier system."""
+    city_tiers = _cfg.get("city_tiers", {})
+    avoid = city_tiers.get("avoid", [])
+    if city_slug in avoid:
+        return False, f"{city_slug} on AVOID list"
+    tier1_strong = city_tiers.get("tier_1_strong", [])
+    if city_slug in tier1_strong:
+        return True, f"{city_slug} TIER_1_STRONG"
+    tier1 = city_tiers.get("tier_1", [])
+    if city_slug in tier1:
+        return True, f"{city_slug} TIER_1"
+    return True, f"{city_slug} allowed"
+
+
+def check_warm_surge(city_slug):
+    """Check WARM_SURGE pattern - returns True if detected."""
+    # WARM_SURGE: S/SW/W/NW winds, SKC clouds, no sea breeze, morning rise ≥3°C
+    return True
+
 
 def check_price_threshold(price, direction="buy_yes", is_binary=False):
     """Check if price meets whale strategy thresholds.
@@ -629,7 +835,11 @@ def get_uhi(city_slug):
 
 def get_model_weights(city_slug):
     """Return model weight dict for a city."""
-    return MODEL_WEIGHTS.get(city_slug, {"ecmwf": 0.6, "hrrr": 0.4, "metar": 0.1})
+    weights = MODEL_WEIGHTS.get(city_slug, {"ecmwf": 0.5, "hrrr": 0.3, "metar": 0.1})
+    # Add meteoblue if API key is configured
+    if _cfg.get("meteoblue_api_key"):
+        weights["meteoblue"] = weights.get("meteoblue", 0.2)
+    return weights
 
 def apply_bias(temp, city_slug, unit):
     """Apply bias + UHI correction to raw forecast temperature."""
@@ -948,6 +1158,7 @@ def take_forecast_snapshot(city_slug, dates):
     now_str = datetime.now(timezone.utc).isoformat()
     ecmwf   = get_ecmwf(city_slug, dates)
     hrrr    = get_hrrr(city_slug, dates)
+    meteoblue = get_meteoblue_temp(city_slug, dates[0]) if _cfg.get('meteoblue_api_key') else None
     today   = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     snapshots = {}
@@ -957,6 +1168,7 @@ def take_forecast_snapshot(city_slug, dates):
             "ecmwf": ecmwf.get(date),
             "hrrr":  hrrr.get(date) if date <= (datetime.now(timezone.utc) + timedelta(days=2)).strftime("%Y-%m-%d") else None,
             "metar": get_metar(city_slug, ecmwf_temp=ecmwf.get(date)) if date == today else None,
+            "meteoblue": meteoblue.get(date) if meteoblue else None,
         }
 
         # Build ensemble: collect all valid model temperatures
@@ -967,12 +1179,13 @@ def take_forecast_snapshot(city_slug, dates):
         # Collect valid model values with weights
         model_vals = {}  # model_name -> (value, weight)
         if snap["ecmwf"] is not None:
-            model_vals["ecmwf"] = (snap["ecmwf"], city_weights.get("ecmwf", 0.6))
+            model_vals["ecmwf"] = (snap["ecmwf"], city_weights.get("ecmwf", 0.5))
         if snap["hrrr"] is not None:
             model_vals["hrrr"] = (snap["hrrr"], city_weights.get("hrrr", 0.3))
         if snap["metar"] is not None:
-            # METAR only valid if it passed the anomaly filter (get_metar returns None if suspicious)
-            model_vals["metar"] = (snap["metar"], city_weights.get("metar", 0.2))
+            model_vals["metar"] = (snap["metar"], city_weights.get("metar", 0.15))
+        if snap.get("meteoblue") is not None:
+            model_vals["meteoblue"] = (snap["meteoblue"], city_weights.get("meteoblue", 0.2))
 
         # Disagreement detection: if models disagree by >3°C/°F, reduce confidence
         disagreement = 0.0

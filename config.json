@@ -39,30 +39,49 @@
     "taipei": 1.0
   },
   "sigma_override": {
-    "miami": 0.5,
-    "paris": 0.6,
-    "london": 0.7,
-    "atlanta": 0.6,
-    "sao-paulo": 0.7,
     "singapore": 0.4,
-    "tokyo": 1.0,
-    "hong-kong": 1.2,
-    "taipei": 1.2,
-    "seoul": 1.5,
-    "shanghai": 1.0,
-    "default_c": 1.5,
-    "default_f": 2.0
+    "tokyo": 0.5,
+    "paris": 0.6,
+    "seoul": 0.7,
+    "beijing": 0.6,
+    "london": 0.6,
+    "hong-kong": 0.5,
+    "taipei": 0.5,
+    "sao-paulo": 0.6,
+    "miami": 0.5,
+    "atlanta": 0.5,
+    "default_c": 0.6,
+    "default_f": 1.0
   },
   "use_hrrr_for_us": true,
-  "min_confidence": 0.75,
+  "min_confidence": 0.9,
   "max_total_exposure_pct": 0.08,
   "max_daily_spend": 20.0,
   "best_trading_hours": [
-    22,
-    23,
     0,
     1,
-    2
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
   ],
   "daily_optimization": {
     "enabled": true,
@@ -196,37 +215,37 @@
     "singapore": {
       "uhi_correction": 0.5,
       "sea_breeze_penalty": -0.5,
-      "target_win_rate": 0.90
+      "target_win_rate": 0.9
     },
     "tokyo": {
       "uhi_correction": 0.8,
       "sea_breeze_penalty": -0.5,
-      "target_win_rate": 0.90
+      "target_win_rate": 0.9
     },
     "taipei": {
       "uhi_correction": -1.0,
       "sea_breeze_penalty": -0.5,
-      "target_win_rate": 0.90
+      "target_win_rate": 0.9
     },
     "london": {
       "uhi_correction": -0.7,
       "bias": -0.7,
-      "target_win_rate": 0.90
+      "target_win_rate": 0.9
     },
     "paris": {
       "uhi_correction": -0.8,
       "bias": -0.8,
-      "target_win_rate": 0.90
+      "target_win_rate": 0.9
     },
     "seoul": {
       "uhi_correction": -1.5,
       "bias": -1.5,
-      "target_win_rate": 0.90
+      "target_win_rate": 0.9
     },
     "shanghai": {
       "uhi_correction": 0.5,
       "bias": 1.0,
-      "target_win_rate": 0.90
+      "target_win_rate": 0.9
     }
   },
   "paper_trade": true,
@@ -236,46 +255,30 @@
     12
   ],
   "city_tiers": {
-    "tier_1": [
-      "miami",
-      "paris",
-      "london",
-      "tokyo",
-      "hong-kong",
-      "taipei",
-      "atlanta",
-      "sao-paulo"
-    ],
-    "tier_2": [
-      "singapore",
-      "lucknow",
-      "tel-aviv",
-      "ankara",
-      "dallas",
-      "mumbai",
-      "delhi",
-      "bangkok"
-    ],
-    "tier_3": [
-      "seoul",
-      "shanghai",
-      "nyc",
-      "toronto",
-      "seattle",
-      "chicago",
-      "munich",
-      "wellington",
-      "buenos-aires",
-      "osaka",
-      "dubai",
-      "ankara",
-      "tel-aviv"
-    ],
     "tier_1_strong": [
       "miami",
       "paris",
-      "london",
-      "atlanta"
+      "london"
+    ],
+    "tier_1": [
+      "singapore",
+      "tokyo",
+      "seoul"
+    ],
+    "tier_2": [
+      "atlanta",
+      "sao-paulo",
+      "hong-kong",
+      "taipei"
+    ],
+    "avoid": [
+      "seoul",
+      "new-york",
+      "toronto",
+      "shanghai",
+      "chicago",
+      "seattle",
+      "wellington"
     ]
   },
   "min_tier_to_trade": 1,
@@ -731,5 +734,107 @@
     "min_conviction": 7.0
   },
   "subagent_timeout": 1200,
-  "subagent_progress_interval": 10
+  "subagent_progress_interval": 10,
+  "city_bias_correction": {
+    "tokyo": 0.6,
+    "singapore": -0.6,
+    "paris": -1.5,
+    "seoul": 4.0,
+    "beijing": 2.0,
+    "london": 0.1,
+    "amsterdam": -1.0,
+    "hong-kong": 0,
+    "taipei": 0,
+    "miami": 0,
+    "atlanta": 0,
+    "sao-paulo": 0,
+    "default": 0
+  },
+  "warm_surge_threshold": 2.0,
+  "warm_surge_boost": 1.0,
+  "meteoblue_api_key": "KUMN4DSadAqIfyQB",
+  "source_weights": {
+    "london": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    },
+    "paris": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    },
+    "munich": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    },
+    "amsterdam": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    },
+    "tokyo": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    },
+    "singapore": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    },
+    "hong-kong": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    },
+    "seoul": {
+      "ecmwf": 0.5,
+      "meteoblue": 0.3,
+      "metar": 0.2
+    }
+  },
+  "city_timezones": {
+    "singapore": 8,
+    "tokyo": 9,
+    "hong-kong": 8,
+    "taipei": 8,
+    "seoul": 9,
+    "shanghai": 8,
+    "beijing": 8,
+    "mumbai": 5.5,
+    "delhi": 5.5,
+    "bangkok": 7,
+    "osaka": 9,
+    "dubai": 4,
+    "lucknow": 5.5,
+    "ankara": 3,
+    "london": 1,
+    "paris": 2,
+    "munich": 2,
+    "amsterdam": 2,
+    "madrid": 2,
+    "new-york": -4,
+    "chicago": -5,
+    "dallas": -5,
+    "seattle": -7,
+    "denver": -6,
+    "houston": -5,
+    "toronto": -4,
+    "miami": -4,
+    "atlanta": -4,
+    "buenos-aires": -3,
+    "sao-paulo": -3,
+    "wellington": 12
+  },
+  "high_confidence_threshold": 0.9,
+  "block_cold_surge": true,
+  "block_patterns": [
+    "COLD_SURGE"
+  ],
+  "warm_surge_min_days": 3,
+  "warm_surge_cloud": "SKC",
+  "warm_surge_morning_rise": 3.0,
+  "warm_surge_sea_breeze": false
 }
