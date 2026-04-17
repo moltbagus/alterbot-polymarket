@@ -1,0 +1,575 @@
+{
+  "city": "miami",
+  "city_name": "Miami",
+  "date": "2026-04-14",
+  "unit": "F",
+  "station": "KMIA",
+  "event_end_date": "2026-04-14T12:00:00Z",
+  "hours_at_discovery": 46.7,
+  "status": "closed",
+  "position": null,
+  "actual_temp": 26.4,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-12T13:20:44.614743+00:00",
+      "horizon": "D+2",
+      "hours_left": 46.7,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 81,
+      "metar_raw": null,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-12T14:00:02.178001+00:00",
+      "horizon": "D+2",
+      "hours_left": 46.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 81,
+      "metar_raw": null,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-12T15:00:01.831853+00:00",
+      "horizon": "D+2",
+      "hours_left": 45.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 81,
+      "metar_raw": null,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-12T16:00:02.065545+00:00",
+      "horizon": "D+2",
+      "hours_left": 44.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 81,
+      "metar_raw": null,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-12T17:00:03.714788+00:00",
+      "horizon": "D+2",
+      "hours_left": 43.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 81,
+      "metar_raw": null,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-12T18:00:53.735227+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 81,
+      "metar_raw": null,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-12T18:05:27.799323+00:00",
+      "horizon": "D+2",
+      "hours_left": 41.9,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 81,
+      "metar_raw": null,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T02:20:10.184162+00:00",
+      "horizon": "D+1",
+      "hours_left": 33.7,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T02:41:58.075442+00:00",
+      "horizon": "D+1",
+      "hours_left": 33.3,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T05:59:53.618999+00:00",
+      "horizon": "D+1",
+      "hours_left": 30.0,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T06:08:44.866860+00:00",
+      "horizon": "D+1",
+      "hours_left": 29.9,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T06:40:59.715140+00:00",
+      "horizon": "D+1",
+      "hours_left": 29.3,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T06:46:39.804700+00:00",
+      "horizon": "D+1",
+      "hours_left": 29.2,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T07:49:16.651395+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.2,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T08:52:03.414785+00:00",
+      "horizon": "D+1",
+      "hours_left": 27.1,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T09:55:05.550424+00:00",
+      "horizon": "D+1",
+      "hours_left": 26.1,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T10:57:53.206720+00:00",
+      "horizon": "D+1",
+      "hours_left": 25.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-13T12:00:57.623041+00:00",
+      "horizon": "D+1",
+      "hours_left": 24.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 78,
+      "metar_raw": null,
+      "best_raw": 79.0,
+      "best": 80.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-14T21:53:30.359125+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 82,
+      "metar_raw": 80.1,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr+metar",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-14T22:14:38.155299+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 82,
+      "metar_raw": 78.1,
+      "best_raw": 81.0,
+      "best": 82.4,
+      "best_source": "ecmwf+hrrr+metar",
+      "bias": 0.0,
+      "uhi": 0.8
+    },
+    {
+      "ts": "2026-04-14T23:16:31.768966+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": 80,
+      "hrrr_raw": 82,
+      "metar_raw": 75.9,
+      "best_raw": 80.0,
+      "best": 81.4,
+      "best_source": "ecmwf+hrrr+metar",
+      "bias": 0.0,
+      "uhi": 0.8
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-12T13:20:44.614743+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.595
+    },
+    {
+      "ts": "2026-04-12T14:00:02.178001+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.6
+    },
+    {
+      "ts": "2026-04-12T15:00:01.831853+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.6
+    },
+    {
+      "ts": "2026-04-12T16:00:02.065545+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.6
+    },
+    {
+      "ts": "2026-04-12T17:00:03.714788+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-12T18:00:53.735227+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.61
+    },
+    {
+      "ts": "2026-04-12T18:05:27.799323+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.62
+    },
+    {
+      "ts": "2026-04-13T02:20:10.184162+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.66
+    },
+    {
+      "ts": "2026-04-13T02:41:58.075442+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.675
+    },
+    {
+      "ts": "2026-04-13T05:59:53.618999+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.53
+    },
+    {
+      "ts": "2026-04-13T06:08:44.866860+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.65
+    },
+    {
+      "ts": "2026-04-13T06:40:59.715140+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.585
+    },
+    {
+      "ts": "2026-04-13T06:46:39.804700+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.595
+    },
+    {
+      "ts": "2026-04-13T07:49:16.651395+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.595
+    },
+    {
+      "ts": "2026-04-13T08:52:03.414785+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.665
+    },
+    {
+      "ts": "2026-04-13T09:55:05.550424+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.62
+    },
+    {
+      "ts": "2026-04-13T10:57:53.206720+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-13T12:00:57.623041+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.6
+    },
+    {
+      "ts": "2026-04-14T21:53:30.359125+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.9925
+    },
+    {
+      "ts": "2026-04-14T22:14:38.155299+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.9965
+    },
+    {
+      "ts": "2026-04-14T23:16:31.768966+00:00",
+      "top_bucket": "80.0-81.0F",
+      "top_price": 0.0015
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Miami be 69\u00b0F or below on April 14?",
+      "market_id": "1953506",
+      "range": [
+        -999.0,
+        69.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 1511.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 70-71\u00b0F on April 14?",
+      "market_id": "1953507",
+      "range": [
+        70.0,
+        71.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 9171.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 72-73\u00b0F on April 14?",
+      "market_id": "1953508",
+      "range": [
+        72.0,
+        73.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 6678.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 74-75\u00b0F on April 14?",
+      "market_id": "1953509",
+      "range": [
+        74.0,
+        75.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 4434.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 76-77\u00b0F on April 14?",
+      "market_id": "1953510",
+      "range": [
+        76.0,
+        77.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 10180.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 78-79\u00b0F on April 14?",
+      "market_id": "1953511",
+      "range": [
+        78.0,
+        79.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 12901.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 80-81\u00b0F on April 14?",
+      "market_id": "1953512",
+      "range": [
+        80.0,
+        81.0
+      ],
+      "bid": 0.0015,
+      "ask": 0.0015,
+      "price": 0.0015,
+      "spread": 0.0,
+      "volume": 17282.0,
+      "is_binary": true,
+      "yes_price": 0.0015,
+      "no_price": 0.9985
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 82-83\u00b0F on April 14?",
+      "market_id": "1953513",
+      "range": [
+        82.0,
+        83.0
+      ],
+      "bid": 0.9975,
+      "ask": 0.9975,
+      "price": 0.9975,
+      "spread": 0.0,
+      "volume": 14256.0,
+      "is_binary": true,
+      "yes_price": 0.9975,
+      "no_price": 0.0025
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 84-85\u00b0F on April 14?",
+      "market_id": "1953514",
+      "range": [
+        84.0,
+        85.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
+      "spread": 0.0,
+      "volume": 10288.0,
+      "is_binary": true,
+      "yes_price": 0.9995,
+      "no_price": 0.0005
+    },
+    {
+      "question": "Will the highest temperature in Miami be between 86-87\u00b0F on April 14?",
+      "market_id": "1953515",
+      "range": [
+        86.0,
+        87.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
+      "spread": 0.0,
+      "volume": 5514.0,
+      "is_binary": true,
+      "yes_price": 0.9995,
+      "no_price": 0.0005
+    },
+    {
+      "question": "Will the highest temperature in Miami be 88\u00b0F or higher on April 14?",
+      "market_id": "1953516",
+      "range": [
+        88.0,
+        999.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
+      "spread": 0.0,
+      "volume": 3505.0,
+      "is_binary": true,
+      "yes_price": 0.9995,
+      "no_price": 0.0005
+    }
+  ],
+  "created_at": "2026-04-12T13:20:49.841654+00:00"
+}

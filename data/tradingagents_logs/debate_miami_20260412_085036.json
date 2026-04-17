@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-04-12T08:50:36.176998",
+  "city": "miami",
+  "target_temp": 84,
+  "target_date": "2026-04-13",
+  "unit": "F",
+  "market_id": "1924448",
+  "p": 0.1127,
+  "price": 0.042,
+  "kelly": 0.0158,
+  "fundamentals": {
+    "confidence": 25,
+    "forecast_max": 26.9,
+    "can_reach": false
+  },
+  "sentiment": {
+    "yes_price": 0.042,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 2116.329474
+  },
+  "technical": {
+    "pattern": "COLD_ANOMALY",
+    "deviation": -55.5
+  },
+  "bull_case": "# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**",
+  "bear_case": "# Bear Case - NO Vote\n1. CRITICAL: Forecast 26.9\u00b0C CANNOT reach target 84\u00b0C (gap: +57.1\u00b0C)\n2. Fundamentals: Low confidence (25%) - uncertainty is high\n3. Market: YES at 4% - market disagrees, potential overpricing\n4. Technical: -55.5\u00b0C below historical - cold anomaly working against us\n\n**Recommendation: NO** (conviction: 90%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Miami 84\u00b0F\n\n\ud83d\udeab **REJECTED: REJECTED: Market YES=$0.042 < $0.05 \u2014 long-shot, expected value too thin.**\n\n## Analysis Summary\n- Forecast Max: 26.9\u00b0F\n- Target: 84\u00b0F\n- Gap: +57.1\u00b0F\n- Fundamentals Conf: 25%\n- Market YES: 4%\n- Pattern: COLD_ANOMALY\n\n## Decision: NO_BET\n**Verdict:** REJECTED\n**Conviction:** 0/10\n**Risk Score:** 100/100\n\n\u274c Trade blocked by Risk Manager - cannot reach target\n",
+    "verdict": "REJECTED",
+    "position": "NO_BET",
+    "conviction": 0.0,
+    "risk_score": 100,
+    "approved": false,
+    "can_reach": false,
+    "reject_reason": "REJECTED: Market YES=$0.042 < $0.05 \u2014 long-shot, expected value too thin."
+  }
+}

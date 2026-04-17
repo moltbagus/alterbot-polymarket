@@ -302,13 +302,27 @@ async def process_resolved_markets(markets_dir):
                     city = match.group(1)
                     date_str = match.group(2)
                     
-                    actual = await fetch_actual_temp(session, city, date_str)
+                    # Get actual temp (from file or fetch)
+                    actual = data.get("actual_temp")
+                    if actual is None:
+                        actual = await fetch_actual_temp(session, city, date_str)
+                    
                     if actual:
                         data["actual_temp"] = actual
                         
-                        # Calculate error
-                        pos = data.get("position", {})
-                        forecast = pos.get("forecast_temp")
+                        # Get forecast from forecast_snapshots (bot_v2 stores forecasts here, not position.forecast_temp)
+                        forecast = None
+                        snapshots = data.get("forecast_snapshots", [])
+                        if snapshots:
+                            # Use the last snapshot's best forecast
+                            last_snap = snapshots[-1]
+                            forecast = last_snap.get("best")
+                        
+                        # Fallback to position.forecast_temp if no snapshots
+                        if forecast is None:
+                            pos = data.get("position", {})
+                            forecast = pos.get("forecast_temp") if pos else None
+                        
                         if forecast:
                             # Convert to Celsius if Fahrenheit
                             if forecast > 40:

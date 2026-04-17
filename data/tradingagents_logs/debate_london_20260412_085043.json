@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-04-12T08:50:43.429754",
+  "city": "london",
+  "target_temp": 508,
+  "target_date": "2026-04-13",
+  "unit": "C",
+  "market_id": "1924341",
+  "p": 0.6513,
+  "price": 0.23,
+  "kelly": 0.1106,
+  "fundamentals": {
+    "confidence": 25,
+    "forecast_max": 15.9,
+    "can_reach": false
+  },
+  "sentiment": {
+    "yes_price": 0.23,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 5611.565892000003
+  },
+  "technical": {
+    "pattern": "NORMAL",
+    "deviation": 0.8
+  },
+  "bull_case": "# Bull Case - YES Vote\n1. Technical: +0.8\u00b0C above historical - warm anomaly supports bullish\n\n**Recommendation: YES** (conviction: 60%)\n",
+  "bear_case": "# Bear Case - NO Vote\n1. CRITICAL: Forecast 15.9\u00b0C CANNOT reach target 508\u00b0C (gap: +492.1\u00b0C)\n2. Fundamentals: Low confidence (25%) - uncertainty is high\n3. Market: YES at 23% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 80%)\n",
+  "risk": {
+    "report": "# Risk Management Report - London 508\u00b0C\n\n\ud83d\udeab **REJECTED: REJECTED: Forecast cannot reach target temperature. Mathematically impossible to resolve YES.**\n\n## Analysis Summary\n- Forecast Max: 15.9\u00b0C\n- Target: 508\u00b0C\n- Gap: +492.1\u00b0C\n- Fundamentals Conf: 25%\n- Market YES: 23%\n- Pattern: NORMAL\n\n## Decision: NO_BET\n**Verdict:** REJECTED\n**Conviction:** 0/10\n**Risk Score:** 100/100\n\n\u274c Trade blocked by Risk Manager - cannot reach target\n",
+    "verdict": "REJECTED",
+    "position": "NO_BET",
+    "conviction": 0.0,
+    "risk_score": 100,
+    "approved": false,
+    "can_reach": false,
+    "reject_reason": "REJECTED: Forecast cannot reach target temperature. Mathematically impossible to resolve YES."
+  }
+}

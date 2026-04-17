@@ -416,5 +416,27 @@
     "liq_factor": 0.703,
     "forecast_temp": 37.86666666666667,
     "sigma": 1.62
+  },
+  {
+    "ts": "2026-04-17T00:47:56.686088+00:00",
+    "market_id": "1988405",
+    "city": "seoul",
+    "date": "2026-04-17",
+    "bucket": "18.0-999.0C",
+    "direction": "buy_yes",
+    "entry_price": 0.85,
+    "fill_price": 0.9161,
+    "slippage": 0.0661,
+    "slippage_pct": 0.0778,
+    "size": 5.0,
+    "size_filled": 5.0,
+    "fill_pct": 1.0,
+    "filled": true,
+    "fill_reason": "full_fill",
+    "volume": 38936.0,
+    "spread": 0.01,
+    "liq_factor": 0.923,
+    "forecast_temp": 20.4,
+    "sigma": 1.8
   }
 ]

@@ -1,0 +1,575 @@
+{
+  "city": "tel-aviv",
+  "city_name": "Tel Aviv",
+  "date": "2026-04-14",
+  "unit": "C",
+  "station": "LLBG",
+  "event_end_date": "2026-04-14T12:00:00Z",
+  "hours_at_discovery": 46.6,
+  "status": "closed",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-12T13:21:12.153959+00:00",
+      "horizon": "D+2",
+      "hours_left": 46.6,
+      "ecmwf_raw": 28.6,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 28.6,
+      "best": 28.6,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-12T14:00:46.932653+00:00",
+      "horizon": "D+2",
+      "hours_left": 46.0,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-12T15:00:39.102499+00:00",
+      "horizon": "D+2",
+      "hours_left": 45.0,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-12T16:00:46.703299+00:00",
+      "horizon": "D+2",
+      "hours_left": 44.0,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-12T17:00:46.838729+00:00",
+      "horizon": "D+2",
+      "hours_left": 43.0,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-12T18:01:17.583484+00:00",
+      "horizon": "D+2",
+      "hours_left": 42.0,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-12T18:05:50.317023+00:00",
+      "horizon": "D+2",
+      "hours_left": 41.9,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T02:21:13.388999+00:00",
+      "horizon": "D+1",
+      "hours_left": 33.6,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T02:43:02.674780+00:00",
+      "horizon": "D+1",
+      "hours_left": 33.3,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T06:00:54.917621+00:00",
+      "horizon": "D+1",
+      "hours_left": 30.0,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T06:09:46.329572+00:00",
+      "horizon": "D+1",
+      "hours_left": 29.8,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T06:41:51.885756+00:00",
+      "horizon": "D+1",
+      "hours_left": 29.3,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T06:47:33.324063+00:00",
+      "horizon": "D+1",
+      "hours_left": 29.2,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T07:50:09.515159+00:00",
+      "horizon": "D+1",
+      "hours_left": 28.2,
+      "ecmwf_raw": 29.0,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.0,
+      "best": 29.0,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T08:52:55.651598+00:00",
+      "horizon": "D+1",
+      "hours_left": 27.1,
+      "ecmwf_raw": 29.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.2,
+      "best": 29.2,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T09:55:57.495198+00:00",
+      "horizon": "D+1",
+      "hours_left": 26.1,
+      "ecmwf_raw": 29.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.2,
+      "best": 29.2,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T10:58:44.946569+00:00",
+      "horizon": "D+1",
+      "hours_left": 25.0,
+      "ecmwf_raw": 29.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.2,
+      "best": 29.2,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-13T12:01:49.844323+00:00",
+      "horizon": "D+1",
+      "hours_left": 24.0,
+      "ecmwf_raw": 29.2,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 29.2,
+      "best": 29.2,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-14T21:53:50.763623+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 19.0,
+      "best_raw": 19.0,
+      "best": 19.0,
+      "best_source": "metar",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-14T22:14:59.056570+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 19.0,
+      "best_raw": 19.0,
+      "best": 19.0,
+      "best_source": "metar",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-14T23:16:53.264248+00:00",
+      "horizon": "D+0",
+      "hours_left": 0.0,
+      "ecmwf_raw": null,
+      "hrrr_raw": null,
+      "metar_raw": 18.0,
+      "best_raw": 18.0,
+      "best": 18.0,
+      "best_source": "metar",
+      "bias": 0.0,
+      "uhi": 0.0
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-12T13:21:12.153959+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.71
+    },
+    {
+      "ts": "2026-04-12T14:00:46.932653+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.705
+    },
+    {
+      "ts": "2026-04-12T15:00:39.102499+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.705
+    },
+    {
+      "ts": "2026-04-12T16:00:46.703299+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.705
+    },
+    {
+      "ts": "2026-04-12T17:00:46.838729+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.66
+    },
+    {
+      "ts": "2026-04-12T18:01:17.583484+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.68
+    },
+    {
+      "ts": "2026-04-12T18:05:50.317023+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.68
+    },
+    {
+      "ts": "2026-04-13T02:21:13.388999+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.67
+    },
+    {
+      "ts": "2026-04-13T02:43:02.674780+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.67
+    },
+    {
+      "ts": "2026-04-13T06:00:54.917621+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.65
+    },
+    {
+      "ts": "2026-04-13T06:09:46.329572+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.62
+    },
+    {
+      "ts": "2026-04-13T06:41:51.885756+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.625
+    },
+    {
+      "ts": "2026-04-13T06:47:33.324063+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.625
+    },
+    {
+      "ts": "2026-04-13T07:50:09.515159+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.665
+    },
+    {
+      "ts": "2026-04-13T08:52:55.651598+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.68
+    },
+    {
+      "ts": "2026-04-13T09:55:57.495198+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.685
+    },
+    {
+      "ts": "2026-04-13T10:58:44.946569+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.675
+    },
+    {
+      "ts": "2026-04-13T12:01:49.844323+00:00",
+      "top_bucket": "29.0-29.0C",
+      "top_price": 0.67
+    },
+    {
+      "ts": "2026-04-14T21:53:50.763623+00:00",
+      "top_bucket": "-999.0-21.0C",
+      "top_price": 1.0
+    },
+    {
+      "ts": "2026-04-14T22:14:59.056570+00:00",
+      "top_bucket": "-999.0-21.0C",
+      "top_price": 1.0
+    },
+    {
+      "ts": "2026-04-14T23:16:53.264248+00:00",
+      "top_bucket": "-999.0-21.0C",
+      "top_price": 1.0
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Tel Aviv be 21°C or below on April 14?",
+      "market_id": "1953572",
+      "range": [
+        -999.0,
+        21.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 12056.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 22°C on April 14?",
+      "market_id": "1953573",
+      "range": [
+        22.0,
+        22.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 3746.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 23°C on April 14?",
+      "market_id": "1953574",
+      "range": [
+        23.0,
+        23.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 6984.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 24°C on April 14?",
+      "market_id": "1953575",
+      "range": [
+        24.0,
+        24.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 4029.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 25°C on April 14?",
+      "market_id": "1953576",
+      "range": [
+        25.0,
+        25.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 8508.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 26°C on April 14?",
+      "market_id": "1953577",
+      "range": [
+        26.0,
+        26.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 24065.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 27°C on April 14?",
+      "market_id": "1953578",
+      "range": [
+        27.0,
+        27.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 14469.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 28°C on April 14?",
+      "market_id": "1953579",
+      "range": [
+        28.0,
+        28.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 10309.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 29°C on April 14?",
+      "market_id": "1953580",
+      "range": [
+        29.0,
+        29.0
+      ],
+      "bid": 1.0,
+      "ask": 1.0,
+      "price": 1.0,
+      "spread": 0.0,
+      "volume": 24283.0,
+      "is_binary": true,
+      "yes_price": 1.0,
+      "no_price": 0.0
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 30°C on April 14?",
+      "market_id": "1953581",
+      "range": [
+        30.0,
+        30.0
+      ],
+      "bid": 0.0005,
+      "ask": 0.0005,
+      "price": 0.0005,
+      "spread": 0.0,
+      "volume": 11302.0,
+      "is_binary": true,
+      "yes_price": 0.0005,
+      "no_price": 0.9995
+    },
+    {
+      "question": "Will the highest temperature in Tel Aviv be 31°C or higher on April 14?",
+      "market_id": "1953582",
+      "range": [
+        31.0,
+        999.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
+      "spread": 0.0,
+      "volume": 16627.0,
+      "is_binary": true,
+      "yes_price": 0.9995,
+      "no_price": 0.0005
+    }
+  ],
+  "created_at": "2026-04-12T13:21:14.225259+00:00"
+}

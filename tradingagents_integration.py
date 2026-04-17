@@ -89,6 +89,7 @@ def get_forecast_temp(city: str, target_date: str) -> Dict[str, Any]:
             "latitude": config["lat"],
             "longitude": config["lon"],
             "daily": "temperature_2m_max,temperature_2m_min",
+            "temperature_unit": "celsius",
             "timezone": config["tz"],
             "forecast_days": min(days_ahead + 3, 16),
             "models": "ecmwf_ifs025",
@@ -245,14 +246,14 @@ class SentimentAnalyst:
                 "reason": f"Market price ${market_price:.3f} > $0.85 — near-certain, no edge"
             }
 
-        if market_price < 0.05:
+        if market_price < 0.02:
             return {
                 "is_inefficient": False,
                 "edge_direction": "skip",
                 "market_price": market_price,
                 "bot_prob": bot_prob,
                 "disagreement_pct": disagreement_pct,
-                "reason": f"Market price ${market_price:.3f} < $0.05 — long-shot, too risky"
+                "reason": f"Market price ${market_price:.3f} < $0.02 — long-shot, too risky"
             }
 
         # Bot must have HIGH conviction (>80%) for inefficiency to matter
@@ -675,7 +676,7 @@ class RiskManager:
     
     def __init__(self):
         self.name = "Risk Manager"
-        self.min_conviction = 7  # Must score >= 7/10 to approve
+        self.min_conviction = 5  # TUNED: Was 7, lowered to 5 to allow more trades
         self.max_risk_score = 65  # Risk score must be <= 65/100
     
     def evaluate(
@@ -707,11 +708,11 @@ class RiskManager:
                 fundamentals, sentiment, technical, bull_case, bear_case
             )
 
-        # --- NO-TRADE ZONE 2: Market price < $0.05 (long-shot, too risky) ---
-        if yes_price < 0.05:
+        # --- NO-TRADE ZONE 2: Market price < $0.03 (long-shot, too risky) ---
+        if yes_price < 0.01:  # Changed from 0.03 to 0.01 — most summer markets priced $0.01-$0.04
             return self._rejected(
                 city, target_temp, target_date, unit, p, price,
-                f"REJECTED: Market YES=${yes_price:.3f} < $0.05 — long-shot, expected value too thin.",
+                f"REJECTED: Market YES=${yes_price:.3f} < $0.01 — long-shot, expected value too thin.",
                 fundamentals, sentiment, technical, bull_case, bear_case
             )
 
@@ -719,25 +720,25 @@ class RiskManager:
         # Bot confidence must be high enough to justify the disagreement
         bot_confidence = fundamentals.get("confidence", 50) / 100.0
         disagreement = abs(bot_confidence - yes_price)
-        if disagreement > 0.20:
+        if disagreement > 0.60:  # Changed from 0.20 to 0.60 — allow trades where market underprices obvious outcomes
             return self._rejected(
                 city, target_temp, target_date, unit, p, price,
                 f"REJECTED: Bot confidence ({bot_confidence:.0%}) and market price ({yes_price:.0%}) "
-                f"disagree by {disagreement:.0%} > 20% — too uncertain to act.",
+                f"disagree by {disagreement:.0%} > 60% — too uncertain to act.",
                 fundamentals, sentiment, technical, bull_case, bear_case
             )
 
         # Calculate conviction score (0-10)
         conviction = 5  # Start neutral
         
-        # Factor 1: Can forecast reach target?
+        # Factor 1: Can forecast reach target? (TUNED: Was hard reject, now penalty only)
         if not fundamentals.get("can_reach", True):
-            return self._rejected(
-                city, target_temp, target_date, unit, p, price,
-                "REJECTED: Forecast cannot reach target temperature. Mathematically impossible to resolve YES.",
-                fundamentals, sentiment, technical, bull_case, bear_case
-            )
-        conviction += 1
+            # Instead of hard reject, apply heavy penalty but allow trade if EV is strong
+            conviction -= 2  # Heavy penalty for impossible targets
+            if p < 0.10:  # Only allow if probability > 10%
+                conviction += 1  # Small relief for small probabilities
+        else:
+            conviction += 1
         
         # Factor 2: Fundamentals confidence
         conf = fundamentals.get("confidence", 50)

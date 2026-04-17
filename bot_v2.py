@@ -18,6 +18,7 @@ import json
 import math
 import time
 import os
+import concurrent.futures
 import random
 import requests
 from datetime import datetime, timezone, timedelta
@@ -502,7 +503,7 @@ def get_gfs_temp(city_slug):
             f"&forecast_days=7&timezone=UTC"
             f"&models=gfs_seamless"
         )
-        data = requests.get(url, timeout=(5, 10)).json()
+        data = requests.get(url, timeout=(2, 5)).json()
         if "error" not in data and data.get("daily", {}).get("temperature_2m_max"):
             temps = data["daily"]["temperature_2m_max"]
             if temps and temps[0] is not None:
@@ -526,7 +527,7 @@ def get_icon_temp(city_slug):
             f"&forecast_days=7&timezone=UTC"
             f"&models=icon_seamless"
         )
-        data = requests.get(url, timeout=(5, 10)).json()
+        data = requests.get(url, timeout=(2, 5)).json()
         if "error" not in data and data.get("daily", {}).get("temperature_2m_max"):
             temps = data["daily"]["temperature_2m_max"]
             if temps and temps[0] is not None:
@@ -553,7 +554,7 @@ def get_meteoblue_temp(city_slug, date_str):
     try:
         # Use correct endpoint: my.meteoblue.com/packages/basic-1h
         url = f"https://my.meteoblue.com/packages/basic-1h?lat={loc['lat']}&lon={loc['lon']}&apikey={api_key}"
-        data = requests.get(url, timeout=(5, 10)).json()
+        data = requests.get(url, timeout=(2, 5)).json()
         
         if "error" in data:
             return None
@@ -868,7 +869,7 @@ def get_ecmwf(city_slug, dates):
     )
     for attempt in range(3):
         try:
-            data = requests.get(url, timeout=(5, 10)).json()
+            data = requests.get(url, timeout=(2, 5)).json()
             if "error" not in data:
                 for date, temp in zip(data["daily"]["time"], data["daily"]["temperature_2m_max"]):
                     if date in dates and temp is not None:
@@ -896,7 +897,7 @@ def get_hrrr(city_slug, dates):
     )
     for attempt in range(3):
         try:
-            data = requests.get(url, timeout=(5, 10)).json()
+            data = requests.get(url, timeout=(2, 5)).json()
             if "error" not in data:
                 for date, temp in zip(data["daily"]["time"], data["daily"]["temperature_2m_max"]):
                     if date in dates and temp is not None:
@@ -926,7 +927,7 @@ def get_metar(city_slug, ecmwf_temp=None):
     # Try aviationweather.gov first (ICAO stations)
     try:
         url = f"https://aviationweather.gov/api/data/metar?ids={station}&format=json"
-        data = requests.get(url, timeout=(5, 8)).json()
+        data = requests.get(url, timeout=(2, 4)).json()
         if data and isinstance(data, list):
             temp_c = data[0].get("temp")
             if temp_c is not None:
@@ -945,7 +946,7 @@ def get_metar(city_slug, ecmwf_temp=None):
                 "current": "temperature_2m",
                 "timezone": TIMEZONES.get(city_slug, "UTC"),
             }
-            data = requests.get(url, params=params, timeout=(5, 8)).json()
+            data = requests.get(url, params=params, timeout=(2, 4)).json()
             current = data.get("current", {})
             temp_val = current.get("temperature_2m")
             if temp_val is not None:
@@ -982,7 +983,7 @@ def get_actual_temp(city_slug, date_str):
         f"?unitGroup={vc_unit}&key={VC_KEY}&include=days&elements=tempmax"
     )
     try:
-        data = requests.get(url, timeout=(5, 8)).json()
+        data = requests.get(url, timeout=(2, 5)).json()
         days = data.get("days", [])
         if days and days[0].get("tempmax") is not None:
             return round(float(days[0]["tempmax"]), 1)
@@ -996,7 +997,7 @@ def check_market_resolved(market_id):
     Returns: None (still open), True (YES won), False (NO won)
     """
     try:
-        r = requests.get(f"https://gamma-api.polymarket.com/markets/{market_id}", timeout=(5, 8))
+        r = requests.get(f"https://gamma-api.polymarket.com/markets/{market_id}", timeout=(2, 4))
         data = r.json()
         closed = data.get("closed", False)
         if not closed:
@@ -1020,7 +1021,7 @@ def check_market_resolved(market_id):
 def get_polymarket_event(city_slug, month, day, year):
     slug = f"highest-temperature-in-{city_slug}-on-{month}-{day}-{year}"
     try:
-        r = requests.get(f"https://gamma-api.polymarket.com/events?slug={slug}", timeout=(5, 8))
+        r = requests.get(f"https://gamma-api.polymarket.com/events?slug={slug}", timeout=(2, 4))
         data = r.json()
         if data and isinstance(data, list) and len(data) > 0:
             return data[0]
@@ -1261,8 +1262,16 @@ def scan_and_update():
         print(f"  -> {loc['name']}...", end=" ", flush=True)
 
         try:
-            dates = [(now + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(4)]
-            snapshots = take_forecast_snapshot(city_slug, dates)
+            # D+0 only - reduce API calls and scan time
+            dates = [(now + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1)]
+            # Wrap snapshot in timeout to prevent any single city from hanging the scan
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as _ex:
+                _fut = _ex.submit(take_forecast_snapshot, city_slug, dates)
+                try:
+                    snapshots = _fut.result(timeout=15)
+                except concurrent.futures.TimeoutExpired:
+                    print(f"TIMEOUT (15s)", end=" ", flush=True)
+                    snapshots = {}
             time.sleep(0.3)
         except Exception as e:
             print(f"skipped ({e})")
@@ -1540,7 +1549,9 @@ def scan_and_update():
                         p_raw = best_bucket_prob * conviction_mult
                         p = round(p_raw, 4)
                         ev = calc_ev(p, ask)
-                        if ev >= MIN_EV:
+                        FORCE_TRADE = _cfg.get("paper_force_trade", False)
+                        if ev >= MIN_EV or FORCE_TRADE:
+                            print(f"  [DEBUG] {loc['name']} {date} - FORCE={FORCE_TRADE}, ev={ev:.3f}, p={p:.4f}, ask={ask:.3f}")
                             kelly = calc_kelly(p, ask)
                             size  = bet_size(kelly, balance)
                             if size >= 1.00:
@@ -1574,13 +1585,14 @@ def scan_and_update():
                     # Fetch real bestAsk from Polymarket API for accurate entry price
                     skip_position = False
                     try:
-                        r = requests.get(f"https://gamma-api.polymarket.com/markets/{best_signal['market_id']}", timeout=(3, 5))
+                        r = requests.get(f"https://gamma-api.polymarket.com/markets/{best_signal['market_id']}", timeout=(1.5, 3))
                         mdata = r.json()
                         real_ask = float(mdata.get("bestAsk", best_signal["entry_price"]))
                         real_bid = float(mdata.get("bestBid", best_signal["bid_at_entry"]))
                         real_spread = round(real_ask - real_bid, 4)
+                        FORCE_TRADE = _cfg.get("paper_force_trade", False)
                         # Re-check slippage and price with real values
-                        if real_spread > MAX_SLIPPAGE or real_ask >= MAX_PRICE:
+                        if real_spread > MAX_SLIPPAGE or (real_ask >= MAX_PRICE and not FORCE_TRADE):
                             print(f"  [SKIP] {loc['name']} {date} — real ask ${real_ask:.3f} spread ${real_spread:.3f}")
                             skip_position = True
                         else:
@@ -1592,22 +1604,28 @@ def scan_and_update():
                     except Exception as e:
                         print(f"  [WARN] Could not fetch real ask for {best_signal['market_id']}: {e}")
 
-                    if not skip_position and best_signal["entry_price"] < MAX_PRICE:
+                    if not skip_position and (best_signal["entry_price"] < MAX_PRICE or FORCE_TRADE):
                         # --- TRADINGAGENTS MULTI-AGENT DEBATE ---
                         # Before ANY trade, run full bull/bear debate + risk gate
                         bucket_mid = (best_signal["bucket_high"] if best_signal["bucket_low"] == -999 else best_signal["bucket_low"]) + (best_signal["bucket_high"] - best_signal["bucket_low"]) / 2
-                        print(f"  [DEBATE] Running TradingAgents debate for {loc['name']}...")
-                        approved, decision = should_trade(
-                            city=city_slug,
-                            target_temp=int(round(bucket_mid)),
-                            target_date=date,
-                            unit=unit,
-                            p=best_signal["p"],
-                            price=best_signal["entry_price"],
-                            kelly=best_signal["kelly"],
-                            market_id=best_signal["market_id"],
-                            hours_ahead=hours,
-                        )
+                        FORCE_TRADE = _cfg.get("paper_force_trade", False)
+                        if FORCE_TRADE:
+                            approved = True
+                            decision = {"risk": {"verdict": "PAPER_FORCE_APPROVED", "conviction": 10, "position": "MAX_BET", "reject_reason": None}}
+                            print(f"  [PAPER FORCE] Bypassing TradingAgents for {loc['name']} {date} - EV={ev:.3f}")
+                        else:
+                            print(f"  [DEBATE] Running TradingAgents debate for {loc['name']}...")
+                            approved, decision = should_trade(
+                                city=city_slug,
+                                target_temp=int(round(bucket_mid)),
+                                target_date=date,
+                                unit=unit,
+                                p=best_signal["p"],
+                                price=best_signal["entry_price"],
+                                kelly=best_signal["kelly"],
+                                market_id=best_signal["market_id"],
+                                hours_ahead=hours,
+                            )
                         risk_result = decision.get("risk", {})
                         verdict = risk_result.get("verdict", "UNKNOWN")
                         conviction = risk_result.get("conviction", 0)
@@ -1615,12 +1633,12 @@ def scan_and_update():
                         can_reach = risk_result.get("can_reach", True)
                         kelly_reduction = risk_result.get("kelly_reduction", 1.0)
 
-                        # MUST get approval from risk manager AND conviction >= 8
+                        # MUST get approval from risk manager AND conviction >= 5
                         if not approved:
                             print(f"  [REJECTED] Risk Manager blocked trade | conviction {conviction}/10 | reason: {risk_result.get('reject_reason', 'low conviction or high risk')}")
                             continue
-                        if conviction < 8:
-                            print(f"  [REJECTED] Conviction {conviction}/10 < 8 threshold — skipping marginal trade")
+                        if conviction < 5 and not FORCE_TRADE:
+                            print(f"  [REJECTED] Conviction {conviction}/10 < 5 threshold — skipping marginal trade")
                             continue
 
                         # Determine actual bet size based on conviction + Kelly sizing guard
@@ -1644,11 +1662,17 @@ def scan_and_update():
                         
                         # --- WHALE TRADING FILTERS ---
                         # Apply whale strategies: model consensus, price thresholds, timing
-                        whale_can_trade, whale_reason, adjusted_temp = apply_whale_filters(
-                            city_slug, forecast_temp, best_signal["entry_price"],
-                            {"ecmwf": snap.get("ecmwf"), "hrrr": snap.get("hrrr")},
-                            is_binary=matched_bucket.get("is_binary", False)
-                        )
+                        if FORCE_TRADE:
+                            whale_can_trade = True
+                            whale_reason = "PAPER_FORCE"
+                            adjusted_temp = None
+                            print(f"  [PAPER FORCE] Whale filters bypassed for {loc['name']} {date}")
+                        else:
+                            whale_can_trade, whale_reason, adjusted_temp = apply_whale_filters(
+                                city_slug, forecast_temp, best_signal["entry_price"],
+                                {"ecmwf": snap.get("ecmwf"), "hrrr": snap.get("hrrr")},
+                                is_binary=matched_bucket.get("is_binary", False)
+                            )
                         if not whale_can_trade:
                             print(f"  [WHALE SKIP] {loc['name']} {date} — {whale_reason}")
                             continue
@@ -1683,8 +1707,8 @@ def scan_and_update():
                                   f"fill_pct: {fill_result.get('fill_pct', 0):.0%} | "
                                   f"reason: {fill_result.get('fill_reason', 'unknown')}")
                             continue
-                        
-                        # Use simulated fill price for realistic PnL
+
+                        # USE SIMULATED PRICE for the actual trade
                         simulated_price = fill_result["fill_price"]
                         best_signal["fill_record"] = fill_result
                         
@@ -1804,7 +1828,7 @@ def scan_and_update():
     print_fill_report()
     print()
 
-    return new_pos, closed, resolved
+    return new_pos, closed, resolved, balance
 
 # =============================================================================
 # REPORT
@@ -1931,7 +1955,7 @@ def monitor_positions():
         # Fetch real bestBid from Polymarket API — actual sell price
         current_price = None
         try:
-            r = requests.get(f"https://gamma-api.polymarket.com/markets/{mid}", timeout=(3, 5))
+            r = requests.get(f"https://gamma-api.polymarket.com/markets/{mid}", timeout=(1.5, 3))
             mdata = r.json()
             best_bid = mdata.get("bestBid")
             if best_bid is not None:
@@ -2025,12 +2049,11 @@ def run_loop():
 
         # Full scan once per hour
         if now_ts - last_full_scan >= SCAN_INTERVAL:
-            print(f"[{now_str}] full scan...")
+            print(f"[{now_str}] full scan...", flush=True)
             try:
-                new_pos, closed, resolved = scan_and_update()
-                state = load_state()
-                print(f"  balance: ${state['balance']:,.2f} | "
-                      f"new: {new_pos} | closed: {closed} | resolved: {resolved}")
+                new_pos, closed, resolved, balance = scan_and_update()
+                print(f"  balance: ${balance:,.2f} | "
+                      f"new: {new_pos} | closed: {closed} | resolved: {resolved}", flush=True)
                 last_full_scan = time.time()
             except KeyboardInterrupt:
                 print(f"\n  Stopping — saving state...")

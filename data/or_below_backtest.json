@@ -1,0 +1,4107 @@
+{
+  "single_or_below": {
+    "label": "Single 'Or Below' Market",
+    "total_trades": 86,
+    "valid_trades": 86,
+    "wins": 0,
+    "win_rate": 0.0,
+    "avg_price": 0.0361,
+    "total_pnl": -860.0,
+    "avg_pnl_per_trade": -10.0,
+    "break_even_price": 0.0,
+    "edge": -0.0361,
+    "by_city": [
+      {
+        "city": "Hong Kong",
+        "trades": 12,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.1671,
+        "total_pnl": -120.0,
+        "edge": -0.1671
+      },
+      {
+        "city": "London",
+        "trades": 1,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -10.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Paris",
+        "trades": 18,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -180.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Seoul",
+        "trades": 1,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -10.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Shanghai",
+        "trades": 15,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -150.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Singapore",
+        "trades": 11,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.0015,
+        "total_pnl": -110.0,
+        "edge": -0.0015
+      },
+      {
+        "city": "Taipei",
+        "trades": 12,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.0862,
+        "total_pnl": -120.0,
+        "edge": -0.0862
+      },
+      {
+        "city": "Tokyo",
+        "trades": 16,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.0011,
+        "total_pnl": -160.0,
+        "edge": -0.0011
+      }
+    ],
+    "combination_spreads": {
+      "note": "No spread combinations found with both buckets available"
+    }
+  },
+  "two_bucket_below": {
+    "label": "2-Bucket-Below Market",
+    "total_trades": 86,
+    "valid_trades": 86,
+    "wins": 0,
+    "win_rate": 0.0,
+    "avg_price": 0.0361,
+    "total_pnl": -860.0,
+    "avg_pnl_per_trade": -10.0,
+    "break_even_price": 0.0,
+    "edge": -0.0361,
+    "by_city": [
+      {
+        "city": "Hong Kong",
+        "trades": 12,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.1671,
+        "total_pnl": -120.0,
+        "edge": -0.1671
+      },
+      {
+        "city": "London",
+        "trades": 1,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -10.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Paris",
+        "trades": 18,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -180.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Seoul",
+        "trades": 1,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -10.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Shanghai",
+        "trades": 15,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.001,
+        "total_pnl": -150.0,
+        "edge": -0.001
+      },
+      {
+        "city": "Singapore",
+        "trades": 11,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.0015,
+        "total_pnl": -110.0,
+        "edge": -0.0015
+      },
+      {
+        "city": "Taipei",
+        "trades": 12,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.0862,
+        "total_pnl": -120.0,
+        "edge": -0.0862
+      },
+      {
+        "city": "Tokyo",
+        "trades": 16,
+        "wins": 0,
+        "win_rate": 0.0,
+        "avg_price": 0.0011,
+        "total_pnl": -160.0,
+        "edge": -0.0011
+      }
+    ],
+    "combination_spreads": {
+      "note": "No spread combinations found with both buckets available"
+    }
+  },
+  "all_trades": [
+    {
+      "city": "Singapore",
+      "date": "2026-03-13",
+      "pred_temp": 32.0,
+      "actual_temp": 31.5,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-14",
+      "pred_temp": 32.0,
+      "actual_temp": 31.1,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-16",
+      "pred_temp": 32.0,
+      "actual_temp": 32.4,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-17",
+      "pred_temp": 32.0,
+      "actual_temp": 32.7,
+      "target_bucket": 24,
+      "market_found": true,
+      "or_below_available": [
+        24
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-20",
+      "pred_temp": 33.0,
+      "actual_temp": 33.1,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-21",
+      "pred_temp": 33.0,
+      "actual_temp": 33.5,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-22",
+      "pred_temp": 32.0,
+      "actual_temp": 32.5,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.004,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.004
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-24",
+      "pred_temp": 33.0,
+      "actual_temp": 33.3,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-25",
+      "pred_temp": 33.0,
+      "actual_temp": 33.5,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-26",
+      "pred_temp": 33.0,
+      "actual_temp": 32.9,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-27",
+      "pred_temp": 32.0,
+      "actual_temp": 33.3,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-10",
+      "pred_temp": 9.0,
+      "actual_temp": 8.2,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-11",
+      "pred_temp": 10.0,
+      "actual_temp": 10.1,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-12",
+      "pred_temp": 12.0,
+      "actual_temp": 11.2,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-13",
+      "pred_temp": 9.0,
+      "actual_temp": 10.0,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-14",
+      "pred_temp": 13.0,
+      "actual_temp": 15.4,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-15",
+      "pred_temp": 14.0,
+      "actual_temp": 15.2,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 13.6,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-17",
+      "pred_temp": 13.0,
+      "actual_temp": 14.4,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-18",
+      "pred_temp": 17.0,
+      "actual_temp": 16.9,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-19",
+      "pred_temp": 18.0,
+      "actual_temp": 19.5,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-20",
+      "pred_temp": 13.0,
+      "actual_temp": 11.1,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-21",
+      "pred_temp": 15.0,
+      "actual_temp": 15.1,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-22",
+      "pred_temp": 15.0,
+      "actual_temp": 15.6,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-24",
+      "pred_temp": 16.0,
+      "actual_temp": 16.8,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-25",
+      "pred_temp": 13.0,
+      "actual_temp": 12.5,
+      "target_bucket": 7,
+      "market_found": true,
+      "or_below_available": [
+        7
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-26",
+      "pred_temp": 13.0,
+      "actual_temp": 13.2,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "London",
+      "date": "2026-03-10",
+      "pred_temp": 14.0,
+      "actual_temp": 12.2,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-11",
+      "pred_temp": 13.0,
+      "actual_temp": 12.1,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-12",
+      "pred_temp": 12.0,
+      "actual_temp": 11.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-13",
+      "pred_temp": 12.0,
+      "actual_temp": 11.1,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-14",
+      "pred_temp": 11.0,
+      "actual_temp": 10.4,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-15",
+      "pred_temp": 13.0,
+      "actual_temp": 11.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 11.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-17",
+      "pred_temp": 15.0,
+      "actual_temp": 13.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-19",
+      "pred_temp": 16.0,
+      "actual_temp": 15.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-20",
+      "pred_temp": 14.0,
+      "actual_temp": 12.9,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-21",
+      "pred_temp": 13.0,
+      "actual_temp": 12.4,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-22",
+      "pred_temp": 13.0,
+      "actual_temp": 11.5,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-23",
+      "pred_temp": 15.0,
+      "actual_temp": 14.9,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-24",
+      "pred_temp": 13.0,
+      "actual_temp": 13.1,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-25",
+      "pred_temp": 9.0,
+      "actual_temp": 8.8,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-26",
+      "pred_temp": 10.0,
+      "actual_temp": 9.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-27",
+      "pred_temp": 12.0,
+      "actual_temp": 11.9,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-10",
+      "pred_temp": 16.0,
+      "actual_temp": 15.4,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-11",
+      "pred_temp": 14.0,
+      "actual_temp": 12.8,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-12",
+      "pred_temp": 13.0,
+      "actual_temp": 12.6,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-13",
+      "pred_temp": 12.0,
+      "actual_temp": 11.7,
+      "target_bucket": 7,
+      "market_found": true,
+      "or_below_available": [
+        7
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-14",
+      "pred_temp": 10.0,
+      "actual_temp": 9.1,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-15",
+      "pred_temp": 13.0,
+      "actual_temp": 12.2,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 11.8,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-17",
+      "pred_temp": 17.0,
+      "actual_temp": 15.9,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-18",
+      "pred_temp": 15.0,
+      "actual_temp": 14.9,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-19",
+      "pred_temp": 17.0,
+      "actual_temp": 16.2,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-20",
+      "pred_temp": 17.0,
+      "actual_temp": 16.4,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-21",
+      "pred_temp": 16.0,
+      "actual_temp": 16.2,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-22",
+      "pred_temp": 15.0,
+      "actual_temp": 14.8,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-23",
+      "pred_temp": 16.0,
+      "actual_temp": 15.8,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-24",
+      "pred_temp": 19.0,
+      "actual_temp": 17.1,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-25",
+      "pred_temp": 13.0,
+      "actual_temp": 10.6,
+      "target_bucket": 7,
+      "market_found": true,
+      "or_below_available": [
+        7
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-26",
+      "pred_temp": 11.0,
+      "actual_temp": 9.2,
+      "target_bucket": 4,
+      "market_found": true,
+      "or_below_available": [
+        4
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-27",
+      "pred_temp": 11.0,
+      "actual_temp": 10.3,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-13",
+      "pred_temp": 15.0,
+      "actual_temp": 18.2,
+      "target_bucket": 15,
+      "market_found": true,
+      "or_below_available": [
+        15
+      ],
+      "price": 0.997,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.997
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-14",
+      "pred_temp": 16.0,
+      "actual_temp": 21.0,
+      "target_bucket": 16,
+      "market_found": true,
+      "or_below_available": [
+        16
+      ],
+      "price": 0.998,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.998
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-16",
+      "pred_temp": 24.0,
+      "actual_temp": 22.5,
+      "target_bucket": 14,
+      "market_found": true,
+      "or_below_available": [
+        14
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-17",
+      "pred_temp": 24.0,
+      "actual_temp": 22.5,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-18",
+      "pred_temp": 27.0,
+      "actual_temp": 26.0,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-19",
+      "pred_temp": 28.0,
+      "actual_temp": 25.7,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-21",
+      "pred_temp": 22.0,
+      "actual_temp": 23.9,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-22",
+      "pred_temp": 25.0,
+      "actual_temp": 24.4,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-23",
+      "pred_temp": 27.0,
+      "actual_temp": 25.9,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-24",
+      "pred_temp": 26.0,
+      "actual_temp": 26.0,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-25",
+      "pred_temp": 28.0,
+      "actual_temp": 28.9,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-26",
+      "pred_temp": 28.0,
+      "actual_temp": 25.5,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-10",
+      "pred_temp": 7.0,
+      "actual_temp": 6.8,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-11",
+      "pred_temp": 6.0,
+      "actual_temp": 7.9,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-12",
+      "pred_temp": 11.0,
+      "actual_temp": 11.5,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-13",
+      "pred_temp": 11.0,
+      "actual_temp": 10.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-14",
+      "pred_temp": 11.0,
+      "actual_temp": 11.2,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-15",
+      "pred_temp": 10.0,
+      "actual_temp": 9.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-16",
+      "pred_temp": 10.0,
+      "actual_temp": 11.4,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-18",
+      "pred_temp": 8.0,
+      "actual_temp": 8.8,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-19",
+      "pred_temp": 9.0,
+      "actual_temp": 10.4,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-20",
+      "pred_temp": 11.0,
+      "actual_temp": 11.5,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-21",
+      "pred_temp": 11.0,
+      "actual_temp": 12.5,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-22",
+      "pred_temp": 14.0,
+      "actual_temp": 15.6,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-23",
+      "pred_temp": 15.0,
+      "actual_temp": 17.0,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-24",
+      "pred_temp": 13.0,
+      "actual_temp": 16.0,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-25",
+      "pred_temp": 13.0,
+      "actual_temp": 17.9,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-26",
+      "pred_temp": 9.0,
+      "actual_temp": 17.5,
+      "target_bucket": null,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-27",
+      "pred_temp": 13.0,
+      "actual_temp": 16.8,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-13",
+      "pred_temp": 13.0,
+      "actual_temp": 15.9,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-14",
+      "pred_temp": 16.0,
+      "actual_temp": 17.1,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-15",
+      "pred_temp": 15.0,
+      "actual_temp": 17.1,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 13.6,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-17",
+      "pred_temp": 12.0,
+      "actual_temp": 12.7,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-18",
+      "pred_temp": 13.0,
+      "actual_temp": 13.2,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-19",
+      "pred_temp": 12.0,
+      "actual_temp": 13.4,
+      "target_bucket": 4,
+      "market_found": true,
+      "or_below_available": [
+        4
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-20",
+      "pred_temp": 14.0,
+      "actual_temp": 14.6,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-21",
+      "pred_temp": 14.0,
+      "actual_temp": 14.9,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-22",
+      "pred_temp": 18.0,
+      "actual_temp": 19.8,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-23",
+      "pred_temp": 16.0,
+      "actual_temp": 15.4,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-24",
+      "pred_temp": 14.0,
+      "actual_temp": 13.9,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-25",
+      "pred_temp": 16.0,
+      "actual_temp": 17.7,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-26",
+      "pred_temp": 16.0,
+      "actual_temp": 16.4,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-27",
+      "pred_temp": 19.0,
+      "actual_temp": 18.6,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-16",
+      "pred_temp": 23.0,
+      "actual_temp": 25.9,
+      "target_bucket": 13,
+      "market_found": true,
+      "or_below_available": [
+        13
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-17",
+      "pred_temp": 26.0,
+      "actual_temp": 26.3,
+      "target_bucket": 20,
+      "market_found": true,
+      "or_below_available": [
+        20
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-18",
+      "pred_temp": 28.0,
+      "actual_temp": 26.8,
+      "target_bucket": 21,
+      "market_found": true,
+      "or_below_available": [
+        21
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-19",
+      "pred_temp": 21.0,
+      "actual_temp": 21.8,
+      "target_bucket": 19,
+      "market_found": true,
+      "or_below_available": [
+        19
+      ],
+      "price": 0.025,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.025
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-20",
+      "pred_temp": 23.0,
+      "actual_temp": 24.0,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-21",
+      "pred_temp": 22.0,
+      "actual_temp": 21.4,
+      "target_bucket": 16,
+      "market_found": true,
+      "or_below_available": [
+        16
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-22",
+      "pred_temp": 26.0,
+      "actual_temp": 28.4,
+      "target_bucket": 19,
+      "market_found": true,
+      "or_below_available": [
+        19
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-23",
+      "pred_temp": 24.0,
+      "actual_temp": 28.3,
+      "target_bucket": 22,
+      "market_found": true,
+      "or_below_available": [
+        22
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-24",
+      "pred_temp": 24.0,
+      "actual_temp": 27.0,
+      "target_bucket": 21,
+      "market_found": true,
+      "or_below_available": [
+        21
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-25",
+      "pred_temp": 24.0,
+      "actual_temp": 25.8,
+      "target_bucket": 22,
+      "market_found": true,
+      "or_below_available": [
+        22
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-26",
+      "pred_temp": 27.0,
+      "actual_temp": 28.1,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-27",
+      "pred_temp": 21.0,
+      "actual_temp": 25.2,
+      "target_bucket": 21,
+      "market_found": true,
+      "or_below_available": [
+        21
+      ],
+      "price": 0.999,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.999
+    }
+  ],
+  "all_trades_2b": [
+    {
+      "city": "Singapore",
+      "date": "2026-03-13",
+      "pred_temp": 32.0,
+      "actual_temp": 31.5,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-14",
+      "pred_temp": 32.0,
+      "actual_temp": 31.1,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-16",
+      "pred_temp": 32.0,
+      "actual_temp": 32.4,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-17",
+      "pred_temp": 32.0,
+      "actual_temp": 32.7,
+      "target_bucket": 24,
+      "market_found": true,
+      "or_below_available": [
+        24
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-20",
+      "pred_temp": 33.0,
+      "actual_temp": 33.1,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-21",
+      "pred_temp": 33.0,
+      "actual_temp": 33.5,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-22",
+      "pred_temp": 32.0,
+      "actual_temp": 32.5,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.004,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.004
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-24",
+      "pred_temp": 33.0,
+      "actual_temp": 33.3,
+      "target_bucket": 25,
+      "market_found": true,
+      "or_below_available": [
+        25
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-25",
+      "pred_temp": 33.0,
+      "actual_temp": 33.5,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-26",
+      "pred_temp": 33.0,
+      "actual_temp": 32.9,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Singapore",
+      "date": "2026-03-27",
+      "pred_temp": 32.0,
+      "actual_temp": 33.3,
+      "target_bucket": 26,
+      "market_found": true,
+      "or_below_available": [
+        26
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-10",
+      "pred_temp": 9.0,
+      "actual_temp": 8.2,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-11",
+      "pred_temp": 10.0,
+      "actual_temp": 10.1,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-12",
+      "pred_temp": 12.0,
+      "actual_temp": 11.2,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-13",
+      "pred_temp": 9.0,
+      "actual_temp": 10.0,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-14",
+      "pred_temp": 13.0,
+      "actual_temp": 15.4,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-15",
+      "pred_temp": 14.0,
+      "actual_temp": 15.2,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 13.6,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-17",
+      "pred_temp": 13.0,
+      "actual_temp": 14.4,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-18",
+      "pred_temp": 17.0,
+      "actual_temp": 16.9,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-19",
+      "pred_temp": 18.0,
+      "actual_temp": 19.5,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-20",
+      "pred_temp": 13.0,
+      "actual_temp": 11.1,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-21",
+      "pred_temp": 15.0,
+      "actual_temp": 15.1,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-22",
+      "pred_temp": 15.0,
+      "actual_temp": 15.6,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-24",
+      "pred_temp": 16.0,
+      "actual_temp": 16.8,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-25",
+      "pred_temp": 13.0,
+      "actual_temp": 12.5,
+      "target_bucket": 7,
+      "market_found": true,
+      "or_below_available": [
+        7
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Tokyo",
+      "date": "2026-03-26",
+      "pred_temp": 13.0,
+      "actual_temp": 13.2,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "London",
+      "date": "2026-03-10",
+      "pred_temp": 14.0,
+      "actual_temp": 12.2,
+      "target_bucket": 12,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-11",
+      "pred_temp": 13.0,
+      "actual_temp": 12.1,
+      "target_bucket": 11,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-12",
+      "pred_temp": 12.0,
+      "actual_temp": 11.6,
+      "target_bucket": 10,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-13",
+      "pred_temp": 12.0,
+      "actual_temp": 11.1,
+      "target_bucket": 10,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-14",
+      "pred_temp": 11.0,
+      "actual_temp": 10.4,
+      "target_bucket": 9,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-15",
+      "pred_temp": 13.0,
+      "actual_temp": 11.6,
+      "target_bucket": 11,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 11.6,
+      "target_bucket": 10,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-17",
+      "pred_temp": 15.0,
+      "actual_temp": 13.6,
+      "target_bucket": 13,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-19",
+      "pred_temp": 16.0,
+      "actual_temp": 15.6,
+      "target_bucket": 14,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-20",
+      "pred_temp": 14.0,
+      "actual_temp": 12.9,
+      "target_bucket": 12,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-21",
+      "pred_temp": 13.0,
+      "actual_temp": 12.4,
+      "target_bucket": 11,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-22",
+      "pred_temp": 13.0,
+      "actual_temp": 11.5,
+      "target_bucket": 11,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-23",
+      "pred_temp": 15.0,
+      "actual_temp": 14.9,
+      "target_bucket": 13,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-24",
+      "pred_temp": 13.0,
+      "actual_temp": 13.1,
+      "target_bucket": 11,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-25",
+      "pred_temp": 9.0,
+      "actual_temp": 8.8,
+      "target_bucket": 7,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-26",
+      "pred_temp": 10.0,
+      "actual_temp": 9.6,
+      "target_bucket": 8,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "London",
+      "date": "2026-03-27",
+      "pred_temp": 12.0,
+      "actual_temp": 11.9,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-10",
+      "pred_temp": 16.0,
+      "actual_temp": 15.4,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-11",
+      "pred_temp": 14.0,
+      "actual_temp": 12.8,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-12",
+      "pred_temp": 13.0,
+      "actual_temp": 12.6,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-13",
+      "pred_temp": 12.0,
+      "actual_temp": 11.7,
+      "target_bucket": 7,
+      "market_found": true,
+      "or_below_available": [
+        7
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-14",
+      "pred_temp": 10.0,
+      "actual_temp": 9.1,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-15",
+      "pred_temp": 13.0,
+      "actual_temp": 12.2,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 11.8,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-17",
+      "pred_temp": 17.0,
+      "actual_temp": 15.9,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-18",
+      "pred_temp": 15.0,
+      "actual_temp": 14.9,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-19",
+      "pred_temp": 17.0,
+      "actual_temp": 16.2,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-20",
+      "pred_temp": 17.0,
+      "actual_temp": 16.4,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-21",
+      "pred_temp": 16.0,
+      "actual_temp": 16.2,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-22",
+      "pred_temp": 15.0,
+      "actual_temp": 14.8,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-23",
+      "pred_temp": 16.0,
+      "actual_temp": 15.8,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-24",
+      "pred_temp": 19.0,
+      "actual_temp": 17.1,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-25",
+      "pred_temp": 13.0,
+      "actual_temp": 10.6,
+      "target_bucket": 7,
+      "market_found": true,
+      "or_below_available": [
+        7
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-26",
+      "pred_temp": 11.0,
+      "actual_temp": 9.2,
+      "target_bucket": 4,
+      "market_found": true,
+      "or_below_available": [
+        4
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Paris",
+      "date": "2026-03-27",
+      "pred_temp": 11.0,
+      "actual_temp": 10.3,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-13",
+      "pred_temp": 15.0,
+      "actual_temp": 18.2,
+      "target_bucket": 15,
+      "market_found": true,
+      "or_below_available": [
+        15
+      ],
+      "price": 0.997,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.997
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-14",
+      "pred_temp": 16.0,
+      "actual_temp": 21.0,
+      "target_bucket": 16,
+      "market_found": true,
+      "or_below_available": [
+        16
+      ],
+      "price": 0.998,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.998
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-16",
+      "pred_temp": 24.0,
+      "actual_temp": 22.5,
+      "target_bucket": 14,
+      "market_found": true,
+      "or_below_available": [
+        14
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-17",
+      "pred_temp": 24.0,
+      "actual_temp": 22.5,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-18",
+      "pred_temp": 27.0,
+      "actual_temp": 26.0,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-19",
+      "pred_temp": 28.0,
+      "actual_temp": 25.7,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-21",
+      "pred_temp": 22.0,
+      "actual_temp": 23.9,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-22",
+      "pred_temp": 25.0,
+      "actual_temp": 24.4,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-23",
+      "pred_temp": 27.0,
+      "actual_temp": 25.9,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-24",
+      "pred_temp": 26.0,
+      "actual_temp": 26.0,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-25",
+      "pred_temp": 28.0,
+      "actual_temp": 28.9,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Hong Kong",
+      "date": "2026-03-26",
+      "pred_temp": 28.0,
+      "actual_temp": 25.5,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-10",
+      "pred_temp": 7.0,
+      "actual_temp": 6.8,
+      "target_bucket": 5,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-11",
+      "pred_temp": 6.0,
+      "actual_temp": 7.9,
+      "target_bucket": 4,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-12",
+      "pred_temp": 11.0,
+      "actual_temp": 11.5,
+      "target_bucket": 9,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-13",
+      "pred_temp": 11.0,
+      "actual_temp": 10.6,
+      "target_bucket": 9,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-14",
+      "pred_temp": 11.0,
+      "actual_temp": 11.2,
+      "target_bucket": 9,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-15",
+      "pred_temp": 10.0,
+      "actual_temp": 9.6,
+      "target_bucket": 8,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-16",
+      "pred_temp": 10.0,
+      "actual_temp": 11.4,
+      "target_bucket": 8,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-18",
+      "pred_temp": 8.0,
+      "actual_temp": 8.8,
+      "target_bucket": 6,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-19",
+      "pred_temp": 9.0,
+      "actual_temp": 10.4,
+      "target_bucket": 7,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-20",
+      "pred_temp": 11.0,
+      "actual_temp": 11.5,
+      "target_bucket": 9,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-21",
+      "pred_temp": 11.0,
+      "actual_temp": 12.5,
+      "target_bucket": 9,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-22",
+      "pred_temp": 14.0,
+      "actual_temp": 15.6,
+      "target_bucket": 12,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-23",
+      "pred_temp": 15.0,
+      "actual_temp": 17.0,
+      "target_bucket": 13,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-24",
+      "pred_temp": 13.0,
+      "actual_temp": 16.0,
+      "target_bucket": 11,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-25",
+      "pred_temp": 13.0,
+      "actual_temp": 17.9,
+      "target_bucket": 11,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-26",
+      "pred_temp": 9.0,
+      "actual_temp": 17.5,
+      "target_bucket": 7,
+      "market_found": false,
+      "or_below_available": [],
+      "price": null,
+      "price_source": null,
+      "won": null,
+      "pnl": null,
+      "break_even": null,
+      "implied_prob": null
+    },
+    {
+      "city": "Seoul",
+      "date": "2026-03-27",
+      "pred_temp": 13.0,
+      "actual_temp": 16.8,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-13",
+      "pred_temp": 13.0,
+      "actual_temp": 15.9,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-14",
+      "pred_temp": 16.0,
+      "actual_temp": 17.1,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-15",
+      "pred_temp": 15.0,
+      "actual_temp": 17.1,
+      "target_bucket": 9,
+      "market_found": true,
+      "or_below_available": [
+        9
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-16",
+      "pred_temp": 12.0,
+      "actual_temp": 13.6,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-17",
+      "pred_temp": 12.0,
+      "actual_temp": 12.7,
+      "target_bucket": 5,
+      "market_found": true,
+      "or_below_available": [
+        5
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-18",
+      "pred_temp": 13.0,
+      "actual_temp": 13.2,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-19",
+      "pred_temp": 12.0,
+      "actual_temp": 13.4,
+      "target_bucket": 4,
+      "market_found": true,
+      "or_below_available": [
+        4
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-20",
+      "pred_temp": 14.0,
+      "actual_temp": 14.6,
+      "target_bucket": 6,
+      "market_found": true,
+      "or_below_available": [
+        6
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-21",
+      "pred_temp": 14.0,
+      "actual_temp": 14.9,
+      "target_bucket": 10,
+      "market_found": true,
+      "or_below_available": [
+        10
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-22",
+      "pred_temp": 18.0,
+      "actual_temp": 19.8,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-23",
+      "pred_temp": 16.0,
+      "actual_temp": 15.4,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-24",
+      "pred_temp": 14.0,
+      "actual_temp": 13.9,
+      "target_bucket": 8,
+      "market_found": true,
+      "or_below_available": [
+        8
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-25",
+      "pred_temp": 16.0,
+      "actual_temp": 17.7,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-26",
+      "pred_temp": 16.0,
+      "actual_temp": 16.4,
+      "target_bucket": 12,
+      "market_found": true,
+      "or_below_available": [
+        12
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Shanghai",
+      "date": "2026-03-27",
+      "pred_temp": 19.0,
+      "actual_temp": 18.6,
+      "target_bucket": 11,
+      "market_found": true,
+      "or_below_available": [
+        11
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-16",
+      "pred_temp": 23.0,
+      "actual_temp": 25.9,
+      "target_bucket": 13,
+      "market_found": true,
+      "or_below_available": [
+        13
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-17",
+      "pred_temp": 26.0,
+      "actual_temp": 26.3,
+      "target_bucket": 20,
+      "market_found": true,
+      "or_below_available": [
+        20
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-18",
+      "pred_temp": 28.0,
+      "actual_temp": 26.8,
+      "target_bucket": 21,
+      "market_found": true,
+      "or_below_available": [
+        21
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-19",
+      "pred_temp": 21.0,
+      "actual_temp": 21.8,
+      "target_bucket": 19,
+      "market_found": true,
+      "or_below_available": [
+        19
+      ],
+      "price": 0.025,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.025
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-20",
+      "pred_temp": 23.0,
+      "actual_temp": 24.0,
+      "target_bucket": 18,
+      "market_found": true,
+      "or_below_available": [
+        18
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-21",
+      "pred_temp": 22.0,
+      "actual_temp": 21.4,
+      "target_bucket": 16,
+      "market_found": true,
+      "or_below_available": [
+        16
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-22",
+      "pred_temp": 26.0,
+      "actual_temp": 28.4,
+      "target_bucket": 19,
+      "market_found": true,
+      "or_below_available": [
+        19
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-23",
+      "pred_temp": 24.0,
+      "actual_temp": 28.3,
+      "target_bucket": 22,
+      "market_found": true,
+      "or_below_available": [
+        22
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-24",
+      "pred_temp": 24.0,
+      "actual_temp": 27.0,
+      "target_bucket": 21,
+      "market_found": true,
+      "or_below_available": [
+        21
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-25",
+      "pred_temp": 24.0,
+      "actual_temp": 25.8,
+      "target_bucket": 22,
+      "market_found": true,
+      "or_below_available": [
+        22
+      ],
+      "price": 0.002,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.002
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-26",
+      "pred_temp": 27.0,
+      "actual_temp": 28.1,
+      "target_bucket": 17,
+      "market_found": true,
+      "or_below_available": [
+        17
+      ],
+      "price": 0.001,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.001
+    },
+    {
+      "city": "Taipei",
+      "date": "2026-03-27",
+      "pred_temp": 21.0,
+      "actual_temp": 25.2,
+      "target_bucket": 21,
+      "market_found": true,
+      "or_below_available": [
+        21
+      ],
+      "price": 0.999,
+      "price_source": "clob",
+      "won": false,
+      "pnl": -10.0,
+      "break_even": null,
+      "implied_prob": 0.999
+    }
+  ],
+  "final_summary": {
+    "strategy": "or_below",
+    "description": "Recalculated Polymarket weather backtest using 'or below' range markets",
+    "key_metrics": {
+      "total_predictions": 118,
+      "valid_trades_with_prices": 86,
+      "win_rate": 0.0,
+      "total_pnl": -860.0,
+      "avg_pnl_per_trade": -10.0,
+      "avg_market_price": 0.0361,
+      "break_even_win_rate_needed": 0.0361,
+      "avg_prediction_bucket_gap_celsius": 6.0,
+      "edge_vs_market": -0.0361
+    },
+    "price_tiers": {
+      "extreme_longshot_under_1cent": {
+        "count": 82,
+        "wins": 0,
+        "avg_price": 0.0011
+      },
+      "low_prob_1_to_10_cent": {
+        "count": 1,
+        "wins": 0,
+        "avg_price": 0.025
+      },
+      "near_certainty_over_90cent": {
+        "count": 3,
+        "wins": 0,
+        "avg_price": 0.998
+      }
+    },
+    "combination_spread_note": "0 dates have 2+ 'or below' markets. Spread strategy impossible.",
+    "comparison_vs_exact_bucket": {
+      "exact_bucket_win_rate": 0.576,
+      "or_below_win_rate": 0.0,
+      "two_bucket_below_win_rate": 0.0
+    },
+    "verdict": "The 'or below' strategy is structurally unviable. Markets are priced for rare cold extremes (avg 3.6 cents = 3.6% implied prob). Model predictions average 6\u00b0C above available 'or below' buckets. Win rate is 0%. Even if 'or below' markets existed at exactly the predicted temp, WR would be ~33% \u2014 still far below the 96.4% needed to break even at 3.6-cent pricing."
+  }
+}

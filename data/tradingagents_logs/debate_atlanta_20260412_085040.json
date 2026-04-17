@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-04-12T08:50:40.259968",
+  "city": "atlanta",
+  "target_temp": 88,
+  "target_date": "2026-04-12",
+  "unit": "F",
+  "market_id": "1914907",
+  "p": 0.0581,
+  "price": 0.039,
+  "kelly": 0.0043,
+  "fundamentals": {
+    "confidence": 25,
+    "forecast_max": 28.6,
+    "can_reach": false
+  },
+  "sentiment": {
+    "yes_price": 0.039,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 4594.252015999998
+  },
+  "technical": {
+    "pattern": "COLD_ANOMALY",
+    "deviation": -43.9
+  },
+  "bull_case": "# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**",
+  "bear_case": "# Bear Case - NO Vote\n1. CRITICAL: Forecast 28.6\u00b0C CANNOT reach target 88\u00b0C (gap: +59.4\u00b0C)\n2. Fundamentals: Low confidence (25%) - uncertainty is high\n3. Market: YES at 4% - market disagrees, potential overpricing\n4. Technical: -43.9\u00b0C below historical - cold anomaly working against us\n\n**Recommendation: NO** (conviction: 90%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Atlanta 88\u00b0F\n\n\ud83d\udeab **REJECTED: REJECTED: Market YES=$0.039 < $0.05 \u2014 long-shot, expected value too thin.**\n\n## Analysis Summary\n- Forecast Max: 28.6\u00b0F\n- Target: 88\u00b0F\n- Gap: +59.4\u00b0F\n- Fundamentals Conf: 25%\n- Market YES: 4%\n- Pattern: COLD_ANOMALY\n\n## Decision: NO_BET\n**Verdict:** REJECTED\n**Conviction:** 0/10\n**Risk Score:** 100/100\n\n\u274c Trade blocked by Risk Manager - cannot reach target\n",
+    "verdict": "REJECTED",
+    "position": "NO_BET",
+    "conviction": 0.0,
+    "risk_score": 100,
+    "approved": false,
+    "can_reach": false,
+    "reject_reason": "REJECTED: Market YES=$0.039 < $0.05 \u2014 long-shot, expected value too thin."
+  }
+}

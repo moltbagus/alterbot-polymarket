@@ -427,7 +427,7 @@ def run_backtest():
         d = error_distances[dist]
         total = d['wins'] + d['losses']
         wr = d['wins'] / total * 100 if total > 0 else 0
-        print(f"  dist={dist:+3d}:   {d['wins']:>6} wins  {d['losses']:>6} losses  {wr:>7.1f}% win rate")
+        print(f"  dist={dist:>3}d:   {d['wins']:>6} wins  {d['losses']:>6} losses  {wr:>7.1f}% win rate")
     
     # Adjacent bucket wins
     print(f"\n  Adjacent bucket analysis:")
