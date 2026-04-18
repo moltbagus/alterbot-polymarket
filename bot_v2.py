@@ -63,6 +63,12 @@ def should_scan_city(city_slug):
     if city_slug in BLOCKED_CITIES:
         return False
     
+    # Check avoid list from config
+    city_tiers = _cfg.get("city_tiers", {})
+    avoid = city_tiers.get("avoid", [])
+    if city_slug in avoid:
+        return False
+    
     # If TIER_1_ONLY mode, only scan TIER_1_STRONG cities
     if TIER_1_ONLY:
         return city_slug in TIER_1_STRONG
