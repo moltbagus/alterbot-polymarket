@@ -237,17 +237,22 @@ def get_ecmwf_forecast(city_slug, target_date):
     return None
 
 def get_ensemble_forecast(city_slug, target_date):
-    """Get ensemble forecast combining ECMWF + METAR (for D+0)."""
+    """Get ensemble forecast combining ECMWF + METAR (for D+0).
+    
+    Returns (ensemble_temp, ecmwf_temp, metar_temp) tuple so callers
+    can compute dynamic sigma and use individual sources.
+    """
     ecmwf = get_ecmwf_forecast(city_slug, target_date)
     metar = get_metar(city_slug)
     
     if ecmwf and metar:
         # For same-day (D+0), weight METAR more heavily
         # METAR is actual observed, ECMWF is forecast
-        return round(0.4 * ecmwf + 0.6 * metar, 1)
+        ensemble = round(0.4 * ecmwf + 0.6 * metar, 1)
+        return ensemble, ecmwf, metar
     elif ecmwf:
-        return ecmwf
-    return None
+        return ecmwf, ecmwf, None
+    return None, None, metar
 
 # =============================================================================
 # PROBABILITY & EV CALCULATION
@@ -257,10 +262,107 @@ def norm_cdf(x):
     return 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
 
 def bucket_prob(forecast, target_temp, sigma=1.5, bias=0.0):
-    """Calculate probability of exact temperature match."""
-    adj = forecast - bias
+    """Calculate probability of exact temperature match (within ±0.5°F).
+    
+    Bug fix: bias was being SUBTRACTED from forecast (adj = forecast - bias),
+    which inverts the bias direction. Now correctly ADDS bias to forecast.
+    Pre-bias correction: bias shifts the ENTIRE forecast distribution, so
+    we add bias BEFORE computing probability — not after.
+    """
+    # FIX: Add bias (not subtract) to shift forecast in correct direction
+    # Positive bias = model undershoots (should increase prob for higher targets)
+    adj = forecast + bias
     margin = 0.5
     return norm_cdf((target_temp + margin - adj) / sigma) - norm_cdf((target_temp - margin - adj) / sigma)
+
+def bucket_prob_cumulative(forecast, target_temp, sigma=1.5, bias=0.0):
+    """Calculate P(T <= target_temp) for <= X°F questions.
+    
+    Cumulative probability: probability that temperature is at or below target.
+    """
+    adj = forecast + bias
+    return norm_cdf((target_temp - adj) / sigma)
+
+def detect_pricing_inversion(tokens, forecast, city):
+    """Bug fix #1: Detect adjacent bucket pricing inversions for pair trades.
+    
+    When two adjacent temperature buckets are priced inversely to their
+    actual probability, it signals a pair trade opportunity.
+    E.g., if 75°F is priced 0.40 but 80°F is priced 0.35, and our forecast
+    is 77°F, then 80°F is underpriced relative to 75°F.
+    
+    Returns dict with inversion details or None.
+    """
+    if len(tokens) < 2:
+        return None
+    
+    # Parse tokens into list of (temp, price)
+    parsed = []
+    for t in tokens:
+        outcome = t.get("outcome", "")
+        price = t.get("price", 0)
+        m = re.search(r"(\d+)\s*°?[CcFf]", outcome)
+        if m and price > 0:
+            parsed.append((int(m.group(1)), price, outcome))
+    
+    if len(parsed) < 2:
+        return None
+    
+    # Sort by temperature
+    parsed.sort(key=lambda x: x[0])
+    
+    # Check for inversion between adjacent buckets
+    for i in range(len(parsed) - 1):
+        t1, p1, o1 = parsed[i]
+        t2, p2, o2 = parsed[i+1]
+        
+        # If higher temp has LOWER price than lower temp → inversion
+        if p2 < p1:
+            # Calculate how far forecast is from each bucket
+            dist1 = abs(forecast - t1)
+            dist2 = abs(forecast - t2)
+            
+            # Inversion only matters if forecast is between them or near the higher one
+            if forecast >= t1 and forecast <= t2:
+                return {
+                    "lower_temp": t1, "higher_temp": t2,
+                    "lower_price": p1, "higher_price": p2,
+                    "forecast": forecast, "city": city,
+                    "distance_to_lower": dist1, "distance_to_higher": dist2
+                }
+    
+    return None
+
+def get_dynamic_sigma(city_slug, ecmwf_temp, metar_temp):
+    """Bug fix #2: Dynamic sigma based on model disagreement.
+    
+    When ECMWF and METAR agree closely, sigma should be lower (more confident).
+    When they disagree, sigma should be higher (more uncertainty).
+    
+    We use METAR as ground truth proxy: if ECMWF is close to METAR,
+    the model is reliable → lower sigma. If they diverge, sigma increases.
+    """
+    base_sigma = CITY_ACCURACY.get(city_slug, {}).get("sigma_mult", 1.0) * DEFAULT_SIGMA_C
+    
+    if ecmwf_temp and metar_temp:
+        disagreement = abs(ecmwf_temp - metar_temp)
+        # Scale sigma based on disagreement
+        # disagreement of 0-2°F → 0.7x sigma, 2-5°F → 1.0x, 5+°F → 1.5x
+        if disagreement <= 2:
+            sigma_mult = 0.7
+        elif disagreement <= 5:
+            sigma_mult = 1.0
+        else:
+            sigma_mult = 1.5
+        
+        # Also use HRRR-like weighting if available (via different source)
+        # For now, use metar deviation from ecmwf as disagreement proxy
+        dynamic_sigma = base_sigma * sigma_mult
+        
+        # Clamp to reasonable range
+        return max(0.8, min(dynamic_sigma, 3.0))
+    
+    return base_sigma
 
 def calc_ev(p, price):
     if price <= 0 or price >= 1:
@@ -292,27 +394,71 @@ def save_state(state):
 # =============================================================================
 
 def get_polymarket_markets():
-    """Fetch active weather markets from Polymarket."""
-    try:
-        url = "https://clob.polymarket.com/markets?limit=200"
-        headers = {"User-Agent": "Mozilla/5.0"}
-        data = requests.get(url, headers=headers, timeout=15).json()
-        
-        markets = []
-        for m in data.get("data", []):
-            q = m.get("question", "").lower()
-            if "highest temperature" in q and any(c in q for c in LOCATIONS):
-                markets.append({
-                    "question": m["question"],
-                    "condition_id": m["condition_id"],
-                    "tokens": m.get("tokens", []),
-                    "volume": m.get("volume24hr", 0),
-                    "liquidity": m.get("liquidity", 0),
-                })
-        return markets
-    except Exception as e:
-        print(f"Error fetching markets: {e}")
-        return []
+    """Fetch active weather markets from Polymarket.
+    
+    Tries multiple endpoints; saves raw response to data/api_debug.json
+    when no weather markets found for debugging.
+    """
+    endpoints = [
+        ("https://clob.polymarket.com/markets?limit=2000&closed=false", "default"),
+        ("https://clob.polymarket.com/markets?limit=2000", "nofilter"),
+        ("https://clob.polymarket.com/markets?limit=2000&archived=false", "unarchived"),
+    ]
+    
+    headers = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+    
+    for url, label in endpoints:
+        try:
+            resp = requests.get(url, headers=headers, timeout=15)
+            if resp.status_code != 200:
+                continue
+            data = resp.json()
+            
+            # Accepting_orders = market is currently tradeable
+            markets = []
+            for m in data.get("data", []):
+                if not m.get("accepting_orders"):
+                    continue
+                q = m.get("question", "").lower()
+                # Expanded weather keywords (not just "highest temperature")
+                weather_kws = ["highest temperature", "temperature", "weather", "heat", "°f", "°c", "fahrenheit", "celsius"]
+                if any(kw in q for kw in weather_kws):
+                    # Also require one of our cities
+                    if any(c in q for c in LOCATIONS):
+                        markets.append({
+                            "question": m["question"],
+                            "condition_id": m["condition_id"],
+                            "tokens": m.get("tokens", []),
+                            "volume": m.get("volume24hr", 0),
+                            "liquidity": m.get("liquidity", 0),
+                            "end_date_iso": m.get("end_date_iso"),
+                            "accepting_orders": m.get("accepting_orders", False),
+                        })
+            
+            if markets:
+                print(f"[API] Found {len(markets)} weather markets via {label}")
+                return markets
+            
+            # No markets found — save debug
+            debug_path = DATA_DIR / "api_debug.json"
+            with open(debug_path, "w") as f:
+                json.dump({
+                    "endpoint": label,
+                    "url": url,
+                    "total_markets": len(data.get("data", [])),
+                    "accepting_orders_count": sum(1 for m in data.get("data", []) if m.get("accepting_orders")),
+                    "sample_markets": [
+                        {"question": m["question"], "active": m.get("active"),
+                         "closed": m.get("closed"), "accepting": m.get("accepting_orders")}
+                        for m in data.get("data", [])[:20]
+                    ]
+                }, f, indent=2)
+            print(f"[API] No weather markets found via {label}, saved debug to {debug_path}")
+            
+        except Exception as e:
+            print(f"[API] Error via {label}: {e}")
+    
+    return []
 
 def extract_city_from_question(q):
     """Extract city from market question."""
@@ -342,7 +488,7 @@ def extract_date_from_question(q):
 # =============================================================================
 
 def scan_markets():
-    """Main scanning function."""
+    """Main scanning function with all 5 bug fixes applied."""
     print(f"\n{'='*60}")
     print(f"Scanning Polymarket weather markets...")
     print(f"{'='*60}")
@@ -356,25 +502,62 @@ def scan_markets():
     markets = get_polymarket_markets()
     print(f"\nFound {len(markets)} weather markets")
     
+    if not markets:
+        print("[INFO] No active weather markets to scan")
+        return 0
+    
     state = load_state()
     trades_made = 0
     
-    for m in markets:
+    # Bug fix #5: City prioritization - Atlanta (81% win rate) first
+    # Sort markets by city priority (lower number = higher priority)
+    CITY_PRIORITY = {
+        "atlanta": 1, "singapore": 2, "hong-kong": 3, "tokyo": 4,
+        "seoul": 5, "nyc": 6, "chicago": 7, "miami": 8,
+        "dallas": 9, "london": 10, "paris": 11, "munich": 12, "seattle": 13,
+    }
+    
+    # Sort cities by priority for logging
+    sorted_cities = sorted(markets, key=lambda m: CITY_PRIORITY.get(
+        extract_city_from_question(m["question"]) or "", 99))
+    
+    for m in sorted_cities:
         city = extract_city_from_question(m["question"])
         date = extract_date_from_question(m["question"])
         
         if not city or not date:
             continue
         
-        # Get ensemble forecast
-        forecast = get_ensemble_forecast(city, date)
-        if not forecast:
-            continue
+        # Bug fix #5: De-prioritize low win-rate cities
+        city_priority = CITY_PRIORITY.get(city, 50)
+        if city_priority >= 10:  # deprioritize seattle, munich, london, paris
+            # Only process if EV is extra good
+            pass  # continue processing all, but deprioritize in sorting
         
-        # Get city-specific bias (known + learned)
+        # Get ensemble forecast (now returns tuple)
+        ensemble, ecmwf_temp, metar_temp = get_ensemble_forecast(city, date)
+        if ensemble is None:
+            continue
+        forecast = ensemble
+        
+        # Get city-specific bias (known + learned) — Bug fix #3: pre-bias correction
+        # Bias is applied BEFORE probability computation (in bucket_prob)
         known_bias = CITY_ACCURACY.get(city, {}).get("known_bias", 0.0)
         learned_bias = get_learned_bias(city)
         total_bias = known_bias + learned_bias
+        
+        # Bug fix #2: Dynamic sigma based on model disagreement
+        sigma = get_dynamic_sigma(city, ecmwf_temp, metar_temp)
+        
+        # Bug fix #4: Detect cumulative (<=) questions
+        q_lower = m["question"].lower()
+        is_cumulative = "at or below" in q_lower or "less than or equal to" in q_lower or "<=" in q_lower
+        
+        # Bug fix #1: Check for adjacent bucket pricing inversions
+        inversion = detect_pricing_inversion(m.get("tokens", []), forecast, city)
+        if inversion:
+            print(f"\n[INVERSION] {city}: {inversion['lower_temp']}°F@{inversion['lower_price']:.2f} vs "
+                  f"{inversion['higher_temp']}°F@{inversion['higher_price']:.2f} | Forecast: {forecast}°F")
         
         # Calculate probability for each outcome
         for token in m.get("tokens", []):
@@ -382,7 +565,6 @@ def scan_markets():
             price = token.get("price", 0)
             
             # Extract target temp from outcome
-            import re
             temp_match = re.search(r"(\d+)\s*°?[CcFf]", outcome)
             if not temp_match:
                 continue
@@ -390,21 +572,31 @@ def scan_markets():
             target_temp = int(temp_match.group(1))
             
             # Skip if price too high or volume too low
-            if price > MAX_PRICE or m["volume"] < MIN_VOLUME:
+            if price > MAX_PRICE or m.get("volume", 0) < MIN_VOLUME:
                 continue
             
-            # Calculate probability
-            sigma = CITY_ACCURACY.get(city, {}).get("sigma_mult", 1.0) * DEFAULT_SIGMA_C
-            prob = bucket_prob(forecast, target_temp, sigma, total_bias)
+            # Bug fix #3 & #4: Apply correct probability function
+            if is_cumulative:
+                # Bug fix #4: cumulative probability for <= questions
+                prob = bucket_prob_cumulative(forecast, target_temp, sigma, total_bias)
+            else:
+                prob = bucket_prob(forecast, target_temp, sigma, total_bias)
             
             # Calculate EV
             ev = calc_ev(prob, price)
             
-            if ev >= MIN_EV and prob > 0.1:
-                print(f"\n[TRADE] {city} {date}")
-                print(f"  Forecast: {forecast}°C (bias: {total_bias:.1f})")
+            # Bug fix #5: Atlanta gets easier threshold
+            min_ev_threshold = MIN_EV
+            if city == "atlanta":
+                min_ev_threshold = MIN_EV * 0.8  # 20% lower threshold for Atlanta
+            
+            if ev >= min_ev_threshold and prob > 0.1:
+                print(f"\n[TRADE] {city} {date} [priority: {city_priority}]")
+                print(f"  Forecast: {forecast}°C (bias: {total_bias:.1f}, sigma: {sigma:.1f})")
                 print(f"  Target: {target_temp}°C @ {price*100:.0f}¢")
                 print(f"  Prob: {prob*100:.1f}% | EV: {ev*100:.1f}%")
+                if inversion:
+                    print(f"  [INVERSION DETECTED] Pair trade opportunity!")
                 
                 # Paper trade
                 kelly = calc_kelly(prob, price)
@@ -421,7 +613,9 @@ def scan_markets():
                         "price": price,
                         "bet": bet,
                         "forecast": forecast,
+                        "sigma": sigma,
                         "ev": ev,
+                        "inversion": bool(inversion),
                         "timestamp": datetime.now().isoformat()
                     })
                     state["balance"] -= bet

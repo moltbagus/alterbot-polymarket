@@ -66,6 +66,8 @@ def simulate_fill(
     forecast_temp: float = None,
     bucket: str = "",
     sigma: float = 1.0,
+    p: float = None,
+    ev: float = None,
 ) -> dict:
     """
     Simulate a realistic Polymarket AMM fill.
@@ -166,6 +168,8 @@ def simulate_fill(
         "liq_factor": round(liq_factor, 3),
         "forecast_temp": forecast_temp,
         "sigma": sigma,
+        "p": p,
+        "ev": ev,
     }
     
     # Save to log

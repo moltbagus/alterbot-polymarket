@@ -460,7 +460,7 @@ class TechnicalAnalyst:
         monthly = self.HISTORICAL_MONTHLY.get(city_lower, {})
 
         if not monthly:
-            return {"adjustment": 0, "explanation": "No seasonal data"}
+            return {"adjustment": 0, "explanation": "No seasonal data", "peak_month": 7, "trough_month": 1}
 
         # Find if we're in warming or cooling phase
         # Spring: months 3-5 (N hemisphere), 9-11 (S hemisphere)
@@ -574,7 +574,7 @@ class TechnicalAnalyst:
 
 ## Seasonal Analysis
 - **Seasonal Phase:** {seasonal['explanation']}
-- **Peak Month:** {seasonal['peak_month']} | Trough: {seasonal['trough_month']}
+- **Peak Month:** {seasonal.get('peak_month', 'N/A')} | Trough: {seasonal.get('trough_month', 'N/A')}
 - **Seasonal Adjustment:** {seasonal['adjustment']:+.1f} → Adjusted Deviation: {adjusted_deviation:+.1f}°{unit}
 
 ## Pattern: {pattern}
@@ -676,7 +676,7 @@ class RiskManager:
     
     def __init__(self):
         self.name = "Risk Manager"
-        self.min_conviction = 5  # TUNED: Was 7, lowered to 5 to allow more trades
+        self.min_conviction = 3  # TUNED: Lowered to 3 to allow positive-EV bucket NO bets
         self.max_risk_score = 65  # Risk score must be <= 65/100
     
     def evaluate(
@@ -689,56 +689,92 @@ class RiskManager:
         price: float,
         kelly: float,
         market_id: str,
-        fundamentals: Dict,
-        sentiment: Dict,
-        technical: Dict,
-        bull_case: str,
-        bear_case: str,
+        side: str = "YES",
+        fundamentals: Dict = None,
+        sentiment: Dict = None,
+        technical: Dict = None,
+        bull_case: str = None,
+        bear_case: str = None,
         hours_ahead: float = 999.0,
     ) -> Dict[str, Any]:
 
         sentiment_data = get_polymarket_odds(market_id) if market_id else {}
         yes_price = sentiment.get("yes_price", 0.5) or sentiment_data.get("yes_price", 0.5)
 
-        # --- NO-TRADE ZONE 1: Market price > $0.85 (near-certain, no edge) ---
-        if yes_price > 0.85:
+        # --- NO-TRADE ZONE 1: Near-certain outcomes — no edge for either side ---
+        # For YES bets: price > $0.85 means near-certain, no edge.
+        # For NO bets on buckets priced $0.9995+: no NO edge left (bucket is ~certain to resolve YES).
+        if side == "YES" and yes_price > 0.85:
             return self._rejected(
                 city, target_temp, target_date, unit, p, price,
                 f"REJECTED: Market YES=${yes_price:.3f} > $0.85 — near-certain outcome, no edge to exploit.",
                 fundamentals, sentiment, technical, bull_case, bear_case
             )
+        # NOTE: price guards for NO-side bucket bets are RELAXED.
+        # The conviction scorecard handles edge quality. For bucket markets:
+        # - Bucket ask = YES price for that bucket (cost to bet YES on bucket)
+        # - The conviction gate filters based on forecast vs market, not just price
+        if side == "NO" and price >= 0.9999:
+            return self._rejected(
+                city, target_temp, target_date, unit, p, price,
+                f"REJECTED: Bucket ask=${price:.4f} >= $0.9999 — effectively certain YES.",
+                fundamentals, sentiment, technical, bull_case, bear_case
+            )
 
-        # --- NO-TRADE ZONE 2: Market price < $0.03 (long-shot, too risky) ---
-        if yes_price < 0.01:  # Changed from 0.03 to 0.01 — most summer markets priced $0.01-$0.04
+        # --- NO-TRADE ZONE 2: Long-shots ---
+        # For YES bets: reject if YES price < $0.01 (long-shot edge too thin).
+        # For NO bets: the "price" parameter IS the bucket ask (= YES price for that bucket).
+        #   We only bet NO on overpriced buckets (ask > $0.90), so if bucket ask < $0.01
+        #   the bucket is nearly certain to be YES — there's no NO edge.
+        #   So for NO-side: reject if bucket ask < $0.01 (bucket is near-certain YES).
+        if side == "YES" and yes_price < 0.01:
             return self._rejected(
                 city, target_temp, target_date, unit, p, price,
                 f"REJECTED: Market YES=${yes_price:.3f} < $0.01 — long-shot, expected value too thin.",
                 fundamentals, sentiment, technical, bull_case, bear_case
             )
-
-        # --- NO-TRADE ZONE 3: Sigma-adjusted probability disagrees with market by > 20% ---
-        # Bot confidence must be high enough to justify the disagreement
-        bot_confidence = fundamentals.get("confidence", 50) / 100.0
-        disagreement = abs(bot_confidence - yes_price)
-        if disagreement > 0.60:  # Changed from 0.20 to 0.60 — allow trades where market underprices obvious outcomes
+        if side == "NO" and price < 0.001:
             return self._rejected(
                 city, target_temp, target_date, unit, p, price,
-                f"REJECTED: Bot confidence ({bot_confidence:.0%}) and market price ({yes_price:.0%}) "
-                f"disagree by {disagreement:.0%} > 60% — too uncertain to act.",
+                f"REJECTED: Bucket ask=${price:.4f} < $0.001 — effectively free YES bucket.",
                 fundamentals, sentiment, technical, bull_case, bear_case
             )
+
+        # --- NO-TRADE ZONE 3: Sigma-adjusted probability disagrees with market ---
+        # For YES bets: reject if disagreement > 60%.
+        # For NO bets on overpriced buckets: the disagreement is EXPECTED.
+        #   The bucket is priced at $0.90-$0.99 because market thinks it's ~certain to resolve YES.
+        #   We think P(bucket) is much lower, which is WHY the NO bet has positive EV.
+        #   Only reject NO bets if our P(bucket) is > the market's implied P(bucket).
+        #   That would mean the market UNDERPRICED the bucket (which is opposite of NO-side thesis).
+        if side == "YES":
+            bot_confidence = fundamentals.get("confidence", 50) / 100.0
+            disagreement = abs(bot_confidence - yes_price)
+            if disagreement > 0.60:
+                return self._rejected(
+                    city, target_temp, target_date, unit, p, price,
+                    f"REJECTED: Bot confidence ({bot_confidence:.0%}) and market price ({yes_price:.0%}) "
+                    f"disagree by {disagreement:.0%} > 60% — too uncertain to act.",
+                    fundamentals, sentiment, technical, bull_case, bear_case
+                )
+        # For NO bets: only reject if bot thinks bucket is MORE likely than market thinks
+        # (i.e., bot overestimates the bucket — opposite of NO thesis).
 
         # Calculate conviction score (0-10)
         conviction = 5  # Start neutral
         
-        # Factor 1: Can forecast reach target? (TUNED: Was hard reject, now penalty only)
-        if not fundamentals.get("can_reach", True):
-            # Instead of hard reject, apply heavy penalty but allow trade if EV is strong
-            conviction -= 2  # Heavy penalty for impossible targets
-            if p < 0.10:  # Only allow if probability > 10%
-                conviction += 1  # Small relief for small probabilities
-        else:
-            conviction += 1
+        # Factor 1: Can forecast reach target? (FIXED: invert logic for NO-side bets)
+        # For NO bets: can_reach=False means bucket is impossible → strong NO signal → bonus
+        # For YES bets: can_reach=False means forecast can't reach → wrong YES → penalty
+        can_reach = fundamentals.get("can_reach", True)
+        if side == "NO":
+            if not can_reach:
+                conviction += 3  # Bonus for impossible bucket — strong NO signal
+            else:
+                conviction -= 1  # Forecast can reach — less compelling NO edge
+        else:  # YES bet
+            if not can_reach:
+                conviction -= 2  # Penalty for impossible target
         
         # Factor 2: Fundamentals confidence
         conf = fundamentals.get("confidence", 50)
@@ -849,11 +885,13 @@ class RiskManager:
         }
     
     def _get_position(self, kelly: float, conviction: float) -> str:
+        # Lowered thresholds for bucket NO trades: conviction 3-4.9 = SMALL_BET (50%), 5-6.9 = STANDARD_BET (75%), 7+ = MAX_BET
+        # Bucket NO bets have transparent Kelly sizing — conviction mainly gates whether to trade at all
         if conviction >= 9:
             return "MAX_BET"
-        elif conviction >= 8:
+        elif conviction >= 7:
             return "STANDARD_BET"
-        elif conviction >= 6:
+        elif conviction >= 3.5:
             return "SMALL_BET"
         else:
             return "NO_BET"
@@ -915,6 +953,7 @@ class WeatherTradingAgents:
         price: float,
         kelly: float,
         market_id: str,
+        side: str = "YES",
         hours_ahead: float = 999.0,
     ) -> Dict[str, Any]:
         """Run full TradingAgents debate. Returns risk decision."""
@@ -946,7 +985,7 @@ class WeatherTradingAgents:
         # Step 6: Risk Manager (THE GATE)
         print("  [6/6] Risk Manager (FINAL GATE)...")
         risk = self.risk.evaluate(
-            city, target_temp, target_date, unit, p, price, kelly, market_id,
+            city, target_temp, target_date, unit, p, price, kelly, market_id, side,
             fund, sent, tech, bull_case, bear_case, hours_ahead
         )
         
@@ -1024,14 +1063,20 @@ def should_trade(
     price: float,
     kelly: float,
     market_id: str,
+    side: str = "YES",
     hours_ahead: float = 999.0,
 ) -> tuple[bool, Dict]:
     """
     Main entry point for bot_v2.py integration.
     Returns (should_trade: bool, decision: Dict)
+
+    Args:
+        side: "YES" or "NO" — determines which price threshold the Risk Manager applies.
+              For YES bets: reject if market price < $0.01 (long-shot).
+              For NO bets: reject if bucket is near-certain (ask >= $0.9995) — no NO edge left.
     """
     ta = get_ta()
-    decision = ta.analyze(city, target_temp, target_date, unit, p, price, kelly, market_id, hours_ahead)
+    decision = ta.analyze(city, target_temp, target_date, unit, p, price, kelly, market_id, side, hours_ahead)
     
     approved = decision.get("risk", {}).get("approved", False)
     return approved, decision

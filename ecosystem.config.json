@@ -6,11 +6,18 @@
       "interpreter": "python3.12",
       "cwd": "/home/alyssa/.openclaw/workspace/alter-bot-v1",
       "autorestart": true,
-      "cron_restart": "0 * * * *",
       "watch": false,
       "max_restarts": 10,
       "exp_backoff_restart_delay": 100,
-      "args": "run --paper"
+      "restart_delay": 100,
+      "kill_timeout": 5000,
+      "wait_sleep": 3000,
+      "instances": 1,
+      "max_memory_restart": "500M",
+      "env": {
+        "NODE_ENV": "production",
+        "PM2_HOME": "/home/alyssa/.openclaw/workspace/alter-bot-v1"
+      }
     }
   ]
 }

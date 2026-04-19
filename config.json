@@ -2,14 +2,14 @@
   "balance": 14472.03,
   "max_bet": 5.0,
   "max_trades_per_run": 20,
-  "min_ev": -0.05,
-  "max_price": 0.55,
+  "min_ev": 0.001,
+  "max_price": 0.85,
   "min_bet": 1.0,
   "min_volume": 1000,
-  "min_hours": 6.0,
+  "min_hours": 1.0,
   "max_hours": 48,
   "kelly_fraction": 0.2,
-  "scan_interval": 3600,
+  "scan_interval": 300,
   "calibration_min": 30,
   "vc_key": "YOUR_KEY_HERE",
   "max_slippage": 0.02,
@@ -39,14 +39,14 @@
     "taipei": 1.0
   },
   "sigma_override": {
-    "atlanta": 1.5,
-    "sao-paulo": 2.4,
-    "miami": 2.2,
-    "hong-kong": 4.2,
+    "atlanta": 1.46,
+    "sao-paulo": 2.44,
+    "miami": 2.16,
+    "hong-kong": 4.15,
     "tokyo": 4.6,
-    "singapore": 6.3,
+    "singapore": 6.28,
     "paris": 8.2,
-    "london": 7.0,
+    "london": 6.96,
     "seoul": 3.6,
     "default_c": 3.0,
     "default_f": 5.0
@@ -261,7 +261,27 @@
       "sao-paulo"
     ],
     "tier_2": [
-      "miami"
+      "miami",
+      "dallas",
+      "chicago",
+      "nyc",
+      "seattle"
+    ],
+    "tier_3": [
+      "london",
+      "paris",
+      "munich",
+      "ankara",
+      "seoul",
+      "tokyo",
+      "shanghai",
+      "singapore",
+      "lucknow",
+      "tel-aviv",
+      "toronto",
+      "buenos-aires",
+      "wellington",
+      "hong-kong"
     ],
     "avoid": [
       "london",
@@ -271,20 +291,18 @@
       "hong-kong",
       "seoul",
       "shanghai",
-      "new-york",
-      "toronto",
-      "chicago",
-      "seattle",
-      "wellington"
-    ],
-    "tier_3": [
       "lucknow",
-      "tel-aviv"
+      "tel-aviv",
+      "toronto",
+      "wellington",
+      "ankara",
+      "munich"
     ]
   },
   "min_tier_to_trade": 1,
-  "max_tier_to_trade": 10,
+  "max_tier_to_trade": 2,
   "blocked_cities": [],
+  "avoid_cities": ["london", "paris", "singapore", "tokyo", "hong-kong", "seoul", "shanghai", "lucknow", "tel-aviv", "toronto", "wellington", "ankara", "munich"],
   "confidence_filter": {
     "enabled": true,
     "tier1_min_conf": 0.5,
@@ -324,8 +342,8 @@
   "self_learning_enabled": true,
   "calibration_mode": "auto",
   "min_trades_for_calibration": 5,
-  "description": "Recalibrated April 18, 2026 - Based on actual market resolution data. Atlanta is now best performer at 83% win rate. London/Paris/Singapore performing poorly.",
-  "strategy": "recalibrated_v3_april_2026",
+  "description": "CRITICAL FIX Apr 19 16:15 - max_tier=2 (was 10), avoid list connected. Atlanta 83% WR = ONLY primary city. NO-side detection fixed.",
+  "strategy": "recalibrated_v4_april_2026",
   "focus_cities": {
     "atlanta": {
       "win_rate": 83,
@@ -369,8 +387,8 @@
     },
     "paris": {
       "win_rate": 20,
-      "avg_error": 4.10,
-      "sigma": 8.20,
+      "avg_error": 4.1,
+      "sigma": 8.2,
       "params": {
         "morning_multiplier": 1.0,
         "uhi_correction": 0.0,
@@ -386,14 +404,17 @@
     "tel-aviv",
     "chicago",
     "dallas",
-    "seattle"
+    "seattle",
+    "london",
+    "paris",
+    "singapore",
+    "tokyo",
+    "hong-kong"
   ],
   "expected_win_rate": 0.9,
   "notes": "Based on backtest analysis of 77 predictions",
   "tier_1_strong": [
-    "miami",
-    "paris",
-    "london"
+    "atlanta"
   ],
   "mae_threshold": 1.5,
   "bias_correction_enabled": true,
@@ -651,11 +672,6 @@
     "paris": 0.0,
     "london": 0.0
   },
-  "tier_1_elite": [
-    "miami",
-    "paris",
-    "london"
-  ],
   "use_elite_mode": false,
   "max_open": 10,
   "tier_1_only": false,
@@ -685,19 +701,19 @@
   "subagent_timeout": 1200,
   "subagent_progress_interval": 10,
   "city_bias_correction": {
-    "atlanta": 0.73,
-    "sao-paulo": -1.1,
-    "miami": 1.08,
-    "hong-kong": -2.08,
-    "tokyo": -1.42,
-    "singapore": -3.14,
-    "paris": -4.1,
-    "london": -3.04,
-    "seoul": -1.8,
-    "taipei": 0,
-    "beijing": 0,
-    "shanghai": 0,
-    "default": 0
+    "atlanta": 0.0,
+    "sao-paulo": 0.0,
+    "miami": 0.0,
+    "hong-kong": 0.0,
+    "tokyo": 0.0,
+    "singapore": 0.0,
+    "paris": 0.0,
+    "london": 0.0,
+    "seoul": 0.0,
+    "taipei": 0.0,
+    "beijing": 0.0,
+    "shanghai": 0.0,
+    "default": 0.0
   },
   "warm_surge_threshold": 2.0,
   "warm_surge_boost": 1.0,
@@ -793,5 +809,29 @@
     "paris": 0.5,
     "london": 0.5
   },
-  "paper_force_trade": true
+  "paper_force_trade": false,
+  "tier_1": [
+    "atlanta",
+    "sao-paulo"
+  ],
+  "tier_2": [
+    "miami",
+    "dallas"
+  ],
+  "tier_3": [
+    "london",
+    "paris",
+    "munich",
+    "ankara",
+    "seoul",
+    "tokyo",
+    "shanghai",
+    "singapore",
+    "lucknow",
+    "tel-aviv",
+    "toronto",
+    "buenos-aires",
+    "wellington",
+    "hong-kong"
+  ]
 }

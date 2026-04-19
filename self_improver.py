@@ -19,6 +19,9 @@ DATA_DIR = Path(__file__).parent / "data"
 CITY_ERRORS_FILE = DATA_DIR / "city_error_history.json"
 CONFIG_FILE = Path(__file__).parent / "config.json"
 
+# Self-Improver observation path
+_OBSERVATION_DIR = Path.home() / ".openclaw" / "workspace" / "memory" / "self-improvement" / "observations"
+
 # ============================================================================
 # ERROR TRACKING
 # ============================================================================
@@ -100,7 +103,40 @@ class CityErrorTracker:
         with open(CITY_ERRORS_FILE, "w") as f:
             json.dump(self.errors, f, indent=2)
     
-    def add_error(self, city, forecast_c, actual_c):
+    def emit_observation(self, city, forecast, actual, bucket_min=None, bucket_max=None, market_question=None, ev_used=None, position_size=None):
+        """Emit a structured observation to the self-improver memory directory."""
+        try:
+            _OBSERVATION_DIR.mkdir(parents=True, exist_ok=True)
+            date_str = datetime.now().strftime("%Y-%m-%d")
+            obs_file = _OBSERVATION_DIR / f"{date_str}-alterbot.md"
+
+            # Convert forecast to Celsius if Fahrenheit
+            if forecast > 40:
+                forecast_c = (forecast - 32) * 5/9
+            else:
+                forecast_c = forecast
+
+            error_degrees = forecast_c - actual
+            win = "WIN" if abs(error_degrees) <= 1.0 else "LOSS"
+
+            entry = f"""
+### Trade: {market_question or f"{city} temperature"}
+- **City:** {city}
+- **Bucket:** {bucket_min}-{bucket_max}°{"F" if forecast > 40 else "C"}
+- **Forecast:** {forecast:.1f}°{"F" if forecast > 40 else "C"} ({forecast_c:.1f}°C)
+- **Actual:** {actual:.1f}°C
+- **Error:** {error_degrees:+.1f}°C
+- **Outcome:** {win}
+- **EV used:** {ev_used}
+- **Position size:** {position_size}
+- **Timestamp:** {datetime.now().strftime("%Y-%m-%d %H:%M UTC")}
+"""
+            with open(obs_file, "a") as f:
+                f.write(entry)
+        except Exception as e:
+            print(f"[self_improver] Failed to emit observation: {e}")
+
+    def add_error(self, city, forecast_c, actual_c, **kwargs):
         """Add a new error observation."""
         city = city.lower()
         if city not in self.errors["cities"]:
@@ -113,7 +149,7 @@ class CityErrorTracker:
                 "n_wins": 0,
                 "n_total": 0
             }
-        
+
         # Add sample
         err = abs(forecast_c - actual_c)
         self.errors["cities"][city]["samples"].append({
@@ -123,30 +159,44 @@ class CityErrorTracker:
             "win": err <= 1.0,
             "timestamp": datetime.now().isoformat()
         })
-        
+
         # Keep last 50 samples
         if len(self.errors["cities"][city]["samples"]) > 50:
             self.errors["cities"][city]["samples"] = \
                 self.errors["cities"][city]["samples"][-50:]
-        
+
         # Recalculate stats
         samples = self.errors["cities"][city]["samples"]
         errors = [s["error"] for s in samples]
         wins = sum(1 for s in samples if s["win"])
-        
+
+
         self.errors["cities"][city]["avg_error"] = sum(errors) / len(errors) if errors else 0
         self.errors["cities"][city]["n_wins"] = wins
         self.errors["cities"][city]["n_total"] = len(samples)
         self.errors["cities"][city]["win_rate"] = wins / len(samples) if samples else 0
-        
+
         # Update sigma (approximate as 2x average error for 95% CI)
         self.errors["cities"][city]["sigma"] = self.errors["cities"][city]["avg_error"] * 2
-        
+
         # Update bias (mean error direction)
         biases = [s["forecast"] - s["actual"] for s in samples]
         self.errors["cities"][city]["bias"] = sum(biases) / len(biases) if biases else 0
-        
+
         self.save()
+
+        # Emit observation to self-improver memory directory
+        forecast_raw = kwargs.get("forecast_raw", forecast_c * 9/5 + 32 if forecast_c < 40 else forecast_c)
+        self.emit_observation(
+            city=city,
+            forecast=kwargs.get("forecast_raw", forecast_c),
+            actual=actual_c,
+            bucket_min=kwargs.get("bucket_min"),
+            bucket_max=kwargs.get("bucket_max"),
+            market_question=kwargs.get("market_question"),
+            ev_used=kwargs.get("ev_used"),
+            position_size=kwargs.get("position_size")
+        )
     
     def get_sigma(self, city, default=2.0):
         """Get dynamically updated sigma."""

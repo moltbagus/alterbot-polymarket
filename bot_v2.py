@@ -27,6 +27,16 @@ from pathlib import Path
 # Fill rate tracker (Polymarket AMM simulation)
 from fill_tracker import simulate_fill, record_fill_result, print_fill_report
 
+# Self-improvement observation emitter
+try:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from self_improver import CityErrorTracker
+    _tracker = CityErrorTracker()
+    _self_improver_available = True
+except Exception as e:
+    _self_improver_available = False
+    _tracker = None
+
 # TradingAgents multi-agent debate integration
 TA_PATH = os.path.expanduser("~/.openclaw/workspace/alter-bot-v1")
 if os.path.exists(TA_PATH):
@@ -92,6 +102,20 @@ MAX_SLIPPAGE     = _cfg.get("max_slippage", 0.03)  # max allowed ask-bid spread
 SCAN_INTERVAL    = _cfg.get("scan_interval", 3600)   # every hour
 CALIBRATION_MIN  = _cfg.get("calibration_min", 30)
 VC_KEY           = _cfg.get("vc_key", "")
+
+# =============================================================================
+# SELF-LEARNING CONFIG (from config.json self_learning dict)
+# =============================================================================
+_SELF_LEARNING   = _cfg.get("self_learning", {})
+SELF_LEARNING_ENABLED  = _SELF_LEARNING.get("enabled", True)
+CALIBRATION_MODE       = _SELF_LEARNING.get("calibration_mode", "auto")  # "auto" | "manual"
+MIN_TRADES_FOR_CAL     = _SELF_LEARNING.get("min_trades_for_calibration", 5)
+AUTO_RELOAD_BIASES     = _SELF_LEARNING.get("auto_reload_biases", True)
+SELF_LEARNING_UPDATE_H = _SELF_LEARNING.get("update_interval_hours", 1)
+
+# Use the more aggressive (lower) threshold from self_learning if enabled
+if SELF_LEARNING_ENABLED and MIN_TRADES_FOR_CAL < CALIBRATION_MIN:
+    CALIBRATION_MIN = MIN_TRADES_FOR_CAL
 
 SIGMA_F = 2.0
 SIGMA_C = 1.2
@@ -334,11 +358,22 @@ def get_horizon_adjusted_sigma(city_slug, hours_ahead):
     if month in [3, 4, 9, 10]:
         sigma *= 1.20  # 20% higher in transition seasons
 
-    # Calibration override: if we have city-specific calibrated sigma, blend it in
+    # 1. PRIMARY: Use city_error_history.json if available (self-improvement data, most reliable)
+    ce_sigma = get_city_error_sigma(city_slug)
+    if ce_sigma is not None:
+        # Blend horizon-adjusted with city_error_history (60% ce, 40% horizon)
+        sigma = round(ce_sigma * 0.6 + sigma * 0.4, 2)
+        # Apply sigma_override as ceiling (cap sigma at known-good historical value)
+        sigma_override = _cfg.get("sigma_override", {})
+        if city_slug in sigma_override:
+            sigma = min(sigma, sigma_override[city_slug])
+        return round(sigma, 2)
+
+    # 2. Fallback: calibration.json (may be stale but has source-specific data)
     cal_key = f"{city_slug}_ecmwf"
     if cal_key in _cal:
         cal_sigma = _cal[cal_key]["sigma"]
-        # Use 70% horizon-adjusted, 30% calibration-based (calibration is more trustworthy with data)
+        # Use 70% horizon-adjusted, 30% calibration-based
         sigma = round(sigma * 0.7 + cal_sigma * 0.3, 2)
 
     return round(sigma, 2)
@@ -737,11 +772,16 @@ def check_forecast_continuity(mkt, current_forecast, sigma):
     # Threshold: 2 * sigma
     threshold = 2.0 * sigma
 
+    conviction_mult = 1.0  # default: no reduction
+
     if diff > threshold:
         # Jump is suspicious — reduce conviction
         # The bigger the jump relative to threshold, the more we reduce conviction
         severity = min(diff / threshold, 2.0)  # cap at 2x
-        conviction_mult = max(0.5, 1.0 - (severity - 1.0) * 0.25)  # reduces to 50-75%
+        conviction_mult = max(0.65, 1.0 - (severity - 1.0) * 0.25)  # floor at 0.65
+        # Apply city conviction floor (good cities have higher floor)
+        CITY_CONVICTION_FLOOR = {'atlanta': 0.85, 'sao-paulo': 0.75, 'miami': 0.70, 'default': 0.65}
+        conviction_mult = max(conviction_mult, CITY_CONVICTION_FLOOR.get(city_slug, CITY_CONVICTION_FLOOR['default']))
         return False, round(conviction_mult, 2), f"jump_{diff:.1f}_over_{threshold:.1f}_threshold"
 
     return True, 1.0, "continuity_ok"
@@ -768,14 +808,30 @@ def bucket_prob(forecast, t_low, t_high, sigma=None):
     return norm_cdf((t_high - f) / s) - norm_cdf((t_low - f) / s)
 
 def calc_ev(p, price):
-    if price <= 0 or price >= 1: return 0.0
-    return round(p * (1.0 / price - 1.0) - (1.0 - p), 4)
+    """Edge = P_forecast - market_price. Simple, direct measure of expected value."""
+    if price <= 0 or price >= 1:
+        return 0.0
+    return round(p - price, 4)
 
-def calc_kelly(p, price):
+def calc_kelly(p, price, side="YES"):
+    """Kelly criterion for edge-based betting.
+    For YES bets: edge = p - price. Kelly = edge / price.
+    For NO bets: edge = (1-p) - (1-price) = price - p. Kelly = edge / (1-price). 
+    This is the probability-weighted edge divided by the cost to bet NO.
+    """
     if price <= 0 or price >= 1: return 0.0
-    b = 1.0 / price - 1.0
-    f = (p * b - (1.0 - p)) / b
-    return round(min(max(0.0, f) * KELLY_FRACTION, 1.0), 4)
+    if side == "NO":
+        # For NO bets on overpriced buckets:
+        # Cost = price per share, Win = (1-price) per share when bucket loses
+        # p_lose = 1 - p (prob bucket doesn't resolve)
+        edge = price - p
+    else:
+        edge = p - price
+    if edge <= 0: return 0.0
+    # Kelly = edge / cost_per_dollar
+    cost_per_dollar = price if side == "YES" else (1.0 - price)
+    kelly = min(edge / cost_per_dollar, 1.0) * KELLY_FRACTION
+    return round(kelly, 4)
 
 def bet_size(kelly, balance):
     raw = kelly * balance
@@ -786,10 +842,52 @@ def bet_size(kelly, balance):
 # =============================================================================
 
 _cal: dict = {}
+_city_err_hist: dict = {}
+
+CITY_ERROR_HISTORY_FILE = DATA_DIR / "city_error_history.json"
+
+def load_city_error_history():
+    """Load city error history for dynamic sigma/win_rate from self-improvement data."""
+    global _city_err_hist
+    if CITY_ERROR_HISTORY_FILE.exists():
+        try:
+            _city_err_hist = json.loads(CITY_ERROR_HISTORY_FILE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            _city_err_hist = {}
+    return _city_err_hist
+
+def get_city_error_sigma(city_slug):
+    """Get dynamically calibrated sigma from city_error_history.json."""
+    if not _city_err_hist:
+        load_city_error_history()
+    city_data = _city_err_hist.get("cities", {}).get(city_slug, {})
+    if city_data.get("n_total", 0) >= 3:
+        return city_data.get("sigma", None)
+    return None
+
+def get_city_error_win_rate(city_slug):
+    """Get dynamic win rate from city_error_history.json."""
+    if not _city_err_hist:
+        load_city_error_history()
+    city_data = _city_err_hist.get("cities", {}).get(city_slug, {})
+    if city_data.get("n_total", 0) >= 3:
+        return city_data.get("win_rate", 0.30)
+    return None
+
+def should_use_city_error_data(city_slug):
+    """Check if city has enough samples in city_error_history for trading decisions."""
+    if not _city_err_hist:
+        load_city_error_history()
+    city_data = _city_err_hist.get("cities", {}).get(city_slug, {})
+    return city_data.get("n_total", 0) >= 3
 
 def load_cal():
     if CALIBRATION_FILE.exists():
-        return json.loads(CALIBRATION_FILE.read_text(encoding="utf-8"))
+        try:
+            return json.loads(CALIBRATION_FILE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"  [CAL-WARN] {CALIBRATION_FILE.name} corrupted ({e}) — resetting")
+            return {}
     return {}
 
 def get_sigma(city_slug, source="ecmwf"):
@@ -801,6 +899,8 @@ def get_sigma(city_slug, source="ecmwf"):
 def run_calibration(markets):
     """Recalculates sigma from resolved markets."""
     resolved = [m for m in markets if m.get("status") == "resolved" and m.get("actual_temp") is not None]
+    if not resolved:
+        return load_cal()
     cal = load_cal()
     updated = []
 
@@ -823,7 +923,10 @@ def run_calibration(markets):
             if abs(new - old) > 0.05:
                 updated.append(f"{LOCATIONS[city]['name']} {source}: {old:.2f}->{new:.2f}")
 
-    CALIBRATION_FILE.write_text(json.dumps(cal, indent=2), encoding="utf-8")
+    try:
+        CALIBRATION_FILE.write_text(json.dumps(cal, indent=2), encoding="utf-8")
+    except OSError as e:
+        print(f"  [CAL-ERROR] Failed to write {CALIBRATION_FILE.name}: {e}")
     if updated:
         print(f"  [CAL] {', '.join(updated)}")
     return cal
@@ -1268,8 +1371,8 @@ def scan_and_update():
         print(f"  -> {loc['name']}...", end=" ", flush=True)
 
         try:
-            # D+0 only - reduce API calls and scan time
-            dates = [(now + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1)]
+            # D+1 and D+2 — daily-resolution markets have more pricing inefficiency and edge
+            dates = [(now + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1, 3)]
             # Wrap snapshot in timeout to prevent any single city from hanging the scan
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as _ex:
                 _fut = _ex.submit(take_forecast_snapshot, city_slug, dates)
@@ -1364,6 +1467,8 @@ def scan_and_update():
                 "best_source":  snap.get("best_source"),
                 "bias":         snap.get("bias", 0.0),
                 "uhi":          snap.get("uhi", 0.0),
+                "model_disagreement": snap.get("model_disagreement", 0.0),
+                "high_disagreement": snap.get("high_disagreement", False),
             }
             # Defensive: ensure key exists (for old saved markets without this field)
             if "forecast_snapshots" not in mkt:
@@ -1510,13 +1615,31 @@ def scan_and_update():
             _best_hours = _cfg.get("best_trading_hours", list(range(24)))
             _now_hour   = datetime.now(timezone.utc).hour
             _in_window  = _now_hour in _best_hours
-            if not mkt.get("position") and forecast_temp is not None and hours >= MIN_HOURS and _in_window:
-                # Use HORIZON-ADJUSTED sigma with proper D+0 to D+3 calibration
+            
+            # CRITICAL: Check city win_rate from self-improvement data before opening
+            # Skip cities with < 50% win_rate (they lose money overall)
+            city_win_rate = get_city_error_win_rate(city_slug)
+            if city_win_rate is not None and city_win_rate < 0.50:
+                if mkt.get("position") is None:  # Only log on first scan, not every loop
+                    pass  # silent skip for poor cities
+            elif not mkt.get("position") and forecast_temp is not None and hours >= MIN_HOURS and _in_window:
+                # DYNAMIC SIGMA: tighten sigma when models agree, widen when they disagree.
+                # Atlanta (74,74) diff=0°F → sigma should be tighter (0.73°C ≈ 1.3°F)
+                # Miami (82,83) diff=1°F → sigma stays at base or slightly tighter
+                # This is the KEY FIX: model consensus = precision = lower sigma = higher probability
+                base_sigma = get_horizon_adjusted_sigma(city_slug, hours)
+                disagreement = snap.get("model_disagreement", 0.0)
+                unit_is_f = (unit == "F")
+                # Convert disagreement to same unit as sigma
+                disagree_deg = disagreement * (1.8 if unit_is_f else 1.0)
+                # Disagreement factor: 0°F diff → 0.5x (tighten), 3°F diff → 1.5x (widen)
+                disagree_factor = 1.0 - min(0.5, disagree_deg / 6.0)  # 0→0.5x, 3→1.0x, 6→1.5x
+                sigma = round(base_sigma * disagree_factor, 2)
+                sigma = max(0.5, sigma)  # floor at 0.5 to prevent division issues
+
                 # If models disagree significantly (>3°C/°F), inflate sigma to reflect uncertainty
-                sigma = get_horizon_adjusted_sigma(city_slug, hours)
                 if snap.get("high_disagreement", False):
-                    sigma *= 1.5  # 50% higher sigma when models don't agree
-                    sigma = round(sigma, 2)
+                    sigma = round(base_sigma * 1.5, 2)
 
                 # Forecast continuity check: reduce conviction if forecast jumped suddenly
                 # This catches model glitches (sudden 5-10°F shifts that aren't real weather)
@@ -1528,48 +1651,121 @@ def scan_and_update():
 
                 best_signal = None
 
-                # Find the best bucket: highest Gaussian probability given the ensemble forecast.
-                # This selects the bucket where our forecast is most centrally positioned (best edge).
-                matched_bucket = None
+                # Find the best bucket: maximum edge = P_forecast - P_market.
+                # For overpriced buckets (ask > 0.90), consider NO-side (short the bucket).
+                # Also handles unit mismatch (°F vs °C) via bucket_score().
+                bucket_non_cold = [o for o in outcomes if "range" in o and o["range"][0] != -999]
+
+                def bucket_score(fc, sg):
+                    """Return list of (outcome, prob) for all buckets given forecast/sigma."""
+                    results = []
+                    for o in bucket_non_cold:
+                        lo, hi = o["range"]
+                        z1 = (lo - fc) / sg
+                        z2 = (hi - fc) / sg
+                        prob = abs(math.erf(z2 / math.sqrt(2)) - math.erf(z1 / math.sqrt(2))) / 2
+                        results.append((o, prob))
+                    return results
+
+                # Determine unit (try °C if °F score is near zero and forecast > 50°F)
+                score_f = bucket_score(forecast_temp, sigma)
+                fc_temp_for_buckets = forecast_temp
+                sigma_c = sigma
+                if score_f and score_f[0][1] < 0.01 and forecast_temp > 50:
+                    fc_c = round((forecast_temp - 32) * 5 / 9, 1)
+                    sg_c = sigma / 1.8 if unit == "F" else sigma
+                    score_c = bucket_score(fc_c, sg_c)
+                    if score_c and score_c[0][1] > score_f[0][1]:
+                        fc_temp_for_buckets = fc_c
+                        sigma_c = sg_c
+                        score_f = score_c
+
+                # Compute actual EV for each bucket. Track both YES and NO sides.
+                # - YES edge: p - ask
+                # - NO edge (overpriced bucket): actual EV = (1-p)*(1-ask) - p*ask
+                #   This is the expected profit per dollar bet on the NO side.
+                # Ranking by actual EV (not just probability difference) is critical.
+                best_ev = 0.0
+                best_edge_simple = 0.0  # for logging comparison
+                best_side = None   # "YES" or "NO"
+                best_bucket = None
                 best_bucket_prob = 0.0
-                for o in outcomes:
-                    if "range" not in o:
-                        continue
+
+                for o, bp in score_f:
                     t_low, t_high = o["range"]
-                    bp = bucket_prob(forecast_temp, t_low, t_high, sigma)
-                    if bp > best_bucket_prob:
-                        best_bucket_prob = bp
-                        matched_bucket = o
+                    ask  = o.get("ask", o["price"])
+                    bid  = o.get("bid", o["price"])
+                    p    = round(bp * conviction_mult, 4)
+
+                    # YES side EV: expected profit per dollar bet
+                    if ask <= MAX_PRICE:
+                        yes_ev = (p * (1.0 - ask)) - ((1.0 - p) * ask)
+                        yes_ev = round(yes_ev, 4)
+                        if yes_ev > best_ev:
+                            best_ev = yes_ev
+                            best_edge_simple = round(p - ask, 4)
+                            best_side = "YES"
+                            best_bucket = o
+                            best_bucket_prob = bp
+
+                    # NO side EV: check ANY bucket where market underprices the probability.
+                    # Rule: if (1-p_raw) > ask, market thinks bucket is LESS likely than our forecast
+                    # suggests, so betting NO (that bucket DOESN'T happen) is positive EV.
+                    # Cost per NO share = ask. Win = (1-ask). Prob win = 1-p_raw, prob lose = p_raw.
+                    # EV = (1-p_raw)*(1-ask) - p_raw*ask
+                    if (1 - bp) > ask:
+                        p_not_bucket = 1.0 - bp
+                        cost_no = ask
+                        win_no = 1.0 - ask
+                        no_ev = (p_not_bucket * win_no) - (bp * cost_no)
+                        no_ev = round(no_ev, 6)
+                        if no_ev > best_ev:
+                            best_ev = no_ev
+                            best_edge_simple = round(ask - bp, 4)
+                            best_side = "NO"
+                            best_bucket = o
+                            best_bucket_prob = bp
+
+                matched_bucket = best_bucket
 
                 if matched_bucket:
                     o = matched_bucket
                     t_low, t_high = o["range"]
-                    volume = o["volume"]
+                    volume = o.get("volume", 0)
                     bid    = o.get("bid", o["price"])
                     ask    = o.get("ask", o["price"])
                     spread = o.get("spread", 0)
 
-                    # All filters — if any fails, skip this market entirely
                     if volume >= MIN_VOLUME:
-                        # Apply continuity conviction multiplier if forecast jumped
                         p_raw = best_bucket_prob * conviction_mult
                         p = round(p_raw, 4)
-                        ev = calc_ev(p, ask)
+                        ev = best_ev  # actual EV computed correctly for YES and NO sides
                         FORCE_TRADE = _cfg.get("paper_force_trade", False)
                         if ev >= MIN_EV or FORCE_TRADE:
-                            print(f"  [DEBUG] {loc['name']} {date} - FORCE={FORCE_TRADE}, ev={ev:.3f}, p={p:.4f}, ask={ask:.3f}")
-                            kelly = calc_kelly(p, ask)
+                            print(f"  [EDGE] {loc['name']} {date} | side={best_side} | edge={ev:+.4f} | P={p:.4f} | mkt=${ask:.3f} | sig={sigma:.2f} | fc={forecast_temp:.1f}" + (f" | FORCE" if FORCE_TRADE else ""))
+                            kelly = calc_kelly(p, ask, best_side)
                             size  = bet_size(kelly, balance)
-                            if size >= 1.00:
+                            if FORCE_TRADE and size < 0.50:
+                                conviction = 10
+                                heuristic_size = round(min(0.20 * balance * (conviction / 10), MAX_BET), 2)
+                                heuristic_size = max(heuristic_size, 1.00)
+                                print(f"  [PAPER FORCE] Using heuristic size ${heuristic_size:.2f}")
+                                size = heuristic_size
+                            if size < 0.50:
+                                print(f"  [NO SIGNAL] Kelly too small: kelly={kelly:.4f} size=${size:.2f}")
+                            if size >= 0.50:
+                                # Build signal: for NO side, entry_price is the ask (cost of NO)
+                                entry = ask
+                                shares = round(size / entry, 2)
                                 best_signal = {
                                     "market_id":    o.get("market_id", ""),
                                     "question":     o["question"],
                                     "bucket_low":   t_low,
                                     "bucket_high":  t_high,
-                                    "entry_price":  ask,
+                                    "entry_price":  entry,
                                     "bid_at_entry": bid,
                                     "spread":       spread,
-                                    "shares":       round(size / ask, 2),
+                                    "shares":       shares,
                                     "cost":         size,
                                     "p":            round(p, 4),
                                     "ev":           round(ev, 4),
@@ -1585,6 +1781,7 @@ def scan_and_update():
                                     "closed_at":    None,
                                     "volume":       volume,
                                     "fill_record":  None,
+                                    "side":         best_side,   # "YES" or "NO"
                                 }
 
                 if best_signal:
@@ -1610,7 +1807,7 @@ def scan_and_update():
                     except Exception as e:
                         print(f"  [WARN] Could not fetch real ask for {best_signal['market_id']}: {e}")
 
-                    if not skip_position and (best_signal["entry_price"] < MAX_PRICE or FORCE_TRADE):
+                    if not skip_position and (best_signal["entry_price"] <= MAX_PRICE or FORCE_TRADE):
                         # --- TRADINGAGENTS MULTI-AGENT DEBATE ---
                         # Before ANY trade, run full bull/bear debate + risk gate
                         bucket_mid = (best_signal["bucket_high"] if best_signal["bucket_low"] == -999 else best_signal["bucket_low"]) + (best_signal["bucket_high"] - best_signal["bucket_low"]) / 2
@@ -1630,6 +1827,7 @@ def scan_and_update():
                                 price=best_signal["entry_price"],
                                 kelly=best_signal["kelly"],
                                 market_id=best_signal["market_id"],
+                                side=best_signal["side"],  # "YES" or "NO"
                                 hours_ahead=hours,
                             )
                         risk_result = decision.get("risk", {})
@@ -1639,12 +1837,16 @@ def scan_and_update():
                         can_reach = risk_result.get("can_reach", True)
                         kelly_reduction = risk_result.get("kelly_reduction", 1.0)
 
-                        # MUST get approval from risk manager AND conviction >= 5
+                        # MUST get approval from risk manager AND conviction >= 3
                         if not approved:
                             print(f"  [REJECTED] Risk Manager blocked trade | conviction {conviction}/10 | reason: {risk_result.get('reject_reason', 'low conviction or high risk')}")
                             continue
-                        if conviction < 5 and not FORCE_TRADE:
-                            print(f"  [REJECTED] Conviction {conviction}/10 < 5 threshold — skipping marginal trade")
+                        # Auto-approve high-EV trades
+                        if ev >= 0.20 and not FORCE_TRADE:
+                            conviction = 7
+                            print(f"  [AUTO-APPROVE] High EV={ev:.3f} → setting conviction=7")
+                        if conviction < 2 and not FORCE_TRADE:
+                            print(f"  [REJECTED] Conviction {conviction}/10 < 2 threshold — skipping marginal trade")
                             continue
 
                         # Determine actual bet size based on conviction + Kelly sizing guard
@@ -1704,6 +1906,8 @@ def scan_and_update():
                             forecast_temp=best_signal["forecast_temp"],
                             bucket=bucket_label,
                             sigma=best_signal.get("sigma", 1.0),
+                            p=best_signal.get("p"),
+                            ev=best_signal.get("ev"),
                         )
                         
                         if not fill_result["filled"]:
@@ -1814,6 +2018,26 @@ def scan_and_update():
             fill_record=pos.get("fill_record"),
             won=won,
         )
+
+        # Emit observation to self-improver memory (alterbot integration)
+        if _self_improver_available and _tracker is not None:
+            try:
+                forecast_raw = pos.get("forecast_temp")
+                if forecast_raw is not None:
+                    forecast_c = (forecast_raw - 32) * 5/9 if forecast_raw > 40 else forecast_raw
+                    _tracker.add_error(
+                        city=mkt.get("city_slug", ""),
+                        forecast_c=forecast_c,
+                        actual_c=actual_temp if actual_temp else 0,
+                        forecast_raw=forecast_raw,
+                        bucket_min=pos.get("bucket_low"),
+                        bucket_max=pos.get("bucket_high"),
+                        market_question=mkt.get("question", ""),
+                        ev_used=pos.get("ev_used"),
+                        position_size=pos.get("cost"),
+                    )
+            except Exception as e:
+                print(f"[self_improver] emit failed: {e}")
 
         save_market(mkt)
         time.sleep(0.3)
@@ -2048,6 +2272,16 @@ def run_loop():
     print(f"  Ctrl+C to stop\n")
 
     last_full_scan = 0
+    last_bias_reload = 0
+    last_calibration  = 0
+
+    # Log self_learning config at startup
+    if SELF_LEARNING_ENABLED:
+        print(f"  Self-Learning: ON | Mode: {CALIBRATION_MODE} | "
+              f"Cal threshold: {CALIBRATION_MIN} trades | "
+              f"Auto-reload biases: {AUTO_RELOAD_BIASES}")
+    else:
+        print(f"  Self-Learning: OFF")
 
     while True:
         now_ts  = time.time()
@@ -2061,6 +2295,13 @@ def run_loop():
                 print(f"  balance: ${balance:,.2f} | "
                       f"new: {new_pos} | closed: {closed} | resolved: {resolved}", flush=True)
                 last_full_scan = time.time()
+
+                # Auto-reload calibration if enabled and interval elapsed
+                if AUTO_RELOAD_BIASES and (now_ts - last_bias_reload) >= (SELF_LEARNING_UPDATE_H * 3600):
+                    _cal = load_cal()
+                    last_bias_reload = time.time()
+                    print(f"  [BIAS-RELOAD] Reloaded calibration (auto_reload_biases=True)")
+
             except KeyboardInterrupt:
                 print(f"\n  Stopping — saving state...")
                 save_state(load_state())
