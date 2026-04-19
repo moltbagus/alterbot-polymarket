@@ -1,9 +1,9 @@
 {
-  "balance": 14472.03,
+  "balance": 1000.00,
   "max_bet": 5.0,
   "max_trades_per_run": 20,
   "min_ev": 0.001,
-  "max_price": 0.85,
+  "max_price": 0.50,
   "min_bet": 1.0,
   "min_volume": 100,
   "min_hours": 1.0,
@@ -618,7 +618,7 @@
     "oc": "ECMWF"
   },
   "whale_strategies": {
-    "enabled": false,
+    "enabled": true,
     "model_update_windows": {
       "gfs": [
         "00",
@@ -640,11 +640,12 @@
       ]
     },
     "model_consensus": {
-      "required": false,
+      "required": true,
       "max_temp_diff_celsius": 2.0,
       "required_models": [
         "gfs",
-        "ecmwf"
+        "ecmwf",
+        "metar"
       ]
     },
     "price_thresholds": {

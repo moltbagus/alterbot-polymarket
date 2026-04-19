@@ -940,5 +940,29 @@
     "sigma": 2.11,
     "p": 0.0,
     "ev": -0.37
+  },
+  {
+    "ts": "2026-04-19T13:47:48.210094+00:00",
+    "market_id": "2019215",
+    "city": "atlanta",
+    "date": "2026-04-21",
+    "bucket": "82.0-83.0F",
+    "direction": "sell_yes",
+    "entry_price": 0.22,
+    "fill_price": 0.2118,
+    "slippage": 0.0082,
+    "slippage_pct": 0.037,
+    "size": 1.25,
+    "size_filled": 1.25,
+    "fill_pct": 1.0,
+    "filled": true,
+    "fill_reason": "full_fill",
+    "volume": 450.0,
+    "spread": 0.02,
+    "liq_factor": 0.632,
+    "forecast_temp": 79.8,
+    "sigma": 0.73,
+    "p": 0.0013,
+    "ev": -0.2187
   }
 ]

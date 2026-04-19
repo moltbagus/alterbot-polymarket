@@ -1992,6 +1992,411 @@
       "uhi": 0.8,
       "model_disagreement": 2,
       "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T10:59:11.869772+00:00",
+      "horizon": "D+0",
+      "hours_left": 25.0,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T11:05:45.638804+00:00",
+      "horizon": "D+0",
+      "hours_left": 24.9,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T11:16:25.201253+00:00",
+      "horizon": "D+0",
+      "hours_left": 24.7,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T11:27:06.900123+00:00",
+      "horizon": "D+0",
+      "hours_left": 24.5,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T11:37:43.204415+00:00",
+      "horizon": "D+0",
+      "hours_left": 24.4,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T11:39:36.192917+00:00",
+      "horizon": "D+0",
+      "hours_left": 24.3,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T12:26:06.787721+00:00",
+      "horizon": "D+0",
+      "hours_left": 23.6,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T12:35:27.755625+00:00",
+      "horizon": "D+0",
+      "hours_left": 23.4,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T12:45:56.971702+00:00",
+      "horizon": "D+0",
+      "hours_left": 23.2,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T13:05:50.561672+00:00",
+      "horizon": "D+0",
+      "hours_left": 22.9,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T13:47:40.870037+00:00",
+      "horizon": "D+0",
+      "hours_left": 22.2,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T13:58:11.894126+00:00",
+      "horizon": "D+0",
+      "hours_left": 22.0,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T14:08:48.464636+00:00",
+      "horizon": "D+0",
+      "hours_left": 21.9,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T14:19:22.058939+00:00",
+      "horizon": "D+0",
+      "hours_left": 21.7,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T14:29:50.848515+00:00",
+      "horizon": "D+0",
+      "hours_left": 21.5,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T14:40:22.908173+00:00",
+      "horizon": "D+0",
+      "hours_left": 21.3,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T14:50:02.106911+00:00",
+      "horizon": "D+0",
+      "hours_left": 21.2,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:00:38.120482+00:00",
+      "horizon": "D+0",
+      "hours_left": 21.0,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:05:51.111848+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.9,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:14:44.704871+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.8,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:23:32.721045+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.6,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:35:40.648370+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.4,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:45:49.649174+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.2,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:48:10.647942+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.2,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T15:56:14.276251+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.1,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T16:01:01.396556+00:00",
+      "horizon": "D+0",
+      "hours_left": 20.0,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
+    },
+    {
+      "ts": "2026-04-19T16:11:45.110005+00:00",
+      "horizon": "D+0",
+      "hours_left": 19.8,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 85,
+      "metar_raw": null,
+      "best_raw": 83.0,
+      "best": 84.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 4,
+      "high_disagreement": true
     }
   ],
   "market_snapshots": [
@@ -2709,6 +3114,141 @@
       "ts": "2026-04-19T10:54:00.641371+00:00",
       "top_bucket": "82.0-83.0F",
       "top_price": 0.525
+    },
+    {
+      "ts": "2026-04-19T10:59:11.869772+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.525
+    },
+    {
+      "ts": "2026-04-19T11:05:45.638804+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.525
+    },
+    {
+      "ts": "2026-04-19T11:16:25.201253+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.515
+    },
+    {
+      "ts": "2026-04-19T11:27:06.900123+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.515
+    },
+    {
+      "ts": "2026-04-19T11:37:43.204415+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.515
+    },
+    {
+      "ts": "2026-04-19T11:39:36.192917+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.515
+    },
+    {
+      "ts": "2026-04-19T12:26:06.787721+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.515
+    },
+    {
+      "ts": "2026-04-19T12:35:27.755625+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.505
+    },
+    {
+      "ts": "2026-04-19T12:45:56.971702+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.5
+    },
+    {
+      "ts": "2026-04-19T13:05:50.561672+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.505
+    },
+    {
+      "ts": "2026-04-19T13:47:40.870037+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.51
+    },
+    {
+      "ts": "2026-04-19T13:58:11.894126+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.515
+    },
+    {
+      "ts": "2026-04-19T14:08:48.464636+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.705
+    },
+    {
+      "ts": "2026-04-19T14:19:22.058939+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.69
+    },
+    {
+      "ts": "2026-04-19T14:29:50.848515+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.69
+    },
+    {
+      "ts": "2026-04-19T14:40:22.908173+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.695
+    },
+    {
+      "ts": "2026-04-19T14:50:02.106911+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.705
+    },
+    {
+      "ts": "2026-04-19T15:00:38.120482+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.685
+    },
+    {
+      "ts": "2026-04-19T15:05:51.111848+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.685
+    },
+    {
+      "ts": "2026-04-19T15:14:44.704871+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.76
+    },
+    {
+      "ts": "2026-04-19T15:23:32.721045+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.79
+    },
+    {
+      "ts": "2026-04-19T15:35:40.648370+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.785
+    },
+    {
+      "ts": "2026-04-19T15:45:49.649174+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.79
+    },
+    {
+      "ts": "2026-04-19T15:48:10.647942+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.795
+    },
+    {
+      "ts": "2026-04-19T15:56:14.276251+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.795
+    },
+    {
+      "ts": "2026-04-19T16:01:01.396556+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.795
+    },
+    {
+      "ts": "2026-04-19T16:11:45.110005+00:00",
+      "top_bucket": "84.0-85.0F",
+      "top_price": 0.795
     }
   ],
   "all_outcomes": [
@@ -2723,7 +3263,7 @@
       "ask": 0.9975,
       "price": 0.9975,
       "spread": 0.0,
-      "volume": 1701.0,
+      "volume": 1941.0,
       "is_binary": true,
       "yes_price": 0.9975,
       "no_price": 0.0025
@@ -2735,14 +3275,14 @@
         74.0,
         75.0
       ],
-      "bid": 0.9965,
-      "ask": 0.9965,
-      "price": 0.9965,
+      "bid": 0.997,
+      "ask": 0.997,
+      "price": 0.997,
       "spread": 0.0,
-      "volume": 1735.0,
+      "volume": 1921.0,
       "is_binary": true,
-      "yes_price": 0.9965,
-      "no_price": 0.0035
+      "yes_price": 0.997,
+      "no_price": 0.003
     },
     {
       "question": "Will the highest temperature in Miami be between 76-77°F on April 20?",
@@ -2751,14 +3291,14 @@
         76.0,
         77.0
       ],
-      "bid": 0.9935,
-      "ask": 0.9935,
-      "price": 0.9935,
+      "bid": 0.9955,
+      "ask": 0.9955,
+      "price": 0.9955,
       "spread": 0.0,
-      "volume": 1295.0,
+      "volume": 1446.0,
       "is_binary": true,
-      "yes_price": 0.9935,
-      "no_price": 0.0065
+      "yes_price": 0.9955,
+      "no_price": 0.0045
     },
     {
       "question": "Will the highest temperature in Miami be between 78-79°F on April 20?",
@@ -2767,14 +3307,14 @@
         78.0,
         79.0
       ],
-      "bid": 0.978,
-      "ask": 0.978,
-      "price": 0.978,
+      "bid": 0.9735,
+      "ask": 0.9735,
+      "price": 0.9735,
       "spread": 0.0,
-      "volume": 2028.0,
+      "volume": 2749.0,
       "is_binary": true,
-      "yes_price": 0.978,
-      "no_price": 0.022
+      "yes_price": 0.9735,
+      "no_price": 0.0265
     },
     {
       "question": "Will the highest temperature in Miami be between 80-81°F on April 20?",
@@ -2783,14 +3323,14 @@
         80.0,
         81.0
       ],
-      "bid": 0.865,
-      "ask": 0.865,
-      "price": 0.865,
+      "bid": 0.845,
+      "ask": 0.845,
+      "price": 0.845,
       "spread": 0.0,
-      "volume": 2139.0,
+      "volume": 2505.0,
       "is_binary": true,
-      "yes_price": 0.865,
-      "no_price": 0.135
+      "yes_price": 0.845,
+      "no_price": 0.155
     },
     {
       "question": "Will the highest temperature in Miami be between 82-83°F on April 20?",
@@ -2799,14 +3339,14 @@
         82.0,
         83.0
       ],
-      "bid": 0.525,
-      "ask": 0.525,
-      "price": 0.525,
+      "bid": 0.535,
+      "ask": 0.535,
+      "price": 0.535,
       "spread": 0.0,
-      "volume": 1687.0,
+      "volume": 2636.0,
       "is_binary": true,
-      "yes_price": 0.525,
-      "no_price": 0.475
+      "yes_price": 0.535,
+      "no_price": 0.465
     },
     {
       "question": "Will the highest temperature in Miami be between 84-85°F on April 20?",
@@ -2815,14 +3355,14 @@
         84.0,
         85.0
       ],
-      "bid": 0.695,
-      "ask": 0.695,
-      "price": 0.695,
+      "bid": 0.795,
+      "ask": 0.795,
+      "price": 0.795,
       "spread": 0.0,
-      "volume": 2776.0,
+      "volume": 3471.0,
       "is_binary": true,
-      "yes_price": 0.695,
-      "no_price": 0.305
+      "yes_price": 0.795,
+      "no_price": 0.205
     },
     {
       "question": "Will the highest temperature in Miami be between 86-87°F on April 20?",
@@ -2831,14 +3371,14 @@
         86.0,
         87.0
       ],
-      "bid": 0.958,
-      "ask": 0.958,
-      "price": 0.958,
+      "bid": 0.9575,
+      "ask": 0.9575,
+      "price": 0.9575,
       "spread": 0.0,
-      "volume": 2385.0,
+      "volume": 2837.0,
       "is_binary": true,
-      "yes_price": 0.958,
-      "no_price": 0.042
+      "yes_price": 0.9575,
+      "no_price": 0.0425
     },
     {
       "question": "Will the highest temperature in Miami be between 88-89°F on April 20?",
@@ -2847,14 +3387,14 @@
         88.0,
         89.0
       ],
-      "bid": 0.9925,
-      "ask": 0.9925,
-      "price": 0.9925,
+      "bid": 0.9945,
+      "ask": 0.9945,
+      "price": 0.9945,
       "spread": 0.0,
-      "volume": 1679.0,
+      "volume": 2483.0,
       "is_binary": true,
-      "yes_price": 0.9925,
-      "no_price": 0.0075
+      "yes_price": 0.9945,
+      "no_price": 0.0055
     },
     {
       "question": "Will the highest temperature in Miami be between 90-91°F on April 20?",
@@ -2867,7 +3407,7 @@
       "ask": 0.9975,
       "price": 0.9975,
       "spread": 0.0,
-      "volume": 2760.0,
+      "volume": 2981.0,
       "is_binary": true,
       "yes_price": 0.9975,
       "no_price": 0.0025
@@ -2883,7 +3423,7 @@
       "ask": 0.9985,
       "price": 0.9985,
       "spread": 0.0,
-      "volume": 1343.0,
+      "volume": 1544.0,
       "is_binary": true,
       "yes_price": 0.9985,
       "no_price": 0.0015
