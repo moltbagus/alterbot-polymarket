@@ -524,8 +524,8 @@ class TechnicalAnalyst:
         # 2. UHI correction in Celsius
         uhi_c = self._get_uhi_correction(city, "C")
 
-        # 3. Seasonal adjustment
-        seasonal = self._get_seasonal_adjustment(city, target_dt, forecast_max)
+        # 3. Seasonal adjustment (use .get() for all accesses to prevent KeyError)
+        _sm = self._get_seasonal_adjustment(city, target_dt, forecast_max)
 
         # 4. Convert forecast to Celsius for consistent comparison
         if unit == "F":
@@ -539,7 +539,7 @@ class TechnicalAnalyst:
         deviation_c = forecast_c - effective_normal_c
 
         # Apply seasonal bias to deviation (in Celsius)
-        seasonal_adj_c = seasonal["adjustment"] * 0.5
+        seasonal_adj_c = _sm.get("adjustment", 0) * 0.5
         adjusted_deviation_c = deviation_c - seasonal_adj_c
 
         # Convert back to display unit for report
@@ -563,26 +563,28 @@ class TechnicalAnalyst:
         else:
             pattern = "NORMAL"
 
-        report = f"""# Technical Analysis - {city.title()}
-
-## Historical Baseline (Day-of-Year)
-- **Historical Avg (Interpolated):** {hist}°{unit}
-- **UHI Correction (Pop {self.CITY_POPULATION.get(city.lower(), 'N/A')}M):** +{uhi_display}°{unit}
-- **Effective Normal:** {effective_normal}°{unit}
-- **Current Forecast:** {forecast_max}°{unit}
-- **Raw Deviation:** {deviation:+.1f}°{unit}
-
-## Seasonal Analysis
-- **Seasonal Phase:** {seasonal['explanation']}
-- **Peak Month:** {seasonal.get('peak_month', 'N/A')} | Trough: {seasonal.get('trough_month', 'N/A')}
-- **Seasonal Adjustment:** {seasonal['adjustment']:+.1f} → Adjusted Deviation: {adjusted_deviation:+.1f}°{unit}
-
-## Pattern: {pattern}
-{'Above normal — favorable for reaching warm targets' if adjusted_deviation > 0 else 'Below normal — headwind for warm targets' if adjusted_deviation < -1 else 'Near normal conditions'}
-
-## Signal
-{pattern}
-"""
+        # Build report — use .get() for all seasonal accesses
+        report_lines = [
+            f"# Technical Analysis - {city.title()}",
+            "",
+            "## Historical Baseline (Day-of-Year)",
+            f"- **Historical Avg (Interpolated):** {hist}°{unit}",
+            f"- **UHI Correction (Pop {self.CITY_POPULATION.get(city.lower(), 'N/A')}M):** +{uhi_display}°{unit}",
+            f"- **Effective Normal:** {effective_normal}°{unit}",
+            f"- **Current Forecast:** {forecast_max}°{unit}",
+            f"- **Raw Deviation:** {deviation:+.1f}°{unit}",
+            "",
+            "## Seasonal Analysis",
+            f"- **Seasonal Phase:** {_sm.get('explanation', 'N/A')}",
+            f"- **Peak Month:** {_sm.get('peak_month', 'N/A')} | Trough: {_sm.get('trough_month', 'N/A')}",
+            f"- **Seasonal Adjustment:** {_sm.get('adjustment', 0):+.1f} → Adjusted Deviation: {adjusted_deviation:+.1f}°{unit}",
+            "",
+            f"## Pattern: {pattern}",
+            "Above normal — favorable for reaching warm targets" if adjusted_deviation > 0 else "Below normal — headwind for warm targets" if adjusted_deviation < -1 else "Near normal conditions",
+            "",
+            f"## Signal\n{pattern}",
+        ]
+        report = "\n".join(report_lines)
         return {
             "report": report,
             "historical_avg": hist,
@@ -590,8 +592,8 @@ class TechnicalAnalyst:
             "adjusted_deviation": round(adjusted_deviation, 1),
             "pattern": pattern,
             "uhi_correction": uhi_display,
-            "seasonal_adjustment": seasonal["adjustment"],
-            "seasonal_explanation": seasonal["explanation"],
+            "seasonal_adjustment": _sm.get("adjustment", 0),
+            "seasonal_explanation": _sm.get("explanation", ""),
         }
 
 
@@ -676,8 +678,8 @@ class RiskManager:
     
     def __init__(self):
         self.name = "Risk Manager"
-        self.min_conviction = 3  # TUNED: Lowered to 3 to allow positive-EV bucket NO bets
-        self.max_risk_score = 65  # Risk score must be <= 65/100
+        self.min_conviction = 1  # TUNED: Was 3, lowered to 1 for weather trading — temp targets are more predictable than stocks
+        self.max_risk_score = 80  # TUNED: Was 65, raised to 80 — weather markets are less volatile than financial markets
     
     def evaluate(
         self,
@@ -698,8 +700,14 @@ class RiskManager:
         hours_ahead: float = 999.0,
     ) -> Dict[str, Any]:
 
-        sentiment_data = get_polymarket_odds(market_id) if market_id else {}
-        yes_price = sentiment.get("yes_price", 0.5) or sentiment_data.get("yes_price", 0.5)
+        # yes_price: try sentiment dict first (from caller), then API, default to price param
+        yes_price = sentiment.get("yes_price", None) if sentiment else None
+        if yes_price is None and market_id:
+            sentiment_data = get_polymarket_odds(market_id) if market_id else {}
+            yes_price = sentiment_data.get("yes_price", price)
+        else:
+            yes_price = price
+        yes_price = yes_price or price
 
         # --- NO-TRADE ZONE 1: Near-certain outcomes — no edge for either side ---
         # For YES bets: price > $0.85 means near-certain, no edge.

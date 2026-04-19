@@ -25,10 +25,10 @@
     "sigma": 1.88,
     "opened_at": "2026-04-19T06:43:46.006589+00:00",
     "status": "closed",
-    "pnl": 125.88,
-    "exit_price": 0.9685,
+    "pnl": 124.94,
+    "exit_price": 0.9615,
     "close_reason": "forecast_changed",
-    "closed_at": "2026-04-19T09:25:46.604637+00:00",
+    "closed_at": "2026-04-19T10:48:03.357522+00:00",
     "volume": 1028.0,
     "fill_record": {
       "ts": "2026-04-19T06:43:50.932592+00:00",
@@ -1703,6 +1703,216 @@
       "uhi": 0.0,
       "model_disagreement": 2,
       "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:33:11.243021+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.4,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:34:07.710294+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.4,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:39:38.858195+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.3,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:44:18.147579+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.3,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:45:26.507869+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.2,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:47:36.124071+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.2,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:49:18.165408+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.2,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:54:22.423638+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.1,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T09:54:49.650100+00:00",
+      "horizon": "D+0",
+      "hours_left": 26.1,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T10:05:27.785177+00:00",
+      "horizon": "D+0",
+      "hours_left": 25.9,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T10:16:07.140438+00:00",
+      "horizon": "D+0",
+      "hours_left": 25.7,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T10:26:44.271442+00:00",
+      "horizon": "D+0",
+      "hours_left": 25.6,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T10:37:23.934289+00:00",
+      "horizon": "D+0",
+      "hours_left": 25.4,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T10:48:03.357522+00:00",
+      "horizon": "D+0",
+      "hours_left": 25.2,
+      "ecmwf_raw": 75,
+      "hrrr_raw": 73,
+      "metar_raw": null,
+      "best_raw": 74.0,
+      "best": 75.8,
+      "best_source": "ecmwf+hrrr",
+      "bias": 1.0,
+      "uhi": 0.0,
+      "model_disagreement": 2,
+      "high_disagreement": false
     }
   ],
   "market_snapshots": [
@@ -2305,6 +2515,76 @@
       "ts": "2026-04-19T09:25:46.604637+00:00",
       "top_bucket": "76.0-77.0F",
       "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:33:11.243021+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:34:07.710294+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:39:38.858195+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:44:18.147579+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:45:26.507869+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:47:36.124071+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:49:18.165408+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:54:22.423638+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T09:54:49.650100+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T10:05:27.785177+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.615
+    },
+    {
+      "ts": "2026-04-19T10:16:07.140438+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.63
+    },
+    {
+      "ts": "2026-04-19T10:26:44.271442+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.63
+    },
+    {
+      "ts": "2026-04-19T10:37:23.934289+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.63
+    },
+    {
+      "ts": "2026-04-19T10:48:03.357522+00:00",
+      "top_bucket": "76.0-77.0F",
+      "top_price": 0.63
     }
   ],
   "all_outcomes": [
@@ -2315,14 +2595,14 @@
         -999.0,
         69.0
       ],
-      "bid": 0.993,
-      "ask": 0.993,
-      "price": 0.993,
+      "bid": 0.9915,
+      "ask": 0.9915,
+      "price": 0.9915,
       "spread": 0.0,
-      "volume": 6147.0,
+      "volume": 6382.0,
       "is_binary": true,
-      "yes_price": 0.993,
-      "no_price": 0.007
+      "yes_price": 0.9915,
+      "no_price": 0.0085
     },
     {
       "question": "Will the highest temperature in Atlanta be between 70-71°F on April 20?",
@@ -2331,14 +2611,14 @@
         70.0,
         71.0
       ],
-      "bid": 0.9685,
-      "ask": 0.9685,
-      "price": 0.9685,
+      "bid": 0.9615,
+      "ask": 0.9615,
+      "price": 0.9615,
       "spread": 0.0,
-      "volume": 1182.0,
+      "volume": 1543.0,
       "is_binary": true,
-      "yes_price": 0.9685,
-      "no_price": 0.0315
+      "yes_price": 0.9615,
+      "no_price": 0.0385
     },
     {
       "question": "Will the highest temperature in Atlanta be between 72-73°F on April 20?",
@@ -2347,14 +2627,14 @@
         72.0,
         73.0
       ],
-      "bid": 0.88,
-      "ask": 0.88,
-      "price": 0.88,
+      "bid": 0.89,
+      "ask": 0.89,
+      "price": 0.89,
       "spread": 0.0,
-      "volume": 1041.0,
+      "volume": 1087.0,
       "is_binary": true,
-      "yes_price": 0.88,
-      "no_price": 0.12
+      "yes_price": 0.89,
+      "no_price": 0.11
     },
     {
       "question": "Will the highest temperature in Atlanta be between 74-75°F on April 20?",
@@ -2363,14 +2643,14 @@
         74.0,
         75.0
       ],
-      "bid": 0.655,
-      "ask": 0.655,
-      "price": 0.655,
+      "bid": 0.675,
+      "ask": 0.675,
+      "price": 0.675,
       "spread": 0.0,
-      "volume": 1639.0,
+      "volume": 1718.0,
       "is_binary": true,
-      "yes_price": 0.655,
-      "no_price": 0.345
+      "yes_price": 0.675,
+      "no_price": 0.325
     },
     {
       "question": "Will the highest temperature in Atlanta be between 76-77°F on April 20?",
@@ -2379,14 +2659,14 @@
         76.0,
         77.0
       ],
-      "bid": 0.615,
-      "ask": 0.615,
-      "price": 0.615,
+      "bid": 0.63,
+      "ask": 0.63,
+      "price": 0.63,
       "spread": 0.0,
-      "volume": 1735.0,
+      "volume": 1812.0,
       "is_binary": true,
-      "yes_price": 0.615,
-      "no_price": 0.385
+      "yes_price": 0.63,
+      "no_price": 0.37
     },
     {
       "question": "Will the highest temperature in Atlanta be between 78-79°F on April 20?",
@@ -2395,14 +2675,14 @@
         78.0,
         79.0
       ],
-      "bid": 0.89,
-      "ask": 0.89,
-      "price": 0.89,
+      "bid": 0.885,
+      "ask": 0.885,
+      "price": 0.885,
       "spread": 0.0,
-      "volume": 1959.0,
+      "volume": 1993.0,
       "is_binary": true,
-      "yes_price": 0.89,
-      "no_price": 0.11
+      "yes_price": 0.885,
+      "no_price": 0.115
     },
     {
       "question": "Will the highest temperature in Atlanta be between 80-81°F on April 20?",
@@ -2411,14 +2691,14 @@
         80.0,
         81.0
       ],
-      "bid": 0.987,
-      "ask": 0.987,
-      "price": 0.987,
+      "bid": 0.986,
+      "ask": 0.986,
+      "price": 0.986,
       "spread": 0.0,
-      "volume": 2800.0,
+      "volume": 2805.0,
       "is_binary": true,
-      "yes_price": 0.987,
-      "no_price": 0.013
+      "yes_price": 0.986,
+      "no_price": 0.014
     },
     {
       "question": "Will the highest temperature in Atlanta be between 82-83°F on April 20?",
@@ -2427,14 +2707,14 @@
         82.0,
         83.0
       ],
-      "bid": 0.9965,
-      "ask": 0.9965,
-      "price": 0.9965,
+      "bid": 0.9975,
+      "ask": 0.9975,
+      "price": 0.9975,
       "spread": 0.0,
-      "volume": 768.0,
+      "volume": 773.0,
       "is_binary": true,
-      "yes_price": 0.9965,
-      "no_price": 0.0035
+      "yes_price": 0.9975,
+      "no_price": 0.0025
     },
     {
       "question": "Will the highest temperature in Atlanta be between 84-85°F on April 20?",
@@ -2447,7 +2727,7 @@
       "ask": 0.9975,
       "price": 0.9975,
       "spread": 0.0,
-      "volume": 555.0,
+      "volume": 560.0,
       "is_binary": true,
       "yes_price": 0.9975,
       "no_price": 0.0025
@@ -2463,7 +2743,7 @@
       "ask": 0.9945,
       "price": 0.9945,
       "spread": 0.0,
-      "volume": 994.0,
+      "volume": 999.0,
       "is_binary": true,
       "yes_price": 0.9945,
       "no_price": 0.0055
@@ -2475,14 +2755,14 @@
         88.0,
         999.0
       ],
-      "bid": 0.9975,
-      "ask": 0.9975,
-      "price": 0.9975,
+      "bid": 0.9985,
+      "ask": 0.9985,
+      "price": 0.9985,
       "spread": 0.0,
-      "volume": 1658.0,
+      "volume": 1663.0,
       "is_binary": true,
-      "yes_price": 0.9975,
-      "no_price": 0.0025
+      "yes_price": 0.9985,
+      "no_price": 0.0015
     }
   ],
   "created_at": "2026-04-18T12:14:35.651451+00:00"
