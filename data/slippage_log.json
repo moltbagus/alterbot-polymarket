@@ -5020,5 +5020,32 @@
     "slippage_cost": 0.2297,
     "pnl_without_slippage": -2.5,
     "actual_pnl": 124.94
+  },
+  {
+    "ts": "2026-04-19T10:54:05.395754+00:00",
+    "market_id": "2011146",
+    "city": "",
+    "date": "2026-04-20",
+    "bucket": "70.0-71.0F",
+    "direction": "buy_yes",
+    "entry_price": 0.037,
+    "exit_price": 0.968,
+    "size": 2.5,
+    "shares": 135.14,
+    "pnl": 125.82,
+    "close_reason": "forecast_changed",
+    "won": null,
+    "fill": {
+      "fill_price": 0.0387,
+      "slippage": 0.0017,
+      "slippage_pct": 0.0449,
+      "fill_pct": 1.0,
+      "filled": true,
+      "fill_reason": "full_fill",
+      "liq_factor": 0.712
+    },
+    "slippage_cost": 0.2297,
+    "pnl_without_slippage": -2.5,
+    "actual_pnl": 125.82
   }
 ]

@@ -1977,6 +1977,21 @@
       "uhi": 0.8,
       "model_disagreement": 2,
       "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T10:54:00.641371+00:00",
+      "horizon": "D+0",
+      "hours_left": 25.1,
+      "ecmwf_raw": 81,
+      "hrrr_raw": 83,
+      "metar_raw": null,
+      "best_raw": 82.0,
+      "best": 83.4,
+      "best_source": "ecmwf+hrrr",
+      "bias": 0.0,
+      "uhi": 0.8,
+      "model_disagreement": 2,
+      "high_disagreement": false
     }
   ],
   "market_snapshots": [
@@ -2689,6 +2704,11 @@
       "ts": "2026-04-19T10:48:00.885650+00:00",
       "top_bucket": "82.0-83.0F",
       "top_price": 0.52
+    },
+    {
+      "ts": "2026-04-19T10:54:00.641371+00:00",
+      "top_bucket": "82.0-83.0F",
+      "top_price": 0.525
     }
   ],
   "all_outcomes": [
@@ -2715,14 +2735,14 @@
         74.0,
         75.0
       ],
-      "bid": 0.9975,
-      "ask": 0.9975,
-      "price": 0.9975,
+      "bid": 0.9965,
+      "ask": 0.9965,
+      "price": 0.9965,
       "spread": 0.0,
       "volume": 1735.0,
       "is_binary": true,
-      "yes_price": 0.9975,
-      "no_price": 0.0025
+      "yes_price": 0.9965,
+      "no_price": 0.0035
     },
     {
       "question": "Will the highest temperature in Miami be between 76-77°F on April 20?",
@@ -2763,14 +2783,14 @@
         80.0,
         81.0
       ],
-      "bid": 0.87,
-      "ask": 0.87,
-      "price": 0.87,
+      "bid": 0.865,
+      "ask": 0.865,
+      "price": 0.865,
       "spread": 0.0,
       "volume": 2139.0,
       "is_binary": true,
-      "yes_price": 0.87,
-      "no_price": 0.13
+      "yes_price": 0.865,
+      "no_price": 0.135
     },
     {
       "question": "Will the highest temperature in Miami be between 82-83°F on April 20?",
@@ -2779,14 +2799,14 @@
         82.0,
         83.0
       ],
-      "bid": 0.52,
-      "ask": 0.52,
-      "price": 0.52,
+      "bid": 0.525,
+      "ask": 0.525,
+      "price": 0.525,
       "spread": 0.0,
       "volume": 1687.0,
       "is_binary": true,
-      "yes_price": 0.52,
-      "no_price": 0.48
+      "yes_price": 0.525,
+      "no_price": 0.475
     },
     {
       "question": "Will the highest temperature in Miami be between 84-85°F on April 20?",
@@ -2795,14 +2815,14 @@
         84.0,
         85.0
       ],
-      "bid": 0.685,
-      "ask": 0.685,
-      "price": 0.685,
+      "bid": 0.695,
+      "ask": 0.695,
+      "price": 0.695,
       "spread": 0.0,
       "volume": 2776.0,
       "is_binary": true,
-      "yes_price": 0.685,
-      "no_price": 0.315
+      "yes_price": 0.695,
+      "no_price": 0.305
     },
     {
       "question": "Will the highest temperature in Miami be between 86-87°F on April 20?",
@@ -2827,14 +2847,14 @@
         88.0,
         89.0
       ],
-      "bid": 0.992,
-      "ask": 0.992,
-      "price": 0.992,
+      "bid": 0.9925,
+      "ask": 0.9925,
+      "price": 0.9925,
       "spread": 0.0,
       "volume": 1679.0,
       "is_binary": true,
-      "yes_price": 0.992,
-      "no_price": 0.008
+      "yes_price": 0.9925,
+      "no_price": 0.0075
     },
     {
       "question": "Will the highest temperature in Miami be between 90-91°F on April 20?",
