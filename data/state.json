@@ -1,8 +1,9 @@
 {
-  "balance": 14753.61,
+  "balance": 24119.93,
   "starting_balance": 10000.0,
-  "total_trades": 84,
+  "total_trades": 94,
   "wins": 4,
   "losses": 1,
-  "peak_balance": 14753.61
+  "peak_balance": 24119.93,
+  "last_scan_time": 1776590752.0412078
 }

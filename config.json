@@ -5,7 +5,7 @@
   "min_ev": 0.001,
   "max_price": 0.85,
   "min_bet": 1.0,
-  "min_volume": 1000,
+  "min_volume": 100,
   "min_hours": 1.0,
   "max_hours": 48,
   "kelly_fraction": 0.2,
@@ -296,13 +296,31 @@
       "toronto",
       "wellington",
       "ankara",
-      "munich"
+      "munich",
+      "dallas",
+      "chicago",
+      "seattle",
+      "nyc"
     ]
   },
   "min_tier_to_trade": 1,
   "max_tier_to_trade": 2,
   "blocked_cities": [],
-  "avoid_cities": ["london", "paris", "singapore", "tokyo", "hong-kong", "seoul", "shanghai", "lucknow", "tel-aviv", "toronto", "wellington", "ankara", "munich"],
+  "avoid_cities": [
+    "dallas",
+    "seoul",
+    "nyc",
+    "toronto",
+    "shanghai",
+    "tel-aviv",
+    "chicago",
+    "seattle",
+    "london",
+    "paris",
+    "singapore",
+    "tokyo",
+    "hong-kong"
+  ],
   "confidence_filter": {
     "enabled": true,
     "tier1_min_conf": 0.5,
@@ -396,21 +414,6 @@
       }
     }
   },
-  "avoid_cities": [
-    "seoul",
-    "nyc",
-    "toronto",
-    "shanghai",
-    "tel-aviv",
-    "chicago",
-    "dallas",
-    "seattle",
-    "london",
-    "paris",
-    "singapore",
-    "tokyo",
-    "hong-kong"
-  ],
   "expected_win_rate": 0.9,
   "notes": "Based on backtest analysis of 77 predictions",
   "tier_1_strong": [
@@ -615,7 +618,7 @@
     "oc": "ECMWF"
   },
   "whale_strategies": {
-    "enabled": true,
+    "enabled": false,
     "model_update_windows": {
       "gfs": [
         "00",

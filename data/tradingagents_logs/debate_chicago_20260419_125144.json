@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-04-19T12:51:44.835655",
+  "city": "chicago",
+  "target_temp": 70,
+  "target_date": "2026-04-20",
+  "unit": "F",
+  "market_id": "2011175",
+  "p": 0.0,
+  "price": 0.002,
+  "kelly": 0.2,
+  "fundamentals": {
+    "confidence": 25,
+    "forecast_max": 9.9,
+    "can_reach": false
+  },
+  "sentiment": {
+    "yes_price": 0.002,
+    "sentiment": "STRONGLY_BEARISH",
+    "volume": 1198.4551589999999
+  },
+  "technical": {
+    "pattern": "COLD_ANOMALY",
+    "deviation": -50.9
+  },
+  "bull_case": "# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**",
+  "bear_case": "# Bear Case - NO Vote\n1. CRITICAL: Forecast 9.9\u00b0C CANNOT reach target 70\u00b0C (gap: +60.1\u00b0C)\n2. Fundamentals: Low confidence (25%) - uncertainty is high\n3. Market: YES at 0% - market disagrees, potential overpricing\n4. Technical: -50.9\u00b0C below historical - cold anomaly working against us\n\n**Recommendation: NO** (conviction: 90%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Chicago 70\u00b0F\n\n\ud83d\udeab **REJECTED: REJECTED: Market YES=$0.002 < $0.01 \u2014 long-shot, expected value too thin.**\n\n## Analysis Summary\n- Forecast Max: 9.9\u00b0F\n- Target: 70\u00b0F\n- Gap: +60.1\u00b0F\n- Fundamentals Conf: 25%\n- Market YES: 0%\n- Pattern: COLD_ANOMALY\n\n## Decision: NO_BET\n**Verdict:** REJECTED\n**Conviction:** 0/10\n**Risk Score:** 100/100\n\n\u274c Trade blocked by Risk Manager - cannot reach target\n",
+    "verdict": "REJECTED",
+    "position": "NO_BET",
+    "conviction": 0.0,
+    "risk_score": 100,
+    "approved": false,
+    "can_reach": false,
+    "reject_reason": "REJECTED: Market YES=$0.002 < $0.01 \u2014 long-shot, expected value too thin."
+  }
+}

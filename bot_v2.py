@@ -1372,7 +1372,7 @@ def scan_and_update():
 
         try:
             # D+1 and D+2 — daily-resolution markets have more pricing inefficiency and edge
-            dates = [(now + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1, 3)]
+            dates = [(now + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1, 4)]  # D+1 to D+3
             # Wrap snapshot in timeout to prevent any single city from hanging the scan
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as _ex:
                 _fut = _ex.submit(take_forecast_snapshot, city_slug, dates)

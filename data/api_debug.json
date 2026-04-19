@@ -1,0 +1,128 @@
+{
+  "endpoint": "unarchived",
+  "url": "https://clob.polymarket.com/markets?limit=2000&archived=false",
+  "total_markets": 1000,
+  "accepting_orders_count": 13,
+  "sample_markets": [
+    {
+      "question": "NCAAB: Arizona State Sun Devils vs. Nevada Wolf Pack 2023-03-15",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NCAAB: Tennessee Volunteers vs. Duke Blue Devils 2023-03-18",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NBA: LA Clippers vs. Orlando Magic 2023-03-18",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "[Single Market] Will Glenn Youngkin win the 2024 Republican presidential nomination?",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NBA: Miami Heat vs. Cleveland Cavaliers 2023-03-08",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NHL: Chicago Blackhawks vs. Boston Bruins 2023-03-14",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "Will Brendan Fraser win the Oscar for Best Actor in a Leading Role?",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NHL: Carolina Hurricanes vs. Winnipeg Jets 2023-03-14",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NBA: Nuggets vs. Magic (02/09/2023)",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NBA: Washington Wizards vs. Atlanta Hawks 2023-03-10",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NFL Sunday: Cowboys vs. Commanders",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "Will Morocco win the 2022 World Cup?",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "Will the FDV of OpenSea's token 1 week after launch be above Blur's FDV?",
+      "active": true,
+      "closed": true,
+      "accepting": true
+    },
+    {
+      "question": "NCAAB: Northwestern Wildcats vs. Boise State Broncos 2023-03-16",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NBA: Orlando Magic vs. Miami Heat 2023-03-11",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "Will Newcastle beat Nottingham Forest? (03/17/2023)",
+      "active": false,
+      "closed": false,
+      "accepting": false
+    },
+    {
+      "question": "Super Bowl LVII Coin Toss: Heads or Tails?",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "Will Biden be impeached by June 30, 2023?",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NCAAB: Marquette Golden Eagles vs. Vermont Catamounts 2023-03-17",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    },
+    {
+      "question": "NBA: Spurs vs. Hawks (02/11/2023)",
+      "active": true,
+      "closed": true,
+      "accepting": false
+    }
+  ]
+}

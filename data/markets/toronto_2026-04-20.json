@@ -1,0 +1,371 @@
+{
+  "city": "toronto",
+  "city_name": "Toronto",
+  "date": "2026-04-20",
+  "unit": "C",
+  "station": "CYYZ",
+  "event_end_date": "2026-04-20T12:00:00Z",
+  "hours_at_discovery": 34.1,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-19T01:52:06.463004+00:00",
+      "horizon": "D+0",
+      "hours_left": 34.1,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5
+    },
+    {
+      "ts": "2026-04-19T03:07:08.636818+00:00",
+      "horizon": "D+0",
+      "hours_left": 32.9,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5
+    },
+    {
+      "ts": "2026-04-19T04:38:52.946865+00:00",
+      "horizon": "D+0",
+      "hours_left": 31.4,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5
+    },
+    {
+      "ts": "2026-04-19T05:30:42.399840+00:00",
+      "horizon": "D+0",
+      "hours_left": 30.5,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T05:33:11.425589+00:00",
+      "horizon": "D+0",
+      "hours_left": 30.4,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:44:10.746469+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.3,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:46:26.273721+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.2,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:49:25.007868+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.2,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T07:01:03.663906+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.0,
+      "ecmwf_raw": 2.9,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 2.9,
+      "best": 1.9,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-19T01:52:06.463004+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.936
+    },
+    {
+      "ts": "2026-04-19T03:07:08.636818+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.9575
+    },
+    {
+      "ts": "2026-04-19T04:38:52.946865+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.9415
+    },
+    {
+      "ts": "2026-04-19T05:30:42.399840+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.9445
+    },
+    {
+      "ts": "2026-04-19T05:33:11.425589+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.9445
+    },
+    {
+      "ts": "2026-04-19T06:44:10.746469+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.935
+    },
+    {
+      "ts": "2026-04-19T06:46:26.273721+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.9345
+    },
+    {
+      "ts": "2026-04-19T06:49:25.007868+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.9345
+    },
+    {
+      "ts": "2026-04-19T07:01:03.663906+00:00",
+      "top_bucket": "2.0-2.0C",
+      "top_price": 0.934
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Toronto be 1°C or below on April 20?",
+      "market_id": "2011101",
+      "range": [
+        -999.0,
+        1.0
+      ],
+      "bid": 0.98,
+      "ask": 0.98,
+      "price": 0.98,
+      "spread": 0.0,
+      "volume": 1611.0,
+      "is_binary": true,
+      "yes_price": 0.98,
+      "no_price": 0.02
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 2°C on April 20?",
+      "market_id": "2011102",
+      "range": [
+        2.0,
+        2.0
+      ],
+      "bid": 0.934,
+      "ask": 0.934,
+      "price": 0.934,
+      "spread": 0.0,
+      "volume": 882.0,
+      "is_binary": true,
+      "yes_price": 0.934,
+      "no_price": 0.066
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 3°C on April 20?",
+      "market_id": "2011103",
+      "range": [
+        3.0,
+        3.0
+      ],
+      "bid": 0.83,
+      "ask": 0.83,
+      "price": 0.83,
+      "spread": 0.0,
+      "volume": 620.0,
+      "is_binary": true,
+      "yes_price": 0.83,
+      "no_price": 0.17
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 4°C on April 20?",
+      "market_id": "2011104",
+      "range": [
+        4.0,
+        4.0
+      ],
+      "bid": 0.745,
+      "ask": 0.745,
+      "price": 0.745,
+      "spread": 0.0,
+      "volume": 667.0,
+      "is_binary": true,
+      "yes_price": 0.745,
+      "no_price": 0.255
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 5°C on April 20?",
+      "market_id": "2011105",
+      "range": [
+        5.0,
+        5.0
+      ],
+      "bid": 0.735,
+      "ask": 0.735,
+      "price": 0.735,
+      "spread": 0.0,
+      "volume": 418.0,
+      "is_binary": true,
+      "yes_price": 0.735,
+      "no_price": 0.265
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 6°C on April 20?",
+      "market_id": "2011106",
+      "range": [
+        6.0,
+        6.0
+      ],
+      "bid": 0.81,
+      "ask": 0.81,
+      "price": 0.81,
+      "spread": 0.0,
+      "volume": 647.0,
+      "is_binary": true,
+      "yes_price": 0.81,
+      "no_price": 0.19
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 7°C on April 20?",
+      "market_id": "2011107",
+      "range": [
+        7.0,
+        7.0
+      ],
+      "bid": 0.974,
+      "ask": 0.974,
+      "price": 0.974,
+      "spread": 0.0,
+      "volume": 1648.0,
+      "is_binary": true,
+      "yes_price": 0.974,
+      "no_price": 0.026
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 8°C on April 20?",
+      "market_id": "2011108",
+      "range": [
+        8.0,
+        8.0
+      ],
+      "bid": 0.989,
+      "ask": 0.989,
+      "price": 0.989,
+      "spread": 0.0,
+      "volume": 935.0,
+      "is_binary": true,
+      "yes_price": 0.989,
+      "no_price": 0.011
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 9°C on April 20?",
+      "market_id": "2011109",
+      "range": [
+        9.0,
+        9.0
+      ],
+      "bid": 0.9905,
+      "ask": 0.9905,
+      "price": 0.9905,
+      "spread": 0.0,
+      "volume": 848.0,
+      "is_binary": true,
+      "yes_price": 0.9905,
+      "no_price": 0.0095
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 10°C on April 20?",
+      "market_id": "2011110",
+      "range": [
+        10.0,
+        10.0
+      ],
+      "bid": 0.9945,
+      "ask": 0.9945,
+      "price": 0.9945,
+      "spread": 0.0,
+      "volume": 693.0,
+      "is_binary": true,
+      "yes_price": 0.9945,
+      "no_price": 0.0055
+    },
+    {
+      "question": "Will the highest temperature in Toronto be 11°C or higher on April 20?",
+      "market_id": "2011111",
+      "range": [
+        11.0,
+        999.0
+      ],
+      "bid": 0.9975,
+      "ask": 0.9975,
+      "price": 0.9975,
+      "spread": 0.0,
+      "volume": 3575.0,
+      "is_binary": true,
+      "yes_price": 0.9975,
+      "no_price": 0.0025
+    }
+  ],
+  "created_at": "2026-04-19T01:52:07.845483+00:00"
+}

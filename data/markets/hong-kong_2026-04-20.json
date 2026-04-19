@@ -1,0 +1,371 @@
+{
+  "city": "hong-kong",
+  "city_name": "Hong Kong",
+  "date": "2026-04-20",
+  "unit": "C",
+  "station": "HKO",
+  "event_end_date": "2026-04-20T12:00:00Z",
+  "hours_at_discovery": 34.1,
+  "status": "open",
+  "position": null,
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-19T01:52:13.666120+00:00",
+      "horizon": "D+0",
+      "hours_left": 34.1,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-19T03:07:14.792728+00:00",
+      "horizon": "D+0",
+      "hours_left": 32.9,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-19T04:38:59.689530+00:00",
+      "horizon": "D+0",
+      "hours_left": 31.3,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0
+    },
+    {
+      "ts": "2026-04-19T05:30:49.076765+00:00",
+      "horizon": "D+0",
+      "hours_left": 30.5,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T05:33:17.891001+00:00",
+      "horizon": "D+0",
+      "hours_left": 30.4,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:44:16.909906+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.3,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:46:32.534045+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.2,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:49:31.177597+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.2,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T07:01:11.073389+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.0,
+      "ecmwf_raw": 27.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 27.4,
+      "best": 27.4,
+      "best_source": "ecmwf",
+      "bias": 0.0,
+      "uhi": 0.0,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-19T01:52:13.666120+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.77
+    },
+    {
+      "ts": "2026-04-19T03:07:14.792728+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.795
+    },
+    {
+      "ts": "2026-04-19T04:38:59.689530+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.78
+    },
+    {
+      "ts": "2026-04-19T05:30:49.076765+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.695
+    },
+    {
+      "ts": "2026-04-19T05:33:17.891001+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.695
+    },
+    {
+      "ts": "2026-04-19T06:44:16.909906+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.695
+    },
+    {
+      "ts": "2026-04-19T06:46:32.534045+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.695
+    },
+    {
+      "ts": "2026-04-19T06:49:31.177597+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.69
+    },
+    {
+      "ts": "2026-04-19T07:01:11.073389+00:00",
+      "top_bucket": "27.0-27.0C",
+      "top_price": 0.675
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Hong Kong be 21°C or below on April 20?",
+      "market_id": "2011244",
+      "range": [
+        -999.0,
+        21.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
+      "spread": 0.0,
+      "volume": 6927.0,
+      "is_binary": true,
+      "yes_price": 0.9995,
+      "no_price": 0.0005
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 22°C on April 20?",
+      "market_id": "2011245",
+      "range": [
+        22.0,
+        22.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
+      "spread": 0.0,
+      "volume": 4036.0,
+      "is_binary": true,
+      "yes_price": 0.9995,
+      "no_price": 0.0005
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 23°C on April 20?",
+      "market_id": "2011246",
+      "range": [
+        23.0,
+        23.0
+      ],
+      "bid": 0.9995,
+      "ask": 0.9995,
+      "price": 0.9995,
+      "spread": 0.0,
+      "volume": 3282.0,
+      "is_binary": true,
+      "yes_price": 0.9995,
+      "no_price": 0.0005
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 24°C on April 20?",
+      "market_id": "2011247",
+      "range": [
+        24.0,
+        24.0
+      ],
+      "bid": 0.9985,
+      "ask": 0.9985,
+      "price": 0.9985,
+      "spread": 0.0,
+      "volume": 2169.0,
+      "is_binary": true,
+      "yes_price": 0.9985,
+      "no_price": 0.0015
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 25°C on April 20?",
+      "market_id": "2011248",
+      "range": [
+        25.0,
+        25.0
+      ],
+      "bid": 0.9985,
+      "ask": 0.9985,
+      "price": 0.9985,
+      "spread": 0.0,
+      "volume": 1726.0,
+      "is_binary": true,
+      "yes_price": 0.9985,
+      "no_price": 0.0015
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 26°C on April 20?",
+      "market_id": "2011249",
+      "range": [
+        26.0,
+        26.0
+      ],
+      "bid": 0.9845,
+      "ask": 0.9845,
+      "price": 0.9845,
+      "spread": 0.0,
+      "volume": 2036.0,
+      "is_binary": true,
+      "yes_price": 0.9845,
+      "no_price": 0.0155
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 27°C on April 20?",
+      "market_id": "2011250",
+      "range": [
+        27.0,
+        27.0
+      ],
+      "bid": 0.675,
+      "ask": 0.675,
+      "price": 0.675,
+      "spread": 0.0,
+      "volume": 1525.0,
+      "is_binary": true,
+      "yes_price": 0.675,
+      "no_price": 0.325
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 28°C on April 20?",
+      "market_id": "2011251",
+      "range": [
+        28.0,
+        28.0
+      ],
+      "bid": 0.59,
+      "ask": 0.59,
+      "price": 0.59,
+      "spread": 0.0,
+      "volume": 1629.0,
+      "is_binary": true,
+      "yes_price": 0.59,
+      "no_price": 0.41
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 29°C on April 20?",
+      "market_id": "2011252",
+      "range": [
+        29.0,
+        29.0
+      ],
+      "bid": 0.755,
+      "ask": 0.755,
+      "price": 0.755,
+      "spread": 0.0,
+      "volume": 3482.0,
+      "is_binary": true,
+      "yes_price": 0.755,
+      "no_price": 0.245
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 30°C on April 20?",
+      "market_id": "2011253",
+      "range": [
+        30.0,
+        30.0
+      ],
+      "bid": 0.964,
+      "ask": 0.964,
+      "price": 0.964,
+      "spread": 0.0,
+      "volume": 2501.0,
+      "is_binary": true,
+      "yes_price": 0.964,
+      "no_price": 0.036
+    },
+    {
+      "question": "Will the highest temperature in Hong Kong be 31°C or higher on April 20?",
+      "market_id": "2011254",
+      "range": [
+        31.0,
+        999.0
+      ],
+      "bid": 0.994,
+      "ask": 0.994,
+      "price": 0.994,
+      "spread": 0.0,
+      "volume": 3960.0,
+      "is_binary": true,
+      "yes_price": 0.994,
+      "no_price": 0.006
+    }
+  ],
+  "created_at": "2026-04-19T01:52:15.026122+00:00"
+}

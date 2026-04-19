@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-04-19T17:25:51.614738",
+  "city": "sao-paulo",
+  "target_temp": 26,
+  "target_date": "2026-04-20",
+  "unit": "C",
+  "market_id": "2011072",
+  "p": 0.0,
+  "price": 0.37,
+  "kelly": 0.2,
+  "fundamentals": {
+    "confidence": 75,
+    "forecast_max": 26.6,
+    "can_reach": true
+  },
+  "sentiment": {
+    "yes_price": 0.37,
+    "sentiment": "BEARISH",
+    "volume": 400.69028600000007
+  },
+  "technical": {
+    "pattern": "NORMAL",
+    "deviation": -0.9
+  },
+  "bull_case": "# Bull Case - YES Vote\n1. Fundamentals: Forecast 26.6\u00b0C CAN reach target 26\u00b0C (conf: 75%)\n\n**Recommendation: YES** (conviction: 60%)\n",
+  "bear_case": "# Bear Case - NO Vote\n1. Market: YES at 37% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 60%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Sao-Paulo 26\u00b0C\n\n## Position Score: 5.0/10 (min: 3)\n## Risk Score: 50.0/100 (max allowed: 65)\n\n## Factor Analysis\n1. Can Reach Target: YES +1.0\n2. Fundamentals Conf: 75% +1.0\n3. Market YES: 37% -0.5\n4. Tech Pattern: NORMAL -0.5\n5. Kelly: 20.0% +0.5\n6. EV: -1.00 -0.5\n\n## Bull/Bear Summary\n**BULL CASE:**\n# Bull Case - YES Vote\n1. Fundamentals: Forecast 26.6\u00b0C CAN reach target 26\u00b0C (conf: 75%)\n\n**Recommendation: YES** (conviction: 60%)\n...\n\n**BEAR CASE:**\n# Bear Case - NO Vote\n1. Market: YES at 37% - market disagrees, potential overpricing\n\n**Recommendation: NO** (conviction: 60%)\n...\n\n## Final Verdict: APPROVED\n**Position:** SMALL_BET\n**Conviction:** 5.0/10\n**Risk Score:** 50.0/100\n\n\u2705 Trade approved - all gates passed\n",
+    "verdict": "APPROVED",
+    "position": "SMALL_BET",
+    "conviction": 5.0,
+    "risk_score": 50.0,
+    "approved": true,
+    "can_reach": true,
+    "kelly_reduction": 0.5,
+    "factors": {
+      "fundamentals_confidence": 75,
+      "yes_price": 0.37,
+      "technical_pattern": "NORMAL",
+      "kelly": 0.2,
+      "ev": -1.0
+    }
+  }
+}

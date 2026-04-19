@@ -1,0 +1,401 @@
+{
+  "city": "buenos-aires",
+  "city_name": "Buenos Aires",
+  "date": "2026-04-20",
+  "unit": "C",
+  "station": "SAEZ",
+  "event_end_date": "2026-04-20T12:00:00Z",
+  "hours_at_discovery": 34.1,
+  "status": "open",
+  "position": {
+    "market_id": "2011084",
+    "question": "Will the highest temperature in Buenos Aires be 20°C on April 20?",
+    "bucket_low": 20.0,
+    "bucket_high": 20.0,
+    "entry_price": 0.022,
+    "bid_at_entry": 0.02,
+    "spread": 0.002,
+    "shares": 227.27,
+    "cost": 2.5,
+    "p": 0.0,
+    "ev": -0.022,
+    "kelly": 0.2,
+    "forecast_temp": 23.4,
+    "forecast_src": "ecmwf",
+    "sigma": 1.8,
+    "opened_at": "2026-04-19T05:33:14.493559+00:00",
+    "status": "closed",
+    "pnl": 217.5,
+    "exit_price": 0.979,
+    "close_reason": "forecast_changed",
+    "closed_at": "2026-04-19T07:01:06.717712+00:00",
+    "volume": 1162.0,
+    "fill_record": {
+      "ts": "2026-04-19T05:33:16.013701+00:00",
+      "market_id": "2011084",
+      "city": "buenos-aires",
+      "date": "2026-04-20",
+      "bucket": "20.0-20.0C",
+      "direction": "buy_yes",
+      "entry_price": 0.022,
+      "fill_price": 0.0228,
+      "slippage": 0.0008,
+      "slippage_pct": 0.0378,
+      "size": 2.5,
+      "size_filled": 2.5,
+      "fill_pct": 1.0,
+      "filled": true,
+      "fill_reason": "full_fill",
+      "volume": 1162.0,
+      "spread": 0.002,
+      "liq_factor": 0.725,
+      "forecast_temp": 23.4,
+      "sigma": 1.8,
+      "p": 0.0,
+      "ev": -0.022
+    },
+    "side": "NO",
+    "stop_price": 0.022,
+    "trailing_activated": true
+  },
+  "actual_temp": null,
+  "resolved_outcome": null,
+  "pnl": null,
+  "forecast_snapshots": [
+    {
+      "ts": "2026-04-19T01:52:10.577407+00:00",
+      "horizon": "D+0",
+      "hours_left": 34.1,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5
+    },
+    {
+      "ts": "2026-04-19T03:07:11.732567+00:00",
+      "horizon": "D+0",
+      "hours_left": 32.9,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5
+    },
+    {
+      "ts": "2026-04-19T04:38:56.268923+00:00",
+      "horizon": "D+0",
+      "hours_left": 31.4,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5
+    },
+    {
+      "ts": "2026-04-19T05:33:14.493559+00:00",
+      "horizon": "D+0",
+      "hours_left": 30.4,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:44:13.771523+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.3,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:46:29.407512+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.2,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T06:49:28.052793+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.2,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    },
+    {
+      "ts": "2026-04-19T07:01:06.717712+00:00",
+      "horizon": "D+0",
+      "hours_left": 29.0,
+      "ecmwf_raw": 24.4,
+      "hrrr_raw": null,
+      "metar_raw": null,
+      "best_raw": 24.4,
+      "best": 23.4,
+      "best_source": "ecmwf",
+      "bias": -1.5,
+      "uhi": 0.5,
+      "model_disagreement": 0.0,
+      "high_disagreement": false
+    }
+  ],
+  "market_snapshots": [
+    {
+      "ts": "2026-04-19T01:52:10.577407+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.745
+    },
+    {
+      "ts": "2026-04-19T03:07:11.732567+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.735
+    },
+    {
+      "ts": "2026-04-19T04:38:56.268923+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.73
+    },
+    {
+      "ts": "2026-04-19T05:33:14.493559+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.725
+    },
+    {
+      "ts": "2026-04-19T06:44:13.771523+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.72
+    },
+    {
+      "ts": "2026-04-19T06:46:29.407512+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.72
+    },
+    {
+      "ts": "2026-04-19T06:49:28.052793+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.72
+    },
+    {
+      "ts": "2026-04-19T07:01:06.717712+00:00",
+      "top_bucket": "23.0-23.0C",
+      "top_price": 0.72
+    }
+  ],
+  "all_outcomes": [
+    {
+      "question": "Will the highest temperature in Buenos Aires be 15°C or below on April 20?",
+      "market_id": "2011079",
+      "range": [
+        -999.0,
+        15.0
+      ],
+      "bid": 0.9985,
+      "ask": 0.9985,
+      "price": 0.9985,
+      "spread": 0.0,
+      "volume": 1968.0,
+      "is_binary": true,
+      "yes_price": 0.9985,
+      "no_price": 0.0015
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 16°C on April 20?",
+      "market_id": "2011080",
+      "range": [
+        16.0,
+        16.0
+      ],
+      "bid": 0.999,
+      "ask": 0.999,
+      "price": 0.999,
+      "spread": 0.0,
+      "volume": 1621.0,
+      "is_binary": true,
+      "yes_price": 0.999,
+      "no_price": 0.001
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 17°C on April 20?",
+      "market_id": "2011081",
+      "range": [
+        17.0,
+        17.0
+      ],
+      "bid": 0.9975,
+      "ask": 0.9975,
+      "price": 0.9975,
+      "spread": 0.0,
+      "volume": 758.0,
+      "is_binary": true,
+      "yes_price": 0.9975,
+      "no_price": 0.0025
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 18°C on April 20?",
+      "market_id": "2011082",
+      "range": [
+        18.0,
+        18.0
+      ],
+      "bid": 0.9955,
+      "ask": 0.9955,
+      "price": 0.9955,
+      "spread": 0.0,
+      "volume": 828.0,
+      "is_binary": true,
+      "yes_price": 0.9955,
+      "no_price": 0.0045
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 19°C on April 20?",
+      "market_id": "2011083",
+      "range": [
+        19.0,
+        19.0
+      ],
+      "bid": 0.9945,
+      "ask": 0.9945,
+      "price": 0.9945,
+      "spread": 0.0,
+      "volume": 681.0,
+      "is_binary": true,
+      "yes_price": 0.9945,
+      "no_price": 0.0055
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 20°C on April 20?",
+      "market_id": "2011084",
+      "range": [
+        20.0,
+        20.0
+      ],
+      "bid": 0.979,
+      "ask": 0.979,
+      "price": 0.979,
+      "spread": 0.0,
+      "volume": 1177.0,
+      "is_binary": true,
+      "yes_price": 0.979,
+      "no_price": 0.021
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 21°C on April 20?",
+      "market_id": "2011085",
+      "range": [
+        21.0,
+        21.0
+      ],
+      "bid": 0.895,
+      "ask": 0.895,
+      "price": 0.895,
+      "spread": 0.0,
+      "volume": 885.0,
+      "is_binary": true,
+      "yes_price": 0.895,
+      "no_price": 0.105
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 22°C on April 20?",
+      "market_id": "2011086",
+      "range": [
+        22.0,
+        22.0
+      ],
+      "bid": 0.67,
+      "ask": 0.67,
+      "price": 0.67,
+      "spread": 0.0,
+      "volume": 1372.0,
+      "is_binary": true,
+      "yes_price": 0.67,
+      "no_price": 0.33
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 23°C on April 20?",
+      "market_id": "2011087",
+      "range": [
+        23.0,
+        23.0
+      ],
+      "bid": 0.72,
+      "ask": 0.72,
+      "price": 0.72,
+      "spread": 0.0,
+      "volume": 882.0,
+      "is_binary": true,
+      "yes_price": 0.72,
+      "no_price": 0.28
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 24°C on April 20?",
+      "market_id": "2011088",
+      "range": [
+        24.0,
+        24.0
+      ],
+      "bid": 0.805,
+      "ask": 0.805,
+      "price": 0.805,
+      "spread": 0.0,
+      "volume": 1150.0,
+      "is_binary": true,
+      "yes_price": 0.805,
+      "no_price": 0.195
+    },
+    {
+      "question": "Will the highest temperature in Buenos Aires be 25°C or higher on April 20?",
+      "market_id": "2011089",
+      "range": [
+        25.0,
+        999.0
+      ],
+      "bid": 0.885,
+      "ask": 0.885,
+      "price": 0.885,
+      "spread": 0.0,
+      "volume": 854.0,
+      "is_binary": true,
+      "yes_price": 0.885,
+      "no_price": 0.115
+    }
+  ],
+  "created_at": "2026-04-19T01:52:11.967136+00:00"
+}

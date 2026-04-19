@@ -54,7 +54,7 @@
     }
   },
   "actual_temp": 20.5,
-  "resolved_outcome": null,
+  "resolved_outcome": "yes",
   "pnl": null,
   "forecast_snapshots": [
     {

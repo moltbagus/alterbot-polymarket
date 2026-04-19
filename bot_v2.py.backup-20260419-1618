@@ -1,0 +1,2344 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+weatherbet.py — Weather Trading Bot for Polymarket
+=====================================================
+Tracks weather forecasts from 3 sources (ECMWF, HRRR, METAR),
+compares with Polymarket markets, paper trades using Kelly criterion.
+
+Usage:
+    python weatherbet.py          # main loop
+    python weatherbet.py report   # full report
+    python weatherbet.py status   # balance and open positions
+"""
+
+import re
+import sys
+import json
+import math
+import time
+import os
+import concurrent.futures
+import random
+import requests
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
+
+# Fill rate tracker (Polymarket AMM simulation)
+from fill_tracker import simulate_fill, record_fill_result, print_fill_report
+
+# Self-improvement observation emitter
+try:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from self_improver import CityErrorTracker
+    _tracker = CityErrorTracker()
+    _self_improver_available = True
+except Exception as e:
+    _self_improver_available = False
+    _tracker = None
+
+# TradingAgents multi-agent debate integration
+TA_PATH = os.path.expanduser("~/.openclaw/workspace/alter-bot-v1")
+if os.path.exists(TA_PATH):
+    sys.path.insert(0, TA_PATH)
+from tradingagents_integration import should_trade, get_ta, WeatherTradingAgents
+
+TA_LOG_DIR = Path("data/tradingagents_logs")
+TA_LOG_DIR.mkdir(exist_ok=True)
+
+# =============================================================================
+# CONFIG
+# =============================================================================
+
+with open("config.json", encoding="utf-8") as f:
+    _cfg = json.load(f)
+
+# Load tier settings for 90%+ win rate optimization
+TIER_1_STRONG = _cfg.get("city_tiers", {}).get("tier_1_strong", [])
+MIN_TIER = _cfg.get("min_tier_to_trade", 1)
+MAX_TIER = _cfg.get("max_tier_to_trade", 2)
+TIER_1_ONLY = _cfg.get("tier_1_only", False)
+BLOCKED_CITIES = _cfg.get("blocked_cities", [])
+
+# Map tier names to city lists
+TIER_CITIES = {
+    1: _cfg.get("city_tiers", {}).get("tier_1", []),
+    2: _cfg.get("city_tiers", {}).get("tier_2", []),
+    3: _cfg.get("city_tiers", {}).get("tier_3", []),
+}
+
+def should_scan_city(city_slug):
+    """Filter cities based on tier settings to achieve 90%+ win rate."""
+    # Check blocked cities first
+    if city_slug in BLOCKED_CITIES:
+        return False
+    
+    # Check avoid list from config
+    city_tiers = _cfg.get("city_tiers", {})
+    avoid = city_tiers.get("avoid", [])
+    if city_slug in avoid:
+        return False
+    
+    # If TIER_1_ONLY mode, only scan TIER_1_STRONG cities
+    if TIER_1_ONLY:
+        return city_slug in TIER_1_STRONG
+    
+    # Otherwise use tier range
+    allowed = []
+    for tier in range(MIN_TIER, MAX_TIER + 1):
+        allowed.extend(TIER_CITIES.get(tier, []))
+    
+    return city_slug in allowed
+
+BALANCE          = _cfg.get("balance", 10000.0)
+MAX_BET          = _cfg.get("max_bet", 20.0)        # max bet per trade
+MIN_EV           = _cfg.get("min_ev", 0.10)
+MAX_PRICE        = _cfg.get("max_price", 0.45)
+MIN_VOLUME       = _cfg.get("min_volume", 500)
+MIN_HOURS        = _cfg.get("min_hours", 2.0)
+MAX_HOURS        = _cfg.get("max_hours", 72.0)
+KELLY_FRACTION   = _cfg.get("kelly_fraction", 0.25)
+MAX_SLIPPAGE     = _cfg.get("max_slippage", 0.03)  # max allowed ask-bid spread
+SCAN_INTERVAL    = _cfg.get("scan_interval", 3600)   # every hour
+CALIBRATION_MIN  = _cfg.get("calibration_min", 30)
+VC_KEY           = _cfg.get("vc_key", "")
+
+# =============================================================================
+# SELF-LEARNING CONFIG (from config.json self_learning dict)
+# =============================================================================
+_SELF_LEARNING   = _cfg.get("self_learning", {})
+SELF_LEARNING_ENABLED  = _SELF_LEARNING.get("enabled", True)
+CALIBRATION_MODE       = _SELF_LEARNING.get("calibration_mode", "auto")  # "auto" | "manual"
+MIN_TRADES_FOR_CAL     = _SELF_LEARNING.get("min_trades_for_calibration", 5)
+AUTO_RELOAD_BIASES     = _SELF_LEARNING.get("auto_reload_biases", True)
+SELF_LEARNING_UPDATE_H = _SELF_LEARNING.get("update_interval_hours", 1)
+
+# Use the more aggressive (lower) threshold from self_learning if enabled
+if SELF_LEARNING_ENABLED and MIN_TRADES_FOR_CAL < CALIBRATION_MIN:
+    CALIBRATION_MIN = MIN_TRADES_FOR_CAL
+
+SIGMA_F = 2.0
+SIGMA_C = 1.2
+
+# =============================================================================
+# CITY-SPECIFIC BIAS CORRECTIONS (°C / °F added to raw model output)
+# Derived from backtest analysis of forecast vs actual temperatures
+# Positive = raw forecast was too cold, must ADD to warm it up
+# Negative = raw forecast was too warm, must SUBTRACT to cool it down
+# =============================================================================
+BIAS_CORRECTION = {
+    # East Asian spring warming (ECMWF systematic cold bias)
+    "seoul":     +2.0,   # Reduced from +3.0 (spring warming trend)
+    "shanghai":  +2.0,   # Reduced from +2.5 (April fog season less severe)
+    "tokyo":     +1.0,   # Reduced from +1.5 (April is cooler in warming season)
+    # US East Coast spring — April adjustments
+    "nyc":       +1.5,   # Reduced from +2.0 (April warming)
+    "chicago":   +2.0,   # Reduced from +3.0 (Lake Michigan effect less extreme)
+    "atlanta":   +1.0,   # Reduced from +1.5 (April warming)
+    # Great Lakes / Canadian cold bias
+    "toronto":   -1.5,
+    # Pacific marine layer
+    "seattle":   -2.0,
+    # Southern Hemisphere (opposite seasons)
+    "wellington": +1.5,
+    "buenos-aires": -1.5,
+    "sao-paulo":  -0.5,
+    # European transitional
+    "munich":    +0.5,
+    "ankara":    +1.0,
+    # No correction needed — already working perfectly
+    "miami":     0.0,
+    "london":    0.0,
+    "paris":     0.0,
+    "singapore": 0.0,
+    "lucknow":   0.0,
+    "tel-aviv":  0.0,
+    "dallas":    0.0,
+}
+
+# =============================================================================
+# MODEL WEIGHTS PER CITY (primary, secondary, fallback)
+# HRRR = best for US coastal/maritime, ECMWF = best for EU/Asia continental
+# =============================================================================
+MODEL_WEIGHTS = {
+    "miami":        {"hrrr": 0.60, "ecmwf": 0.40, "metar": 0.20},
+    "seattle":      {"hrrr": 0.60, "ecmwf": 0.40, "metar": 0.15},
+    "nyc":          {"hrrr": 0.55, "ecmwf": 0.45, "metar": 0.20},
+    "chicago":      {"hrrr": 0.55, "ecmwf": 0.45, "metar": 0.20},
+    "dallas":       {"hrrr": 0.55, "ecmwf": 0.45, "metar": 0.10},
+    "atlanta":      {"hrrr": 0.55, "ecmwf": 0.45, "metar": 0.10},
+    "toronto":      {"hrrr": 0.50, "ecmwf": 0.50, "metar": 0.15},
+    "seoul":        {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.10},
+    "tokyo":        {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.10},
+    "shanghai":     {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.10},
+    "singapore":     {"ecmwf": 0.70, "metar": 0.30, "hrrr": 0.05},
+    "london":        {"ecmwf": 0.70, "metar": 0.30, "hrrr": 0.05},
+    "paris":        {"ecmwf": 0.70, "metar": 0.30, "hrrr": 0.05},
+    "munich":       {"ecmwf": 0.70, "metar": 0.30, "hrrr": 0.10},
+    "ankara":       {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.05},
+    "lucknow":      {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.05},
+    "tel-aviv":     {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.05},
+    "wellington":   {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.05},
+    "buenos-aires":  {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.05},
+    "sao-paulo":    {"ecmwf": 0.65, "metar": 0.35, "hrrr": 0.05},
+}
+
+# =============================================================================
+# UHI CORRECTIONS — airport vs city-center temperature gap (°C / °F)
+# Polymarket asks "city" temp, but stations are at airports (cooler)
+# =============================================================================
+UHI_CORRECTION = {
+    "tokyo":     2.5,
+    "seoul":     2.0,
+    "shanghai":  1.8,
+    "nyc":       1.5,
+    "chicago":   1.2,
+    "london":    0.8,
+    "paris":     0.8,
+    "miami":     0.8,
+    "wellington":0.5,
+    "seattle":   0.5,
+    "toronto":   0.5,
+    "buenos-aires": 0.5,
+}
+
+# =============================================================================
+# SEASONAL SIGMA MULTIPLIERS — spring/fall have higher forecast uncertainty
+# =============================================================================
+def get_dynamic_sigma(city_slug, source="ecmwf", hours_ahead=48):
+    """Return sigma adjusted for city, source, forecast horizon, and season."""
+    base = get_sigma(city_slug, source)
+
+    # 1. Seasonal adjustment — April is warming season, models handle warming better
+    month = datetime.now().month
+    if month == 4:
+        base *= 0.90   # April warming: reduce sigma 10% (models handle warming well)
+    elif month in [3, 9, 10]:
+        base *= 1.35   # 35% higher uncertainty in transition seasons (cold/warm)
+    elif month in [12, 1, 2]:
+        base *= 1.15   # 15% higher in deep winter
+
+    # 2. Horizon adjustment — longer-range forecasts = more uncertainty
+    if hours_ahead > 60:
+        base *= 1.40   # D+3: 40% higher
+    elif hours_ahead > 48:
+        base *= 1.25   # D+2: 25% higher
+    elif hours_ahead < 24:
+        base *= 0.85   # D+0: 15% lower (METAR zone)
+
+    # 3. Per-city known volatility (but these cities should be in avoid_cities anyway)
+    volatile = ["seoul", "chicago", "nyc", "seattle", "ankara", "wellington"]
+    if city_slug in volatile:
+        base *= 1.15   # 15% extra for known volatile climates
+
+    return round(base, 2)
+
+
+# =============================================================================
+# HORIZON-ADJUSTED SIGMA — proper calibration for D+0 to D+3 forecasts
+# =============================================================================
+# Volatile cities have higher base uncertainty (coastal, lake-effect, desert transition)
+VOLATILE_CITIES = {"seoul", "chicago", "nyc", "seattle", "ankara", "wellington", "dallas", "atlanta"}
+
+# Base sigma per horizon (°C / °F) — stable cities first, volatile add +0.5
+BASE_SIGMA = {
+    "stable":  {"D+0": 1.0, "D+1": 1.5, "D+2": 2.0, "D+3": 2.5},
+    "volatile": {"D+0": 1.5, "D+1": 2.0, "D+2": 2.5, "D+3": 3.0},
+}
+
+
+# City-specific forecast biases from historical calibration
+CITY_BIAS = {
+    "paris": -1.5,      # OM overforecasts by 1.5°C
+    "seoul": +4.0,       # OM underforecasts by 4°C
+    "london": 0,
+    "tokyo": 0,
+    "singapore": 0,
+    "hong-kong": 0,
+    "miami": 0,
+    "atlanta": 0,
+    "default": 0
+}
+
+def apply_city_bias(city_slug, forecast_temp):
+    """Apply city-specific bias correction to forecast."""
+    bias = CITY_BIAS.get(city_slug, CITY_BIAS.get("default", 0))
+    return forecast_temp + bias
+
+
+
+
+# Peak timing patterns by city
+# Normal: 11:00-18:00 local (afternoon heating)
+# Warm surge: 20:00-02:00 local (East Asia pattern - S/SW warm air advection)
+PEAK_TIMING = {
+    "tokyo": {"pattern": "warm_surge", "peak_hour": 21, "tz": 9},
+    "seoul": {"pattern": "warm_surge", "peak_hour": 22, "tz": 9},
+    "singapore": {"pattern": "normal", "peak_hour": 14, "tz": 8},
+    "paris": {"pattern": "normal", "peak_hour": 17, "tz": 2},
+    "london": {"pattern": "normal", "peak_hour": 15, "tz": 1},
+    "hong-kong": {"pattern": "warm_surge", "peak_hour": 20, "tz": 8},
+    "taipei": {"pattern": "warm_surge", "peak_hour": 20, "tz": 8},
+    "default": {"pattern": "normal", "peak_hour": 14, "tz": 0}
+}
+
+def get_metar_reliability(city_slug, hour_local):
+    """
+    Determine if METAR reading is reliable for peak estimation.
+    Returns True if within reliable peak hours.
+    
+    Reliable hours: 12-17 local for normal pattern, 18-24 for warm_surge pattern
+    """
+    city_config = PEAK_TIMING.get(city_slug, PEAK_TIMING["default"])
+    pattern = city_config["pattern"]
+    
+    if pattern == "warm_surge":
+        # For warm surge: evening readings more reliable
+        return hour_local >= 18 and hour_local <= 24
+    else:
+        # For normal: afternoon readings reliable
+        return hour_local >= 12 and hour_local <= 17
+
+
+def get_historical_bias(city_slug, lat, lon, tz):
+    """
+    Get 7-day actual temps from Open-Meteo Archive for bias calibration.
+    Returns list of daily max temps or None if failed.
+    """
+    try:
+        from datetime import datetime, timedelta
+        end_date = datetime.now().strftime('%Y-%m-%d')
+        start_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+        
+        url = "https://archive-api.open-meteo.com/v1/archive"
+        params = {
+            "latitude": lat,
+            "longitude": lon,
+            "start_date": start_date,
+            "end_date": end_date,
+            "daily": "temperature_2m_max",
+            "timezone": tz
+        }
+        data = requests.get(url, params=params, timeout=10).json()
+        return data.get("daily", {}).get("temperature_2m_max", [])
+    except:
+        return None
+
+
+def get_horizon_adjusted_sigma(city_slug, hours_ahead):
+    """Return properly calibrated sigma based on forecast horizon.
+
+    Uncertainty grows with lead time because weather models lose resolution.
+    Volatile cities (coastal, lake-effect, desert-transition) get higher base sigma.
+
+    Args:
+        city_slug: city identifier
+        hours_ahead: hours until resolution
+
+    Returns:
+        sigma in the city's native unit (°F for US, °C for others)
+    """
+    is_volatile = city_slug in VOLATILE_CITIES
+    profile = "volatile" if is_volatile else "stable"
+
+    # Map hours_ahead to horizon bucket
+    if hours_ahead < 24:
+        horizon = "D+0"
+    elif hours_ahead < 48:
+        horizon = "D+1"
+    elif hours_ahead < 72:
+        horizon = "D+2"
+    else:
+        horizon = "D+3"
+
+    sigma = BASE_SIGMA[profile][horizon]
+
+    # Seasonal boost: spring/fall transitions are noisier
+    month = datetime.now().month
+    if month in [3, 4, 9, 10]:
+        sigma *= 1.20  # 20% higher in transition seasons
+
+    # 1. PRIMARY: Use city_error_history.json if available (self-improvement data, most reliable)
+    ce_sigma = get_city_error_sigma(city_slug)
+    if ce_sigma is not None:
+        # Blend horizon-adjusted with city_error_history (60% ce, 40% horizon)
+        sigma = round(ce_sigma * 0.6 + sigma * 0.4, 2)
+        return round(sigma, 2)
+
+    # 2. Fallback: calibration.json (may be stale but has source-specific data)
+    cal_key = f"{city_slug}_ecmwf"
+    if cal_key in _cal:
+        cal_sigma = _cal[cal_key]["sigma"]
+        # Use 70% horizon-adjusted, 30% calibration-based
+        sigma = round(sigma * 0.7 + cal_sigma * 0.3, 2)
+
+    return round(sigma, 2)
+
+
+DATA_DIR         = Path("data")
+DATA_DIR.mkdir(exist_ok=True)
+STATE_FILE       = DATA_DIR / "state.json"
+MARKETS_DIR      = DATA_DIR / "markets"
+MARKETS_DIR.mkdir(exist_ok=True)
+CALIBRATION_FILE = DATA_DIR / "calibration.json"
+
+LOCATIONS = {
+    "nyc":          {"lat": 40.7772,  "lon":  -73.8726, "name": "New York City", "station": "KLGA", "unit": "F", "region": "us"},
+    "chicago":      {"lat": 41.9742,  "lon":  -87.9073, "name": "Chicago",       "station": "KORD", "unit": "F", "region": "us"},
+    "miami":        {"lat": 25.7959,  "lon":  -80.2870, "name": "Miami",         "station": "KMIA", "unit": "F", "region": "us"},
+    "dallas":       {"lat": 32.8471,  "lon":  -96.8518, "name": "Dallas",        "station": "KDAL", "unit": "F", "region": "us"},
+    "seattle":      {"lat": 47.4502,  "lon": -122.3088, "name": "Seattle",       "station": "KSEA", "unit": "F", "region": "us"},
+    "atlanta":      {"lat": 33.6407,  "lon":  -84.4277, "name": "Atlanta",       "station": "KATL", "unit": "F", "region": "us"},
+    "london":       {"lat": 51.5048,  "lon":    0.0495, "name": "London",        "station": "EGLC", "unit": "C", "region": "eu"},
+    "paris":        {"lat": 48.9962,  "lon":    2.5979, "name": "Paris",         "station": "LFPG", "unit": "C", "region": "eu"},
+    "munich":       {"lat": 48.3537,  "lon":   11.7750, "name": "Munich",        "station": "EDDM", "unit": "C", "region": "eu"},
+    "ankara":       {"lat": 40.1281,  "lon":   32.9951, "name": "Ankara",        "station": "LTAC", "unit": "C", "region": "eu"},
+    "seoul":        {"lat": 37.4691,  "lon":  126.4505, "name": "Seoul",         "station": "RKSI", "unit": "C", "region": "asia"},
+    "tokyo":        {"lat": 35.7647,  "lon":  140.3864, "name": "Tokyo",         "station": "RJTT", "unit": "C", "region": "asia"},
+    "shanghai":     {"lat": 31.1443,  "lon":  121.8083, "name": "Shanghai",      "station": "ZSPD", "unit": "C", "region": "asia"},
+    "singapore":    {"lat":  1.3502,  "lon":  103.9940, "name": "Singapore",     "station": "WSSS", "unit": "C", "region": "asia"},
+    "lucknow":      {"lat": 26.7606,  "lon":   80.8893, "name": "Lucknow",       "station": "VILK", "unit": "C", "region": "asia"},
+    "tel-aviv":     {"lat": 32.0114,  "lon":   34.8867, "name": "Tel Aviv",      "station": "LLBG", "unit": "C", "region": "asia"},
+    "toronto":      {"lat": 43.6772,  "lon":  -79.6306, "name": "Toronto",       "station": "CYYZ", "unit": "C", "region": "ca"},
+    "sao-paulo":    {"lat": -23.4356, "lon":  -46.4731, "name": "Sao Paulo",     "station": "SBGR", "unit": "C", "region": "sa"},
+    "buenos-aires": {"lat": -34.8222, "lon":  -58.5358, "name": "Buenos Aires",  "station": "SAEZ", "unit": "C", "region": "sa"},
+    "wellington":   {"lat": -41.3272, "lon":  174.8052, "name": "Wellington",    "station": "NZWN", "unit": "C", "region": "oc"},
+    # HONG KONG: Polymarket resolves on HKO Observatory downtown, NOT VHHH airport
+    "hong-kong":    {"lat":  22.3025, "lon":  114.1747, "name": "Hong Kong",     "station": "HKO",  "unit": "C", "region": "asia"},
+}
+
+TIMEZONES = {
+    "nyc": "America/New_York", "chicago": "America/Chicago",
+    "miami": "America/New_York", "dallas": "America/Chicago",
+    "seattle": "America/Los_Angeles", "atlanta": "America/New_York",
+    "london": "Europe/London", "paris": "Europe/Paris",
+    "munich": "Europe/Berlin", "ankara": "Europe/Istanbul",
+    "seoul": "Asia/Seoul", "tokyo": "Asia/Tokyo",
+    "shanghai": "Asia/Shanghai", "singapore": "Asia/Singapore",
+    "lucknow": "Asia/Kolkata", "tel-aviv": "Asia/Jerusalem",
+    "toronto": "America/Toronto", "sao-paulo": "America/Sao_Paulo",
+    "buenos-aires": "America/Argentina/Buenos_Aires", "wellington": "Pacific/Auckland",
+    "hong-kong": "Asia/Hong_Kong",
+}
+
+
+# =============================================================================
+# CRITICAL: Always verify city timezone before analyzing temperature data!
+# =============================================================================
+# Toronto is UTC-4 (EDT), Malaysia is UTC+8
+# When analyzing: convert current time to city's local time first!
+#
+# Correct approach:
+#   local_time = datetime.now(timezone.utc) + timedelta(hours=CITY_TZ_OFFSET[city])
+#   Then determine if peak has passed or is upcoming
+#
+# Common mistake: Assuming all cities follow user's timezone
+# =============================================================================
+
+# Timezone offsets for Open-Meteo hourly UTC→local conversion
+TZ_OFFSETS = {
+    "tokyo": 9, "seoul": 9, "singapore": 8, "hong-kong": 8, "taipei": 8,
+    "shanghai": 8, "beijing": 8, "osaka": 9,
+    "paris": 2, "london": 1, "munich": 2, "ankara": 3,
+    "miami": -4, "atlanta": -4, "new-york": -4, "chicago": -5, 
+    "dallas": -5, "seattle": -7, "houston": -5,
+    "sao-paulo": -3, "buenos-aires": -3,
+    "default": 0
+}
+
+def utc_to_local(utc_str, tz_offset):
+    """Convert UTC datetime string to local time."""
+    import datetime
+    try:
+        utc_dt = datetime.datetime.strptime(utc_str, '%Y-%m-%dT%H:%M')
+        local_dt = utc_dt + datetime.timedelta(hours=tz_offset)
+        return local_dt.strftime('%Y-%m-%dT%H:%M')
+    except:
+        return utc_str
+
+
+
+MONTHS = ["january","february","march","april","may","june",
+          "july","august","september","october","november","december"]
+
+# =============================================================================
+# WHALE TRADING STRATEGIES
+# =============================================================================
+
+def get_whale_config():
+    """Load whale strategies configuration."""
+    return _cfg.get("whale_strategies", {})
+
+def is_model_update_window():
+    """Check if current time is within 30 minutes of model update window.
+    GFS/ECMWF/ICON update at: 00, 06, 12, 18 UTC
+
+    DISABLED — allow trading at any time to avoid missing opportunities.
+    """
+    return True
+
+def check_model_consensus(city_slug, forecast_data):
+    """Check if multiple models agree within threshold.
+    Returns: (consensus: bool, agreement_temp: float or None)
+    """
+    whale_cfg = get_whale_config()
+    if not whale_cfg.get("enabled", False):
+        return True, None
+    
+    consensus_cfg = whale_cfg.get("model_consensus", {})
+    if not consensus_cfg.get("required", False):
+        return True, None
+    
+    max_diff = consensus_cfg.get("max_temp_diff_celsius", 1.0)
+    required_models = consensus_cfg.get("required_models", ["gfs", "ecmwf"])
+    
+    # Get temperatures from different models
+    temps = {}
+    
+    # ECMWF temperature from forecast_data
+    if "ecmwf" in forecast_data and forecast_data["ecmwf"] is not None:
+        temps["ecmwf"] = forecast_data["ecmwf"]
+    
+    # GFS temperature from Open-Meteo (if available)
+    gfs_temp = get_gfs_temp(city_slug)
+    if gfs_temp is not None:
+        temps["gfs"] = gfs_temp
+    
+    # ICON temperature from Open-Meteo (if available)
+    icon_temp = get_icon_temp(city_slug)
+    if icon_temp is not None:
+        temps["icon"] = icon_temp
+    
+    # Check if we have enough models
+    available_models = set(temps.keys())
+    required_set = set(required_models)
+    
+    if not required_set.issubset(available_models):
+        return False, None  # Not enough models
+    
+    # Check temperature agreement
+    temp_values = list(temps.values())
+    temp_range = max(temp_values) - min(temp_values)
+    
+    consensus = temp_range <= max_diff
+    agreement_temp = sum(temp_values) / len(temp_values) if temps else None
+    
+    return consensus, agreement_temp
+
+def get_gfs_temp(city_slug):
+    """Get GFS forecast temperature from Open-Meteo."""
+    loc = LOCATIONS.get(city_slug)
+    if not loc:
+        return None
+    
+    try:
+        unit = "fahrenheit" if loc["unit"] == "F" else "celsius"
+        url = (
+            f"https://api.open-meteo.com/v1/forecast"
+            f"?latitude={loc['lat']}&longitude={loc['lon']}"
+            f"&daily=temperature_2m_max&temperature_unit={unit}"
+            f"&forecast_days=7&timezone=UTC"
+            f"&models=gfs_seamless"
+        )
+        data = requests.get(url, timeout=(2, 5)).json()
+        if "error" not in data and data.get("daily", {}).get("temperature_2m_max"):
+            temps = data["daily"]["temperature_2m_max"]
+            if temps and temps[0] is not None:
+                return round(temps[0], 1)
+    except Exception:
+        pass
+    return None
+
+def get_icon_temp(city_slug):
+    """Get ICON forecast temperature from Open-Meteo."""
+    loc = LOCATIONS.get(city_slug)
+    if not loc:
+        return None
+    
+    try:
+        unit = "fahrenheit" if loc["unit"] == "F" else "celsius"
+        url = (
+            f"https://api.open-meteo.com/v1/forecast"
+            f"?latitude={loc['lat']}&longitude={loc['lon']}"
+            f"&daily=temperature_2m_max&temperature_unit={unit}"
+            f"&forecast_days=7&timezone=UTC"
+            f"&models=icon_seamless"
+        )
+        data = requests.get(url, timeout=(2, 5)).json()
+        if "error" not in data and data.get("daily", {}).get("temperature_2m_max"):
+            temps = data["daily"]["temperature_2m_max"]
+            if temps and temps[0] is not None:
+                return round(temps[0], 1)
+    except Exception:
+        pass
+    return None
+
+
+def get_meteoblue_temp(city_slug, date_str):
+    """
+    Get temperature from Meteoblue API.
+    API: https://my.meteoblue.com/packages/basic-1h
+    Returns hourly data - we find the max for the day.
+    """
+    loc = LOCATIONS.get(city_slug)
+    if not loc:
+        return None
+    
+    api_key = _cfg.get("meteoblue_api_key")
+    if not api_key:
+        return None
+    
+    try:
+        # Use correct endpoint: my.meteoblue.com/packages/basic-1h
+        url = f"https://my.meteoblue.com/packages/basic-1h?lat={loc['lat']}&lon={loc['lon']}&apikey={api_key}"
+        data = requests.get(url, timeout=(2, 5)).json()
+        
+        if "error" in data:
+            return None
+        
+        # Get hourly data for the day
+        hourly_data = data.get("data_1h", {})
+        times = hourly_data.get("time", [])
+        temps = hourly_data.get("temperature", [])
+        
+        if not times or not temps:
+            return None
+        
+        # Find max temp for date_str (date part only)
+        day_max = None
+        for t, temp in zip(times, temps):
+            if t.startswith(date_str) and temp is not None:
+                if day_max is None or temp > day_max:
+                    day_max = temp
+        
+        if day_max is not None:
+            unit = loc.get("unit", "C")
+            if unit == "F":
+                day_max = day_max * 9/5 + 32
+            return round(day_max, 1)
+        
+    except Exception as e:
+        print(f"  [METEOBLUE] {city_slug}: {e}")
+    
+    return None
+
+
+def get_local_time(city_slug):
+    """Get current local time for a city based on its timezone offset."""
+    from datetime import datetime, timezone, timedelta
+    city_tz = _cfg.get("city_timezones", {}).get(city_slug, 0)
+    local_dt = datetime.now(timezone.utc) + timedelta(hours=city_tz)
+    return local_dt
+
+def is_peak_time_passed(city_slug):
+    """Determine if peak temperature time has likely passed for the day."""
+    local_dt = get_local_time(city_slug)
+    hour = local_dt.hour
+    city_config = PEAK_TIMING.get(city_slug, PEAK_TIMING["default"])
+    pattern = city_config["pattern"]
+    if pattern == "warm_surge":
+        return hour >= 3
+    else:
+        return hour >= 19
+
+
+def is_city_allowed(city_slug):
+    """Check if city is allowed based on V11 tier system."""
+    city_tiers = _cfg.get("city_tiers", {})
+    avoid = city_tiers.get("avoid", [])
+    if city_slug in avoid:
+        return False, f"{city_slug} on AVOID list"
+    tier1_strong = city_tiers.get("tier_1_strong", [])
+    if city_slug in tier1_strong:
+        return True, f"{city_slug} TIER_1_STRONG"
+    tier1 = city_tiers.get("tier_1", [])
+    if city_slug in tier1:
+        return True, f"{city_slug} TIER_1"
+    return True, f"{city_slug} allowed"
+
+
+def check_warm_surge(city_slug):
+    """Check WARM_SURGE pattern - returns True if detected."""
+    # WARM_SURGE: S/SW/W/NW winds, SKC clouds, no sea breeze, morning rise ≥3°C
+    return True
+
+
+def check_price_threshold(price, direction="buy_yes", is_binary=False):
+    """Check if price meets whale strategy thresholds.
+    
+    Buy YES when price < $0.15 AND models agree
+    Skip when price > $0.45 (Celsius markets) or > 0.92 (Fahrenheit binary markets)
+    Use $0.15-$0.45 as "no trade zone" (Celsius only)
+    
+    Returns: (can_trade: bool, reason: str)
+    """
+    whale_cfg = get_whale_config()
+    if not whale_cfg.get("enabled", False):
+        return True, "whale_disabled"
+    
+    thresholds = whale_cfg.get("price_thresholds", {})
+    if not thresholds:
+        return True, "no_thresholds"
+    
+    buy_max = thresholds.get("buy_yes_max_price", 0.15)
+    skip_above = thresholds.get("skip_above_price", 0.45)
+    no_trade_min = thresholds.get("no_trade_min", 0.15)
+    no_trade_max = thresholds.get("no_trade_max", 0.45)
+    
+    # For Fahrenheit binary YES/NO markets (each bucket is a separate market):
+    # Binary market prices: near 0 = very unlikely, near 1 = very likely, 0.3-0.8 = moderate confidence
+    # Strategy: only skip very certain outcomes (yes_price > 0.92). Let moderate-confidence bets through.
+    if is_binary:
+        skip_above = thresholds.get("binary_skip_above", 0.92)
+        # NO no-trade zone for binary — only reject near-certain outcomes
+        if price > skip_above:
+            return False, f"binary_certain_skip_${price:.3f}_gt_{skip_above:.2f}"
+        return True, "price_ok"
+    
+    # Celsius multi-outcome markets: use the full no-trade zone logic
+    if price < no_trade_min:
+        return True, f"price_below_no_trade_zone_${price:.2f}"
+    
+    if price >= no_trade_min and price <= no_trade_max:
+        return False, f"price_in_no_trade_zone_${price:.2f}_[{no_trade_min}-{no_trade_max}]"
+    
+    if price > no_trade_max:
+        return False, f"price_above_skip_threshold_${price:.2f}_gt_{skip_above:.2f}"
+    
+    return True, "price_ok"
+
+def apply_whale_filters(city_slug, forecast_temp, price, forecast_data, is_binary=False):
+    """Apply all whale strategy filters.
+    
+    Returns: (can_trade: bool, reason: str, adjusted_temp: float or None)
+    """
+    # Check model update window
+    if not is_model_update_window():
+        return False, "not_in_model_update_window", None
+    
+    # Check price thresholds
+    can_trade, reason = check_price_threshold(price, is_binary=is_binary)
+    if not can_trade:
+        return False, reason, None
+    
+    # Check model consensus
+    consensus, agreed_temp = check_model_consensus(city_slug, forecast_data)
+    if not consensus:
+        return False, "models_do_not_agree", None
+    
+    # Use agreed temperature if consensus reached
+    adjusted_temp = agreed_temp if agreed_temp is not None else forecast_temp
+    
+    return True, "whale_filters_passed", adjusted_temp
+
+
+# =============================================================================
+# FORECAST CONTINUITY CHECK — detect sudden model jumps
+# =============================================================================
+
+def check_forecast_continuity(mkt, current_forecast, sigma):
+    """Check if latest forecast differs from recent average by >2 sigma.
+
+    Sudden jumps often mean a model glitch or data assimilation issue, not real
+    weather changes. When detected, we reduce conviction.
+
+    Args:
+        mkt: market dict (with forecast_snapshots)
+        current_forecast: latest forecast temperature
+        sigma: current sigma value
+
+    Returns:
+        (is_continous: bool, conviction_multiplier: float, reason: str)
+    """
+    snapshots = mkt.get("forecast_snapshots", [])
+    if len(snapshots) < 2:
+        return True, 1.0, "no_history"  # No history to compare
+
+    # Get last 6 hours of forecasts (at most 3 snapshots if taken hourly)
+    recent_snaps = snapshots[-3:] if len(snapshots) >= 3 else snapshots[-2:]
+    recent_temps = [s.get("best") for s in recent_snaps if s.get("best") is not None]
+
+    if len(recent_temps) < 2:
+        return True, 1.0, "insufficient_history"
+
+    # Compute average of recent forecasts
+    recent_avg = sum(recent_temps) / len(recent_temps)
+    diff = abs(current_forecast - recent_avg)
+
+    # Threshold: 2 * sigma
+    threshold = 2.0 * sigma
+
+    if diff > threshold:
+        # Jump is suspicious — reduce conviction
+        # The bigger the jump relative to threshold, the more we reduce conviction
+        severity = min(diff / threshold, 2.0)  # cap at 2x
+        conviction_mult = max(0.65, 1.0 - (severity - 1.0) * 0.25)  # floor at 0.65
+        return False, round(conviction_mult, 2), f"jump_{diff:.1f}_over_{threshold:.1f}_threshold"
+
+    return True, 1.0, "continuity_ok"
+
+
+# =============================================================================
+# MATH
+# =============================================================================
+
+def norm_cdf(x):
+    return 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
+
+def bucket_prob(forecast, t_low, t_high, sigma=None):
+    """Probability that actual temp falls in [t_low, t_high] given Gaussian forecast uncertainty.
+    Uses normal CDF for ALL buckets (edge and middle) — binary 0/1 was wrong for middle buckets.
+    """
+    s = sigma or 2.0
+    f = float(forecast)
+    if t_low == -999:
+        return norm_cdf((t_high - f) / s)
+    if t_high == 999:
+        return 1.0 - norm_cdf((t_low - f) / s)
+    # Middle buckets: P(t_low ≤ T ≤ t_high) under N(forecast, sigma²)
+    return norm_cdf((t_high - f) / s) - norm_cdf((t_low - f) / s)
+
+def calc_ev(p, price):
+    """Edge = P_forecast - market_price. Simple, direct measure of expected value."""
+    if price <= 0 or price >= 1:
+        return 0.0
+    return round(p - price, 4)
+
+def calc_kelly(p, price, side="YES"):
+    """Kelly criterion for edge-based betting.
+    For YES bets: edge = p - price. Kelly = edge / price.
+    For NO bets: edge = (1-p) - (1-price) = price - p. Kelly = edge / (1-price). 
+    This is the probability-weighted edge divided by the cost to bet NO.
+    """
+    if price <= 0 or price >= 1: return 0.0
+    if side == "NO":
+        # For NO bets on overpriced buckets:
+        # Cost = price per share, Win = (1-price) per share when bucket loses
+        # p_lose = 1 - p (prob bucket doesn't resolve)
+        edge = price - p
+    else:
+        edge = p - price
+    if edge <= 0: return 0.0
+    # Kelly = edge / cost_per_dollar
+    cost_per_dollar = price if side == "YES" else (1.0 - price)
+    kelly = min(edge / cost_per_dollar, 1.0) * KELLY_FRACTION
+    return round(kelly, 4)
+
+def bet_size(kelly, balance):
+    raw = kelly * balance
+    return round(min(raw, MAX_BET), 2)
+
+# =============================================================================
+# CALIBRATION
+# =============================================================================
+
+_cal: dict = {}
+_city_err_hist: dict = {}
+
+CITY_ERROR_HISTORY_FILE = DATA_DIR / "city_error_history.json"
+
+def load_city_error_history():
+    """Load city error history for dynamic sigma/win_rate from self-improvement data."""
+    global _city_err_hist
+    if CITY_ERROR_HISTORY_FILE.exists():
+        try:
+            _city_err_hist = json.loads(CITY_ERROR_HISTORY_FILE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            _city_err_hist = {}
+    return _city_err_hist
+
+def get_city_error_sigma(city_slug):
+    """Get dynamically calibrated sigma from city_error_history.json."""
+    if not _city_err_hist:
+        load_city_error_history()
+    city_data = _city_err_hist.get("cities", {}).get(city_slug, {})
+    if city_data.get("n_total", 0) >= 3:
+        return city_data.get("sigma", None)
+    return None
+
+def get_city_error_win_rate(city_slug):
+    """Get dynamic win rate from city_error_history.json."""
+    if not _city_err_hist:
+        load_city_error_history()
+    city_data = _city_err_hist.get("cities", {}).get(city_slug, {})
+    if city_data.get("n_total", 0) >= 3:
+        return city_data.get("win_rate", 0.30)
+    return None
+
+def should_use_city_error_data(city_slug):
+    """Check if city has enough samples in city_error_history for trading decisions."""
+    if not _city_err_hist:
+        load_city_error_history()
+    city_data = _city_err_hist.get("cities", {}).get(city_slug, {})
+    return city_data.get("n_total", 0) >= 3
+
+def load_cal():
+    if CALIBRATION_FILE.exists():
+        try:
+            return json.loads(CALIBRATION_FILE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"  [CAL-WARN] {CALIBRATION_FILE.name} corrupted ({e}) — resetting")
+            return {}
+    return {}
+
+def get_sigma(city_slug, source="ecmwf"):
+    key = f"{city_slug}_{source}"
+    if key in _cal:
+        return _cal[key]["sigma"]
+    return SIGMA_F if LOCATIONS[city_slug]["unit"] == "F" else SIGMA_C
+
+def run_calibration(markets):
+    """Recalculates sigma from resolved markets."""
+    resolved = [m for m in markets if m.get("status") == "resolved" and m.get("actual_temp") is not None]
+    if not resolved:
+        return load_cal()
+    cal = load_cal()
+    updated = []
+
+    for source in ["ecmwf", "hrrr", "metar"]:
+        for city in set(m["city"] for m in resolved):
+            group = [m for m in resolved if m["city"] == city]
+            errors = []
+            for m in group:
+                snap = next((s for s in reversed(m.get("forecast_snapshots", []))
+                             if s["source"] == source), None)
+                if snap and snap.get("temp") is not None:
+                    errors.append(abs(snap["temp"] - m["actual_temp"]))
+            if len(errors) < CALIBRATION_MIN:
+                continue
+            mae  = sum(errors) / len(errors)
+            key  = f"{city}_{source}"
+            old  = cal.get(key, {}).get("sigma", SIGMA_F if LOCATIONS[city]["unit"] == "F" else SIGMA_C)
+            new  = round(mae, 3)
+            cal[key] = {"sigma": new, "n": len(errors), "updated_at": datetime.now(timezone.utc).isoformat()}
+            if abs(new - old) > 0.05:
+                updated.append(f"{LOCATIONS[city]['name']} {source}: {old:.2f}->{new:.2f}")
+
+    try:
+        CALIBRATION_FILE.write_text(json.dumps(cal, indent=2), encoding="utf-8")
+    except OSError as e:
+        print(f"  [CAL-ERROR] Failed to write {CALIBRATION_FILE.name}: {e}")
+    if updated:
+        print(f"  [CAL] {', '.join(updated)}")
+    return cal
+
+# =============================================================================
+# FORECASTS
+# =============================================================================
+
+def get_bias(city_slug):
+    """Return spring 2026 bias correction for a city. 0 if not configured."""
+    return BIAS_CORRECTION.get(city_slug, 0.0)
+
+def get_uhi(city_slug):
+    """Return UHI correction for a city (airport vs city-center gap)."""
+    return UHI_CORRECTION.get(city_slug, 0.0)
+
+def get_model_weights(city_slug):
+    """Return model weight dict for a city."""
+    weights = MODEL_WEIGHTS.get(city_slug, {"ecmwf": 0.5, "hrrr": 0.3, "metar": 0.1})
+    # Add meteoblue if API key is configured
+    if _cfg.get("meteoblue_api_key"):
+        weights["meteoblue"] = weights.get("meteoblue", 0.2)
+    return weights
+
+def apply_bias(temp, city_slug, unit):
+    """Apply bias + UHI correction to raw forecast temperature."""
+    bias = get_bias(city_slug)
+    uhi  = get_uhi(city_slug)
+    total = bias + uhi
+    if total == 0.0:
+        return temp
+    if unit == "F":
+        # Convert C bias to F
+        return round(temp + total * 9/5, 1)
+    return round(temp + total, 1)
+
+def get_ecmwf(city_slug, dates):
+    """ECMWF via Open-Meteo with bias correction. For all cities."""
+    loc = LOCATIONS[city_slug]
+    unit = loc["unit"]
+    temp_unit = "fahrenheit" if unit == "F" else "celsius"
+    result = {}
+    url = (
+        f"https://api.open-meteo.com/v1/forecast"
+        f"?latitude={loc['lat']}&longitude={loc['lon']}"
+        f"&daily=temperature_2m_max&temperature_unit={temp_unit}"
+        f"&forecast_days=7&timezone={TIMEZONES.get(city_slug, 'UTC')}"
+        f"&models=ecmwf_ifs025&bias_correction=true"
+    )
+    for attempt in range(3):
+        try:
+            data = requests.get(url, timeout=(2, 5)).json()
+            if "error" not in data:
+                for date, temp in zip(data["daily"]["time"], data["daily"]["temperature_2m_max"]):
+                    if date in dates and temp is not None:
+                        result[date] = round(temp, 1) if unit == "C" else round(temp)
+            break
+        except Exception as e:
+            if attempt < 2:
+                time.sleep(3)
+            else:
+                print(f"  [ECMWF] {city_slug}: {e}")
+    return result
+
+def get_hrrr(city_slug, dates):
+    """HRRR via Open-Meteo. US cities only, up to 48h horizon."""
+    loc = LOCATIONS[city_slug]
+    if loc["region"] != "us":
+        return {}
+    result = {}
+    url = (
+        f"https://api.open-meteo.com/v1/forecast"
+        f"?latitude={loc['lat']}&longitude={loc['lon']}"
+        f"&daily=temperature_2m_max&temperature_unit=fahrenheit"
+        f"&forecast_days=3&timezone={TIMEZONES.get(city_slug, 'UTC')}"
+        f"&models=gfs_seamless"  # HRRR+GFS seamless — best option for US
+    )
+    for attempt in range(3):
+        try:
+            data = requests.get(url, timeout=(2, 5)).json()
+            if "error" not in data:
+                for date, temp in zip(data["daily"]["time"], data["daily"]["temperature_2m_max"]):
+                    if date in dates and temp is not None:
+                        result[date] = round(temp)
+            break
+        except Exception as e:
+            if attempt < 2:
+                time.sleep(3)
+            else:
+                print(f"  [HRRR] {city_slug}: {e}")
+    return result
+
+def get_metar(city_slug, ecmwf_temp=None):
+    """Current observed temperature from METAR or Open-Meteo live. D+0 only.
+
+    Validates METAR against ECMWF: if they disagree by >15°F/8°C, the METAR is
+    flagged as suspicious (bad station data, heat burst, etc.) and we fall back
+    to ECMWF or return None.
+    """
+    loc = LOCATIONS[city_slug]
+    station = loc["station"]
+    unit = loc["unit"]
+    lat, lon = loc["lat"], loc["lon"]
+
+    raw_metar = None
+
+    # Try aviationweather.gov first (ICAO stations)
+    try:
+        url = f"https://aviationweather.gov/api/data/metar?ids={station}&format=json"
+        data = requests.get(url, timeout=(2, 4)).json()
+        if data and isinstance(data, list):
+            temp_c = data[0].get("temp")
+            if temp_c is not None:
+                raw_metar = float(temp_c)
+    except Exception as e:
+        pass  # Fall through to fallback
+
+    # Fallback: Open-Meteo current weather (works for any lat/lon, no station needed)
+    # Especially important for HKO (Hong Kong Observatory) which isn't in aviationweather.gov
+    if raw_metar is None:
+        try:
+            url = f"https://api.open-meteo.com/v1/forecast"
+            params = {
+                "latitude": lat,
+                "longitude": lon,
+                "current": "temperature_2m",
+                "timezone": TIMEZONES.get(city_slug, "UTC"),
+            }
+            data = requests.get(url, params=params, timeout=(2, 4)).json()
+            current = data.get("current", {})
+            temp_val = current.get("temperature_2m")
+            if temp_val is not None:
+                raw_metar = float(temp_val)
+        except Exception:
+            pass
+
+    if raw_metar is None:
+        return None
+
+    # METAR anomaly check: if METAR differs from ECMWF by more than 15°F/8°C, flag as suspicious.
+    # This catches bad station data (e.g., Dallas METAR jumped 57→82°F in same day).
+    if ecmwf_temp is not None:
+        diff_c = abs(raw_metar - ecmwf_temp)
+        diff_threshold_c = 8.0  # 8°C = ~15°F
+        if diff_c > diff_threshold_c:
+            print(f"  [METAR SUSPICIOUS] {city_slug}: METAR {raw_metar:.1f}°C vs ECMWF {ecmwf_temp:.1f}°C (diff {diff_c:.1f}°C > {diff_threshold_c}°C threshold) — using ECMWF instead")
+            return None
+
+    # Convert to display unit
+    if unit == "F":
+        return round(raw_metar * 9/5 + 32, 1)
+    return round(raw_metar, 1)
+
+def get_actual_temp(city_slug, date_str):
+    """Actual temperature via Visual Crossing for closed markets."""
+    loc = LOCATIONS[city_slug]
+    station = loc["station"]
+    unit = loc["unit"]
+    vc_unit = "us" if unit == "F" else "metric"
+    url = (
+        f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline"
+        f"/{station}/{date_str}/{date_str}"
+        f"?unitGroup={vc_unit}&key={VC_KEY}&include=days&elements=tempmax"
+    )
+    try:
+        data = requests.get(url, timeout=(2, 5)).json()
+        days = data.get("days", [])
+        if days and days[0].get("tempmax") is not None:
+            return round(float(days[0]["tempmax"]), 1)
+    except Exception as e:
+        print(f"  [VC] {city_slug} {date_str}: {e}")
+    return None
+
+def check_market_resolved(market_id):
+    """
+    Checks if the market closed on Polymarket and who won.
+    Returns: None (still open), True (YES won), False (NO won)
+    """
+    try:
+        r = requests.get(f"https://gamma-api.polymarket.com/markets/{market_id}", timeout=(2, 4))
+        data = r.json()
+        closed = data.get("closed", False)
+        if not closed:
+            return None
+        # Check YES price — if ~1.0 then WIN, if ~0.0 then LOSS
+        prices = json.loads(data.get("outcomePrices", "[0.5,0.5]"))
+        yes_price = float(prices[0])
+        if yes_price >= 0.95:
+            return True   # WIN
+        elif yes_price <= 0.05:
+            return False  # LOSS
+        return None  # not yet determined
+    except Exception as e:
+        print(f"  [RESOLVE] {market_id}: {e}")
+    return None
+
+# =============================================================================
+# POLYMARKET
+# =============================================================================
+
+def get_polymarket_event(city_slug, month, day, year):
+    slug = f"highest-temperature-in-{city_slug}-on-{month}-{day}-{year}"
+    try:
+        r = requests.get(f"https://gamma-api.polymarket.com/events?slug={slug}", timeout=(2, 4))
+        data = r.json()
+        if data and isinstance(data, list) and len(data) > 0:
+            return data[0]
+    except Exception:
+        pass
+    return None
+
+def get_market_price(market_id):
+    try:
+        r = requests.get(f"https://gamma-api.polymarket.com/markets/{market_id}", timeout=(3, 5))
+        prices = json.loads(r.json().get("outcomePrices", "[0.5,0.5]"))
+        return float(prices[0])
+    except Exception:
+        return None
+
+def parse_temp_range(question):
+    if not question: return None
+    num = r'(-?\d+(?:\.\d+)?)'
+    if re.search(r'or below', question, re.IGNORECASE):
+        m = re.search(num + r'[°]?[FC] or below', question, re.IGNORECASE)
+        if m: return (-999.0, float(m.group(1)))
+    if re.search(r'or higher', question, re.IGNORECASE):
+        m = re.search(num + r'[°]?[FC] or higher', question, re.IGNORECASE)
+        if m: return (float(m.group(1)), 999.0)
+    m = re.search(r'between ' + num + r'-' + num + r'[°]?[FC]', question, re.IGNORECASE)
+    if m: return (float(m.group(1)), float(m.group(2)))
+    m = re.search(r'be ' + num + r'[°]?[FC] on', question, re.IGNORECASE)
+    if m:
+        v = float(m.group(1))
+        return (v, v)
+    return None
+
+def hours_to_resolution(end_date_str):
+    try:
+        end = datetime.fromisoformat(end_date_str.replace("Z", "+00:00"))
+        return max(0.0, (end - datetime.now(timezone.utc)).total_seconds() / 3600)
+    except Exception:
+        return 999.0
+
+def in_bucket(forecast, t_low, t_high):
+    if t_low == t_high:
+        return round(float(forecast)) == round(t_low)
+    return t_low <= float(forecast) <= t_high
+
+# =============================================================================
+# MARKET DATA STORAGE
+# Each market is stored in a separate file: data/markets/{city}_{date}.json
+# =============================================================================
+
+def market_path(city_slug, date_str):
+    return MARKETS_DIR / f"{city_slug}_{date_str}.json"
+
+def load_market(city_slug, date_str):
+    p = market_path(city_slug, date_str)
+    if p.exists():
+        m = json.loads(p.read_text(encoding="utf-8"))
+        # Ensure all required list fields exist (migrated from older file format)
+        for key in ("forecast_snapshots", "market_snapshots"):
+            if key not in m:
+                m[key] = []
+        # Ensure market_id in all_outcomes (migrated from older format)
+        if "all_outcomes" in m:
+            for o in m["all_outcomes"]:
+                if "market_id" not in o:
+                    o["market_id"] = o.get("id", "")
+        return m
+    return None
+
+def save_market(market):
+    p = market_path(market["city"], market["date"])
+    p.write_text(json.dumps(market, indent=2, ensure_ascii=False), encoding="utf-8")
+
+def load_all_markets():
+    markets = []
+    # Skip known non-market JSON files in the markets directory
+    skip_files = {"calibration.json", "fill_log.json", "slippage_log.json", "city_error_history.json"}
+    for f in MARKETS_DIR.glob("*.json"):
+        if f.name in skip_files:
+            continue
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+            # Skip files that aren't market dicts (no status field)
+            if isinstance(data, dict) and "status" in data:
+                markets.append(data)
+        except Exception:
+            pass
+    return markets
+
+def new_market(city_slug, date_str, event, hours):
+    loc = LOCATIONS[city_slug]
+    return {
+        "city":               city_slug,
+        "city_name":          loc["name"],
+        "date":               date_str,
+        "unit":               loc["unit"],
+        "station":            loc["station"],
+        "event_end_date":     event.get("endDate", ""),
+        "hours_at_discovery": round(hours, 1),
+        "status":             "open",           # open | closed | resolved
+        "position":           None,             # filled when position opens
+        "actual_temp":        None,             # filled after resolution
+        "resolved_outcome":   None,             # win / loss / no_position
+        "pnl":                None,
+        "forecast_snapshots": [],               # list of forecast snapshots
+        "market_snapshots":   [],               # list of market price snapshots
+        "all_outcomes":       [],               # all market buckets
+        "created_at":         datetime.now(timezone.utc).isoformat(),
+    }
+
+# =============================================================================
+# STATE (balance and open positions)
+# =============================================================================
+
+def load_state():
+    if STATE_FILE.exists():
+        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
+    return {
+        "balance":          BALANCE,
+        "starting_balance": BALANCE,
+        "total_trades":     0,
+        "wins":             0,
+        "losses":           0,
+        "peak_balance":     BALANCE,
+    }
+
+def save_state(state):
+    STATE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+
+# =============================================================================
+# CORE LOGIC
+# =============================================================================
+
+def take_forecast_snapshot(city_slug, dates):
+    """Fetches forecasts from all sources and returns a snapshot."""
+    now_str = datetime.now(timezone.utc).isoformat()
+    ecmwf   = get_ecmwf(city_slug, dates)
+    hrrr    = get_hrrr(city_slug, dates)
+    meteoblue = get_meteoblue_temp(city_slug, dates[0]) if _cfg.get('meteoblue_api_key') else None
+    today   = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    snapshots = {}
+    for date in dates:
+        snap = {
+            "ts":    now_str,
+            "ecmwf": ecmwf.get(date),
+            "hrrr":  hrrr.get(date) if date <= (datetime.now(timezone.utc) + timedelta(days=2)).strftime("%Y-%m-%d") else None,
+            "metar": get_metar(city_slug, ecmwf_temp=ecmwf.get(date)) if date == today else None,
+            "meteoblue": meteoblue.get(date) if meteoblue else None,
+        }
+
+        # Build ensemble: collect all valid model temperatures
+        loc = LOCATIONS[city_slug]
+        unit = loc["unit"]
+        city_weights = get_model_weights(city_slug)
+
+        # Collect valid model values with weights
+        model_vals = {}  # model_name -> (value, weight)
+        if snap["ecmwf"] is not None:
+            model_vals["ecmwf"] = (snap["ecmwf"], city_weights.get("ecmwf", 0.5))
+        if snap["hrrr"] is not None:
+            model_vals["hrrr"] = (snap["hrrr"], city_weights.get("hrrr", 0.3))
+        if snap["metar"] is not None:
+            model_vals["metar"] = (snap["metar"], city_weights.get("metar", 0.15))
+        if snap.get("meteoblue") is not None:
+            model_vals["meteoblue"] = (snap["meteoblue"], city_weights.get("meteoblue", 0.2))
+
+        # Disagreement detection: if models disagree by >3°C/°F, reduce confidence
+        disagreement = 0.0
+        model_temps = list(model_vals.keys())
+        if len(model_temps) >= 2:
+            temps = [model_vals[m][0] for m in model_temps]
+            disagreement = max(temps) - min(temps)
+        snap["model_disagreement"] = round(disagreement, 1)
+        snap["model_count"] = len(model_temps)
+
+        # Compute weighted ensemble average
+        if model_vals:
+            total_weight = sum(m[1] for m in model_vals.values())
+            if total_weight > 0:
+                raw_best = round(
+                    sum(model_vals[m][0] * model_vals[m][1] for m in model_vals) / total_weight,
+                    1 if unit == "C" else 0,
+                )
+                snap["best_source"] = "+".join(sorted(model_temps))
+            else:
+                raw_best = None
+                snap["best_source"] = None
+        else:
+            raw_best = None
+            snap["best_source"] = None
+
+        # Apply bias + UHI corrections (meteorologist optimizations)
+        if raw_best is not None:
+            snap["raw"]       = raw_best
+            snap["ecmwf_raw"] = snap["ecmwf"]   # store raw before bias
+            snap["hrrr_raw"]  = snap["hrrr"]    # store raw before bias
+            snap["metar_raw"] = snap["metar"]    # store raw METAR before bias
+            snap["best"]      = apply_bias(raw_best, city_slug, unit)
+            snap["bias"]      = get_bias(city_slug)
+            snap["uhi"]       = get_uhi(city_slug)
+            # Reduce confidence if models disagree significantly
+            # Disagreement > 3°C/°F means high uncertainty — mark it in the snap
+            if disagreement > 3.0:
+                snap["high_disagreement"] = True
+                # When disagreement is high, the ensemble average may be unreliable
+                # Use the most aggressive (closest to actual) model's value as a tiebreaker
+                # For now, just flag it — the probability calculation will use a wider sigma
+                snap["confidence_reduced"] = True
+            else:
+                snap["high_disagreement"] = False
+                snap["confidence_reduced"] = False
+        else:
+            snap["best"] = None
+            snap["raw"]  = None
+            snap["high_disagreement"] = False
+            snap["confidence_reduced"] = False
+
+        snapshots[date] = snap
+    return snapshots
+
+def scan_and_update():
+    """Main function of one cycle: updates forecasts, opens/closes positions."""
+    global _cal
+    now      = datetime.now(timezone.utc)
+    state    = load_state()
+    balance  = state["balance"]
+    new_pos  = 0
+    closed   = 0
+    resolved = 0
+
+    for city_slug, loc in LOCATIONS.items():
+        # Skip cities that don't meet 90%+ win rate criteria
+        if not should_scan_city(city_slug):
+            continue
+            
+        unit = loc["unit"]
+        unit_sym = "F" if unit == "F" else "C"
+        print(f"  -> {loc['name']}...", end=" ", flush=True)
+
+        try:
+            # D+1 and D+2 — daily-resolution markets have more pricing inefficiency and edge
+            dates = [(now + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1, 3)]
+            # Wrap snapshot in timeout to prevent any single city from hanging the scan
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as _ex:
+                _fut = _ex.submit(take_forecast_snapshot, city_slug, dates)
+                try:
+                    snapshots = _fut.result(timeout=15)
+                except concurrent.futures.TimeoutExpired:
+                    print(f"TIMEOUT (15s)", end=" ", flush=True)
+                    snapshots = {}
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"skipped ({e})")
+            continue
+
+        for i, date in enumerate(dates):
+            dt    = datetime.strptime(date, "%Y-%m-%d")
+            event = get_polymarket_event(city_slug, MONTHS[dt.month - 1], dt.day, dt.year)
+            if not event:
+                continue
+
+            end_date = event.get("endDate", "")
+            hours    = hours_to_resolution(end_date) if end_date else 0
+            horizon  = f"D+{i}"
+
+            # Load or create market record
+            mkt = load_market(city_slug, date)
+            if mkt is None:
+                if hours < MIN_HOURS or hours > MAX_HOURS:
+                    continue
+                mkt = new_market(city_slug, date, event, hours)
+
+            # Skip if market already resolved
+            if mkt["status"] == "resolved":
+                continue
+
+            # Update outcomes list — prices taken directly from event
+            outcomes = []
+            for market in event.get("markets", []):
+                question = market.get("question", "")
+                mid      = str(market.get("id", ""))
+                volume   = float(market.get("volume", 0))
+                rng      = parse_temp_range(question)
+                if not rng:
+                    continue
+                try:
+                    prices = json.loads(market.get("outcomePrices", "[0.5,0.5]"))
+                    # Determine YES price based on market structure:
+                    # - Binary markets (2 prices): prices[0]=NO, prices[1]=YES
+                    #   Binary examples: "Will temp be between 80-81°F?", "be 73°F or below"
+                    # - Multi-outcome markets (N prices): prices[0]=YES for first bucket
+                    #   Multi examples: London "be 14°C", "be 15°C" in same market
+                    is_binary = len(prices) == 2
+                    if is_binary:
+                        # Binary YES/NO market: YES price is the higher of the two
+                        yes_price = max(float(prices[0]), float(prices[1]))
+                        no_price  = min(float(prices[0]), float(prices[1]))
+                    else:
+                        # Multi-outcome: prices[0] is YES for the first outcome
+                        yes_price = float(prices[0])
+                        no_price  = 1.0 - yes_price
+                    bid = yes_price   # what you get if you bet YES
+                    ask = yes_price  # same in AMM model
+                except Exception:
+                    continue
+                outcomes.append({
+                    "question":  question,
+                    "market_id": mid,
+                    "range":     rng,
+                    "bid":       round(bid, 4),
+                    "ask":       round(ask, 4),
+                    "price":     round(bid, 4),
+                    "spread":    0.0,
+                    "volume":    round(volume, 0),
+                    "is_binary": is_binary,
+                    "yes_price": round(yes_price, 4),
+                    "no_price":  round(no_price, 4),
+                })
+
+            outcomes.sort(key=lambda x: x["range"][0])
+            mkt["all_outcomes"] = outcomes
+
+            # Forecast snapshot — capture raw and corrected forecasts
+            snap = snapshots.get(date, {})
+            forecast_snap = {
+                "ts":           snap.get("ts"),
+                "horizon":      horizon,
+                "hours_left":   round(hours, 1),
+                "ecmwf_raw":    snap.get("ecmwf"),
+                "hrrr_raw":     snap.get("hrrr"),
+                "metar_raw":    snap.get("metar"),
+                "best_raw":     snap.get("raw"),        # uncorrected
+                "best":         snap.get("best"),       # bias + UHI corrected
+                "best_source":  snap.get("best_source"),
+                "bias":         snap.get("bias", 0.0),
+                "uhi":          snap.get("uhi", 0.0),
+                "model_disagreement": snap.get("model_disagreement", 0.0),
+                "high_disagreement": snap.get("high_disagreement", False),
+            }
+            # Defensive: ensure key exists (for old saved markets without this field)
+            if "forecast_snapshots" not in mkt:
+                mkt["forecast_snapshots"] = []
+            mkt["forecast_snapshots"].append(forecast_snap)
+
+            # Market price snapshot
+            # For binary markets: prefer buckets containing the forecast temp.
+            # For multi-outcome markets: use highest price.
+            # Score: for binary buckets containing forecast, score = how close to midpoint.
+            #        For buckets NOT containing forecast, score = moderate yes_price.
+            forecast_temp_snap = snap.get("best")
+            if outcomes:
+                binary_candidates = []
+                non_binary = []
+                for o in outcomes:
+                    lo, hi = o["range"]
+                    if forecast_temp_snap is not None and lo <= forecast_temp_snap <= hi:
+                        binary_candidates.append(o)
+                    elif not o.get("is_binary", False):
+                        non_binary.append(o)
+                
+                if binary_candidates:
+                    # Among buckets containing the forecast, prefer the one closest to midpoint
+                    # Score = -abs(midpoint - forecast) — lower is better
+                    top = min(binary_candidates, key=lambda x: abs((x["range"][0] + x["range"][1]) / 2 - forecast_temp_snap))
+                elif non_binary:
+                    # Multi-outcome Celsius market: highest price wins
+                    top = max(non_binary, key=lambda x: x["price"])
+                else:
+                    # Pure binary with no bucket containing forecast: pick nearest bucket
+                    top = min(outcomes, key=lambda x: abs((x["range"][0] + x["range"][1]) / 2 - forecast_temp_snap)) if forecast_temp_snap is not None else max(outcomes, key=lambda x: x["price"])
+            else:
+                top = None
+            market_snap = {
+                "ts":       snap.get("ts"),
+                "top_bucket": f"{top['range'][0]}-{top['range'][1]}{unit_sym}" if top else None,
+                "top_price":  top["price"] if top else None,
+            }
+            # Defensive: ensure key exists (for old saved markets without this field)
+            if "market_snapshots" not in mkt:
+                mkt["market_snapshots"] = []
+            mkt["market_snapshots"].append(market_snap)
+
+            forecast_temp = snap.get("best")
+            best_source   = snap.get("best_source")
+
+            # --- STOP-LOSS AND TRAILING STOP ---
+            if mkt.get("position") and mkt["position"].get("status") == "open":
+                pos = mkt["position"]
+                current_price = None
+                matched_outcome = None
+                for o in outcomes:
+                    if o.get("market_id", "") == pos.get("market_id", ""):
+                        current_price = o["price"]
+                        matched_outcome = o
+                        break
+
+                if current_price is not None and matched_outcome is not None:
+                    current_price = matched_outcome.get("bid", current_price)  # sell at bid
+                    entry = pos["entry_price"]
+                    stop  = pos.get("stop_price", entry * 0.80)  # 20% stop by default
+
+                    # Trailing: if up 20%+ — move stop to breakeven
+                    if current_price >= entry * 1.20 and stop < entry:
+                        pos["stop_price"] = entry
+                        pos["trailing_activated"] = True
+
+                    # Check stop
+                    if current_price <= stop:
+                        pnl = round((current_price - entry) * pos["shares"], 2)
+                        balance += pos["cost"] + pnl
+                        pos["closed_at"]    = snap.get("ts")
+                        pos["close_reason"] = "stop_loss" if current_price < entry else "trailing_stop"
+                        pos["exit_price"]   = current_price
+                        pos["pnl"]          = pnl
+                        pos["status"]       = "closed"
+                        closed += 1
+                        reason = "STOP" if current_price < entry else "TRAILING BE"
+                        print(f"  [{reason}] {loc['name']} {date} | entry ${entry:.3f} exit ${current_price:.3f} | PnL: {'+'if pnl>=0 else ''}{pnl:.2f}")
+                        # Record fill result for slippage tracking
+                        bucket_label_stop = f"{pos.get('bucket_low', 0)}-{pos.get('bucket_high', 0)}{unit_sym}"
+                        record_fill_result(
+                            market_id=pos.get("market_id", ""),
+                            city=mkt.get("city_slug", ""),
+                            date=mkt.get("date", ""),
+                            bucket=bucket_label_stop,
+                            direction="buy_yes",
+                            entry_price=pos.get("entry_price", 0),
+                            exit_price=current_price,
+                            size=pos.get("cost", 0),
+                            shares=pos.get("shares", 0),
+                            pnl=pnl,
+                            close_reason=pos.get("close_reason", ""),
+                            fill_record=pos.get("fill_record"),
+                        )
+
+            # --- CLOSE POSITION if forecast shifted 2+ degrees ---
+            if mkt.get("position") and forecast_temp is not None:
+                pos = mkt["position"]
+                old_bucket_low  = pos["bucket_low"]
+                old_bucket_high = pos["bucket_high"]
+                # 2-degree buffer — avoid closing on small forecast fluctuations
+                unit = loc["unit"]
+                buffer = 2.0 if unit == "F" else 1.0
+                mid_bucket = (old_bucket_low + old_bucket_high) / 2 if old_bucket_low != -999 and old_bucket_high != 999 else forecast_temp
+                forecast_far = abs(forecast_temp - mid_bucket) > (abs(mid_bucket - old_bucket_low) + buffer)
+                if not in_bucket(forecast_temp, old_bucket_low, old_bucket_high) and forecast_far:
+                    current_price = None
+                    matched_outcome_fc = None
+                    for o in outcomes:
+                        if str(o.get("market_id", "")) == str(pos.get("market_id", "")):
+                            current_price = o["price"]
+                            matched_outcome_fc = o
+                            break
+                    if current_price is not None:
+                        pnl = round((current_price - pos["entry_price"]) * pos["shares"], 2)
+                        balance += pos["cost"] + pnl
+                        mkt["position"]["closed_at"]    = snap.get("ts")
+                        mkt["position"]["close_reason"] = "forecast_changed"
+                        mkt["position"]["exit_price"]   = current_price
+                        mkt["position"]["pnl"]          = pnl
+                        mkt["position"]["status"]       = "closed"
+                        closed += 1
+                        print(f"  [CLOSE] {loc['name']} {date} — forecast changed | PnL: {'+'if pnl>=0 else ''}{pnl:.2f}")
+                        # Record fill result for slippage tracking
+                        record_fill_result(
+                            market_id=pos.get("market_id", ""),
+                            city=mkt.get("city_slug", ""),
+                            date=mkt.get("date", ""),
+                            bucket=f"{old_bucket_low}-{old_bucket_high}{unit_sym}",
+                            direction="buy_yes",
+                            entry_price=pos.get("entry_price", 0),
+                            exit_price=current_price,
+                            size=pos.get("cost", 0),
+                            shares=pos.get("shares", 0),
+                            pnl=pnl,
+                            close_reason="forecast_changed",
+                            fill_record=pos.get("fill_record"),
+                        )
+
+            # --- OPEN POSITION ---
+            # Enforce morning trading window — best METAR freshness and model accuracy
+            _best_hours = _cfg.get("best_trading_hours", list(range(24)))
+            _now_hour   = datetime.now(timezone.utc).hour
+            _in_window  = _now_hour in _best_hours
+            
+            # CRITICAL: Check city win_rate from self-improvement data before opening
+            # Skip cities with < 50% win_rate (they lose money overall)
+            city_win_rate = get_city_error_win_rate(city_slug)
+            if city_win_rate is not None and city_win_rate < 0.50:
+                if mkt.get("position") is None:  # Only log on first scan, not every loop
+                    pass  # silent skip for poor cities
+            elif not mkt.get("position") and forecast_temp is not None and hours >= MIN_HOURS and _in_window:
+                # DYNAMIC SIGMA: tighten sigma when models agree, widen when they disagree.
+                # Atlanta (74,74) diff=0°F → sigma should be tighter (0.73°C ≈ 1.3°F)
+                # Miami (82,83) diff=1°F → sigma stays at base or slightly tighter
+                # This is the KEY FIX: model consensus = precision = lower sigma = higher probability
+                base_sigma = get_horizon_adjusted_sigma(city_slug, hours)
+                disagreement = snap.get("model_disagreement", 0.0)
+                unit_is_f = (unit == "F")
+                # Convert disagreement to same unit as sigma
+                disagree_deg = disagreement * (1.8 if unit_is_f else 1.0)
+                # Disagreement factor: 0°F diff → 0.5x (tighten), 3°F diff → 1.5x (widen)
+                disagree_factor = 1.0 - min(0.5, disagree_deg / 6.0)  # 0→0.5x, 3→1.0x, 6→1.5x
+                sigma = round(base_sigma * disagree_factor, 2)
+                sigma = max(0.5, sigma)  # floor at 0.5 to prevent division issues
+
+                # If models disagree significantly (>3°C/°F), inflate sigma to reflect uncertainty
+                if snap.get("high_disagreement", False):
+                    sigma = round(base_sigma * 1.5, 2)
+
+                # Forecast continuity check: reduce conviction if forecast jumped suddenly
+                # This catches model glitches (sudden 5-10°F shifts that aren't real weather)
+                continuity_ok, conviction_mult, continuity_reason = check_forecast_continuity(
+                    mkt, forecast_temp, sigma
+                )
+                if not continuity_ok:
+                    print(f"  [CONTINUITY JUMP] {loc['name']} {date} — {continuity_reason} (conviction*{conviction_mult})")
+
+                best_signal = None
+
+                # Find the best bucket: maximum edge = P_forecast - P_market.
+                # For overpriced buckets (ask > 0.90), consider NO-side (short the bucket).
+                # Also handles unit mismatch (°F vs °C) via bucket_score().
+                bucket_non_cold = [o for o in outcomes if "range" in o and o["range"][0] != -999]
+
+                def bucket_score(fc, sg):
+                    """Return list of (outcome, prob) for all buckets given forecast/sigma."""
+                    results = []
+                    for o in bucket_non_cold:
+                        lo, hi = o["range"]
+                        z1 = (lo - fc) / sg
+                        z2 = (hi - fc) / sg
+                        prob = abs(math.erf(z2 / math.sqrt(2)) - math.erf(z1 / math.sqrt(2))) / 2
+                        results.append((o, prob))
+                    return results
+
+                # Determine unit (try °C if °F score is near zero and forecast > 50°F)
+                score_f = bucket_score(forecast_temp, sigma)
+                fc_temp_for_buckets = forecast_temp
+                sigma_c = sigma
+                if score_f and score_f[0][1] < 0.01 and forecast_temp > 50:
+                    fc_c = round((forecast_temp - 32) * 5 / 9, 1)
+                    sg_c = sigma / 1.8 if unit == "F" else sigma
+                    score_c = bucket_score(fc_c, sg_c)
+                    if score_c and score_c[0][1] > score_f[0][1]:
+                        fc_temp_for_buckets = fc_c
+                        sigma_c = sg_c
+                        score_f = score_c
+
+                # Compute actual EV for each bucket. Track both YES and NO sides.
+                # - YES edge: p - ask
+                # - NO edge (overpriced bucket): actual EV = (1-p)*(1-ask) - p*ask
+                #   This is the expected profit per dollar bet on the NO side.
+                # Ranking by actual EV (not just probability difference) is critical.
+                best_ev = 0.0
+                best_edge_simple = 0.0  # for logging comparison
+                best_side = None   # "YES" or "NO"
+                best_bucket = None
+                best_bucket_prob = 0.0
+
+                for o, bp in score_f:
+                    t_low, t_high = o["range"]
+                    ask  = o.get("ask", o["price"])
+                    bid  = o.get("bid", o["price"])
+                    p    = round(bp * conviction_mult, 4)
+
+                    # YES side EV: expected profit per dollar bet
+                    if ask <= MAX_PRICE:
+                        yes_ev = (p * (1.0 - ask)) - ((1.0 - p) * ask)
+                        yes_ev = round(yes_ev, 4)
+                        if yes_ev > best_ev:
+                            best_ev = yes_ev
+                            best_edge_simple = round(p - ask, 4)
+                            best_side = "YES"
+                            best_bucket = o
+                            best_bucket_prob = bp
+
+                    # NO side EV for underpriced buckets:
+                    # A bucket is underpriced when market price (ask) < our raw forecast probability (bp).
+                    # Market implies P(bucket) = ask, we forecast P(bucket) = bp (raw).
+                    # If ask < bp, market underestimates this bucket → NO is +EV.
+                    # Cost per NO share = ask. Win = (1-ask). Prob win = 1-p, prob lose = p.
+                    # EV = (1-p)*(1-ask) - p*ask
+                    if ask < bp and ask < 0.9995:
+                        p_not_bucket = 1.0 - p
+                        cost_no = ask
+                        win_no = 1.0 - ask
+                        no_ev = (p_not_bucket * win_no) - (p * cost_no)
+                        no_ev = round(no_ev, 6)
+                        if no_ev > best_ev:
+                            best_ev = no_ev
+                            best_edge_simple = round(ask - p, 4)
+                            best_side = "NO"
+                            best_bucket = o
+                            best_bucket_prob = bp
+
+                matched_bucket = best_bucket
+
+                if matched_bucket:
+                    o = matched_bucket
+                    t_low, t_high = o["range"]
+                    volume = o.get("volume", 0)
+                    bid    = o.get("bid", o["price"])
+                    ask    = o.get("ask", o["price"])
+                    spread = o.get("spread", 0)
+
+                    if volume >= MIN_VOLUME:
+                        p_raw = best_bucket_prob * conviction_mult
+                        p = round(p_raw, 4)
+                        ev = best_ev  # actual EV computed correctly for YES and NO sides
+                        FORCE_TRADE = _cfg.get("paper_force_trade", False)
+                        if ev >= MIN_EV or FORCE_TRADE:
+                            print(f"  [EDGE] {loc['name']} {date} | side={best_side} | edge={ev:+.4f} | P={p:.4f} | mkt=${ask:.3f} | sig={sigma:.2f} | fc={forecast_temp:.1f}" + (f" | FORCE" if FORCE_TRADE else ""))
+                            kelly = calc_kelly(p, ask, best_side)
+                            size  = bet_size(kelly, balance)
+                            if FORCE_TRADE and size < 1.00:
+                                conviction = 10
+                                heuristic_size = round(min(0.20 * balance * (conviction / 10), MAX_BET), 2)
+                                heuristic_size = max(heuristic_size, 1.00)
+                                print(f"  [PAPER FORCE] Using heuristic size ${heuristic_size:.2f}")
+                                size = heuristic_size
+                            if size < 0.50:
+                                print(f"  [NO SIGNAL] Kelly too small: kelly={kelly:.4f} size=${size:.2f}")
+                            if size >= 0.50:
+                                # Build signal: for NO side, entry_price is the ask (cost of NO)
+                                entry = ask
+                                shares = round(size / entry, 2)
+                                best_signal = {
+                                    "market_id":    o.get("market_id", ""),
+                                    "question":     o["question"],
+                                    "bucket_low":   t_low,
+                                    "bucket_high":  t_high,
+                                    "entry_price":  entry,
+                                    "bid_at_entry": bid,
+                                    "spread":       spread,
+                                    "shares":       shares,
+                                    "cost":         size,
+                                    "p":            round(p, 4),
+                                    "ev":           round(ev, 4),
+                                    "kelly":        round(kelly, 4),
+                                    "forecast_temp":forecast_temp,
+                                    "forecast_src": best_source,
+                                    "sigma":        sigma,
+                                    "opened_at":    snap.get("ts"),
+                                    "status":       "open",
+                                    "pnl":          None,
+                                    "exit_price":   None,
+                                    "close_reason": None,
+                                    "closed_at":    None,
+                                    "volume":       volume,
+                                    "fill_record":  None,
+                                    "side":         best_side,   # "YES" or "NO"
+                                }
+
+                if best_signal:
+                    # Fetch real bestAsk from Polymarket API for accurate entry price
+                    skip_position = False
+                    try:
+                        r = requests.get(f"https://gamma-api.polymarket.com/markets/{best_signal['market_id']}", timeout=(1.5, 3))
+                        mdata = r.json()
+                        real_ask = float(mdata.get("bestAsk", best_signal["entry_price"]))
+                        real_bid = float(mdata.get("bestBid", best_signal["bid_at_entry"]))
+                        real_spread = round(real_ask - real_bid, 4)
+                        FORCE_TRADE = _cfg.get("paper_force_trade", False)
+                        # Re-check slippage and price with real values
+                        if real_spread > MAX_SLIPPAGE or (real_ask >= MAX_PRICE and not FORCE_TRADE):
+                            print(f"  [SKIP] {loc['name']} {date} — real ask ${real_ask:.3f} spread ${real_spread:.3f}")
+                            skip_position = True
+                        else:
+                            best_signal["entry_price"]  = real_ask
+                            best_signal["bid_at_entry"] = real_bid
+                            best_signal["spread"]       = real_spread
+                            best_signal["shares"]       = round(best_signal["cost"] / real_ask, 2)
+                            best_signal["ev"]           = round(calc_ev(best_signal["p"], real_ask), 4)
+                    except Exception as e:
+                        print(f"  [WARN] Could not fetch real ask for {best_signal['market_id']}: {e}")
+
+                    if not skip_position and (best_signal["entry_price"] <= MAX_PRICE or FORCE_TRADE):
+                        # --- TRADINGAGENTS MULTI-AGENT DEBATE ---
+                        # Before ANY trade, run full bull/bear debate + risk gate
+                        bucket_mid = (best_signal["bucket_high"] if best_signal["bucket_low"] == -999 else best_signal["bucket_low"]) + (best_signal["bucket_high"] - best_signal["bucket_low"]) / 2
+                        FORCE_TRADE = _cfg.get("paper_force_trade", False)
+                        if FORCE_TRADE:
+                            approved = True
+                            decision = {"risk": {"verdict": "PAPER_FORCE_APPROVED", "conviction": 10, "position": "MAX_BET", "reject_reason": None}}
+                            print(f"  [PAPER FORCE] Bypassing TradingAgents for {loc['name']} {date} - EV={ev:.3f}")
+                        else:
+                            print(f"  [DEBATE] Running TradingAgents debate for {loc['name']}...")
+                            approved, decision = should_trade(
+                                city=city_slug,
+                                target_temp=int(round(bucket_mid)),
+                                target_date=date,
+                                unit=unit,
+                                p=best_signal["p"],
+                                price=best_signal["entry_price"],
+                                kelly=best_signal["kelly"],
+                                market_id=best_signal["market_id"],
+                                side=best_signal["side"],  # "YES" or "NO"
+                                hours_ahead=hours,
+                            )
+                        risk_result = decision.get("risk", {})
+                        verdict = risk_result.get("verdict", "UNKNOWN")
+                        conviction = risk_result.get("conviction", 0)
+                        position_type = risk_result.get("position", "NO_BET")
+                        can_reach = risk_result.get("can_reach", True)
+                        kelly_reduction = risk_result.get("kelly_reduction", 1.0)
+
+                        # MUST get approval from risk manager AND conviction >= 3
+                        if not approved:
+                            print(f"  [REJECTED] Risk Manager blocked trade | conviction {conviction}/10 | reason: {risk_result.get('reject_reason', 'low conviction or high risk')}")
+                            continue
+                        # Auto-approve high-EV trades
+                        if ev >= 0.20 and not FORCE_TRADE:
+                            conviction = 7
+                            print(f"  [AUTO-APPROVE] High EV={ev:.3f} → setting conviction=7")
+                        if conviction < 2 and not FORCE_TRADE:
+                            print(f"  [REJECTED] Conviction {conviction}/10 < 2 threshold — skipping marginal trade")
+                            continue
+
+                        # Determine actual bet size based on conviction + Kelly sizing guard
+                        actual_cost = best_signal["cost"]
+                        if position_type == "MAX_BET":
+                            actual_cost = best_signal["cost"]
+                        elif position_type == "STANDARD_BET":
+                            actual_cost = round(best_signal["cost"] * 0.75, 2)
+                        elif position_type == "SMALL_BET":
+                            actual_cost = round(best_signal["cost"] * 0.5, 2)
+                        else:
+                            print(f"  [REJECTED] Position type: {position_type}")
+                            continue
+
+                        # Apply Kelly sizing guard: reduce bet by 50% if Kelly > 15% AND price > $0.10
+                        if kelly_reduction < 1.0:
+                            actual_cost = round(actual_cost * kelly_reduction, 2)
+                            print(f"  [KELLY GUARD] Bet reduced by {(1-kelly_reduction)*100:.0f}% → ${actual_cost:.2f}")
+
+                        print(f"  [APPROVED] Risk Manager approved | conviction {conviction}/10 | {position_type}")
+                        
+                        # --- WHALE TRADING FILTERS ---
+                        # Apply whale strategies: model consensus, price thresholds, timing
+                        if FORCE_TRADE:
+                            whale_can_trade = True
+                            whale_reason = "PAPER_FORCE"
+                            adjusted_temp = None
+                            print(f"  [PAPER FORCE] Whale filters bypassed for {loc['name']} {date}")
+                        else:
+                            whale_can_trade, whale_reason, adjusted_temp = apply_whale_filters(
+                                city_slug, forecast_temp, best_signal["entry_price"],
+                                {"ecmwf": snap.get("ecmwf"), "hrrr": snap.get("hrrr")},
+                                is_binary=matched_bucket.get("is_binary", False)
+                            )
+                        if not whale_can_trade:
+                            print(f"  [WHALE SKIP] {loc['name']} {date} — {whale_reason}")
+                            continue
+                        
+                        # Use adjusted temperature if whale consensus provided different value
+                        if adjusted_temp is not None:
+                            best_signal["forecast_temp"] = adjusted_temp
+                        
+                        print(f"  [WHALE] Whale filters passed | {whale_reason}")
+                        
+                        # --- REALISTIC AMM FILL SIMULATION ---
+                        # Polymarket AMM doesn't guarantee fills — simulate realistic behavior
+                        bucket_label = f"{best_signal['bucket_low']}-{best_signal['bucket_high']}{unit_sym}"
+                        fill_result = simulate_fill(
+                            entry_price=best_signal["entry_price"],
+                            size=actual_cost,
+                            volume=best_signal.get("volume", 5000),
+                            spread=best_signal.get("spread", 0.05),
+                            direction="buy_yes",
+                            market_id=best_signal["market_id"],
+                            city=city_slug,
+                            date=date,
+                            forecast_temp=best_signal["forecast_temp"],
+                            bucket=bucket_label,
+                            sigma=best_signal.get("sigma", 1.0),
+                            p=best_signal.get("p"),
+                            ev=best_signal.get("ev"),
+                        )
+                        
+                        if not fill_result["filled"]:
+                            slip_pct = f"{fill_result['slippage_pct']:.2%}" if fill_result.get("slippage_pct") else "N/A"
+                            print(f"  [MISSED FILL] {loc['name']} {date} | {bucket_label} | "
+                                  f"ask ${best_signal['entry_price']:.3f} | slip: {slip_pct} | "
+                                  f"fill_pct: {fill_result.get('fill_pct', 0):.0%} | "
+                                  f"reason: {fill_result.get('fill_reason', 'unknown')}")
+                            continue
+
+                        # USE SIMULATED PRICE for the actual trade
+                        simulated_price = fill_result["fill_price"]
+                        best_signal["fill_record"] = fill_result
+                        
+                        slip_pct = f"{fill_result['slippage_pct']:.2%}" if fill_result.get("slippage_pct") else "0%"
+                        print(f"  [FILL OK] {loc['name']} {date} | {bucket_label} | "
+                              f"ask ${best_signal['entry_price']:.3f} -> ${simulated_price:.3f} | "
+                              f"slip: {slip_pct} | fill: {fill_result.get('fill_pct', 0):.0%}")
+                        
+                        balance -= actual_cost
+                        best_signal["cost"] = actual_cost
+                        mkt["position"] = best_signal
+                        state["total_trades"] += 1
+                        new_pos += 1
+                        bucket_label = f"{best_signal['bucket_low']}-{best_signal['bucket_high']}{unit_sym}"
+                        print(f"  [BUY]  {loc['name']} {horizon} {date} | {bucket_label} | "
+                              f"${simulated_price:.3f} | EV {best_signal['ev']:+.2f} | "
+                              f"${best_signal['cost']:.2f} ({best_signal['forecast_src'].upper()}) | "
+                              f"slip: {slip_pct} | debate: {verdict}")
+
+            # Market closed by time
+            if hours < 0.5 and mkt["status"] == "open":
+                mkt["status"] = "closed"
+
+            save_market(mkt)
+            time.sleep(0.1)
+
+        print("ok")
+
+    # --- AUTO-RESOLUTION ---
+    for mkt in load_all_markets():
+        if mkt["status"] == "resolved":
+            continue
+
+        pos = mkt.get("position")
+        if not pos or pos.get("status") != "open":
+            continue
+
+        market_id = pos.get("market_id")
+        if not market_id:
+            continue
+
+        # Check if market closed on Polymarket
+        won = check_market_resolved(market_id)
+        if won is None:
+            continue  # market still open
+
+        # Market closed — record result
+        price  = pos["entry_price"]
+        size   = pos["cost"]
+        shares = pos["shares"]
+        pnl    = round(shares * (1 - price), 2) if won else round(-size, 2)
+
+        balance += size + pnl
+        pos["exit_price"]   = 1.0 if won else 0.0
+        pos["pnl"]          = pnl
+        pos["close_reason"] = "resolved"
+        pos["closed_at"]    = now.isoformat()
+        pos["status"]       = "closed"
+        mkt["pnl"]          = pnl
+        mkt["status"]       = "resolved"
+        mkt["resolved_outcome"] = "win" if won else "loss"
+
+        # Fetch actual temperature for calibration
+        try:
+            actual_temp = get_actual_temp(mkt.get("city", ""), mkt.get("date", ""))
+            if actual_temp is not None:
+                mkt["actual_temp"] = actual_temp
+                # Also update position with actual temp for calibration
+                pos["actual_temp"] = actual_temp
+        except Exception as e:
+            pass
+
+        if won:
+            state["wins"] += 1
+        else:
+            state["losses"] += 1
+
+        result = "WIN" if won else "LOSS"
+        print(f"  [{result}] {mkt['city_name']} {mkt['date']} | PnL: {'+'if pnl>=0 else ''}{pnl:.2f}")
+        resolved += 1
+        
+        # Record fill result for slippage tracking
+        unit_sym = "F" if mkt.get("unit") == "F" else "C"
+        bucket_str = f"{pos.get('bucket_low', 0)}-{pos.get('bucket_high', 0)}{unit_sym}"
+        record_fill_result(
+            market_id=pos.get("market_id", ""),
+            city=mkt.get("city_slug", ""),
+            date=mkt.get("date", ""),
+            bucket=bucket_str,
+            direction="buy_yes",
+            entry_price=pos.get("entry_price", 0),
+            exit_price=1.0 if won else 0.0,
+            size=pos.get("cost", 0),
+            shares=pos.get("shares", 0),
+            pnl=pnl,
+            close_reason="resolved",
+            fill_record=pos.get("fill_record"),
+            won=won,
+        )
+
+        # Emit observation to self-improver memory (alterbot integration)
+        if _self_improver_available and _tracker is not None:
+            try:
+                forecast_raw = pos.get("forecast_temp")
+                if forecast_raw is not None:
+                    forecast_c = (forecast_raw - 32) * 5/9 if forecast_raw > 40 else forecast_raw
+                    _tracker.add_error(
+                        city=mkt.get("city_slug", ""),
+                        forecast_c=forecast_c,
+                        actual_c=actual_temp if actual_temp else 0,
+                        forecast_raw=forecast_raw,
+                        bucket_min=pos.get("bucket_low"),
+                        bucket_max=pos.get("bucket_high"),
+                        market_question=mkt.get("question", ""),
+                        ev_used=pos.get("ev_used"),
+                        position_size=pos.get("cost"),
+                    )
+            except Exception as e:
+                print(f"[self_improver] emit failed: {e}")
+
+        save_market(mkt)
+        time.sleep(0.3)
+
+    state["balance"]      = round(balance, 2)
+    state["peak_balance"] = max(state.get("peak_balance", balance), balance)
+    save_state(state)
+
+    # Run calibration if enough data collected
+    all_mkts = load_all_markets()
+    resolved_count = len([m for m in all_mkts if m["status"] == "resolved"])
+    if resolved_count >= CALIBRATION_MIN:
+        global _cal
+        _cal = run_calibration(all_mkts)
+
+    # Print fill rate report at end of each cycle
+    print()
+    print_fill_report()
+    print()
+
+    return new_pos, closed, resolved, balance
+
+# =============================================================================
+# REPORT
+# =============================================================================
+
+def print_status():
+    state    = load_state()
+    markets  = load_all_markets()
+    open_pos = [m for m in markets if m.get("position") and m["position"].get("status") == "open"]
+    resolved = [m for m in markets if m["status"] == "resolved" and m.get("pnl") is not None]
+
+    bal     = state["balance"]
+    start   = state["starting_balance"]
+    ret_pct = (bal - start) / start * 100
+    wins    = state["wins"]
+    losses  = state["losses"]
+    total   = wins + losses
+
+    print(f"\n{'='*55}")
+    print(f"  WEATHERBET — STATUS")
+    print(f"{'='*55}")
+    print(f"  Balance:     ${bal:,.2f}  (start ${start:,.2f}, {'+'if ret_pct>=0 else ''}{ret_pct:.1f}%)")
+    print(f"  Trades:      {total} | W: {wins} | L: {losses} | WR: {wins/total:.0%}" if total else "  No trades yet")
+    print(f"  Open:        {len(open_pos)}")
+    print(f"  Resolved:    {len(resolved)}")
+
+    if open_pos:
+        print(f"\n  Open positions:")
+        total_unrealized = 0.0
+        for m in open_pos:
+            pos      = m["position"]
+            unit_sym = "F" if m["unit"] == "F" else "C"
+            label    = f"{pos['bucket_low']}-{pos['bucket_high']}{unit_sym}"
+
+            # Current price from latest market snapshot
+            current_price = pos.get("entry_price", pos.get("price", 0))
+            snaps = m.get("market_snapshots", [])
+            if snaps:
+                # Find our bucket price in all_outcomes
+                for o in m.get("all_outcomes", []):
+                    if o.get("market_id", "") == pos.get("market_id", ""):
+                        current_price = o["price"]
+                        break
+
+            unrealized = round((current_price - pos["entry_price"]) * pos["shares"], 2)
+            total_unrealized += unrealized
+            pnl_str = f"{'+'if unrealized>=0 else ''}{unrealized:.2f}"
+
+            print(f"    {m['city_name']:<16} {m['date']} | {label:<14} | "
+                  f"entry ${pos['entry_price']:.3f} -> ${current_price:.3f} | "
+                  f"PnL: {pnl_str} | {pos['forecast_src'].upper()}")
+
+        sign = "+" if total_unrealized >= 0 else ""
+        print(f"\n  Unrealized PnL: {sign}{total_unrealized:.2f}")
+
+    print(f"{'='*55}\n")
+
+def print_report():
+    markets  = load_all_markets()
+    resolved = [m for m in markets if m["status"] == "resolved" and m.get("pnl") is not None]
+
+    print(f"\n{'='*55}")
+    print(f"  WEATHERBET — FULL REPORT")
+    print(f"{'='*55}")
+
+    if not resolved:
+        print("  No resolved markets yet.")
+        return
+
+    total_pnl = sum(m["pnl"] for m in resolved)
+    wins      = [m for m in resolved if m["resolved_outcome"] == "win"]
+    losses    = [m for m in resolved if m["resolved_outcome"] == "loss"]
+
+    print(f"\n  Total resolved: {len(resolved)}")
+    print(f"  Wins:           {len(wins)} | Losses: {len(losses)}")
+    print(f"  Win rate:       {len(wins)/len(resolved):.0%}")
+    print(f"  Total PnL:      {'+'if total_pnl>=0 else ''}{total_pnl:.2f}")
+
+    print(f"\n  By city:")
+    for city in sorted(set(m["city"] for m in resolved)):
+        group = [m for m in resolved if m["city"] == city]
+        w     = len([m for m in group if m["resolved_outcome"] == "win"])
+        pnl   = sum(m["pnl"] for m in group)
+        name  = LOCATIONS[city]["name"]
+        print(f"    {name:<16} {w}/{len(group)} ({w/len(group):.0%})  PnL: {'+'if pnl>=0 else ''}{pnl:.2f}")
+
+    print(f"\n  Market details:")
+    for m in sorted(resolved, key=lambda x: x["date"]):
+        pos      = m.get("position", {})
+        unit_sym = "F" if m["unit"] == "F" else "C"
+        snaps    = m.get("forecast_snapshots", [])
+        first_fc = snaps[0].get("best") if snaps else None
+        last_fc  = snaps[-1].get("best") if snaps else None
+        label    = f"{pos.get('bucket_low')}-{pos.get('bucket_high')}{unit_sym}" if pos else "no position"
+        result   = m["resolved_outcome"].upper()
+        pnl_str  = f"{'+'if m['pnl']>=0 else ''}{m['pnl']:.2f}" if m["pnl"] is not None else "-"
+        fc_str   = f"forecast {first_fc}->{last_fc}{unit_sym}" if first_fc else "no forecast"
+        actual   = f"actual {m['actual_temp']}{unit_sym}" if m["actual_temp"] else ""
+        print(f"    {m['city_name']:<16} {m['date']} | {label:<14} | {fc_str} | {actual} | {result} {pnl_str}")
+
+    print(f"{'='*55}\n")
+
+# =============================================================================
+# MAIN LOOP
+# =============================================================================
+
+MONITOR_INTERVAL = 600  # monitor positions every 10 minutes
+
+def monitor_positions():
+    """Quick stop check on open positions without full scan."""
+    markets  = load_all_markets()
+    open_pos = [m for m in markets if m.get("position") and m["position"].get("status") == "open"]
+    if not open_pos:
+        return 0
+
+    state   = load_state()
+    balance = state["balance"]
+    closed  = 0
+
+    for mkt in open_pos:
+        pos = mkt["position"]
+        mid = pos.get("market_id", "")
+
+        # Fetch real bestBid from Polymarket API — actual sell price
+        current_price = None
+        try:
+            r = requests.get(f"https://gamma-api.polymarket.com/markets/{mid}", timeout=(1.5, 3))
+            mdata = r.json()
+            best_bid = mdata.get("bestBid")
+            if best_bid is not None:
+                current_price = float(best_bid)
+        except Exception:
+            pass
+
+        # Fallback to cached price if API failed
+        if current_price is None:
+            for o in mkt.get("all_outcomes", []):
+                if o.get("market_id", "") == mid:
+                    current_price = o.get("bid", o["price"])
+                    break
+
+        if current_price is None:
+            continue
+
+        entry = pos["entry_price"]
+        stop  = pos.get("stop_price", entry * 0.80)
+        city_name = LOCATIONS.get(mkt["city"], {}).get("name", mkt["city"])
+
+        # Hours left to resolution
+        end_date = mkt.get("event_end_date", "")
+        hours_left = hours_to_resolution(end_date) if end_date else 999.0
+
+        # Take-profit threshold based on hours to resolution
+        if hours_left < 24:
+            take_profit = None        # hold to resolution
+        elif hours_left < 48:
+            take_profit = 0.85        # 24-48h: take profit at $0.85
+        else:
+            take_profit = 0.75        # 48h+: take profit at $0.75
+
+        # Trailing: if up 20%+ — move stop to breakeven
+        if current_price >= entry * 1.20 and stop < entry:
+            pos["stop_price"] = entry
+            pos["trailing_activated"] = True
+            print(f"  [TRAILING] {city_name} {mkt['date']} — stop moved to breakeven ${entry:.3f}")
+
+        # Check take-profit
+        take_triggered = take_profit is not None and current_price >= take_profit
+        # Check stop
+        stop_triggered = current_price <= stop
+
+        if take_triggered or stop_triggered:
+            pnl = round((current_price - entry) * pos["shares"], 2)
+            balance += pos["cost"] + pnl
+            pos["closed_at"]    = datetime.now(timezone.utc).isoformat()
+            if take_triggered:
+                pos["close_reason"] = "take_profit"
+                reason = "TAKE"
+            elif current_price < entry:
+                pos["close_reason"] = "stop_loss"
+                reason = "STOP"
+            else:
+                pos["close_reason"] = "trailing_stop"
+                reason = "TRAILING BE"
+            pos["exit_price"]   = current_price
+            pos["pnl"]          = pnl
+            pos["status"]       = "closed"
+            closed += 1
+            print(f"  [{reason}] {city_name} {mkt['date']} | entry ${entry:.3f} exit ${current_price:.3f} | {hours_left:.0f}h left | PnL: {'+'if pnl>=0 else ''}{pnl:.2f}")
+            save_market(mkt)
+
+    if closed:
+        state["balance"] = round(balance, 2)
+        save_state(state)
+
+    return closed
+
+
+def run_loop():
+    global _cal
+    _cal = load_cal()
+
+    print(f"\n{'='*55}")
+    print(f"  WEATHERBET — STARTING")
+    print(f"{'='*55}")
+    print(f"  Cities:     {len(LOCATIONS)}")
+    print(f"  Balance:    ${BALANCE:,.0f} | Max bet: ${MAX_BET}")
+    print(f"  Scan:       {SCAN_INTERVAL//60} min | Monitor: {MONITOR_INTERVAL//60} min")
+    print(f"  Sources:    ECMWF + HRRR(US) + METAR(D+0)")
+    print(f"  Data:       {DATA_DIR.resolve()}")
+    print(f"  Ctrl+C to stop\n")
+
+    last_full_scan = 0
+    last_bias_reload = 0
+    last_calibration  = 0
+
+    # Log self_learning config at startup
+    if SELF_LEARNING_ENABLED:
+        print(f"  Self-Learning: ON | Mode: {CALIBRATION_MODE} | "
+              f"Cal threshold: {CALIBRATION_MIN} trades | "
+              f"Auto-reload biases: {AUTO_RELOAD_BIASES}")
+    else:
+        print(f"  Self-Learning: OFF")
+
+    while True:
+        now_ts  = time.time()
+        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Full scan once per hour
+        if now_ts - last_full_scan >= SCAN_INTERVAL:
+            print(f"[{now_str}] full scan...", flush=True)
+            try:
+                new_pos, closed, resolved, balance = scan_and_update()
+                print(f"  balance: ${balance:,.2f} | "
+                      f"new: {new_pos} | closed: {closed} | resolved: {resolved}", flush=True)
+                last_full_scan = time.time()
+
+                # Auto-reload calibration if enabled and interval elapsed
+                if AUTO_RELOAD_BIASES and (now_ts - last_bias_reload) >= (SELF_LEARNING_UPDATE_H * 3600):
+                    _cal = load_cal()
+                    last_bias_reload = time.time()
+                    print(f"  [BIAS-RELOAD] Reloaded calibration (auto_reload_biases=True)")
+
+            except KeyboardInterrupt:
+                print(f"\n  Stopping — saving state...")
+                save_state(load_state())
+                print(f"  Done. Bye!")
+                break
+            except requests.exceptions.ConnectionError:
+                print(f"  Connection lost — waiting 60 sec")
+                time.sleep(60)
+                continue
+            except Exception as e:
+                print(f"  Error: {e} — waiting 60 sec")
+                time.sleep(60)
+                continue
+        else:
+            # Quick stop monitoring
+            print(f"[{now_str}] monitoring positions...")
+            try:
+                stopped = monitor_positions()
+                if stopped:
+                    state = load_state()
+                    print(f"  balance: ${state['balance']:,.2f}")
+            except Exception as e:
+                print(f"  Monitor error: {e}")
+
+        try:
+            time.sleep(MONITOR_INTERVAL)
+        except KeyboardInterrupt:
+            print(f"\n  Stopping — saving state...")
+            save_state(load_state())
+            print(f"  Done. Bye!")
+            break
+
+# =============================================================================
+# CLI
+# =============================================================================
+
+if __name__ == "__main__":
+    cmd = sys.argv[1] if len(sys.argv) > 1 else "run"
+    if cmd == "run":
+        run_loop()
+    elif cmd == "status":
+        _cal = load_cal()
+        print_status()
+    elif cmd == "report":
+        _cal = load_cal()
+        print_report()
+    else:
+        print("Usage: python weatherbet.py [run|status|report]")
