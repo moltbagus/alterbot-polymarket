@@ -1894,12 +1894,13 @@ def scan_and_update():
                         # --- REALISTIC AMM FILL SIMULATION ---
                         # Polymarket AMM doesn't guarantee fills — simulate realistic behavior
                         bucket_label = f"{best_signal['bucket_low']}-{best_signal['bucket_high']}{unit_sym}"
+                        fill_direction = "sell_yes" if best_signal["side"] == "NO" else "buy_yes"
                         fill_result = simulate_fill(
                             entry_price=best_signal["entry_price"],
                             size=actual_cost,
                             volume=best_signal.get("volume", 5000),
                             spread=best_signal.get("spread", 0.05),
-                            direction="buy_yes",
+                            direction=fill_direction,
                             market_id=best_signal["market_id"],
                             city=city_slug,
                             date=date,
@@ -1933,8 +1934,15 @@ def scan_and_update():
                         state["total_trades"] += 1
                         new_pos += 1
                         bucket_label = f"{best_signal['bucket_low']}-{best_signal['bucket_high']}{unit_sym}"
-                        print(f"  [BUY]  {loc['name']} {horizon} {date} | {bucket_label} | "
-                              f"${simulated_price:.3f} | EV {best_signal['ev']:+.2f} | "
+                        # Recompute post-fill EV using fill_price
+                        fill_p = best_signal.get("p", 0)
+                        if best_signal["side"] == "YES":
+                            post_fill_ev = fill_p * (1 - simulated_price) - (1 - fill_p) * simulated_price
+                        else:
+                            post_fill_ev = (1 - fill_p) * (1 - simulated_price) - fill_p * simulated_price
+                        side_label = "BUY YES" if best_signal["side"] == "YES" else "SELL YES"
+                        print(f"  [{side_label}]  {loc['name']} {horizon} {date} | {bucket_label} | "
+                              f"${simulated_price:.3f} | EV (pre-fill) {best_signal['ev']:+.2f} | EV (post-fill) {post_fill_ev:+.2f} | "
                               f"${best_signal['cost']:.2f} ({best_signal['forecast_src'].upper()}) | "
                               f"slip: {slip_pct} | debate: {verdict}")
 
@@ -1946,6 +1954,11 @@ def scan_and_update():
             time.sleep(0.1)
 
         print("ok")
+
+    # Save last_scan_time so future calls have correct stale-data detection
+    last_full_scan = time.time()
+    state["last_scan_time"] = last_full_scan
+    save_state(state)
 
     # --- AUTO-RESOLUTION ---
     for mkt in load_all_markets():
@@ -2295,6 +2308,9 @@ def run_loop():
                 print(f"  balance: ${balance:,.2f} | "
                       f"new: {new_pos} | closed: {closed} | resolved: {resolved}", flush=True)
                 last_full_scan = time.time()
+                state = load_state()
+                state["last_scan_time"] = last_full_scan
+                save_state(state)
 
                 # Auto-reload calibration if enabled and interval elapsed
                 if AUTO_RELOAD_BIASES and (now_ts - last_bias_reload) >= (SELF_LEARNING_UPDATE_H * 3600):
