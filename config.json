@@ -1,9 +1,9 @@
 {
-  "balance": 1000.00,
+  "balance": 1000.0,
   "max_bet": 5.0,
   "max_trades_per_run": 20,
   "min_ev": 0.001,
-  "max_price": 0.50,
+  "max_price": 0.5,
   "min_bet": 1.0,
   "min_volume": 100,
   "min_hours": 1.0,
@@ -261,11 +261,7 @@
       "sao-paulo"
     ],
     "tier_2": [
-      "miami",
-      "dallas",
-      "chicago",
-      "nyc",
-      "seattle"
+      "miami"
     ],
     "tier_3": [
       "london",
@@ -281,46 +277,18 @@
       "toronto",
       "buenos-aires",
       "wellington",
-      "hong-kong"
-    ],
-    "avoid": [
-      "london",
-      "paris",
-      "singapore",
-      "tokyo",
       "hong-kong",
-      "seoul",
-      "shanghai",
-      "lucknow",
-      "tel-aviv",
-      "toronto",
-      "wellington",
-      "ankara",
-      "munich",
       "dallas",
       "chicago",
       "seattle",
       "nyc"
-    ]
+    ],
+    "avoid": []
   },
   "min_tier_to_trade": 1,
-  "max_tier_to_trade": 2,
+  "max_tier_to_trade": 3,
   "blocked_cities": [],
-  "avoid_cities": [
-    "dallas",
-    "seoul",
-    "nyc",
-    "toronto",
-    "shanghai",
-    "tel-aviv",
-    "chicago",
-    "seattle",
-    "london",
-    "paris",
-    "singapore",
-    "tokyo",
-    "hong-kong"
-  ],
+  "avoid_cities": [],
   "confidence_filter": {
     "enabled": true,
     "tier1_min_conf": 0.5,
