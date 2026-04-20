@@ -209,3 +209,6 @@ __marimo__/
 # Alter-Bot secrets — NEVER commit these
 config.json
 send_trade_status.sh
+
+# Data files — local state, market data, logs (NEVER commit these)
+data/
