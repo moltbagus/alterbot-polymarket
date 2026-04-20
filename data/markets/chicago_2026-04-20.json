@@ -7,57 +7,7 @@
   "event_end_date": "2026-04-20T12:00:00Z",
   "hours_at_discovery": 34.1,
   "status": "open",
-  "position": {
-    "market_id": "2011171",
-    "question": "Will the highest temperature in Chicago be between 62-63°F on April 20?",
-    "bucket_low": 62.0,
-    "bucket_high": 63.0,
-    "entry_price": 0.008,
-    "bid_at_entry": 0.004,
-    "spread": 0.004,
-    "shares": 625.0,
-    "cost": 2.5,
-    "p": 0.0002,
-    "ev": -0.0078,
-    "kelly": 0.2,
-    "forecast_temp": 57.8,
-    "forecast_src": "ecmwf+hrrr",
-    "sigma": 1.2,
-    "opened_at": "2026-04-19T05:29:53.151844+00:00",
-    "status": "closed",
-    "pnl": 616.56,
-    "exit_price": 0.9945,
-    "close_reason": "forecast_changed",
-    "closed_at": "2026-04-19T09:02:21.900119+00:00",
-    "volume": 1471.0,
-    "fill_record": {
-      "ts": "2026-04-19T05:29:56.525600+00:00",
-      "market_id": "2011171",
-      "city": "chicago",
-      "date": "2026-04-20",
-      "bucket": "62.0-63.0F",
-      "direction": "buy_yes",
-      "entry_price": 0.008,
-      "fill_price": 0.0084,
-      "slippage": 0.0004,
-      "slippage_pct": 0.0536,
-      "size": 2.5,
-      "size_filled": 2.5,
-      "fill_pct": 1.0,
-      "filled": true,
-      "fill_reason": "full_fill",
-      "volume": 1471.0,
-      "spread": 0.004,
-      "liq_factor": 0.736,
-      "forecast_temp": 57.8,
-      "sigma": 1.2,
-      "p": 0.0002,
-      "ev": -0.0078
-    },
-    "side": "NO",
-    "stop_price": 0.008,
-    "trailing_activated": true
-  },
+  "position": null,
   "actual_temp": null,
   "resolved_outcome": null,
   "pnl": null,
@@ -1435,7 +1385,7 @@
   ],
   "all_outcomes": [
     {
-      "question": "Will the highest temperature in Chicago be 55°F or below on April 20?",
+      "question": "Will the highest temperature in Chicago be 55\u00b0F or below on April 20?",
       "market_id": "2011167",
       "range": [
         -999.0,
@@ -1451,7 +1401,7 @@
       "no_price": 0.14
     },
     {
-      "question": "Will the highest temperature in Chicago be between 56-57°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 56-57\u00b0F on April 20?",
       "market_id": "2011168",
       "range": [
         56.0,
@@ -1467,7 +1417,7 @@
       "no_price": 0.11
     },
     {
-      "question": "Will the highest temperature in Chicago be between 58-59°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 58-59\u00b0F on April 20?",
       "market_id": "2011169",
       "range": [
         58.0,
@@ -1483,7 +1433,7 @@
       "no_price": 0.0145
     },
     {
-      "question": "Will the highest temperature in Chicago be between 60-61°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 60-61\u00b0F on April 20?",
       "market_id": "2011170",
       "range": [
         60.0,
@@ -1499,7 +1449,7 @@
       "no_price": 0.017
     },
     {
-      "question": "Will the highest temperature in Chicago be between 62-63°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 62-63\u00b0F on April 20?",
       "market_id": "2011171",
       "range": [
         62.0,
@@ -1515,7 +1465,7 @@
       "no_price": 0.0055
     },
     {
-      "question": "Will the highest temperature in Chicago be between 64-65°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 64-65\u00b0F on April 20?",
       "market_id": "2011172",
       "range": [
         64.0,
@@ -1531,7 +1481,7 @@
       "no_price": 0.0035
     },
     {
-      "question": "Will the highest temperature in Chicago be between 66-67°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 66-67\u00b0F on April 20?",
       "market_id": "2011173",
       "range": [
         66.0,
@@ -1547,7 +1497,7 @@
       "no_price": 0.0025
     },
     {
-      "question": "Will the highest temperature in Chicago be between 68-69°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 68-69\u00b0F on April 20?",
       "market_id": "2011174",
       "range": [
         68.0,
@@ -1563,7 +1513,7 @@
       "no_price": 0.0025
     },
     {
-      "question": "Will the highest temperature in Chicago be between 70-71°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 70-71\u00b0F on April 20?",
       "market_id": "2011175",
       "range": [
         70.0,
@@ -1579,7 +1529,7 @@
       "no_price": 0.0015
     },
     {
-      "question": "Will the highest temperature in Chicago be between 72-73°F on April 20?",
+      "question": "Will the highest temperature in Chicago be between 72-73\u00b0F on April 20?",
       "market_id": "2011176",
       "range": [
         72.0,
@@ -1595,7 +1545,7 @@
       "no_price": 0.0015
     },
     {
-      "question": "Will the highest temperature in Chicago be 74°F or higher on April 20?",
+      "question": "Will the highest temperature in Chicago be 74\u00b0F or higher on April 20?",
       "market_id": "2011177",
       "range": [
         74.0,

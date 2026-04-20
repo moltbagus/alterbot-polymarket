@@ -7,57 +7,7 @@
   "event_end_date": "2026-04-20T12:00:00Z",
   "hours_at_discovery": 34.1,
   "status": "open",
-  "position": {
-    "market_id": "2011182",
-    "question": "Will the highest temperature in Ankara be 12°C on April 20?",
-    "bucket_low": 12.0,
-    "bucket_high": 12.0,
-    "entry_price": 0.08,
-    "bid_at_entry": 0.06,
-    "spread": 0.02,
-    "shares": 62.5,
-    "cost": 2.5,
-    "p": 0.0,
-    "ev": -0.08,
-    "kelly": 0.2,
-    "forecast_temp": 14.2,
-    "forecast_src": "ecmwf",
-    "sigma": 2.4,
-    "opened_at": "2026-04-19T05:32:57.061549+00:00",
-    "status": "closed",
-    "pnl": 53.75,
-    "exit_price": 0.94,
-    "close_reason": "forecast_changed",
-    "closed_at": "2026-04-19T07:00:52.575095+00:00",
-    "volume": 2136.0,
-    "fill_record": {
-      "ts": "2026-04-19T05:33:00.159625+00:00",
-      "market_id": "2011182",
-      "city": "ankara",
-      "date": "2026-04-20",
-      "bucket": "12.0-12.0C",
-      "direction": "buy_yes",
-      "entry_price": 0.08,
-      "fill_price": 0.0849,
-      "slippage": 0.0049,
-      "slippage_pct": 0.0612,
-      "size": 2.5,
-      "size_filled": 2.5,
-      "fill_pct": 1.0,
-      "filled": true,
-      "fill_reason": "full_fill",
-      "volume": 2136.0,
-      "spread": 0.02,
-      "liq_factor": 0.726,
-      "forecast_temp": 14.2,
-      "sigma": 2.4,
-      "p": 0.0,
-      "ev": -0.08
-    },
-    "side": "NO",
-    "stop_price": 0.08,
-    "trailing_activated": true
-  },
+  "position": null,
   "actual_temp": null,
   "resolved_outcome": null,
   "pnl": null,
@@ -1337,7 +1287,7 @@
   ],
   "all_outcomes": [
     {
-      "question": "Will the highest temperature in Ankara be 8°C or below on April 20?",
+      "question": "Will the highest temperature in Ankara be 8\u00b0C or below on April 20?",
       "market_id": "2011178",
       "range": [
         -999.0,
@@ -1353,7 +1303,7 @@
       "no_price": 0.0025
     },
     {
-      "question": "Will the highest temperature in Ankara be 9°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 9\u00b0C on April 20?",
       "market_id": "2011179",
       "range": [
         9.0,
@@ -1369,7 +1319,7 @@
       "no_price": 0.0025
     },
     {
-      "question": "Will the highest temperature in Ankara be 10°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 10\u00b0C on April 20?",
       "market_id": "2011180",
       "range": [
         10.0,
@@ -1385,7 +1335,7 @@
       "no_price": 0.006
     },
     {
-      "question": "Will the highest temperature in Ankara be 11°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 11\u00b0C on April 20?",
       "market_id": "2011181",
       "range": [
         11.0,
@@ -1401,7 +1351,7 @@
       "no_price": 0.0105
     },
     {
-      "question": "Will the highest temperature in Ankara be 12°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 12\u00b0C on April 20?",
       "market_id": "2011182",
       "range": [
         12.0,
@@ -1417,7 +1367,7 @@
       "no_price": 0.06
     },
     {
-      "question": "Will the highest temperature in Ankara be 13°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 13\u00b0C on April 20?",
       "market_id": "2011183",
       "range": [
         13.0,
@@ -1433,7 +1383,7 @@
       "no_price": 0.28
     },
     {
-      "question": "Will the highest temperature in Ankara be 14°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 14\u00b0C on April 20?",
       "market_id": "2011184",
       "range": [
         14.0,
@@ -1449,7 +1399,7 @@
       "no_price": 0.39
     },
     {
-      "question": "Will the highest temperature in Ankara be 15°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 15\u00b0C on April 20?",
       "market_id": "2011185",
       "range": [
         15.0,
@@ -1465,7 +1415,7 @@
       "no_price": 0.245
     },
     {
-      "question": "Will the highest temperature in Ankara be 16°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 16\u00b0C on April 20?",
       "market_id": "2011186",
       "range": [
         16.0,
@@ -1481,7 +1431,7 @@
       "no_price": 0.042
     },
     {
-      "question": "Will the highest temperature in Ankara be 17°C on April 20?",
+      "question": "Will the highest temperature in Ankara be 17\u00b0C on April 20?",
       "market_id": "2011187",
       "range": [
         17.0,
@@ -1497,7 +1447,7 @@
       "no_price": 0.015
     },
     {
-      "question": "Will the highest temperature in Ankara be 18°C or higher on April 20?",
+      "question": "Will the highest temperature in Ankara be 18\u00b0C or higher on April 20?",
       "market_id": "2011188",
       "range": [
         18.0,

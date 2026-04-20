@@ -7,57 +7,7 @@
   "event_end_date": "2026-04-20T12:00:00Z",
   "hours_at_discovery": 34.1,
   "status": "open",
-  "position": {
-    "market_id": "2011261",
-    "question": "Will the highest temperature in Shanghai be 18°C on April 20?",
-    "bucket_low": 18.0,
-    "bucket_high": 18.0,
-    "entry_price": 0.032,
-    "bid_at_entry": 0.027,
-    "spread": 0.005,
-    "shares": 156.25,
-    "cost": 2.5,
-    "p": 0.0,
-    "ev": -0.032,
-    "kelly": 0.2,
-    "forecast_temp": 24.5,
-    "forecast_src": "ecmwf",
-    "sigma": 1.8,
-    "opened_at": "2026-04-19T06:44:03.318912+00:00",
-    "status": "closed",
-    "pnl": 146.33,
-    "exit_price": 0.9685,
-    "close_reason": "forecast_changed",
-    "closed_at": "2026-04-19T07:00:57.344401+00:00",
-    "volume": 5344.0,
-    "fill_record": {
-      "ts": "2026-04-19T06:44:05.776901+00:00",
-      "market_id": "2011261",
-      "city": "shanghai",
-      "date": "2026-04-20",
-      "bucket": "18.0-18.0C",
-      "direction": "buy_yes",
-      "entry_price": 0.032,
-      "fill_price": 0.0349,
-      "slippage": 0.0029,
-      "slippage_pct": 0.0902,
-      "size": 2.5,
-      "size_filled": 2.5,
-      "fill_pct": 1.0,
-      "filled": true,
-      "fill_reason": "full_fill",
-      "volume": 5344.0,
-      "spread": 0.005,
-      "liq_factor": 0.812,
-      "forecast_temp": 24.5,
-      "sigma": 1.8,
-      "p": 0.0,
-      "ev": -0.032
-    },
-    "side": "NO",
-    "stop_price": 0.032,
-    "trailing_activated": true
-  },
+  "position": null,
   "actual_temp": null,
   "resolved_outcome": null,
   "pnl": null,
@@ -201,7 +151,7 @@
   ],
   "all_outcomes": [
     {
-      "question": "Will the highest temperature in Shanghai be 12°C or below on April 20?",
+      "question": "Will the highest temperature in Shanghai be 12\u00b0C or below on April 20?",
       "market_id": "2011255",
       "range": [
         -999.0,
@@ -217,7 +167,7 @@
       "no_price": 0.0015
     },
     {
-      "question": "Will the highest temperature in Shanghai be 13°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 13\u00b0C on April 20?",
       "market_id": "2011256",
       "range": [
         13.0,
@@ -233,7 +183,7 @@
       "no_price": 0.002
     },
     {
-      "question": "Will the highest temperature in Shanghai be 14°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 14\u00b0C on April 20?",
       "market_id": "2011257",
       "range": [
         14.0,
@@ -249,7 +199,7 @@
       "no_price": 0.002
     },
     {
-      "question": "Will the highest temperature in Shanghai be 15°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 15\u00b0C on April 20?",
       "market_id": "2011258",
       "range": [
         15.0,
@@ -265,7 +215,7 @@
       "no_price": 0.005
     },
     {
-      "question": "Will the highest temperature in Shanghai be 16°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 16\u00b0C on April 20?",
       "market_id": "2011259",
       "range": [
         16.0,
@@ -281,7 +231,7 @@
       "no_price": 0.005
     },
     {
-      "question": "Will the highest temperature in Shanghai be 17°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 17\u00b0C on April 20?",
       "market_id": "2011260",
       "range": [
         17.0,
@@ -297,7 +247,7 @@
       "no_price": 0.0085
     },
     {
-      "question": "Will the highest temperature in Shanghai be 18°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 18\u00b0C on April 20?",
       "market_id": "2011261",
       "range": [
         18.0,
@@ -313,7 +263,7 @@
       "no_price": 0.0315
     },
     {
-      "question": "Will the highest temperature in Shanghai be 19°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 19\u00b0C on April 20?",
       "market_id": "2011262",
       "range": [
         19.0,
@@ -329,7 +279,7 @@
       "no_price": 0.215
     },
     {
-      "question": "Will the highest temperature in Shanghai be 20°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 20\u00b0C on April 20?",
       "market_id": "2011263",
       "range": [
         20.0,
@@ -345,7 +295,7 @@
       "no_price": 0.365
     },
     {
-      "question": "Will the highest temperature in Shanghai be 21°C on April 20?",
+      "question": "Will the highest temperature in Shanghai be 21\u00b0C on April 20?",
       "market_id": "2011264",
       "range": [
         21.0,
@@ -361,7 +311,7 @@
       "no_price": 0.205
     },
     {
-      "question": "Will the highest temperature in Shanghai be 22°C or higher on April 20?",
+      "question": "Will the highest temperature in Shanghai be 22\u00b0C or higher on April 20?",
       "market_id": "2011265",
       "range": [
         22.0,

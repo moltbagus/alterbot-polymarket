@@ -7,57 +7,7 @@
   "event_end_date": "2026-04-20T12:00:00Z",
   "hours_at_discovery": 34.1,
   "status": "open",
-  "position": {
-    "market_id": "2011124",
-    "question": "Will the highest temperature in New York City be between 46-47°F on April 20?",
-    "bucket_low": 46.0,
-    "bucket_high": 47.0,
-    "entry_price": 0.055,
-    "bid_at_entry": 0.053,
-    "spread": 0.002,
-    "shares": 90.91,
-    "cost": 2.5,
-    "p": 0.0291,
-    "ev": -0.0259,
-    "kelly": 0.2,
-    "forecast_temp": 52.4,
-    "forecast_src": "ecmwf+hrrr",
-    "sigma": 3.6,
-    "opened_at": "2026-04-19T04:53:32.967667+00:00",
-    "status": "closed",
-    "pnl": 82.5,
-    "exit_price": 0.9625,
-    "close_reason": "forecast_changed",
-    "closed_at": "2026-04-19T09:02:19.522945+00:00",
-    "volume": 1673.0,
-    "fill_record": {
-      "ts": "2026-04-19T04:53:36.136436+00:00",
-      "market_id": "2011124",
-      "city": "nyc",
-      "date": "2026-04-20",
-      "bucket": "46.0-47.0F",
-      "direction": "buy_yes",
-      "entry_price": 0.055,
-      "fill_price": 0.0589,
-      "slippage": 0.0039,
-      "slippage_pct": 0.071,
-      "size": 2.5,
-      "size_filled": 2.5,
-      "fill_pct": 1.0,
-      "filled": true,
-      "fill_reason": "full_fill",
-      "volume": 1673.0,
-      "spread": 0.002,
-      "liq_factor": 0.747,
-      "forecast_temp": 52.4,
-      "sigma": 3.6,
-      "p": 0.0291,
-      "ev": -0.0259
-    },
-    "side": "NO",
-    "stop_price": 0.055,
-    "trailing_activated": true
-  },
+  "position": null,
   "actual_temp": null,
   "resolved_outcome": null,
   "pnl": null,
@@ -1955,7 +1905,7 @@
   ],
   "all_outcomes": [
     {
-      "question": "Will the highest temperature in New York City be 45°F or below on April 20?",
+      "question": "Will the highest temperature in New York City be 45\u00b0F or below on April 20?",
       "market_id": "2011123",
       "range": [
         -999.0,
@@ -1971,7 +1921,7 @@
       "no_price": 0.113
     },
     {
-      "question": "Will the highest temperature in New York City be between 46-47°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 46-47\u00b0F on April 20?",
       "market_id": "2011124",
       "range": [
         46.0,
@@ -1987,7 +1937,7 @@
       "no_price": 0.0375
     },
     {
-      "question": "Will the highest temperature in New York City be between 48-49°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 48-49\u00b0F on April 20?",
       "market_id": "2011125",
       "range": [
         48.0,
@@ -2003,7 +1953,7 @@
       "no_price": 0.195
     },
     {
-      "question": "Will the highest temperature in New York City be between 50-51°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 50-51\u00b0F on April 20?",
       "market_id": "2011126",
       "range": [
         50.0,
@@ -2019,7 +1969,7 @@
       "no_price": 0.315
     },
     {
-      "question": "Will the highest temperature in New York City be between 52-53°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 52-53\u00b0F on April 20?",
       "market_id": "2011127",
       "range": [
         52.0,
@@ -2035,7 +1985,7 @@
       "no_price": 0.255
     },
     {
-      "question": "Will the highest temperature in New York City be between 54-55°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 54-55\u00b0F on April 20?",
       "market_id": "2011128",
       "range": [
         54.0,
@@ -2051,7 +2001,7 @@
       "no_price": 0.075
     },
     {
-      "question": "Will the highest temperature in New York City be between 56-57°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 56-57\u00b0F on April 20?",
       "market_id": "2011129",
       "range": [
         56.0,
@@ -2067,7 +2017,7 @@
       "no_price": 0.0315
     },
     {
-      "question": "Will the highest temperature in New York City be between 58-59°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 58-59\u00b0F on April 20?",
       "market_id": "2011130",
       "range": [
         58.0,
@@ -2083,7 +2033,7 @@
       "no_price": 0.0095
     },
     {
-      "question": "Will the highest temperature in New York City be between 60-61°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 60-61\u00b0F on April 20?",
       "market_id": "2011131",
       "range": [
         60.0,
@@ -2099,7 +2049,7 @@
       "no_price": 0.0065
     },
     {
-      "question": "Will the highest temperature in New York City be between 62-63°F on April 20?",
+      "question": "Will the highest temperature in New York City be between 62-63\u00b0F on April 20?",
       "market_id": "2011132",
       "range": [
         62.0,
@@ -2115,7 +2065,7 @@
       "no_price": 0.0025
     },
     {
-      "question": "Will the highest temperature in New York City be 64°F or higher on April 20?",
+      "question": "Will the highest temperature in New York City be 64\u00b0F or higher on April 20?",
       "market_id": "2011133",
       "range": [
         64.0,

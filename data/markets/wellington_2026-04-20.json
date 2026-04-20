@@ -7,57 +7,7 @@
   "event_end_date": "2026-04-20T12:00:00Z",
   "hours_at_discovery": 34.1,
   "status": "open",
-  "position": {
-    "market_id": "2011193",
-    "question": "Will the highest temperature in Wellington be 13°C on April 20?",
-    "bucket_low": 13.0,
-    "bucket_high": 13.0,
-    "entry_price": 0.049,
-    "bid_at_entry": 0.039,
-    "spread": 0.01,
-    "shares": 102.04,
-    "cost": 2.5,
-    "p": 0.0,
-    "ev": -0.049,
-    "kelly": 0.2,
-    "forecast_temp": 16.0,
-    "forecast_src": "ecmwf",
-    "sigma": 2.4,
-    "opened_at": "2026-04-19T06:44:15.262715+00:00",
-    "status": "closed",
-    "pnl": 92.6,
-    "exit_price": 0.9565,
-    "close_reason": "forecast_changed",
-    "closed_at": "2026-04-19T07:01:08.275825+00:00",
-    "volume": 1494.0,
-    "fill_record": {
-      "ts": "2026-04-19T06:44:16.760638+00:00",
-      "market_id": "2011193",
-      "city": "wellington",
-      "date": "2026-04-20",
-      "bucket": "13.0-13.0C",
-      "direction": "buy_yes",
-      "entry_price": 0.049,
-      "fill_price": 0.0538,
-      "slippage": 0.0048,
-      "slippage_pct": 0.0975,
-      "size": 2.5,
-      "size_filled": 2.5,
-      "fill_pct": 1.0,
-      "filled": true,
-      "fill_reason": "full_fill",
-      "volume": 1494.0,
-      "spread": 0.01,
-      "liq_factor": 0.724,
-      "forecast_temp": 16.0,
-      "sigma": 2.4,
-      "p": 0.0,
-      "ev": -0.049
-    },
-    "side": "NO",
-    "stop_price": 0.049,
-    "trailing_activated": true
-  },
+  "position": null,
   "actual_temp": null,
   "resolved_outcome": null,
   "pnl": null,
@@ -241,7 +191,7 @@
   ],
   "all_outcomes": [
     {
-      "question": "Will the highest temperature in Wellington be 9°C or below on April 20?",
+      "question": "Will the highest temperature in Wellington be 9\u00b0C or below on April 20?",
       "market_id": "2011189",
       "range": [
         -999.0,
@@ -257,7 +207,7 @@
       "no_price": 0.0005
     },
     {
-      "question": "Will the highest temperature in Wellington be 10°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 10\u00b0C on April 20?",
       "market_id": "2011190",
       "range": [
         10.0,
@@ -273,7 +223,7 @@
       "no_price": 0.0005
     },
     {
-      "question": "Will the highest temperature in Wellington be 11°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 11\u00b0C on April 20?",
       "market_id": "2011191",
       "range": [
         11.0,
@@ -289,7 +239,7 @@
       "no_price": 0.0005
     },
     {
-      "question": "Will the highest temperature in Wellington be 12°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 12\u00b0C on April 20?",
       "market_id": "2011192",
       "range": [
         12.0,
@@ -305,7 +255,7 @@
       "no_price": 0.0015
     },
     {
-      "question": "Will the highest temperature in Wellington be 13°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 13\u00b0C on April 20?",
       "market_id": "2011193",
       "range": [
         13.0,
@@ -321,7 +271,7 @@
       "no_price": 0.0435
     },
     {
-      "question": "Will the highest temperature in Wellington be 14°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 14\u00b0C on April 20?",
       "market_id": "2011194",
       "range": [
         14.0,
@@ -337,7 +287,7 @@
       "no_price": 0.18
     },
     {
-      "question": "Will the highest temperature in Wellington be 15°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 15\u00b0C on April 20?",
       "market_id": "2011195",
       "range": [
         15.0,
@@ -353,7 +303,7 @@
       "no_price": 0.47
     },
     {
-      "question": "Will the highest temperature in Wellington be 16°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 16\u00b0C on April 20?",
       "market_id": "2011196",
       "range": [
         16.0,
@@ -369,7 +319,7 @@
       "no_price": 0.245
     },
     {
-      "question": "Will the highest temperature in Wellington be 17°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 17\u00b0C on April 20?",
       "market_id": "2011197",
       "range": [
         17.0,
@@ -385,7 +335,7 @@
       "no_price": 0.028
     },
     {
-      "question": "Will the highest temperature in Wellington be 18°C on April 20?",
+      "question": "Will the highest temperature in Wellington be 18\u00b0C on April 20?",
       "market_id": "2011198",
       "range": [
         18.0,
@@ -401,7 +351,7 @@
       "no_price": 0.007
     },
     {
-      "question": "Will the highest temperature in Wellington be 19°C or higher on April 20?",
+      "question": "Will the highest temperature in Wellington be 19\u00b0C or higher on April 20?",
       "market_id": "2011199",
       "range": [
         19.0,

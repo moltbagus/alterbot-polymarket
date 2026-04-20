@@ -934,11 +934,26 @@ def get_model_weights(city_slug):
         weights["meteoblue"] = weights.get("meteoblue", 0.2)
     return weights
 
+_learned_bias_cache = {}  # city_slug -> (bias_value, timestamp)
+_LEARNED_BIAS_TTL = 300  # seconds
+
+def _get_cached_learned_bias(city_slug):
+    """Cached learned bias — avoids file I/O on every call. TTL 5 minutes."""
+    now = time.time()
+    if city_slug in _learned_bias_cache:
+        cached_val, cached_ts = _learned_bias_cache[city_slug]
+        if now - cached_ts < _LEARNED_BIAS_TTL:
+            return cached_val
+    lb = get_learned_bias(city_slug)
+    _learned_bias_cache[city_slug] = (lb, now)
+    return lb
+
 def apply_bias(temp, city_slug, unit):
-    """Apply bias + UHI correction to raw forecast temperature."""
-    bias = get_bias(city_slug)
-    uhi  = get_uhi(city_slug)
-    total = bias + uhi
+    """Apply config bias + UHI + dynamically learned bias to raw forecast temperature."""
+    bias     = get_bias(city_slug)
+    uhi      = get_uhi(city_slug)
+    learned  = _get_cached_learned_bias(city_slug)  # v3 rolling accuracy layer
+    total = bias + uhi + learned
     if total == 0.0:
         return temp
     if unit == "F":

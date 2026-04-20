@@ -7,57 +7,7 @@
   "event_end_date": "2026-04-20T12:00:00Z",
   "hours_at_discovery": 34.1,
   "status": "open",
-  "position": {
-    "market_id": "2011096",
-    "question": "Will the highest temperature in Seoul be 13°C on April 20?",
-    "bucket_low": 13.0,
-    "bucket_high": 13.0,
-    "entry_price": 0.08,
-    "bid_at_entry": 0.06,
-    "spread": 0.02,
-    "shares": 62.5,
-    "cost": 2.5,
-    "p": 0.0,
-    "ev": -0.08,
-    "kelly": 0.2,
-    "forecast_temp": 17.7,
-    "forecast_src": "ecmwf",
-    "sigma": 3.12,
-    "opened_at": "2026-04-19T06:43:58.776201+00:00",
-    "status": "closed",
-    "pnl": 52.81,
-    "exit_price": 0.925,
-    "close_reason": "forecast_changed",
-    "closed_at": "2026-04-19T07:00:54.183580+00:00",
-    "volume": 3150.0,
-    "fill_record": {
-      "ts": "2026-04-19T06:44:01.611382+00:00",
-      "market_id": "2011096",
-      "city": "seoul",
-      "date": "2026-04-20",
-      "bucket": "13.0-13.0C",
-      "direction": "buy_yes",
-      "entry_price": 0.08,
-      "fill_price": 0.0873,
-      "slippage": 0.0073,
-      "slippage_pct": 0.0911,
-      "size": 2.5,
-      "size_filled": 2.5,
-      "fill_pct": 1.0,
-      "filled": true,
-      "fill_reason": "full_fill",
-      "volume": 3150.0,
-      "spread": 0.02,
-      "liq_factor": 0.75,
-      "forecast_temp": 17.7,
-      "sigma": 3.12,
-      "p": 0.0,
-      "ev": -0.08
-    },
-    "side": "NO",
-    "stop_price": 0.08,
-    "trailing_activated": true
-  },
+  "position": null,
   "actual_temp": null,
   "resolved_outcome": null,
   "pnl": null,
@@ -1317,7 +1267,7 @@
   ],
   "all_outcomes": [
     {
-      "question": "Will the highest temperature in Seoul be 7°C or below on April 20?",
+      "question": "Will the highest temperature in Seoul be 7\u00b0C or below on April 20?",
       "market_id": "2011090",
       "range": [
         -999.0,
@@ -1333,7 +1283,7 @@
       "no_price": 0.0005
     },
     {
-      "question": "Will the highest temperature in Seoul be 8°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 8\u00b0C on April 20?",
       "market_id": "2011091",
       "range": [
         8.0,
@@ -1349,7 +1299,7 @@
       "no_price": 0.0005
     },
     {
-      "question": "Will the highest temperature in Seoul be 9°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 9\u00b0C on April 20?",
       "market_id": "2011092",
       "range": [
         9.0,
@@ -1365,7 +1315,7 @@
       "no_price": 0.0005
     },
     {
-      "question": "Will the highest temperature in Seoul be 10°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 10\u00b0C on April 20?",
       "market_id": "2011093",
       "range": [
         10.0,
@@ -1381,7 +1331,7 @@
       "no_price": 0.002
     },
     {
-      "question": "Will the highest temperature in Seoul be 11°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 11\u00b0C on April 20?",
       "market_id": "2011094",
       "range": [
         11.0,
@@ -1397,7 +1347,7 @@
       "no_price": 0.0025
     },
     {
-      "question": "Will the highest temperature in Seoul be 12°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 12\u00b0C on April 20?",
       "market_id": "2011095",
       "range": [
         12.0,
@@ -1413,7 +1363,7 @@
       "no_price": 0.0105
     },
     {
-      "question": "Will the highest temperature in Seoul be 13°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 13\u00b0C on April 20?",
       "market_id": "2011096",
       "range": [
         13.0,
@@ -1429,7 +1379,7 @@
       "no_price": 0.075
     },
     {
-      "question": "Will the highest temperature in Seoul be 14°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 14\u00b0C on April 20?",
       "market_id": "2011097",
       "range": [
         14.0,
@@ -1445,7 +1395,7 @@
       "no_price": 0.255
     },
     {
-      "question": "Will the highest temperature in Seoul be 15°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 15\u00b0C on April 20?",
       "market_id": "2011098",
       "range": [
         15.0,
@@ -1461,7 +1411,7 @@
       "no_price": 0.255
     },
     {
-      "question": "Will the highest temperature in Seoul be 16°C on April 20?",
+      "question": "Will the highest temperature in Seoul be 16\u00b0C on April 20?",
       "market_id": "2011099",
       "range": [
         16.0,
@@ -1477,7 +1427,7 @@
       "no_price": 0.195
     },
     {
-      "question": "Will the highest temperature in Seoul be 17°C or higher on April 20?",
+      "question": "Will the highest temperature in Seoul be 17\u00b0C or higher on April 20?",
       "market_id": "2011100",
       "range": [
         17.0,

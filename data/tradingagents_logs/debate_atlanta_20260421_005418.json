@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-04-21T00:54:18.308010",
+  "city": "atlanta",
+  "target_temp": 78,
+  "target_date": "2026-04-21",
+  "unit": "F",
+  "market_id": "2019213",
+  "p": 0.0358,
+  "price": 0.48,
+  "kelly": 0.1708,
+  "fundamentals": {
+    "confidence": 20,
+    "forecast_max": 25.4,
+    "can_reach": false
+  },
+  "sentiment": {
+    "yes_price": 0.48,
+    "sentiment": "NEUTRAL",
+    "volume": 1881.2284970000003
+  },
+  "technical": {
+    "pattern": "COLD_ANOMALY",
+    "deviation": -52.0
+  },
+  "bull_case": "# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**",
+  "bear_case": "# Bear Case - NO Vote\n1. CRITICAL: Forecast 25.4\u00b0C CANNOT reach target 78\u00b0C (gap: +52.6\u00b0C)\n2. Fundamentals: Low confidence (20%) - uncertainty is high\n3. Market: YES at 48% - market disagrees, potential overpricing\n4. Technical: -52.0\u00b0C below historical - cold anomaly working against us\n\n**Recommendation: NO** (conviction: 90%)\n",
+  "risk": {
+    "report": "# Risk Management Report - Atlanta 78\u00b0F\n\n## Position Score: 6.0/10 (min: 1)\n## Risk Score: 47.0/100 (max allowed: 80)\n\n## Factor Analysis\n1. Can Reach Target: NO -1.0\n2. Fundamentals Conf: 20% -1.0\n3. Market YES: 48% -0.5\n4. Tech Pattern: COLD_ANOMALY -0.5\n5. Kelly: 17.1% +0.5\n6. EV: -0.93 -0.5\n\n## Bull/Bear Summary\n**BULL CASE:**\n# Bull Case: NO ARGUMENTS FOUND\n\n**Recommendation: SKIP - No strong bull case**...\n\n**BEAR CASE:**\n# Bear Case - NO Vote\n1. CRITICAL: Forecast 25.4\u00b0C CANNOT reach target 78\u00b0C (gap: +52.6\u00b0C)\n2. Fundamentals: Low confidence (20%) - uncertainty is high\n3. Market: YES at 48% - market disagrees, potential overpricing\n4. Technical: -52.0\u00b0C below historical - cold anomaly working against us\n\n**Recommend...\n\n## Final Verdict: APPROVED\n**Position:** SMALL_BET\n**Conviction:** 6.0/10\n**Risk Score:** 47.0/100\n\n\u2705 Trade approved - all gates passed\n",
+    "verdict": "APPROVED",
+    "position": "SMALL_BET",
+    "conviction": 6.0,
+    "risk_score": 47.0,
+    "approved": true,
+    "can_reach": false,
+    "kelly_reduction": 0.5,
+    "factors": {
+      "fundamentals_confidence": 20,
+      "yes_price": 0.48,
+      "technical_pattern": "COLD_ANOMALY",
+      "kelly": 0.1708,
+      "ev": -0.925
+    }
+  }
+}
