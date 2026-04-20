@@ -49,7 +49,7 @@ Resolution Tracking → Self-Improvement Update
 
 ### 3.2 config.json (Central Configuration)
 - **All configuration** lives here — no hardcoded magic numbers
-- **City tiers:** tier_1 (atlanta, sao-paulo), tier_2 (miami, dallas), tier_3 (london, paris, etc.), avoid (16 cities)
+- **City tiers:** tier_1 (atlanta, sao-paulo), tier_2 (miami), tier_3 (18 cities), avoid (cleared Apr 20)
 - **Sigma overrides:** Per-city forecast error sigmas derived from historical accuracy data
 - **Source preferences:** Region-based forecast source priority (US→HRRR, EU→ECMWF, etc.)
 - **Self-learning:** Enabled with auto-calibration mode
@@ -107,9 +107,9 @@ Resolution Tracking → Self-Improvement Update
 |------|--------|----------|--------|
 | **tier_1_strong** | atlanta | **83%** | PRIMARY — trade freely |
 | **tier_1** | atlanta, sao-paulo | 83% / 60% | Trade with confidence |
-| **tier_2** | miami, dallas | 40% / 0% | Flagged borderline/avoid |
-| **tier_3** | london, paris, seoul, etc. | 0-20% | Avoid |
-| **avoid** | dallas, hong-kong, london, paris, shanghai, seoul, singapore, tel-aviv, tokyo, toronto, etc. | 0% | Hard avoid |
+| **tier_2** | miami | 40% | Borderline |
+| **tier_3** | london, paris, seoul, tokyo, hong-kong, shanghai, singapore, dallas, chicago, seattle, nyc + 9 others | 0-25% | Paper-track mode |
+| **avoid** | _(cleared Apr 20 — all cities moved to tier_3)_ | — | — |
 
 ### 4.4 Exit Rules
 - **Target sell price:** $0.45 (configurable)
@@ -180,7 +180,7 @@ Daily cron reflection → Updated sigma/bias → config.json updated
 | Hong Kong | 25% | 2.08 | 4.15 | AVOID |
 | Tokyo | 20% | 2.30 | 4.60 | AVOID |
 | Singapore | 20% | 3.14 | 6.28 | AVOID |
-| Dallas | 0% | ? | ? | AVOID (verified) |
+| Dallas | 0% | ? | ? | tier_3 (paper-track) |
 
 ---
 
@@ -216,7 +216,7 @@ Daily cron reflection → Updated sigma/bias → config.json updated
 | Apr 18 | Double-process restart loop (orphan pid) | Added `--no-autorestart` flag, orphan kill |
 | Apr 18 | paper_force_trade forcing negative EV trades | Turned OFF |
 | Apr 18 | Unit mismatch (C vs F bucket confusion) | Smart bucket_score matching |
-| Apr 19 | Blocked_cities overlap with MAX_TIER | Reset blocked_cities to [] |
+| **max_tier_to_trade** | 3 (was 2) | Apr 20 — tier_3 now scannable |
 | Apr 19 | Self-improver reading wrong field (position.forecast_temp null) | Fixed to `forecast_snapshots[-1].best` |
 | Apr 20 | FileNotFoundError in data/ directory | Added `mkdir(parents=True, exist_ok=True)` |
 | Apr 20 | Stale PM2 error logs misdirecting debugging | Truncated pre-fix log files |

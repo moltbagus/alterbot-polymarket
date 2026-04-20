@@ -44,7 +44,7 @@ if os.path.exists(TA_PATH):
 from tradingagents_integration import should_trade, get_ta, WeatherTradingAgents
 
 TA_LOG_DIR = Path("data/tradingagents_logs")
-TA_LOG_DIR.mkdir(exist_ok=True)
+TA_LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 # =============================================================================
 # CONFIG
@@ -122,6 +122,8 @@ SIGMA_C = 1.2
 
 # =============================================================================
 # CITY-SPECIFIC BIAS CORRECTIONS (°C / °F added to raw model output)
+# =============================================================================
+# BIAS_CORRECTION - Spring 2026 calibrated from city_error_history.json (26-Apr-2026)
 # Derived from backtest analysis of forecast vs actual temperatures
 # Positive = raw forecast was too cold, must ADD to warm it up
 # Negative = raw forecast was too warm, must SUBTRACT to cool it down
@@ -130,7 +132,7 @@ BIAS_CORRECTION = {
     # East Asian spring warming (ECMWF systematic cold bias)
     "seoul":     +2.0,   # Reduced from +3.0 (spring warming trend)
     "shanghai":  +2.0,   # Reduced from +2.5 (April fog season less severe)
-    "tokyo":     +1.0,   # Reduced from +1.5 (April is cooler in warming season)
+    "tokyo":     +2.3,   # Updated from +1.0 (spring 2026 calibrated)
     # US East Coast spring - April adjustments
     "nyc":       +1.5,   # Reduced from +2.0 (April warming)
     "chicago":   +2.0,   # Reduced from +3.0 (Lake Michigan effect less extreme)
@@ -146,14 +148,16 @@ BIAS_CORRECTION = {
     # European transitional
     "munich":    +0.5,
     "ankara":    +1.0,
+    # Tier 2 cities - Spring 2026 calibrated biases
+    "london":    +3.5,   # Was 0.0, model was too cold by ~3.5°C
+    "paris":     +4.1,   # Was 0.0, model was too cold by ~4.1°C
+    "singapore": +3.0,   # Was 0.0, model was too cold by ~3.0°C
+    "hong-kong": +2.1,   # NEW - model was too cold by ~2.1°C
     # No correction needed - already working perfectly
     "miami":     0.0,
-    "london":    0.0,
-    "paris":     0.0,
-    "singapore": 0.0,
-    "lucknow":   0.0,
+    "lucknow":   0.0,   # Only 2 samples - too little data
     "tel-aviv":  0.0,
-    "dallas":    0.0,
+    "dallas":   0.0,
 }
 
 # =============================================================================
@@ -1588,6 +1592,7 @@ def scan_and_update():
                             fill_record=pos.get("fill_record"),
                             won=False,  # stop-loss / trailing stop = closed at a loss
                         )
+                        mkt["position"] = None  # prevent phantom re-close on next scan
 
             # --- CLOSE POSITION if forecast shifted 2+ degrees ---
             if mkt.get("position") and forecast_temp is not None:
@@ -1637,6 +1642,7 @@ def scan_and_update():
                             fill_record=pos.get("fill_record"),
                             won=None,  # market not yet resolved — unknown outcome
                         )
+                        mkt["position"] = None  # prevent phantom re-close on next scan
 
             # --- OPEN POSITION ---
             # Enforce morning trading window - best METAR freshness and model accuracy
@@ -2298,6 +2304,7 @@ def monitor_positions():
             pos["status"]       = "closed"
             closed += 1
             print(f"  [{reason}] {city_name} {mkt['date']} | entry ${entry:.3f} exit ${current_price:.3f} | {hours_left:.0f}h left | PnL: {'+'if pnl>=0 else ''}{pnl:.2f}")
+            mkt["position"] = None  # prevent phantom re-close on next scan
             save_market(mkt)
 
     if closed:
