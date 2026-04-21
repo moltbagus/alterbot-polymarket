@@ -1361,6 +1361,7 @@ def take_forecast_snapshot(city_slug, dates):
         loc = LOCATIONS[city_slug]
         unit = loc["unit"]
         city_weights = get_model_weights(city_slug)
+        model_vals = {}
 
         # D+0 ensemble: METAR is observed ground truth, ECMWF is forecast.
         # v3 merge: use 0.4*ECMWF + 0.6*METAR for same-day (more weight to actual obs).
@@ -1434,7 +1435,7 @@ def take_forecast_snapshot(city_slug, dates):
     return snapshots
 
 
-def _scan_city(city_slug, now):
+def _scan_city(city_slug, now, balance):
     """Scan one city. Called in parallel from scan_and_update().
     Returns (new_pos, closed, dirty_markets, balance_delta)."""
     loc = LOCATIONS[city_slug]
@@ -1448,7 +1449,7 @@ def _scan_city(city_slug, now):
             _fut = _ex.submit(take_forecast_snapshot, city_slug, dates)
             try:
                 snapshots = _fut.result(timeout=15)
-            except concurrent.futures.TimeoutExpired:
+            except TimeoutError:
                 print(f"TIMEOUT (15s)", end=" ", flush=True)
                 snapshots = {}
         time.sleep(0.3)
@@ -1575,7 +1576,8 @@ def _scan_city(city_slug, now):
             # Win rate gate
             city_win_rate = get_city_error_win_rate(city_slug)
             if city_win_rate is not None and city_win_rate < 0.50:
-                pass  # below threshold - will be handled below
+                print(f"  [SKIP] {city_slug} win rate {city_win_rate:.0%} < 50%")
+                continue
 
             best_signal = None
 
@@ -1873,13 +1875,14 @@ def _scan_city(city_slug, now):
         dirty_markets.append(mkt)
 
     print("ok")
-    return new_pos, closed, dirty_markets
+    return new_pos, closed, dirty_markets, balance_delta
 
 
 def scan_and_update():
     """Main function of one cycle: updates forecasts, opens/closes positions.
     Cities are scanned in parallel using ThreadPoolExecutor."""
     global _cal
+    _cal = load_cal()
     now      = datetime.now(timezone.utc)
     state    = load_state()
     balance  = state["balance"]
@@ -1898,7 +1901,7 @@ def scan_and_update():
     balance_deltas = []
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_concurrent) as ex:
-        futures = {ex.submit(_scan_city, c, now): c for c, _ in allowed}
+        futures = {ex.submit(_scan_city, c, now, balance): c for c, _ in allowed}
         for future in concurrent.futures.as_completed(futures):
             try:
                 np_, cl_, dirty, bal_delta = future.result(timeout=60)
@@ -2030,7 +2033,6 @@ def scan_and_update():
     all_mkts = load_all_markets()
     resolved_count = len([m for m in all_mkts if m["status"] == "resolved"])
     if resolved_count >= CALIBRATION_MIN:
-        global _cal
         _cal = run_calibration(all_mkts)
 
     # Print fill rate report at end of each cycle

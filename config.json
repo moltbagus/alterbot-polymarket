@@ -286,7 +286,7 @@
     "avoid": []
   },
   "min_tier_to_trade": 1,
-  "max_tier_to_trade": 3,
+  "max_tier_to_trade": 2,
   "blocked_cities": [],
   "avoid_cities": [],
   "confidence_filter": {
