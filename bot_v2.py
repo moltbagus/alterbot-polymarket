@@ -636,12 +636,6 @@ def is_city_allowed(city_slug):
     return True, f"{city_slug} allowed"
 
 
-def check_warm_surge(city_slug):
-    """Check WARM_SURGE pattern - returns True if detected."""
-    # WARM_SURGE: S/SW/W/NW winds, SKC clouds, no sea breeze, morning rise ≥3°C
-    return True
-
-
 def check_price_threshold(price, direction="buy_yes", is_binary=False):
     """Check if price meets whale strategy thresholds.
 
@@ -872,12 +866,6 @@ def load_cal():
             print(f"  [CAL-WARN] {CALIBRATION_FILE.name} corrupted ({e}) - resetting")
             return {}
     return {}
-
-def get_sigma(city_slug, source="ecmwf"):
-    key = f"{city_slug}_{source}"
-    if key in _cal:
-        return _cal[key]["sigma"]
-    return SIGMA_F if LOCATIONS[city_slug]["unit"] == "F" else SIGMA_C
 
 def run_calibration(markets):
     """Recalculates sigma from resolved markets."""
@@ -1640,9 +1628,7 @@ def _scan_city(city_slug, now, balance):
                     results = []
                     for o in bucket_non_cold:
                         lo, hi = o["range"]
-                        z1 = (lo - fc) / sg
-                        z2 = (hi - fc) / sg
-                        prob = abs(math.erf(z2 / math.sqrt(2)) - math.erf(z1 / math.sqrt(2))) / 2
+                        prob = bucket_prob(fc, lo, hi, sg)
                         results.append((o, prob))
                     return results
 
