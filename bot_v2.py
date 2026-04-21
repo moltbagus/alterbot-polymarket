@@ -1141,10 +1141,11 @@ def get_metar_at_hour(city_slug, hour, date_str=None):
         date_str: date in YYYY-MM-DD format. Defaults to today UTC.
 
     Returns:
-        Temperature in Celsius (float) or None if unavailable.
+        Temperature in the city's native unit (°F for US, °C for others), or None if unavailable.
     """
     loc = LOCATIONS[city_slug]
     lat, lon = loc["lat"], loc["lon"]
+    unit = loc["unit"]
     tz = TIMEZONES.get(city_slug, "UTC")
     date_str = date_str or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
@@ -1162,7 +1163,10 @@ def get_metar_at_hour(city_slug, hour, date_str=None):
         hourly = data.get("hourly", {})
         temps = hourly.get("temperature_2m", [])
         if isinstance(temps, list) and len(temps) > hour and temps[hour] is not None:
-            return float(temps[hour])
+            raw_c = float(temps[hour])
+            if unit == "F":
+                return round(raw_c * 9/5 + 32, 1)
+            return round(raw_c, 1)
     except Exception:
         pass
     return None
@@ -1176,9 +1180,10 @@ def fetch_morning_snapshot(city_slug, date_str=None):
         date_str: date in YYYY-MM-DD format. Defaults to today.
 
     Returns:
-        dict with keys: temps (list of 4), trajectory (str), morning_delta (float),
+        dict with keys: temps (list of 4), trajectory (str), morning_delta (float, Celsius),
                         readings_available (int), warm_signal (bool)
         warm_signal is True if morning_delta > 0 (rising warmth supports HOT bets).
+        morning_delta is always in Celsius regardless of city's native unit.
     """
     date_str = date_str or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     hours = [6, 7, 8, 9]
@@ -1188,7 +1193,15 @@ def fetch_morning_snapshot(city_slug, date_str=None):
 
     if readings_available >= 3:
         t6, t9 = temps[0], temps[3]
-        morning_delta = (t9 - t6) if (t6 is not None and t9 is not None) else 0.0
+        if t6 is not None and t9 is not None:
+            # Delta computed in native unit, normalize to Celsius for threshold comparison
+            delta = t9 - t6
+            if LOCATIONS[city_slug].get("unit") == "F":
+                morning_delta = round(delta * 5/9, 2)  # F degrees → C
+            else:
+                morning_delta = round(delta, 2)
+        else:
+            morning_delta = 0.0
         if morning_delta > 0.5:
             trajectory = "rising"
             warm_signal = True
