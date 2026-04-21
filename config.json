@@ -8,6 +8,7 @@
   "min_volume": 100,
   "min_hours": 1.0,
   "max_hours": 48,
+  "min_trade_hour": 10,
   "kelly_fraction": 0.2,
   "scan_interval": 300,
   "calibration_min": 30,

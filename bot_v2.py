@@ -1131,6 +1131,86 @@ def get_metar(city_slug, ecmwf_temp=None):
         return round(raw_metar * 9/5 + 32, 1)
     return round(raw_metar, 1)
 
+
+def get_metar_at_hour(city_slug, hour, date_str=None):
+    """Fetch temperature observation at a specific local hour from Open-Meteo Archive.
+
+    Args:
+        city_slug: city identifier (key into LOCATIONS)
+        hour: local hour (0-23)
+        date_str: date in YYYY-MM-DD format. Defaults to today UTC.
+
+    Returns:
+        Temperature in Celsius (float) or None if unavailable.
+    """
+    loc = LOCATIONS[city_slug]
+    lat, lon = loc["lat"], loc["lon"]
+    tz = TIMEZONES.get(city_slug, "UTC")
+    date_str = date_str or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    try:
+        url = "https://archive-api.open-meteo.com/v1/archive"
+        params = {
+            "latitude": lat,
+            "longitude": lon,
+            "start_date": date_str,
+            "end_date": date_str,
+            "hourly": "temperature_2m",
+            "timezone": tz,
+        }
+        data = requests.get(url, params=params, timeout=(3, 6)).json()
+        hourly = data.get("hourly", {})
+        temps = hourly.get("temperature_2m", [])
+        if isinstance(temps, list) and len(temps) > hour and temps[hour] is not None:
+            return float(temps[hour])
+    except Exception:
+        pass
+    return None
+
+
+def fetch_morning_snapshot(city_slug, date_str=None):
+    """Collect METAR temperatures at 6am, 7am, 8am, 9am local and compute trajectory.
+
+    Args:
+        city_slug: city identifier
+        date_str: date in YYYY-MM-DD format. Defaults to today.
+
+    Returns:
+        dict with keys: temps (list of 4), trajectory (str), morning_delta (float),
+                        readings_available (int), warm_signal (bool)
+        warm_signal is True if morning_delta > 0 (rising warmth supports HOT bets).
+    """
+    date_str = date_str or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    hours = [6, 7, 8, 9]
+    temps = [get_metar_at_hour(city_slug, h, date_str) for h in hours]
+    valid = [t for t in temps if t is not None]
+    readings_available = len(valid)
+
+    if readings_available >= 3:
+        t6, t9 = temps[0], temps[3]
+        morning_delta = (t9 - t6) if (t6 is not None and t9 is not None) else 0.0
+        if morning_delta > 0.5:
+            trajectory = "rising"
+            warm_signal = True
+        elif morning_delta < -0.5:
+            trajectory = "falling"
+            warm_signal = False
+        else:
+            trajectory = "stable"
+            warm_signal = None
+    else:
+        trajectory = "insufficient_data"
+        morning_delta = 0.0
+        warm_signal = None
+
+    return {
+        "temps": temps,
+        "trajectory": trajectory,
+        "morning_delta": morning_delta,
+        "readings_available": readings_available,
+        "warm_signal": warm_signal,
+    }
+
 def get_actual_temp(city_slug, date_str):
     """Actual temperature via Visual Crossing for closed markets."""
     loc = LOCATIONS[city_slug]
@@ -1541,7 +1621,31 @@ def _scan_city(city_slug, now, balance):
         snap = snapshots.get(date, {})
         forecast_temp = snap.get("best")
         best_source  = snap.get("best_source")
+
+        # METAR Morning Snapshot Gate (D+0 only — requires 10am local to have 4 readings)
+        is_d0 = (date == now.strftime("%Y-%m-%d"))
+        if is_d0:
+            try:
+                import zoneinfo
+                tz = zoneinfo.ZoneInfo(TIMEZONES.get(city_slug, "UTC"))
+                local_hour = datetime.now(tz).hour
+            except Exception:
+                local_hour = datetime.now(timezone.utc).hour
+            min_trade_hour = _cfg.get("min_trade_hour", 10)
+            if local_hour < min_trade_hour:
+                print(f"  [MORNING GATE] {loc['name']} {date} — {local_hour}:00 local, waiting until {min_trade_hour}:00")
+                continue
+
         if forecast_temp is not None and not mkt.get("position") and hours >= MIN_HOURS:
+
+            # Morning METAR snapshot for D+0 same-day trades
+            warm_signal = None
+            if is_d0:
+                ms = fetch_morning_snapshot(city_slug, date)
+                snap["morning_snapshot"] = ms
+                warm_signal = ms.get("warm_signal")
+                if ms["readings_available"] < 3:
+                    print(f"  [METAR AMBIGUOUS] {loc['name']} {ms['readings_available']}/4 morning readings — using std forecast")
 
             # DYNAMIC SIGMA: tighten when models agree, widen when they disagree
             base_sigma = get_horizon_adjusted_sigma(city_slug, hours)
@@ -1560,6 +1664,14 @@ def _scan_city(city_slug, now, balance):
             )
             if not continuity_ok:
                 print(f"  [CONTINUITY JUMP] {loc['name']} {date} - {continuity_reason} (conviction*{conviction_mult})")
+
+            # Morning METAR warmth signal: adjust conviction up/down for HOT bucket bets
+            if warm_signal is True:
+                conviction_mult *= 1.2
+                print(f"  [METAR RISING] {loc['name']} morning warming — HOT conviction *1.2")
+            elif warm_signal is False:
+                conviction_mult *= 0.8
+                print(f"  [METAR COOLING] {loc['name']} morning cooling — HOT conviction *0.8")
 
             # Win rate gate
             city_win_rate = get_city_error_win_rate(city_slug)

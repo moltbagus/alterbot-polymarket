@@ -101,15 +101,15 @@ Resolution Tracking → Self-Improvement Update
 - **Max total exposure:** 8% of balance per day
 - **Max open positions:** 10
 
-### 4.3 City Tier Map (April 19 Recalibrated)
+### 4.3 City Tier Map (April 21 Recalibrated)
 
 | Tier | Cities | Win Rate | Status |
 |------|--------|----------|--------|
-| **tier_1_strong** | atlanta | **83%** | PRIMARY — trade freely |
-| **tier_1** | atlanta, sao-paulo | 83% / 60% | Trade with confidence |
-| **tier_2** | miami | 40% | Borderline |
-| **tier_3** | london, paris, seoul, tokyo, hong-kong, shanghai, singapore, dallas, chicago, seattle, nyc + 9 others | 0-25% | Paper-track mode |
-| **avoid** | _(cleared Apr 20 — all cities moved to tier_3)_ | — | — |
+| **tier_1_strong** | atlanta | **81-83%** | PRIMARY — trade freely |
+| **tier_1** | atlanta, sao-paulo | 83% / 63% | Trade with confidence |
+| **tier_2** | miami | 40% | **BLOCKED** — win rate gate (<50%) |
+| **tier_3** | london, paris, tokyo, hong-kong, singapore, seoul, dallas, chicago, seattle, nyc + others | 0-25% | **DROPPED** — `max_tier_to_trade: 2` in config.json |
+| **avoid** | _(none currently)_ | — | — |
 
 ### 4.4 Exit Rules
 - **Target sell price:** $0.45 (configurable)
@@ -120,6 +120,20 @@ Resolution Tracking → Self-Improvement Update
 - Market is **COLLD-biased** in shoulder seasons (April)
 - NO-side opportunities on mid-range buckets (when forecast is neither extreme hot nor cold)
 - Monitor for warm surge patterns; block cold surge entries
+
+### 4.6 Same-Day Trade Gate: METAR Morning Snapshot (April 21 2026)
+
+For D+0 same-day markets, no position opens before 10am local city time. At or after 10am, the bot fetches METAR temperature observations at 6am, 7am, 8am, and 9am local via Open-Meteo Archive API and computes the **morning warmth trajectory**:
+
+| Trajectory | Condition | Signal |
+|------------|-----------|--------|
+| Rising | T9am − T6am > +0.5°C | Supports HOT bucket bets (+20% conviction) |
+| Falling | T9am − T6am < −0.5°C | Supports COLD bucket bets (reduce HOT conviction −20%) |
+| Stable | |Δ| ≤ 0.5°C | No directional signal, use standard EV |
+
+Same-day trades (D+0) require at least 3 of 4 morning readings available. If fewer than 3 readings are available, the bot falls back to the standard ECMWF+METAR blended forecast but still enforces the 10am minimum hour gate.
+
+D+1 and D+2 markets are unaffected — they continue using ECMWF/HRRR forecast as before.
 
 ---
 
@@ -147,6 +161,13 @@ Resolution Tracking → Self-Improvement Update
 - **Asian cities:** UHI correction, sea breeze penalty, monsoon season flags
 - **Sao Paulo:** Humidity-weighted adjustments
 - **Atlanta:** Clean signal, lowest sigma (1.46°C) — best performing city
+
+### 5.4 METAR Morning Snapshot (Same-Day, April 21 2026)
+- **Endpoint:** `https://archive-api.open-meteo.com/v1/archive`
+- **Auth:** None (free API, no key required)
+- **Usage:** Fetches hourly `temperature_2m` at 6, 7, 8, 9am local per city for same-day trade gating
+- **Fallback:** If <3 of 4 readings available, degrades gracefully to current METAR + ECMWF blend
+- **Config:** `min_trade_hour: 10` — blocks same-day opens before 10am local
 
 ---
 
@@ -180,7 +201,7 @@ Daily cron reflection → Updated sigma/bias → config.json updated
 | Hong Kong | 25% | 2.08 | 4.15 | AVOID |
 | Tokyo | 20% | 2.30 | 4.60 | AVOID |
 | Singapore | 20% | 3.14 | 6.28 | AVOID |
-| Dallas | 0% | ? | ? | tier_3 (paper-track) |
+| Dallas | 0% | ? | ? | **DROPPED** — 0 resolved trades, unknown sigma, tier 3 |
 
 ---
 
@@ -216,10 +237,15 @@ Daily cron reflection → Updated sigma/bias → config.json updated
 | Apr 18 | Double-process restart loop (orphan pid) | Added `--no-autorestart` flag, orphan kill |
 | Apr 18 | paper_force_trade forcing negative EV trades | Turned OFF |
 | Apr 18 | Unit mismatch (C vs F bucket confusion) | Smart bucket_score matching |
-| **max_tier_to_trade** | 3 (was 2) | Apr 20 — tier_3 now scannable |
+| Apr 19 | max_tier_to_trade: 2 (was 3) | Apr 21 — Tier 3 dropped entirely due to 0-25% win rates |
 | Apr 19 | Self-improver reading wrong field (position.forecast_temp null) | Fixed to `forecast_snapshots[-1].best` |
 | Apr 20 | FileNotFoundError in data/ directory | Added `mkdir(parents=True, exist_ok=True)` |
 | Apr 20 | Stale PM2 error logs misdirecting debugging | Truncated pre-fix log files |
+| Apr 21 | _cal never initialized before city scan | Added `_cal = load_cal()` at top of `scan_and_update()` — calibration was silently bypassing city-specific sigma |
+| Apr 21 | max_tier_to_trade: 3 — Tier 3 cities (0-25% WR) still scanned | Set `max_tier_to_trade: 2` in config.json — drops london/paris/tokyo/singapore/hong-kong/seoul/dallas/chicago/seattle/nyc |
+| Apr 21 | Win rate gate was dead code (`pass` no-op) | Replaced with `continue` + `[SKIP]` message — cities with <50% historical WR now blocked |
+| Apr 21 | Python 3.14 `concurrent.futures.TimeoutExpired` removed | Changed to bare `TimeoutError` in try/except |
+| Apr 21 | Dallas has 0 resolved trades in city_error_history.json | `get_city_error_sigma('dallas')` always returns None → falls back to generic BASE_SIGMA 1.5°F which understates uncertainty |
 
 ---
 
@@ -301,11 +327,15 @@ Pre-flight check that cross-references:
 | Priority | Item | Status |
 |----------|------|--------|
 | HIGH | Startup validation script (cross-check tiers vs win rates) | Pending |
-| HIGH | Verify Dallas 0% WR trade outcome (Apr 20 resolution) | Pending |
-| MEDIUM | Sao Paulo tier promotion study (60% WR, closer to 90% threshold) | Backlog |
+| ~~HIGH~~ | Verify Dallas 0% WR trade outcome (Apr 20 resolution) | **RESOLVED** — Dallas dropped from scan, 0 trade history |
+| MEDIUM | Sao Paulo tier promotion study (63% WR) | Backlog — needs 20+ more trades before reconsidering |
 | MEDIUM | Production wallet integration (paper → live) | Backlog |
 | LOW | Meteoblue API key rotation | Backlog |
 | LOW | Tokyo Haneda (RJTT) bucket optimization | Backlog |
+| MEDIUM | `bucket_score()` uses manual Gaussian CDF instead of `bucket_prob_cumulative()` | Backlog — function exists but never called |
+| MEDIUM | `is_peak_time_passed()` hardcodes hours instead of reading from config | Backlog |
+| MEDIUM | `get_metar()` always receives `None` for `ecmwf_temp` — anomaly check never fires | Backlog |
+| LOW | `data/tradingagents_logs/` (~77MB) has no rotation | Backlog |
 
 ---
 
