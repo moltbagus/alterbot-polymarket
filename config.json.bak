@@ -1,5 +1,6 @@
 {
   "blocked_cities": [
+    "test-city",
     "hong-kong",
     "tokyo",
     "london",
@@ -8,7 +9,6 @@
     "buenos-aires",
     "shanghai",
     "nyc",
-    "toronto",
-    "test-city"
+    "toronto"
   ]
 }

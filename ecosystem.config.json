@@ -3,7 +3,7 @@
     {
       "name": "alter-bot-v2",
       "script": "bot_v2.py",
-      "interpreter": "python3.12",
+      "interpreter": "/usr/bin/python3.12",
       "cwd": "/home/alyssa/.openclaw/workspace/alter-bot-v1",
       "autorestart": true,
       "watch": false,

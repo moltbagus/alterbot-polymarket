@@ -24,6 +24,29 @@ TA_PATH = os.path.expanduser("~/.openclaw/workspace/TradingAgents")
 if os.path.exists(TA_PATH):
     sys.path.insert(0, TA_PATH)
 
+
+# ============================================================================
+# LOG ROTATION
+# ============================================================================
+
+def _rotate_logs():
+    """Delete TA debate logs older than 7 days. Called once at module load."""
+    log_dir = os.path.expanduser("~/.openclaw/workspace/alter-bot-v1/data/tradingagents_logs")
+    if not os.path.exists(log_dir):
+        return
+    cutoff = datetime.now() - timedelta(days=7)
+    for f in os.listdir(log_dir):
+        if not f.endswith(".json"):
+            continue
+        path = os.path.join(log_dir, f)
+        try:
+            if os.path.getmtime(path) < cutoff.timestamp():
+                os.unlink(path)
+        except OSError:
+            pass
+
+_rotate_logs()
+
 # ============================================================================
 # DATA SOURCES (reuse from bot_v2.py config)
 # ============================================================================
@@ -235,6 +258,9 @@ class SentimentAnalyst:
         bot_prob = float(bot_confidence) if bot_confidence is not None else p
         disagreement_pct = abs(market_price - bot_prob)
 
+        # DEBUG: print all gate inputs
+        print(f"  [GATE-DEBUG] market_id={market_id} | bot_prob={bot_prob:.3f} | market_price=${market_price:.3f} | disagreement={disagreement_pct:.3f} | bot_prob-0.15={bot_prob-0.15:.3f}")
+
         # No-trade zones: market too certain or too uncertain
         if market_price > 0.85:
             return {
@@ -259,7 +285,7 @@ class SentimentAnalyst:
         # Bot must have HIGH conviction (>80%) for inefficiency to matter
         # If market says YES=$0.80 but bot is 95% confident, market underestimates → BET
         # If market says YES=$0.80 and bot is only 55% confident, market is probably right → SKIP
-        if bot_prob >= 0.80 and market_price < bot_prob - 0.15:
+        if bot_prob >= 0.70 and market_price < bot_prob - 0.15:
             # Market underestimates: bot thinks it's more likely than market implies
             edge = bot_prob - market_price
             return {
@@ -1084,7 +1110,13 @@ def should_trade(
               For NO bets: reject if bucket is near-certain (ask >= $0.9995) — no NO edge left.
     """
     ta = get_ta()
+    print(f"  [TRADINGAGENTS] city={city} | bucket={target_temp}°{unit} | p={p:.4f} | price=${price:.3f} | kelly={kelly:.4f} | market_id={market_id} | side={side}")
     decision = ta.analyze(city, target_temp, target_date, unit, p, price, kelly, market_id, side, hours_ahead)
-    
-    approved = decision.get("risk", {}).get("approved", False)
+    risk = decision.get("risk", {})
+    approved = risk.get("approved", False)
+    conviction = risk.get("conviction", 0)
+    verdict = risk.get("verdict", "?")
+    position = risk.get("position", "?")
+    reject_reason = risk.get("reject_reason", risk.get("reason", ""))
+    print(f"  [TRADINGAGENTS] → approved={approved} | conviction={conviction}/10 | verdict={verdict} | position={position} | reject_reason={reject_reason}")
     return approved, decision

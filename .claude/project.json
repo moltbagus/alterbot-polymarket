@@ -1,0 +1,27 @@
+{
+  "name": "alter-bot-v1",
+  "description": "Polymarket weather trading bot",
+  "permissions": {
+    "allow": [
+      "Read all files",
+      "Execute shell commands via PM2 and python"
+    ],
+    "deny": [
+      "Execute trades (paper trading only)",
+      "Modify config.json without backtesting"
+    ]
+  },
+  "constraints": {
+    "never": [
+      "Run bot directly (always via PM2)",
+      "Commit without py_compile check",
+      "Modify sigma without proper_backtest.py validation",
+      "Add dependencies (stdlib + requests only)"
+    ],
+    "always": [
+      "Run python3 -m py_compile before claiming done",
+      "Run pm2 restart after config.json changes",
+      "Check AVOID list before trading any city"
+    ]
+  }
+}

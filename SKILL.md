@@ -120,5 +120,37 @@ sigma = tracker.get_sigma("miami")
 should_trade = tracker.should_trade("miami", min_win_rate=0.75)
 ```
 
+## Critical Bug — Bucket Unit Mismatch (US Cities)
+
+**SYMPTOM:** US city trades show impossible errors (-45°C to -59°C). All US city trades resolve as LOSS with garbage error values.
+
+**ROOT CAUSE:** Polymarket returns bucket endpoints in different units depending on city:
+- **US cities:** Bucket in °F (e.g., "80-81" = 80-81°F)
+- **Non-US cities:** Bucket in °C (e.g., "20" = 20°C)
+- Forecast/actual: Always stored in °C (converted from °F for US cities)
+
+The resolve flow compares bucket endpoints directly against °C values without conversion → garbage errors.
+
+**US CITIES (bucket in °F):** new-york, chicago, denver, atlanta, miami, los-angeles, houston
+
+**FIX:** Before any bucket comparison, convert if city in US_CITIES:
+```python
+US_CITIES = ["new-york", "chicago", "denver", "atlanta", "miami", "los-angeles", "houston"]
+
+def convert_bucket_to_celsius(bucket_value, city):
+    if city in US_CITIES:
+        return fahrenheit_to_celsius(bucket_value)
+    return bucket_value  # already in °C
+```
+
+**VERIFICATION:** After fix, NYC error should be ~3-5°F (not -45°C). Atlanta error should be ~4-6°F (not -58°C).
+
 ---
-*Last updated: 2026-03-30*
+*Last updated: 2026-04-27*
+
+## Known Issues (Apr 27, 2026)
+1. **Bucket unit mismatch:** FIXED ✓ — actual_temp_for_record now converted to °C for US cities in resolve_market()
+2. **Circuit breaker:** WORKING ✓ — persistence fixed Apr 26
+3. **Multi-instance:** Only 1 PM2 process — multiple balances from 15 restarts, NOT simultaneous instances
+4. **Avoid list:** COMPLETE ✓
+5. **whale_skip_reason:** Not captured in emit (5+ cycles open)

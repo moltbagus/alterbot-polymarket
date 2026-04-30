@@ -1,8 +1,8 @@
 # Alter Bot v2 — Product Requirements Document (PRD)
 
-**Version:** 1.0
-**Date:** 2026-04-20
-**Status:** Active Development
+**Version:** 1.1
+**Date:** 2026-04-23
+**Status:** Active Development — CRITICAL ISSUES OPEN
 **Owner:** Colbert Low / TIGER001
 
 ---
@@ -101,15 +101,15 @@ Resolution Tracking → Self-Improvement Update
 - **Max total exposure:** 8% of balance per day
 - **Max open positions:** 10
 
-### 4.3 City Tier Map (April 21 Recalibrated)
+### 4.3 City Tier Map (April 22 Recalibrated)
 
 | Tier | Cities | Win Rate | Status |
 |------|--------|----------|--------|
 | **tier_1_strong** | atlanta | **81-83%** | PRIMARY — trade freely |
 | **tier_1** | atlanta, sao-paulo | 83% / 63% | Trade with confidence |
-| **tier_2** | miami | 40% | **BLOCKED** — win rate gate (<50%) |
+| **tier_2** | miami | 40% | Borderline — monitor closely |
 | **tier_3** | london, paris, tokyo, hong-kong, singapore, seoul, dallas, chicago, seattle, nyc + others | 0-25% | **DROPPED** — `max_tier_to_trade: 2` in config.json |
-| **avoid** | _(none currently)_ | — | — |
+| **avoid** | dallas, london, paris, hong_kong, tokyo, singapore, seoul | 0-25% | **PENDING** — Apr 19 commitment to add to config.json NOT YET EXECUTED |
 
 ### 4.4 Exit Rules
 - **Target sell price:** $0.45 (configurable)
@@ -246,6 +246,13 @@ Daily cron reflection → Updated sigma/bias → config.json updated
 | Apr 21 | Win rate gate was dead code (`pass` no-op) | Replaced with `continue` + `[SKIP]` message — cities with <50% historical WR now blocked |
 | Apr 21 | Python 3.14 `concurrent.futures.TimeoutExpired` removed | Changed to bare `TimeoutError` in try/except |
 | Apr 21 | Dallas has 0 resolved trades in city_error_history.json | `get_city_error_sigma('dallas')` always returns None → falls back to generic BASE_SIGMA 1.5°F which understates uncertainty |
+| Apr 22 | Portfolio collapse: $28K peak → $983 (96.6% loss) | Root cause unknown — PM2 restart loop + WHALE SKIP suspected. Balance trajectory not monitored by self-improvement |
+| Apr 22 | WHALE SKIP on every trade — models_do_not_agree | Bot idle for extended periods despite +0.41 to +0.45 EV edges detected. Execution bottleneck is WHALE layer, not signal generation |
+| Apr 22 | actual=0.0°C on all 3 Apr 21-22 resolved trades | Polymarket API returned NULL for actual temperature — flags as DATA_ERROR, do not update win_rate |
+| Apr 22 | ev_used always None on closed positions | `pos["ev_used"]` not populated at position creation in bot_v2.py |
+| Apr 22 | AVOID list commitment not executed (Apr 19) | config.json avoid list still empty — cities with 0-25% WR not blocked. PM2 restart required after config change |
+| Apr 22 | Self-improver balance snapshot missing | `emit_observation()` does not include balance_at_scan — drawdown invisible to self-improvement |
+| Apr 22 | WHALE auto-approve bypass missing | EV > 0.30 edges should auto-approve but WHALE layer rejects all trades |
 
 ---
 
@@ -310,6 +317,7 @@ Pre-flight check that cross-references:
 - **Avg error target:** <1.5°C on tier_1
 - **EV per trade:** >0.001 (positive EV mandatory)
 - **Max daily drawdown:** <20%
+- **Current balance (Apr 23):** $966.34 (paper mode — down from $28K peak Apr 21)
 
 ### 11.2 Operational Health
 - **PM2 uptime:** >95% within analysis window
@@ -326,8 +334,13 @@ Pre-flight check that cross-references:
 
 | Priority | Item | Status |
 |----------|------|--------|
-| HIGH | Startup validation script (cross-check tiers vs win rates) | Pending |
+| ~~HIGH~~ | Startup validation script (cross-check tiers vs win rates) | **STALE** — commitment Apr 20, never executed |
 | ~~HIGH~~ | Verify Dallas 0% WR trade outcome (Apr 20 resolution) | **RESOLVED** — Dallas dropped from scan, 0 trade history |
+| ~~CRITICAL~~ | WHALE SKIP layer — models_do_not_agree on all trades | **OPEN** — bot idle despite +0.41 EV edges |
+| ~~CRITICAL~~ | AVOID list empty in config.json | **OPEN** — Apr 19 commitment not executed (4+ days stale) |
+| ~~HIGH~~ | actual=0.0°C DATA ERROR flag | **OPEN** — corrupting win_rate tracking |
+| ~~HIGH~~ | ev_used capture in bot_v2.py | **OPEN** — positions show `ev_used: None` |
+| ~~HIGH~~ | Balance snapshot in self_improver emit | **OPEN** — drawdown invisible to self-improvement |
 | MEDIUM | Sao Paulo tier promotion study (63% WR) | Backlog — needs 20+ more trades before reconsidering |
 | MEDIUM | Production wallet integration (paper → live) | Backlog |
 | LOW | Meteoblue API key rotation | Backlog |
@@ -336,6 +349,55 @@ Pre-flight check that cross-references:
 | MEDIUM | `is_peak_time_passed()` hardcodes hours instead of reading from config | Backlog |
 | MEDIUM | `get_metar()` always receives `None` for `ecmwf_temp` — anomaly check never fires | Backlog |
 | LOW | `data/tradingagents_logs/` (~77MB) has no rotation | Backlog |
+| ~~HIGH~~ | Balance trajectory monitoring | **BROKEN** — $28K → $983 drawdown went undetected |
+
+---
+
+## 13. Critical Issues Log (Apr 22-23 2026)
+
+### 13.1 Portfolio Collapse — INVESTIGATE
+- **Apr 21 peak:** ~$21,942
+- **Apr 22 low:** $983 (96.6% loss)
+- **Current (Apr 23):** $966.34 (paper mode)
+- **Root cause:** Unknown — PM2 restart loop suspected but not confirmed
+- **Impact:** Bot was functionally idle (WHALE SKIP on every trade) during collapse period
+
+### 13.2 WHALE SKIP Execution Bottleneck
+- **Symptom:** Bot finds +0.41 to +0.45 EV edges on Sao Paulo, Atlanta, Miami — WHALE always rejects with `models_do_not_agree`
+- **Result:** `new: 0` for extended periods — bot is idle despite valid signals
+- **Fix needed:** Add EV > 0.30 auto-approve bypass in whale layer, OR relax `models_do_not_agree` threshold
+- **Priority:** CRITICAL — blocks all execution
+
+### 13.3 AVOID List Not Applied (Closed-Loop Failure)
+- **Commitment:** Apr 19 — update config.json avoid list: dallas, london, paris, hong_kong, tokyo, singapore, seoul
+- **Status:** Still empty as of Apr 23 (4+ days)
+- **Config change requires PM2 restart to take effect**
+- **Impact:** Cities with 0-25% WR may still be scanned if tier logic has edge cases
+
+### 13.4 actual=0.0°C Data Gap
+- **Symptom:** All 3 trades Apr 21-22 resolved with actual=0.0°C (NULL sentinel from Polymarket API)
+- **Impact:** Corrupts city_error_history.json if not flagged as DATA_ERROR
+- **Fix:** Add validation — if `actual_temp <= 0.1`, skip win_rate update, log as DATA_ERROR
+
+### 13.5 ev_used Never Captured
+- **Symptom:** Closed positions show `ev_used: None`
+- **Root cause:** `pos["ev_used"]` not populated at position open in bot_v2.py
+- **Fix:** Populate `pos["ev_used"]` at position creation time
+
+### 13.6 Self-Improver Blind to Portfolio Drawdown
+- **Symptom:** Individual trade outcomes tracked but balance trajectory not monitored
+- **Impact:** 96.6% drawdown happened invisibly between observation captures
+- **Fix:** Every `emit_observation()` must include `balance_at_scan: $X`
+
+---
+
+## 14. Daily Digest (Deployed Apr 22 2026)
+
+- **Script:** `scripts/polymarket_daily_digest.py`
+- **Schedule:** 6:30 AM MYT daily (cron job 3b389e4b)
+- **Status:** Works — Telegram send commented out during testing
+- **Purpose:** Morning summary of bot status, balance, open positions, overnight developments
+
 
 ---
 

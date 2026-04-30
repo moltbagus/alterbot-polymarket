@@ -186,6 +186,56 @@ RESOLUTION_SOURCES: Dict[str, Dict] = {
         "source_name": "Weather Underground",
         "api_url": "https://www.wunderground.com/history/daily/it/rome/LIRF",
     },
+    # Missing cities — added to match LOCATIONS in bot_v2.py
+    "ankara": {
+        "station": "LTAC",
+        "unit": "C",
+        "source": "WUNDERGROUND",
+        "source_name": "Weather Underground",
+        "api_url": "https://www.wunderground.com/history/daily/tr/ankara/LTAC",
+    },
+    "lucknow": {
+        "station": "VILK",
+        "unit": "C",
+        "source": "WUNDERGROUND",
+        "source_name": "Weather Underground",
+        "api_url": "https://www.wunderground.com/history/daily/in/lucknow/VILK",
+    },
+    "tel-aviv": {
+        "station": "LLBG",
+        "unit": "C",
+        "source": "WUNDERGROUND",
+        "source_name": "Weather Underground",
+        "api_url": "https://www.wunderground.com/history/daily/il/tel-aviv/LLBG",
+    },
+    "toronto": {
+        "station": "CYYZ",
+        "unit": "C",
+        "source": "WUNDERGROUND",
+        "source_name": "Weather Underground",
+        "api_url": "https://www.wunderground.com/history/daily/ca/toronto/CYYZ",
+    },
+    "sao-paulo": {
+        "station": "SBGR",
+        "unit": "C",
+        "source": "WUNDERGROUND",
+        "source_name": "Weather Underground",
+        "api_url": "https://www.wunderground.com/history/daily/br/sao-paulo/SBGR",
+    },
+    "buenos-aires": {
+        "station": "SAEZ",
+        "unit": "C",
+        "source": "WUNDERGROUND",
+        "source_name": "Weather Underground",
+        "api_url": "https://www.wunderground.com/history/daily/ar/buenos-aires/SAEZ",
+    },
+    "wellington": {
+        "station": "NZWN",
+        "unit": "C",
+        "source": "WUNDERGROUND",
+        "source_name": "Weather Underground",
+        "api_url": "https://www.wunderground.com/history/daily/nz/wellington/NZWN",
+    },
 }
 
 

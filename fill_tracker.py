@@ -207,6 +207,7 @@ def record_fill_result(
     close_reason: str,
     fill_record: dict = None,
     won: bool = None,
+    ev_used: float = None,
 ) -> dict:
     """
     Record the final result of a trade (win/loss) with fill data attached.
@@ -226,6 +227,7 @@ def record_fill_result(
         "pnl": pnl,
         "close_reason": close_reason,
         "won": won,
+        "ev_used": ev_used,
     }
     
     if fill_record:

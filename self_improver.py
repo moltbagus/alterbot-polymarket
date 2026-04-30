@@ -22,6 +22,57 @@ CONFIG_FILE = Path(__file__).parent / "config.json"
 # Self-Improver observation path
 _OBSERVATION_DIR = Path.home() / ".openclaw" / "workspace" / "memory" / "self-improvement" / "observations"
 
+# Portfolio alert file — written when balance drops >30% from peak
+_PORTFOLIO_ALERT_FILE = DATA_DIR / "portfolio_alerts.json"
+
+
+def check_portfolio_health(current_balance: float, peak_balance: float, min_drawdown_pct: float = 0.30) -> dict:
+    """Check portfolio health and emit alert if drawdown exceeds threshold.
+
+    FIX 4: Portfolio collapse was invisible to self-improvement system.
+    Now emits an alert file when balance drops >min_drawdown_pct from peak.
+
+    Returns dict with alert info if triggered, None otherwise.
+    """
+    if peak_balance <= 0:
+        return None
+    drawdown = (peak_balance - current_balance) / peak_balance
+    if drawdown < min_drawdown_pct:
+        return None
+
+    alert = {
+        "timestamp": datetime.now().isoformat(),
+        "current_balance": round(current_balance, 2),
+        "peak_balance": round(peak_balance, 2),
+        "drawdown_pct": round(drawdown * 100, 1),
+        "drawdown_amount": round(peak_balance - current_balance, 2),
+    }
+
+    # Append to alert file
+    alerts = []
+    if _PORTFOLIO_ALERT_FILE.exists():
+        try:
+            with open(_PORTFOLIO_ALERT_FILE) as f:
+                alerts = json.load(f)
+        except Exception:
+            alerts = []
+
+    # Avoid duplicate alerts for same drawdown level
+    if alerts and alerts[-1].get("drawdown_pct") == alert["drawdown_pct"]:
+        return alert  # already alerted at this level
+
+    alerts.append(alert)
+    try:
+        with open(_PORTFOLIO_ALERT_FILE, "w") as f:
+            json.dump(alerts[-20:], f, indent=2)  # keep last 20 alerts
+    except Exception as e:
+        print(f"[self_improver] Failed to write portfolio alert: {e}")
+
+    print(f"\n🚨 [PORTFOLIO ALERT] Drawdown {alert['drawdown_pct']:.1f}% "
+          f"(${alert['drawdown_amount']:.2f} lost) | "
+          f"Peak: ${alert['peak_balance']:.2f} → Now: ${alert['current_balance']:.2f}\n")
+    return alert
+
 # ============================================================================
 # ERROR TRACKING
 # ============================================================================
@@ -89,6 +140,7 @@ class CityErrorTracker:
     
     def __init__(self):
         self.errors = self.load()
+        self._pending_whale_skips = []  # collected whale skips for batch emit
     
     def load(self):
         """Load error history from file."""
@@ -103,7 +155,7 @@ class CityErrorTracker:
         with open(CITY_ERRORS_FILE, "w") as f:
             json.dump(self.errors, f, indent=2)
     
-    def emit_observation(self, city, forecast, actual, bucket_min=None, bucket_max=None, market_question=None, ev_used=None, position_size=None):
+    def emit_observation(self, city, forecast, actual, bucket_min=None, bucket_max=None, market_question=None, ev_used=None, position_size=None, balance_at_scan=None, whale_skip_reason=None):
         """Emit a structured observation to the self-improver memory directory."""
         try:
             _OBSERVATION_DIR.mkdir(parents=True, exist_ok=True)
@@ -129,16 +181,43 @@ class CityErrorTracker:
 - **Outcome:** {win}
 - **EV used:** {ev_used}
 - **Position size:** {position_size}
+- **Balance at scan:** {balance_at_scan}
+- **Whale skip reason:** {whale_skip_reason or "N/A"}
 - **Timestamp:** {datetime.now().strftime("%Y-%m-%d %H:%M UTC")}
 """
+            # Flush pending whale skips into the observation
+            if self._pending_whale_skips:
+                whale_skipped = self._pending_whale_skips
+                whale_reasons = [s["whale_reason"] for s in whale_skipped]
+                entry += f"""
+- **Whale skipped:** {len(whale_skipped)} since last emit
+- **Whale reasons:** {whale_reasons}
+"""
+                self._pending_whale_skips = []
             with open(obs_file, "a") as f:
                 f.write(entry)
         except Exception as e:
             print(f"[self_improver] Failed to emit observation: {e}")
 
-    def add_error(self, city, forecast_c, actual_c, **kwargs):
-        """Add a new error observation."""
+    def add_error(self, city, forecast_c, actual_c, on_circuit_broken=None, error_type="TRADE", **kwargs):
+        """Add a new error observation.
+
+        Args:
+            city: city slug
+            forecast_c: forecast temperature in Celsius
+            actual_c: actual temperature in Celsius
+            on_circuit_broken: optional callback(city, error_count) invoked when
+                circuit breaks (4+ consecutive errors or 0% win_rate at 3+ samples).
+                bot_v2.py passes _persist_circuit_broken_city to persist the break.
+            error_type: "TRADE" (default) or "WHALE_SKIP". WHALE_SKIP bypasses
+                DATA_ERROR guard and circuit_broken checks since it's not a real trade.
+        """
         city = city.lower()
+
+        # Guard against NULL sentinel data (actual=0.0°C) — but allow WHALE_SKIP sentinels
+        if error_type != "WHALE_SKIP" and actual_c <= 0.1:
+            print(f"[self_improver] DATA_ERROR skip: {city} actual={actual_c:.1f}°C (likely NULL sentinel)")
+            return
         if city not in self.errors["cities"]:
             self.errors["cities"][city] = {
                 "samples": [],
@@ -150,38 +229,69 @@ class CityErrorTracker:
                 "n_total": 0
             }
 
-        # Add sample
-        err = abs(forecast_c - actual_c)
-        self.errors["cities"][city]["samples"].append({
-            "forecast": forecast_c,
-            "actual": actual_c,
-            "error": err,
-            "win": err <= 1.0,
-            "timestamp": datetime.now().isoformat()
-        })
+        # Add sample — WHALE_SKIP uses sentinel actual=999 to distinguish from real forecasts
+        if error_type == "WHALE_SKIP":
+            self.errors["cities"][city]["samples"].append({
+                "forecast": forecast_c,
+                "actual": actual_c,
+                "error": None,
+                "win": None,
+                "timestamp": datetime.now().isoformat(),
+                "whale_skip": True,
+                "whale_reason": kwargs.get("whale_skip_reason"),
+            })
+        else:
+            err = abs(forecast_c - actual_c)
+            self.errors["cities"][city]["samples"].append({
+                "forecast": forecast_c,
+                "actual": actual_c,
+                "error": err,
+                "win": err <= 1.0,
+                "timestamp": datetime.now().isoformat()
+            })
 
         # Keep last 50 samples
         if len(self.errors["cities"][city]["samples"]) > 50:
             self.errors["cities"][city]["samples"] = \
                 self.errors["cities"][city]["samples"][-50:]
 
-        # Recalculate stats
+        # Recalculate stats — only for real trades, not WHALE_SKIP
         samples = self.errors["cities"][city]["samples"]
-        errors = [s["error"] for s in samples]
-        wins = sum(1 for s in samples if s["win"])
+        if error_type == "WHALE_SKIP":
+            # WHALE_SKIP doesn't affect real trade stats
+            pass
+        else:
+            errors = [s["error"] for s in samples]
+            wins = sum(1 for s in samples if s["win"])
 
 
-        self.errors["cities"][city]["avg_error"] = sum(errors) / len(errors) if errors else 0
-        self.errors["cities"][city]["n_wins"] = wins
-        self.errors["cities"][city]["n_total"] = len(samples)
-        self.errors["cities"][city]["win_rate"] = wins / len(samples) if samples else 0
+            self.errors["cities"][city]["avg_error"] = sum(errors) / len(errors) if errors else 0
+            self.errors["cities"][city]["n_wins"] = wins
+            self.errors["cities"][city]["n_total"] = len(samples)
+            self.errors["cities"][city]["win_rate"] = wins / len(samples) if samples else 0
 
-        # Update sigma (approximate as 2x average error for 95% CI)
-        self.errors["cities"][city]["sigma"] = self.errors["cities"][city]["avg_error"] * 2
+            # Update sigma (approximate as 2x average error for 95% CI)
+            self.errors["cities"][city]["sigma"] = self.errors["cities"][city]["avg_error"] * 2
 
-        # Update bias (mean error direction)
-        biases = [s["forecast"] - s["actual"] for s in samples]
-        self.errors["cities"][city]["bias"] = sum(biases) / len(biases) if biases else 0
+            # Update bias (mean error direction)
+            biases = [s["forecast"] - s["actual"] for s in samples]
+            self.errors["cities"][city]["bias"] = sum(biases) / len(biases) if biases else 0
+
+            # Mark circuit_broken=True when 0% win_rate on 3+ samples
+            # FIX 1: invoke on_circuit_broken callback to persist to state.json,
+            # config.json, city_error_history.json, and p0_alerts.json
+            n_total = len(samples)
+            win_rate = wins / n_total if n_total > 0 else 0
+            if n_total >= 3 and win_rate == 0:
+                self.errors["cities"][city]["circuit_broken"] = True
+                self.errors["cities"][city]["broken_at"] = datetime.now().isoformat()
+                self.errors["cities"][city]["reason"] = f"{n_total} samples, 0% win_rate"
+                self.errors["cities"][city]["error_count"] = n_total
+                if on_circuit_broken is not None:
+                    try:
+                        on_circuit_broken(city, n_total)
+                    except Exception as e:
+                        print(f"[self_improver] on_circuit_broken failed: {e}")
 
         self.save()
 
@@ -195,9 +305,62 @@ class CityErrorTracker:
             bucket_max=kwargs.get("bucket_max"),
             market_question=kwargs.get("market_question"),
             ev_used=kwargs.get("ev_used"),
-            position_size=kwargs.get("position_size")
+            position_size=kwargs.get("position_size"),
+            balance_at_scan=kwargs.get("balance_at_scan"),
+            whale_skip_reason=kwargs.get("whale_skip_reason"),
         )
-    
+
+    def record_whale_skip(self, city, whale_reason, forecast=None, price=None, bucket_min=None, bucket_max=None, market_question=None, ev_used=None, position_size=None, balance_at_scan=None):
+        """Record a whale skip event for analysis (does not affect error stats).
+
+        Uses sentinel actual=999 to distinguish from real forecasts.
+        """
+        city = city.lower()
+
+        if city not in self.errors["cities"]:
+            self.errors["cities"][city] = {
+                "samples": [],
+                "avg_error": 0,
+                "sigma": 2.0,
+                "bias": 0,
+                "win_rate": 0,
+                "n_wins": 0,
+                "n_total": 0
+            }
+
+        # Add whale skip as a special sample (sentinel actual=999, not a real forecast)
+        self.errors["cities"][city]["samples"].append({
+            "forecast": forecast,
+            "actual": 999,  # sentinel: no actual temp for skipped trades
+            "error": None,
+            "win": None,
+            "timestamp": datetime.now().isoformat(),
+            "whale_skip": True,
+            "whale_reason": whale_reason,
+        })
+
+        # Keep last 50 samples
+        if len(self.errors["cities"][city]["samples"]) > 50:
+            self.errors["cities"][city]["samples"] = \
+                self.errors["cities"][city]["samples"][-50:]
+
+        self.save()
+
+        # Append to pending whale skips so emit_observation can flush them in batch
+        self._pending_whale_skips.append({
+            "city": city,
+            "whale_reason": whale_reason,
+            "forecast": forecast,
+            "price": price,
+            "bucket_min": bucket_min,
+            "bucket_max": bucket_max,
+            "market_question": market_question,
+            "ev_used": ev_used,
+            "position_size": position_size,
+            "balance_at_scan": balance_at_scan,
+            "timestamp": datetime.now().isoformat(),
+        })
+
     def get_sigma(self, city, default=2.0):
         """Get dynamically updated sigma."""
         city = city.lower()
